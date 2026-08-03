@@ -1,188 +1,160 @@
-<!DOCTYPE html>
-<html lang="en" dir="ltr" class="scroll-smooth">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio Grid | Sketchy Chapters Design & Construction</title>
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&family=Tajawal:wght@300;500;700;900&display=swap" rel="stylesheet">
-    <!-- Font Awesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- AOS Animation Library -->
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <style>
-        body { font-family: 'Plus Jakarta Sans', 'Tajawal', sans-serif; background-color: #08080a; color: #e0e6ed; }
-        .gold-accent { color: #d4af37; }
-        .gold-gradient-text { background: linear-gradient(135deg, #bf953f, #fcf6ba, #b38728, #fbf5b7); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .bg-gold { background: linear-gradient(135deg, #d4af37 0%, #aa7c11 100%); }
-        .glass-card { background: rgba(18, 18, 22, 0.6); backdrop-filter: blur(16px); border: 1px solid rgba(212, 175, 55, 0.15); }
-        .glass-card:hover { border-color: rgba(212, 175, 55, 0.5); box-shadow: 0 10px 30px -10px rgba(212, 175, 55, 0.2); }
-        /* Prevent Image Dragging & Selection */
-        img { user-select: none; -webkit-user-drag: none; }
-    </style>
-</head>
-<body class="pt-24 selection:bg-amber-500 selection:text-black" oncontextmenu="return false;">
+<!-- Portfolio Section -->
+<section id="portfolio" class="py-24 px-6 max-w-7xl mx-auto">
+    <div class="text-center mb-16" data-aos="fade-up">
+        <h2 class="text-xs font-bold uppercase tracking-widest gold-accent mb-3">
+            <span class="lang-en">Our Masterpieces</span>
+            <span class="lang-ar">أعمالنا المتميزة</span>
+        </h2>
+        <h3 class="text-3xl md:text-5xl font-black text-white">
+            <span class="lang-en">Featured Projects</span>
+            <span class="lang-ar">المشاريع المنفذة</span>
+        </h3>
+    </div>
 
-    <!-- Navigation Header -->
-    <nav class="fixed w-full z-50 glass-card px-6 py-4 flex justify-between items-center top-0 border-b border-amber-500/10">
-        <a href="index.html" class="flex items-center space-x-3">
-            <span class="text-xl font-black tracking-wider text-white">SKETCHY <span class="gold-accent">CHAPTERS</span></span>
-        </a>
-        <div class="flex space-x-6 text-sm font-semibold">
-            <a href="index.html" class="text-xs font-bold text-gray-400 hover:text-amber-400 transition flex items-center space-x-2">
-                <i class="fa-solid fa-arrow-left"></i>
-                <span>Back to Main Site</span>
-            </a>
-        </div>
-    </nav>
-
-    <!-- Portfolio Main Section -->
-    <section class="py-12 px-6 max-w-7xl mx-auto">
-        <!-- Section Header Title -->
-        <div class="text-center mb-16" data-aos="fade-up">
-            <div class="inline-block px-4 py-1.5 rounded-full glass-card text-xs font-bold gold-accent mb-4 uppercase tracking-widest border border-amber-500/30">
-                SCDC Architectural & Interior Portfolio
-            </div>
-            <h1 class="text-4xl md:text-6xl font-black gold-gradient-text mb-4">Our Executed Projects</h1>
-            <p class="text-gray-400 font-light max-w-2xl mx-auto text-base">
-                Explore our localized and international interior design, architectural planning, and execution achievements.
-            </p>
-        </div>
-
-        <!-- Projects Grid -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
 
         <!-- 1. Beauty By Rosaline -->
-        <a href="beauty-by-rosaline.html" class="glass-card rounded-3xl overflow-hidden group block hover:border-amber-500/50 transition duration-500" data-aos="fade-up">
+        <a href="portfolio.html?project=rosaline" target="_blank" class="glass-card rounded-3xl overflow-hidden group block hover:border-amber-500/50 transition duration-500" data-aos="fade-up">
             <div class="relative h-64 overflow-hidden">
                 <img src="Rosaline-Salon-0.jpg" alt="Beauty By Rosaline" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
                 <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent"></div>
-                <span class="absolute top-4 left-4 bg-amber-500/20 border border-amber-500/40 text-amber-300 px-3 py-1 text-[10px] font-bold rounded-full backdrop-blur-md">2023 • Tripoli</span>
+                <span class="absolute top-4 left-4 right-4 rtl:right-auto rtl:left-4 bg-amber-500/20 border border-amber-500/40 text-amber-300 px-3 py-1 text-[10px] font-bold rounded-full backdrop-blur-md w-fit">2023 • طرابلس</span>
             </div>
             <div class="p-6">
                 <h4 class="text-xl font-bold text-white group-hover:text-amber-400 transition">Beauty By Rosaline</h4>
-                <p class="text-xs text-gray-400 mt-2">Commercial Salon • Interior Design & Execution</p>
+                <p class="text-xs text-gray-400 mt-2">
+                    <span class="lang-en">Women's Makeup Salon • Interior Design</span>
+                    <span class="lang-ar">صالون مكياج نسائي • تصميم داخلي</span>
+                </p>
             </div>
         </a>
 
-        <!-- 2. Office Berlin -->
-        <a href="office-berlin.html" class="glass-card rounded-3xl overflow-hidden group block hover:border-amber-500/50 transition duration-500" data-aos="fade-up" data-aos-delay="100">
+        <!-- 2. Office Berline -->
+        <a href="portfolio.html?project=berline" target="_blank" class="glass-card rounded-3xl overflow-hidden group block hover:border-amber-500/50 transition duration-500" data-aos="fade-up" data-aos-delay="100">
             <div class="relative h-64 overflow-hidden">
-                <img src="Office-Berlin-1.jpg" alt="Office Berlin" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+                <img src="Office-Berline-0.jpg" alt="Office Berline" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
                 <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent"></div>
-                <span class="absolute top-4 left-4 bg-amber-500/20 border border-amber-500/40 text-amber-300 px-3 py-1 text-[10px] font-bold rounded-full backdrop-blur-md">2023 • Berlin</span>
+                <span class="absolute top-4 left-4 right-4 rtl:right-auto rtl:left-4 bg-amber-500/20 border border-amber-500/40 text-amber-300 px-3 py-1 text-[10px] font-bold rounded-full backdrop-blur-md w-fit">2023 • برلين</span>
             </div>
             <div class="p-6">
-                <h4 class="text-xl font-bold text-white group-hover:text-amber-400 transition">Office Berlin</h4>
-                <p class="text-xs text-gray-400 mt-2">Corporate Workspace • Interior Architecture</p>
+                <h4 class="text-xl font-bold text-white group-hover:text-amber-400 transition">Office Berline</h4>
+                <p class="text-xs text-gray-400 mt-2">
+                    <span class="lang-en">Workspace Interior Design • Corporate</span>
+                    <span class="lang-ar">تصميم داخلي لمساحة عمل • مكتبي</span>
+                </p>
             </div>
         </a>
 
         <!-- 3. Dermexcel Display Stand -->
-        <a href="dermexcel-display-stand.html" class="glass-card rounded-3xl overflow-hidden group block hover:border-amber-500/50 transition duration-500" data-aos="fade-up" data-aos-delay="200">
+        <a href="portfolio.html?project=dermexcel" target="_blank" class="glass-card rounded-3xl overflow-hidden group block hover:border-amber-500/50 transition duration-500" data-aos="fade-up" data-aos-delay="200">
             <div class="relative h-64 overflow-hidden">
-                <img src="Dermexcel-Display-Stand-0.jpg" alt="Dermexcel Display Stand" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+                <img src="Dermexcel-Render-1.jpg" alt="Dermexcel Display Stand" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
                 <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent"></div>
-                <span class="absolute top-4 left-4 bg-amber-500/20 border border-amber-500/40 text-amber-300 px-3 py-1 text-[10px] font-bold rounded-full backdrop-blur-md">2024 • Akkar</span>
+                <span class="absolute top-4 left-4 right-4 rtl:right-auto rtl:left-4 bg-amber-500/20 border border-amber-500/40 text-amber-300 px-3 py-1 text-[10px] font-bold rounded-full backdrop-blur-md w-fit">2024 • عكار</span>
             </div>
             <div class="p-6">
-                <h4 class="text-xl font-bold text-white group-hover:text-amber-400 transition">Dermexcel Stand</h4>
-                <p class="text-xs text-gray-400 mt-2">Commercial Branding • Custom Fabrication</p>
+                <h4 class="text-xl font-bold text-white group-hover:text-amber-400 transition">Dermexcel Display Stand</h4>
+                <p class="text-xs text-gray-400 mt-2">
+                    <span class="lang-en">Commercial Branding • Custom Fabrication</span>
+                    <span class="lang-ar">منصة عرض تجارية • تصنيع مخصص</span>
+                </p>
             </div>
         </a>
 
-        <!-- 4. Downtown Beirut Villa -->
-        <a href="downtown-beirut-villa.html" class="glass-card rounded-3xl overflow-hidden group block hover:border-amber-500/50 transition duration-500" data-aos="fade-up">
+        <!-- 4. Villa in Al Arz -->
+        <a href="portfolio.html?project=arz" target="_blank" class="glass-card rounded-3xl overflow-hidden group block hover:border-amber-500/50 transition duration-500" data-aos="fade-up">
             <div class="relative h-64 overflow-hidden">
-                <img src="Downtown-Beirut-Villa-0.jpg" alt="Downtown Beirut Villa" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+                <img src="Arz-Villa-1.jpg" alt="Villa in Al Arz" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
                 <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent"></div>
-                <span class="absolute top-4 left-4 bg-amber-500/20 border border-amber-500/40 text-amber-300 px-3 py-1 text-[10px] font-bold rounded-full backdrop-blur-md">2024 • Beirut</span>
+                <span class="absolute top-4 left-4 right-4 rtl:right-auto rtl:left-4 bg-amber-500/20 border border-amber-500/40 text-amber-300 px-3 py-1 text-[10px] font-bold rounded-full backdrop-blur-md w-fit">2025 • الأرز</span>
             </div>
             <div class="p-6">
-                <h4 class="text-xl font-bold text-white group-hover:text-amber-400 transition">Downtown Beirut Villa</h4>
-                <p class="text-xs text-gray-400 mt-2">Residential Villa • Living & Kitchen Design</p>
+                <h4 class="text-xl font-bold text-white group-hover:text-amber-400 transition">
+                    <span class="lang-en">Villa in Al Arz</span>
+                    <span class="lang-ar">فيلا الأرز</span>
+                </h4>
+                <p class="text-xs text-gray-400 mt-2">
+                    <span class="lang-en">Mountain Retreat • Salon & Dining</span>
+                    <span class="lang-ar">منتجع جبلي • صالون وغرفة طعام</span>
+                </p>
             </div>
         </a>
 
-        <!-- 5. Arz Mountain Villa -->
-        <a href="arz-villa.html" class="glass-card rounded-3xl overflow-hidden group block hover:border-amber-500/50 transition duration-500" data-aos="fade-up" data-aos-delay="100">
+        <!-- 5. Villa in Downtown Beirut -->
+        <a href="portfolio.html?project=downtown" target="_blank" class="glass-card rounded-3xl overflow-hidden group block hover:border-amber-500/50 transition duration-500" data-aos="fade-up" data-aos-delay="100">
             <div class="relative h-64 overflow-hidden">
-                <img src="Arz-Villa-0.jpg" alt="Arz Mountain Villa" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+                <img src="Downtown-Villa-Living.jpg" alt="Villa in Downtown Beirut" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
                 <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent"></div>
-                <span class="absolute top-4 left-4 bg-amber-500/20 border border-amber-500/40 text-amber-300 px-3 py-1 text-[10px] font-bold rounded-full backdrop-blur-md">2025 • Arz</span>
+                <span class="absolute top-4 left-4 right-4 rtl:right-auto rtl:left-4 bg-amber-500/20 border border-amber-500/40 text-amber-300 px-3 py-1 text-[10px] font-bold rounded-full backdrop-blur-md w-fit">2024 • بيروت الوسط التجاري</span>
             </div>
             <div class="p-6">
-                <h4 class="text-xl font-bold text-white group-hover:text-amber-400 transition">Arz Mountain Villa</h4>
-                <p class="text-xs text-gray-400 mt-2">Mountain Retreat • Salon & Dining Interior</p>
+                <h4 class="text-xl font-bold text-white group-hover:text-amber-400 transition">
+                    <span class="lang-en">Villa in Downtown Beirut</span>
+                    <span class="lang-ar">فيلا وسط بيروت</span>
+                </h4>
+                <p class="text-xs text-gray-400 mt-2">
+                    <span class="lang-en">Urban Luxury • Living & Kitchen</span>
+                    <span class="lang-ar">فخامة حضرية • معيشة ومطبخ</span>
+                </p>
             </div>
         </a>
 
         <!-- 6. Entrance Partition & TV Unit -->
-        <a href="tripoli-entrance-partition.html" class="glass-card rounded-3xl overflow-hidden group block hover:border-amber-500/50 transition duration-500" data-aos="fade-up" data-aos-delay="200">
+        <a href="portfolio.html?project=tripoli" target="_blank" class="glass-card rounded-3xl overflow-hidden group block hover:border-amber-500/50 transition duration-500" data-aos="fade-up" data-aos-delay="200">
             <div class="relative h-64 overflow-hidden">
-                <img src="Tripoli-Entrance-Partition-0.jpg" alt="Entrance Partition & TV Unit" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+                <img src="Tripoli-Partition.jpg" alt="Entrance Partition & TV Unit" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
                 <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent"></div>
-                <span class="absolute top-4 left-4 bg-amber-500/20 border border-amber-500/40 text-amber-300 px-3 py-1 text-[10px] font-bold rounded-full backdrop-blur-md">2025 • Tripoli</span>
+                <span class="absolute top-4 left-4 right-4 rtl:right-auto rtl:left-4 bg-amber-500/20 border border-amber-500/40 text-amber-300 px-3 py-1 text-[10px] font-bold rounded-full backdrop-blur-md w-fit">2025 • طرابلس</span>
             </div>
             <div class="p-6">
-                <h4 class="text-xl font-bold text-white group-hover:text-amber-400 transition">Partition & TV Unit</h4>
-                <p class="text-xs text-gray-400 mt-2">Residential Joinery • Carpentry & Execution</p>
+                <h4 class="text-xl font-bold text-white group-hover:text-amber-400 transition">
+                    <span class="lang-en">Entrance Partition & TV Unit</span>
+                    <span class="lang-ar">قاطع المدخل ووحدة التلفزيون</span>
+                </h4>
+                <p class="text-xs text-gray-400 mt-2">
+                    <span class="lang-en">Custom Joinery • Wood & Glass</span>
+                    <span class="lang-ar">أعمال خشبية مخصصة • خشب وزجاج</span>
+                </p>
             </div>
         </a>
 
-        <!-- 7. Riyadh Luxury Villa -->
-        <a href="riyadh-luxury-villa.html" class="glass-card rounded-3xl overflow-hidden group block hover:border-amber-500/50 transition duration-500" data-aos="fade-up">
+        <!-- 7. Villa in Riyadh -->
+        <a href="portfolio.html?project=riyadh" target="_blank" class="glass-card rounded-3xl overflow-hidden group block hover:border-amber-500/50 transition duration-500" data-aos="fade-up">
             <div class="relative h-64 overflow-hidden">
-                <img src="Riyadh-Villa-0.jpg" alt="Riyadh Luxury Villa" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+                <img src="Villa-Riyadh-MasterBedroom-1.jpg" alt="Villa in Riyadh" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
                 <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent"></div>
-                <span class="absolute top-4 left-4 bg-amber-500/20 border border-amber-500/40 text-amber-300 px-3 py-1 text-[10px] font-bold rounded-full backdrop-blur-md">2025 • Riyadh</span>
+                <span class="absolute top-4 left-4 right-4 rtl:right-auto rtl:left-4 bg-amber-500/20 border border-amber-500/40 text-amber-300 px-3 py-1 text-[10px] font-bold rounded-full backdrop-blur-md w-fit">2025 • الرياض</span>
             </div>
             <div class="p-6">
-                <h4 class="text-xl font-bold text-white group-hover:text-amber-400 transition">Riyadh Luxury Villa</h4>
-                <p class="text-xs text-gray-400 mt-2">Modern Residence • Interior Architecture</p>
+                <h4 class="text-xl font-bold text-white group-hover:text-amber-400 transition">
+                    <span class="lang-en">Villa in Riyadh</span>
+                    <span class="lang-ar">فيلا الرياض</span>
+                </h4>
+                <p class="text-xs text-gray-400 mt-2">
+                    <span class="lang-en">Full Villa Interior Design & Execution</span>
+                    <span class="lang-ar">تصميم وتنفيذ داخلي لفيلا بالكامل</span>
+                </p>
             </div>
         </a>
 
-        <!-- 8. Dubai Commercial Hub -->
-        <a href="dubai-commercial-tower.html" class="glass-card rounded-3xl overflow-hidden group block hover:border-amber-500/50 transition duration-500" data-aos="fade-up" data-aos-delay="100">
+        <!-- 8. Villa / Apartment in Dubai -->
+        <a href="portfolio.html?project=dubai" target="_blank" class="glass-card rounded-3xl overflow-hidden group block hover:border-amber-500/50 transition duration-500" data-aos="fade-up" data-aos-delay="100">
             <div class="relative h-64 overflow-hidden">
-                <img src="Dubai-Commercial-0.jpg" alt="Dubai Commercial Space" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+                <img src="Dubai-MasterBedroom.jpg" alt="Villa / Apartment in Dubai" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
                 <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent"></div>
-                <span class="absolute top-4 left-4 bg-amber-500/20 border border-amber-500/40 text-amber-300 px-3 py-1 text-[10px] font-bold rounded-full backdrop-blur-md">2026 • Dubai</span>
+                <span class="absolute top-4 left-4 right-4 rtl:right-auto rtl:left-4 bg-amber-500/20 border border-amber-500/40 text-amber-300 px-3 py-1 text-[10px] font-bold rounded-full backdrop-blur-md w-fit">2024 • دبي</span>
             </div>
             <div class="p-6">
-                <h4 class="text-xl font-bold text-white group-hover:text-amber-400 transition">Dubai Commercial Hub</h4>
-                <p class="text-xs text-gray-400 mt-2">Commercial Space • Modern Architecture</p>
+                <h4 class="text-xl font-bold text-white group-hover:text-amber-400 transition">
+                    <span class="lang-en">Villa / Apartment in Dubai</span>
+                    <span class="lang-ar">فيلا / شقة في دبي</span>
+                </h4>
+                <p class="text-xs text-gray-400 mt-2">
+                    <span class="lang-en">Luxury Residence • Bed & Living Room</span>
+                    <span class="lang-ar">سكن فاخر • غرفة النوم والمعيشة</span>
+                </p>
             </div>
         </a>
 
     </div>
 </section>
-
-        <!-- Consultation Banner -->
-        <div class="text-center py-12 px-6 glass-card rounded-3xl" data-aos="fade-up">
-            <h3 class="text-2xl font-bold text-white mb-2">Have a project in mind?</h3>
-            <p class="text-gray-400 font-light text-sm max-w-xl mx-auto mb-6">
-                From architectural blueprints to high-end interior execution, SCDC team delivers tailored solutions across Lebanon, KSA, and Qatar.
-            </p>
-            <a href="https://wa.me/96181427589?text=Hello%20SCDC,%20I%20would%20like%20to%20discuss%20a%20new%20project" target="_blank" class="inline-flex items-center space-x-2 bg-gold text-black font-extrabold px-8 py-3.5 rounded-full hover:brightness-110 transition shadow-lg shadow-amber-500/10">
-                <i class="fa-brands fa-whatsapp text-lg"></i>
-                <span>Start Consultation via WhatsApp</span>
-            </a>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="py-12 text-center text-gray-500 text-xs border-t border-gray-900">
-        <p>© 2026 Sketchy Chapters Design & Construction (SCDC). All Rights Reserved.</p>
-    </footer>
-
-    <!-- JS Scripts -->
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script>
-        AOS.init({ duration: 1000, once: true });
-    </script>
-</body>
-</html>
