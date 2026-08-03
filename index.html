@@ -27,15 +27,6 @@
         /* Language Display Controls */
         [lang="ar"] .lang-en { display: none !important; }
         [lang="en"] .lang-ar { display: none !important; }
-
-        /* Before/After Interactive Slider Style */
-        .ba-slider-container { position: relative; width: 100%; height: 450px; overflow: hidden; border-radius: 1.5rem; }
-        .ba-slider-container img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; }
-        .ba-after-img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; width: 50%; }
-        .ba-after-img img { width: 100%; height: 100%; object-fit: cover; max-width: none; }
-        .ba-slider-range { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; cursor: ew-resize; z-index: 30; }
-        .ba-handle { position: absolute; top: 0; bottom: 0; left: 50%; width: 4px; background: #d4af37; z-index: 20; transform: translateX(-50%); pointer-events: none; box-shadow: 0 0 10px rgba(212, 175, 55, 0.8); }
-        .ba-handle-button { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 40px; height: 40px; background: #d4af37; border-radius: 50%; color: #000; display: flex; align-items: center; justify-content: center; font-size: 14px; box-shadow: 0 0 15px rgba(0,0,0,0.5); }
     </style>
 </head>
 <body class="selection:bg-amber-500 selection:text-black">
@@ -55,10 +46,6 @@
             <a href="#objectives" class="hover:text-amber-400 transition">
                 <span class="lang-en">Objectives</span>
                 <span class="lang-ar">الأهداف</span>
-            </a>
-            <a href="#transformation" class="hover:text-amber-400 transition">
-                <span class="lang-en">Before / After</span>
-                <span class="lang-ar">قبل وبعد</span>
             </a>
             <a href="#services" class="hover:text-amber-400 transition">
                 <span class="lang-en">Services</span>
@@ -181,50 +168,6 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
-
-    <!-- NEW SECTION: BEFORE / AFTER INTERACTIVE SLIDER (EMPTY ROOM TO INTERIOR DESIGN) -->
-    <section id="transformation" class="py-20 px-6 max-w-7xl mx-auto">
-        <div class="text-center mb-12" data-aos="fade-up">
-            <span class="text-xs font-bold gold-accent uppercase tracking-widest block mb-2">
-                <span class="lang-en">Interactive Spatial Transformation</span>
-                <span class="lang-ar">تحول الفضاء المعماري التفاعلي</span>
-            </span>
-            <h2 class="text-3xl md:text-5xl font-black text-white mb-4">
-                <span class="lang-en">From Empty Space to Luxury Living</span>
-                <span class="lang-ar">من المساحة الفارغة إلى التصميم المكتمل</span>
-            </h2>
-            <p class="text-gray-400 font-light max-w-2xl mx-auto">
-                <span class="lang-en">Slide the bar left or right to experience how SCDC transforms raw interior spaces into luxury architectural design.</span>
-                <span class="lang-ar">اسحب الشريط يميناً ويساراً لمشاهدة كيف نحول المساحات الفارغة إلى تصاميم معمارية فاخرة ومكتملة.</span>
-            </p>
-        </div>
-
-        <div class="ba-slider-container glass-card p-2 border border-amber-500/30 shadow-2xl" data-aos="zoom-in">
-            <!-- Background Image: Empty Room (BEFORE) -->
-            <img src="empty-room.jpg" alt="Empty Room Before" id="ba-before-img" onerror="this.src='https://images.unsplash.com/photo-1513694203232-719a280e022f?q=80&w=1200'">
-            <div class="absolute top-4 left-4 z-20 bg-black/70 border border-amber-500/30 px-3 py-1 rounded-full text-xs font-bold gold-accent uppercase">
-                <span class="lang-en">Before (Empty Room)</span>
-                <span class="lang-ar">قبل (غرفة فارغة)</span>
-            </div>
-
-            <!-- Foreground Image: Designed Interior Room (AFTER) -->
-            <div class="ba-after-img" id="ba-after-wrapper">
-                <img src="Rosaline-Salon-Render-0.jpg" alt="Designed Room After" id="ba-after-img" onerror="this.src='https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?q=80&w=1200'">
-                <div class="absolute top-4 right-4 z-20 bg-black/70 border border-amber-500/30 px-3 py-1 rounded-full text-xs font-bold text-white uppercase">
-                    <span class="lang-en">After (SCDC Design)</span>
-                    <span class="lang-ar">بعد (تصميم SCDC)</span>
-                </div>
-            </div>
-
-            <!-- Handle Line & Slider Controls -->
-            <div class="ba-handle" id="ba-handle">
-                <div class="ba-handle-button">
-                    <i class="fa-solid fa-arrows-left-right"></i>
-                </div>
-            </div>
-            <input type="range" min="0" max="100" value="50" class="ba-slider-range" id="ba-range">
         </div>
     </section>
 
@@ -583,19 +526,6 @@
                 htmlTag.setAttribute('dir', 'ltr');
                 langBtnText.innerText = 'العربية';
             }
-        }
-
-        // Before / After Slider Control Logic
-        const baRange = document.getElementById('ba-range');
-        const baAfterWrapper = document.getElementById('ba-after-wrapper');
-        const baHandle = document.getElementById('ba-handle');
-
-        if (baRange) {
-            baRange.addEventListener('input', (e) => {
-                const sliderVal = e.target.value;
-                baAfterWrapper.style.width = sliderVal + '%';
-                baHandle.style.left = sliderVal + '%';
-            });
         }
     </script>
 </body>
