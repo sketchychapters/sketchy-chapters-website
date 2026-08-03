@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" class="scroll-smooth" id="main-html">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dermexcel Display Stand | Sketchy Chapters (SCDC)</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&family=Tajawal:wght@300;500;700;900&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <style>
+        body { font-family: 'Plus Jakarta Sans', 'Tajawal', sans-serif; background-color: #08080a; color: #e0e6ed; overflow-x: hidden; }
+        .gold-accent { color: #d4af37; }
+        .gold-gradient-text { background: linear-gradient(135deg, #bf953f, #fcf6ba, #b38728, #fbf5b7); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .bg-gold { background: linear-gradient(135deg, #d4af37 0%, #aa7c11 100%); }
+        .glass-card { background: rgba(18, 18, 22, 0.6); backdrop-filter: blur(16px); border: 1px solid rgba(212, 175, 55, 0.15); }
+        .glass-card:hover { border-color: rgba(212, 175, 55, 0.5); }
+        [lang="ar"] .lang-en { display: none !important; }
+        [lang="en"] .lang-ar { display: none !important; }
+    </style>
+</head>
+<body class="selection:bg-amber-500 selection:text-black">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 glass-card px-6 py-4 flex justify-between items-center top-0 border-b border-amber-500/10">
+        <a href="index.html" class="flex items-center space-x-3 rtl:space-x-reverse">
+            <img src="logo.png" alt="SCDC Logo" class="h-10 md:h-12 w-auto object-contain" onerror="this.style.display='none'; document.getElementById('logo-fallback').style.display='block';">
+            <span id="logo-fallback" class="hidden text-xl font-black tracking-wider text-white">SKETCHY <span class="gold-accent">CHAPTERS</span></span>
+        </a>
+        <div class="flex items-center space-x-4 rtl:space-x-reverse">
+            <a href="index.html#portfolio" class="text-sm font-semibold text-gray-300 hover:text-amber-400 transition">
+                <span class="lang-en">← Back to Portfolio</span>
+                <span class="lang-ar">← العودة للمعارض</span>
+            </a>
+            <button onclick="toggleLanguage()" class="glass-card px-3 py-1.5 rounded-full text-xs font-bold text-amber-400 border border-amber-500/30 hover:bg-amber-500/20 transition flex items-center gap-1">
+                <i class="fa-solid fa-globe"></i>
+                <span id="lang-btn-text">العربية</span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="pt-32 pb-12 px-6 max-w-7xl mx-auto">
+        <div data-aos="fade-up">
+            <div class="flex flex-wrap items-center gap-3 mb-4">
+                <span class="px-3 py-1 bg-amber-500/10 border border-amber-500/30 rounded-full text-xs font-bold gold-accent">
+                    2024 • Commercial Branding Stand
+                </span>
+                <span class="text-xs text-gray-400">
+                    <i class="fa-solid fa-location-dot gold-accent me-1"></i> Akkar, Lebanon
+                </span>
+            </div>
+            <h1 class="text-4xl md:text-6xl font-black text-white mb-4">
+                Dermexcel Display Stand
+            </h1>
+            <p class="text-gray-400 text-base md:text-lg max-w-3xl leading-relaxed">
+                <span class="lang-en">Custom parametric display unit designed for premium skincare products. Tailored for maximum visual impact, integrating warm backlighting, custom shelves, and precise CNC acrylic branding.</span>
+                <span class="lang-ar">منصة عرض مخصصة لمنتجات العناية بالبشرة. تم تصميمها وتنفيذها لتعطي انطباعاً راقياً، مع إضاءة خلفية مدمجة، أرفف مدروسة، وتفاصيل قص أكريليك عالية الدقة.</span>
+            </p>
+        </div>
+    </section>
+
+    <!-- Specs Cards -->
+    <section class="pb-16 px-6 max-w-7xl mx-auto">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4" data-aos="fade-up">
+            <div class="glass-card p-4 rounded-2xl text-center">
+                <span class="text-xs text-gray-400 font-bold block uppercase mb-1">Category</span>
+                <span class="text-sm font-extrabold text-white">Display Stand / Kiosk</span>
+            </div>
+            <div class="glass-card p-4 rounded-2xl text-center">
+                <span class="text-xs text-gray-400 font-bold block uppercase mb-1">Location</span>
+                <span class="text-sm font-extrabold text-white">Akkar, Lebanon</span>
+            </div>
+            <div class="glass-card p-4 rounded-2xl text-center">
+                <span class="text-xs text-gray-400 font-bold block uppercase mb-1">Year</span>
+                <span class="text-sm font-extrabold text-white">2024</span>
+            </div>
+            <div class="glass-card p-4 rounded-2xl text-center">
+                <span class="text-xs text-gray-400 font-bold block uppercase mb-1">Scope</span>
+                <span class="text-sm font-extrabold gold-accent">Custom Fabrication & Design</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section class="py-12 px-6 max-w-7xl mx-auto border-t border-amber-500/10">
+        <div class="mb-12 text-center" data-aos="fade-up">
+            <h2 class="text-3xl font-black gold-gradient-text mb-2">
+                <span class="lang-en">Project Gallery</span>
+                <span class="lang-ar">صور المنصة المنفذة</span>
+            </h2>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6" data-aos="fade-up">
+            <div class="glass-card p-3 rounded-2xl border border-amber-500/30">
+                <img src="Dermexcel-Display-Stand-0.jpg" alt="Dermexcel Stand 1" class="w-full h-80 object-cover rounded-xl" onerror="this.src='https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?q=80&w=800'">
+                <p class="text-xs text-gray-400 mt-3 text-center">Front Perspective & Lighting Detail</p>
+            </div>
+            <div class="glass-card p-3 rounded-2xl border border-amber-500/30">
+                <img src="Dermexcel-Display-Stand-1.jpg" alt="Dermexcel Stand 2" class="w-full h-80 object-cover rounded-xl" onerror="this.src='https://images.unsplash.com/photo-1583241800698-e8ab01c85b27?q=80&w=800'">
+                <p class="text-xs text-gray-400 mt-3 text-center">Side View & Finish Quality</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call To Action -->
+    <section class="py-16 px-6 max-w-4xl mx-auto text-center" data-aos="zoom-in">
+        <div class="glass-card p-10 rounded-3xl border border-amber-500/20">
+            <h3 class="text-2xl font-black text-white mb-4">
+                <span class="lang-en">Need Custom Commercial Fabrication?</span>
+                <span class="lang-ar">هل تحتاج لمنصات عرض مخصصة لعلامتك؟</span>
+            </h3>
+            <a href="index.html#contact" class="bg-gold text-black px-8 py-3.5 rounded-full font-bold text-xs uppercase tracking-wider inline-block hover:brightness-110 transition">
+                <span class="lang-en">Contact Us</span>
+                <span class="lang-ar">تواصل معنا الآن</span>
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="border-t border-amber-500/10 py-8 text-center text-gray-500 text-xs">
+        <p>&copy; <script>document.write(new Date().getFullYear())</script> Sketchy Chapters Design & Construction (SCDC).</p>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({ duration: 1000, once: true });
+        function toggleLanguage() {
+            const htmlTag = document.getElementById('main-html');
+            const langBtnText = document.getElementById('lang-btn-text');
+            if (htmlTag.getAttribute('lang') === 'en') {
+                htmlTag.setAttribute('lang', 'ar'); htmlTag.setAttribute('dir', 'rtl'); langBtnText.textContent = 'English';
+            } else {
+                htmlTag.setAttribute('lang', 'en'); htmlTag.setAttribute('dir', 'ltr'); langBtnText.textContent = 'العربية';
+            }
+        }
+    </script>
+</body>
+</html>
