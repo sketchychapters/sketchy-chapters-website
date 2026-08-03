@@ -80,7 +80,7 @@
                <span class="lang-en">Divisions</span>
                <span class="lang-ar">الأقسام</span>
             </a>
-            <a href="portfolio.html" class="gold-accent hover:underline font-bold transition">
+            <a href="portfolio.html" target="_blank" class="gold-accent hover:underline font-bold transition">
                <span class="lang-en">Portfolio Grid</span>
                <span class="lang-ar">معرض الأعمال</span>
             </a>
@@ -97,20 +97,23 @@
                <span id="lang-btn-text">العربية</span>
             </button>
 
-            <a href="portfolio.html" class="bg-gold text-black px-5 py-2 rounded-full font-bold text-xs uppercase tracking-wider hover:brightness-110 transition shadow-lg shadow-amber-500/10">
+            <a href="portfolio.html" target="_blank" class="bg-gold text-black px-5 py-2 rounded-full font-bold text-xs uppercase tracking-wider hover:brightness-110 transition shadow-lg shadow-amber-500/10">
                <span class="lang-en">View Projects</span>
                <span class="lang-ar">المشاريع</span>
             </a>
         </div>
     </nav>
 
-    <!-- Hero Section -->
+    <!-- Hero Section with Architectural Blueprint/Rendering Dynamic Background -->
     <section class="min-h-screen relative flex items-center justify-center pt-20">
         <div class="swiper heroSwiper absolute inset-0 w-full h-full z-0">
             <div class="swiper-wrapper">
-               <div class="swiper-slide bg-cover bg-center" style="background-image: linear-gradient(180deg, rgba(8,8,10,0.85) 0%, rgba(8,8,10,0.95) 100%), url('Rosaline-Salon-Render-0.jpg');"></div>
-               <div class="swiper-slide bg-cover bg-center" style="background-image: linear-gradient(180deg, rgba(8,8,10,0.85) 0%, rgba(8,8,10,0.95) 100%), url('Office-Berlin-1.jpg');"></div>
-               <div class="swiper-slide bg-cover bg-center" style="background-image: linear-gradient(180deg, rgba(8,8,10,0.85) 0%, rgba(8,8,10,0.95) 100%), url('Rosaline-Salon-0.jpg');"></div>
+               <!-- Slide 1: Modern Architectural Villa Render -->
+               <div class="swiper-slide bg-cover bg-center" style="background-image: linear-gradient(180deg, rgba(8,8,10,0.85) 0%, rgba(8,8,10,0.95) 100%), url('https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?q=80&w=1920');"></div>
+               <!-- Slide 2: Structural & Interior Blueprint / Concept -->
+               <div class="swiper-slide bg-cover bg-center" style="background-image: linear-gradient(180deg, rgba(8,8,10,0.85) 0%, rgba(8,8,10,0.95) 100%), url('https://images.unsplash.com/photo-1503387762-592deb58ef4e?q=80&w=1920');"></div>
+               <!-- Slide 3: High-end Corporate Office Workspace -->
+               <div class="swiper-slide bg-cover bg-center" style="background-image: linear-gradient(180deg, rgba(8,8,10,0.85) 0%, rgba(8,8,10,0.95) 100%), url('https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=1920');"></div>
             </div>
             <div class="swiper-pagination"></div>
         </div>
@@ -129,7 +132,7 @@
                <span class="lang-ar">حلول مبتكرة لتخطيط المشاريع، التصميم المعماري، والتنفيذ الكامل من الفكرة حتى التسليم على المفتاح.</span>
             </p>
             <div class="flex flex-wrap justify-center gap-4">
-                <a href="portfolio.html" class="bg-gold text-black px-8 py-4 rounded-full font-extrabold text-sm uppercase tracking-wider hover:brightness-110 transition shadow-xl shadow-amber-500/20">
+                <a href="portfolio.html" target="_blank" class="bg-gold text-black px-8 py-4 rounded-full font-extrabold text-sm uppercase tracking-wider hover:brightness-110 transition shadow-xl shadow-amber-500/20">
                    <span class="lang-en">Explore Our Portfolio</span>
                    <span class="lang-ar">استكشف معرض أعمالنا</span>
                 </a>
@@ -196,49 +199,74 @@
         </div>
     </section>
 
-    <!-- SLIDER SHOWCASE -->
+    <!-- SLIDER SHOWCASE (Expanded with Diverse Projects: Berlin Office, Downtown Villa, Arz Villa, Makeup Salon) -->
     <section class="py-20 px-6 max-w-7xl mx-auto bg-black/40 rounded-3xl border border-amber-500/10">
         <div class="text-center mb-12" data-aos="fade-up">
             <h2 class="text-3xl md:text-5xl font-black mb-4 gold-gradient-text">
-               <span class="lang-en">Featured Interior Creations</span>
-               <span class="lang-ar">نماذج من أعمالنا الداخلية</span>
+               <span class="lang-en">Featured Interior Creations & Projects</span>
+               <span class="lang-ar">نماذج من أعمالنا ومشاريعنا المتنوعة</span>
             </h2>
             <p class="text-gray-400 font-light">
-               <span class="lang-en">Slide through our conceptualized 3D renders and executed spaces.</span>
-               <span class="lang-ar">تصفح تصاميمنا الثلاثية الأبعاد والمشاريع المُنَفّذة على أرض الواقع.</span>
+               <span class="lang-en">Explore our diverse portfolio spanning Berlin corporate offices, Beirut villas, and luxury salons.</span>
+               <span class="lang-ar">تصفح مجموعتنا الواسعة التي تشمل مكاتب برلين، فلل بيروت، وصالونات التجميل الراقية.</span>
             </p>
         </div>
 
         <div class="swiper ShowcaseSwiper rounded-3xl glass-card p-4 overflow-hidden" data-aos="zoom-in">
             <div class="swiper-wrapper">
+               <!-- Slide 1: Beauty By Rosaline Salon -->
                <div class="swiper-slide relative h-96 rounded-2xl overflow-hidden">
-                   <img src="Rosaline-Salon-Render-1.jpg" class="w-full h-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?q=80&w=1200'">
+                   <img src="Rosaline-Salon-Render-1.jpg" class="w-full h-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1560066984-138dadb4c035?q=80&w=1200'">
                    <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent p-6 flex flex-col justify-end">
                        <span class="gold-accent text-xs font-bold uppercase">
-                           <span class="lang-en">Beauty Salon Concept</span>
-                           <span class="lang-ar">تصميم صالون تجميل</span>
+                           <span class="lang-en">Tripoli, Lebanon (2023)</span>
+                           <span class="lang-ar">طرابلس، لبنان (٢٠٢٣)</span>
                        </span>
-                       <h3 class="text-xl font-bold text-white">Rosaline Salon 3D Visual</h3>
+                       <h3 class="text-xl font-bold text-white">Beauty By Rosaline Makeup Salon</h3>
                    </div>
                </div>
+               <!-- Slide 2: Office Berlin -->
                <div class="swiper-slide relative h-96 rounded-2xl overflow-hidden">
-                   <img src="Office-Berlin-1.jpg" class="w-full h-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=1200'">
+                   <img src="Office-Berlin-1.jpg" class="w-full h-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1497215728101-856f4ea42174?q=80&w=1200'">
                    <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent p-6 flex flex-col justify-end">
                        <span class="gold-accent text-xs font-bold uppercase">
-                           <span class="lang-en">Commercial Office</span>
-                           <span class="lang-ar">مكاتب تجارية</span>
+                           <span class="lang-en">Berlin, Germany (2023)</span>
+                           <span class="lang-ar">برلين، ألمانيا (٢٠٢٣)</span>
                        </span>
-                       <h3 class="text-xl font-bold text-white">Berlin Corporate Interior</h3>
+                       <h3 class="text-xl font-bold text-white">Office Berline Workspace Interior</h3>
                    </div>
                </div>
+               <!-- Slide 3: Downtown Beirut Villa -->
                <div class="swiper-slide relative h-96 rounded-2xl overflow-hidden">
-                   <img src="Rosaline-Salon-0.jpg" class="w-full h-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?q=80&w=1200'">
+                   <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=1200" class="w-full h-full object-cover">
                    <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent p-6 flex flex-col justify-end">
                        <span class="gold-accent text-xs font-bold uppercase">
-                           <span class="lang-en">Executed Reality</span>
-                           <span class="lang-ar">التنفيذ الواقعي</span>
+                           <span class="lang-en">Downtown Beirut (2024)</span>
+                           <span class="lang-ar">وسط بيروت (٢٠٢٤)</span>
                        </span>
-                       <h3 class="text-xl font-bold text-white">Tripoli Salon Execution</h3>
+                       <h3 class="text-xl font-bold text-white">Luxury Living Room & Kitchen Villa</h3>
+                   </div>
+               </div>
+               <!-- Slide 4: Arz Villa Project -->
+               <div class="swiper-slide relative h-96 rounded-2xl overflow-hidden">
+                   <img src="https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?q=80&w=1200" class="w-full h-full object-cover">
+                   <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent p-6 flex flex-col justify-end">
+                       <span class="gold-accent text-xs font-bold uppercase">
+                           <span class="lang-en">Arz, Lebanon (2025)</span>
+                           <span class="lang-ar">الأرز، لبنان (٢٠٢٥)</span>
+                       </span>
+                       <h3 class="text-xl font-bold text-white">Mountain Villa Salon & Dining Area</h3>
+                   </div>
+               </div>
+               <!-- Slide 5: Dermexcel Display Stand -->
+               <div class="swiper-slide relative h-96 rounded-2xl overflow-hidden">
+                   <img src="https://images.unsplash.com/photo-1555529771-835f59fc5efe?q=80&w=1200" class="w-full h-full object-cover">
+                   <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent p-6 flex flex-col justify-end">
+                       <span class="gold-accent text-xs font-bold uppercase">
+                           <span class="lang-en">Akkar, Lebanon (2024)</span>
+                           <span class="lang-ar">عكار، لبنان (٢٠٢٤)</span>
+                       </span>
+                       <h3 class="text-xl font-bold text-white">Dermexcel Commercial Display Stand</h3>
                    </div>
                </div>
             </div>
@@ -511,7 +539,7 @@
 
     <!-- Scripts: Swiper, AOS & Language Switcher -->
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></P>
     <script>
         // Initialize AOS animations
         AOS.init({
