@@ -203,8 +203,8 @@
     <section class="py-20 px-6 max-w-7xl mx-auto bg-black/40 rounded-3xl border border-amber-500/10">
         <div class="text-center mb-12" data-aos="fade-up">
             <h2 class="text-3xl md:text-5xl font-black mb-4 gold-gradient-text">
-               <span class="lang-en">Featured Interior Creations & Projects</span>
-               <span class="lang-ar">نماذج من أعمالنا ومشاريعنا المتنوعة</span>
+               <span class="lang-en">Featured Interior Creations</span>
+               <span class="lang-ar">أبرز التصاميم الداخلية</span>
             </h2>
             <p class="text-gray-400 font-light">
                <span class="lang-en">Explore our diverse portfolio spanning Berlin corporate offices, Beirut villas, and luxury salons.</span>
@@ -539,7 +539,7 @@
 
     <!-- Scripts: Swiper, AOS & Language Switcher -->
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></P>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         // Initialize AOS animations
         AOS.init({
@@ -548,7 +548,7 @@
             offset: 100
         });
 
-        // Initialize Hero Swiper
+        // Initialize Hero Swiper (Dynamic Architectural Render Background Slider)
         const heroSwiper = new Swiper('.heroSwiper', {
             loop: true,
             effect: 'fade',
@@ -557,7 +557,7 @@
                 disableOnInteraction: false,
             },
             pagination: {
-                el: '.swiper-pagination',
+                el: '.heroSwiper .swiper-pagination',
                 clickable: true,
             },
         });
