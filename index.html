@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sketchy Chapters | Design & Architecture Studio</title>
+    <!-- Google Fonts & Tailwind CSS for modern design -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;500;700;900&display=swap" rel="stylesheet">
+    <!-- AOS Library for Modern Scroll Animations -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <style>
+        body { font-family: 'Tajawal', sans-serif; background-color: #0d0d0d; color: #f3f4f6; overflow-x: hidden; }
+        .gold-accent { color: #d4af37; }
+        .bg-gold { background-color: #d4af37; }
+        .glass-card { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.08); }
+        .hero-bg { background: linear-gradient(180deg, rgba(13,13,13,0.6) 0%, rgba(13,13,13,1) 100%), url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=1920') center/cover; }
+    </style>
+</head>
+<body>
+
+    <!-- Header / Navigation -->
+    <nav class="fixed w-full z-50 glass-card px-8 py-5 flex justify-between items-center top-0">
+        <div class="text-2xl font-black tracking-wider text-white">SKETCHY <span class="gold-accent">CHAPTERS</span></div>
+        <div class="hidden md:flex space-x-8 space-x-reverse text-sm font-medium">
+            <a href="#about" class="hover:text-amber-400 transition">عن الشركة</a>
+            <a href="#projects" class="hover:text-amber-400 transition">المشاريع</a>
+            <a href="#locations" class="hover:text-amber-400 transition">الفروع</a>
+            <a href="#contact" class="hover:text-amber-400 transition">تواصل معنا</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section with Fade Animation -->
+    <section class="h-screen hero-bg flex items-center justify-center text-center px-4">
+        <div data-aos="fade-up" data-aos-duration="1200" class="max-w-3xl">
+            <h1 class="text-5xl md:text-7xl font-extrabold mb-6 leading-tight">نبتكر المساحات، <br><span class="gold-accent">نصنع الفخامة</span></h1>
+            <p class="text-lg md:text-xl text-gray-300 mb-8 font-light">استوديو متخصص في التصميم المعماري، الهندسة، والتصميم الداخلي من الفكرة إلى التسليم.</p>
+            <a href="#projects" class="inline-block bg-gold text-black px-8 py-4 rounded-full font-bold text-lg hover:bg-amber-400 transition shadow-lg shadow-amber-500/20">استكشف أعمالنا</a>
+        </div>
+    </section>
+
+    <!-- Projects Section with Grid Animation -->
+    <section id="projects" class="py-24 px-8 max-w-7xl mx-auto">
+        <div class="text-center mb-16" data-aos="fade-up">
+            <h2 class="text-4xl font-bold mb-3">معرض المشاريع</h2>
+            <div class="w-20 h-1 bg-gold mx-auto rounded"></div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="glass-card rounded-2xl overflow-hidden group hover:border-amber-400/50 transition duration-500" data-aos="fade-up" data-aos-delay="100">
+                <div class="overflow-hidden h-64">
+                    <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=800" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+                </div>
+                <div class="p-6">
+                    <h3 class="text-xl font-bold mb-2">تصميم فيلا سكنية فاخرة</h3>
+                    <p class="text-gray-400 text-sm">تصميم معماري وداخلي متكامل بأسلوب عصري حديث.</p>
+                </div>
+            </div>
+
+            <div class="glass-card rounded-2xl overflow-hidden group hover:border-amber-400/50 transition duration-500" data-aos="fade-up" data-aos-delay="200">
+                <div class="overflow-hidden h-64">
+                    <img src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?q=80&w=800" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+                </div>
+                <div class="p-6">
+                    <h3 class="text-xl font-bold mb-2">ديكور داخلي مودرن</h3>
+                    <p class="text-gray-400 text-sm">إضاءة مدروسة وتوزيع مساحات يمنح الراحة والأناقة.</p>
+                </div>
+            </div>
+
+            <div class="glass-card rounded-2xl overflow-hidden group hover:border-amber-400/50 transition duration-500" data-aos="fade-up" data-aos-delay="300">
+                <div class="overflow-hidden h-64">
+                    <img src="https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?q=80&w=800" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+                </div>
+                <div class="p-6">
+                    <h3 class="text-xl font-bold mb-2">مشروع تجاري معاصر</h3>
+                    <p class="text-gray-400 text-sm">حلول هندسية مبتكرة تنبض بالهوية والتفرد.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Regional Footprint -->
+    <section id="locations" class="py-20 glass-card my-12">
+        <div class="max-w-5xl mx-auto text-center px-4" data-aos="zoom-in">
+            <h2 class="text-3xl font-bold mb-6">نطاق عملنا الإقليمي</h2>
+            <p class="text-gray-300 mb-10 text-lg">نفخر بتقديم خدماتنا المتميزة وتنفيذ المشاريع في:</p>
+            <div class="flex flex-wrap justify-center gap-8 text-2xl font-bold gold-accent">
+                <span class="px-6 py-3 glass-card rounded-xl">طرابلس</span>
+                <span class="px-6 py-3 glass-card rounded-xl">الرياض</span>
+                <span class="px-6 py-3 glass-card rounded-xl">الدوحة</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact" class="py-12 text-center text-gray-500 text-sm border-t border-gray-800">
+        <p>© 2026 Sketchy Chapters. جميع الحقوق محفوظة.</p>
+    </footer>
+
+    <!-- AOS Animation Script -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script> AOS.init({ duration: 1000, once: true }); </script>
+</body>
+</html>
