@@ -1,159 +1,465 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr" id="main-html" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sketchy Chapters | Design, Interior & Construction Studio</title>
+    <title>Sketchy Chapters Design & Construction</title>
+    
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    
+    <!-- AOS Animation CSS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;800;900&family=Tajawal:wght@300;400;700;900&display=swap" rel="stylesheet">
+
     <style>
         body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            background-color: #0b0d0f;
-            color: #e5e7eb;
+            font-family: 'Montserrat', 'Tajawal', sans-serif;
+            background-color: #0d0d0d;
+            color: #e5e5e5;
         }
-        .gold-gradient {
-            background: linear-gradient(135deg, #d4af37 0%, #f3e5ab 50%, #aa7c11 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+        
+        .gold-accent {
+            color: #d4af37;
         }
-        .glass-header {
-            background: rgba(11, 13, 15, 0.85);
-            backdrop-filter: blur(12px);
+        
+        .bg-gold {
+            background-color: #d4af37;
         }
+        
+        .border-gold {
+            border-color: #d4af37;
+        }
+
         .glass-card {
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(8px);
+            background: rgba(20, 20, 20, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(212, 175, 55, 0.15);
         }
-        .hero-glow {
-            background: radial-gradient(circle at center, rgba(212, 175, 55, 0.12) 0%, rgba(11, 13, 15, 1) 70%);
+
+        /* Language Toggle Display Logic */
+        html[lang="en"] .lang-ar { display: none !important; }
+        html[lang="ar"] .lang-en { display: none !important; }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0d0d0d;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #d4af37;
+            border-radius: 4px;
         }
     </style>
 </head>
-<body class="antialiased selection:bg-amber-500 selection:text-black">
+<body class="overflow-x-hidden antialiased">
 
-    <!-- Header / Navbar -->
-    <header class="fixed top-0 left-0 w-full z-50 glass-header border-b border-white/10">
-        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-            <a href="index.html" class="text-2xl font-bold tracking-wider">
-                SKETCHY <span class="gold-gradient">CHAPTERS</span>
+    <!-- NAVIGATION BAR -->
+    <nav class="fixed top-0 left-0 w-full z-50 glass-card px-6 py-4 flex justify-between items-center transition-all duration-300">
+        <a href="#" class="text-xl md:text-2xl font-black uppercase tracking-wider text-white">
+            SCDC<span class="gold-accent">.</span>
+        </a>
+
+        <div class="hidden md:flex space-x-8 rtl:space-x-reverse text-sm uppercase font-semibold">
+            <a href="#about" class="hover:text-amber-400 transition">
+                <span class="lang-en">About</span>
+                <span class="lang-ar">عن الشركة</span>
             </a>
-            <nav class="hidden md:flex items-center space-x-8 text-sm font-medium text-gray-300">
-                <a href="index.html" class="text-amber-400 font-semibold">Home</a>
-                <a href="#about" class="hover:text-amber-400 transition-colors">About</a>
-                <a href="#services" class="hover:text-amber-400 transition-colors">Services</a>
-                <a href="portfolio.html" class="hover:text-amber-400 transition-colors">Portfolio</a>
-                <a href="#locations" class="hover:text-amber-400 transition-colors">Locations</a>
-            </nav>
-            <a href="portfolio.html" class="bg-amber-500 hover:bg-amber-400 text-black px-6 py-2.5 rounded-full font-semibold text-sm transition-all duration-300 shadow-lg shadow-amber-500/20">
-                Our Work
+            <a href="#portfolio" class="hover:text-amber-400 transition">
+                <span class="lang-en">Portfolio</span>
+                <span class="lang-ar">الأعمال</span>
+            </a>
+            <a href="#comparison" class="hover:text-amber-400 transition">
+                <span class="lang-en">Execution</span>
+                <span class="lang-ar">التنفيذ</span>
+            </a>
+            <a href="#services" class="hover:text-amber-400 transition">
+                <span class="lang-en">Services</span>
+                <span class="lang-ar">الخدمات</span>
+            </a>
+            <a href="#contact" class="hover:text-amber-400 transition">
+                <span class="lang-en">Contact</span>
+                <span class="lang-ar">تواصل معنا</span>
             </a>
         </div>
-    </header>
 
-    <!-- Hero Section -->
-    <section class="min-h-screen flex items-center justify-center pt-20 hero-glow relative px-6">
-        <div class="max-w-4xl mx-auto text-center space-y-8">
-            <span class="text-xs uppercase font-semibold tracking-widest text-amber-400 bg-amber-400/10 px-4 py-2 rounded-full border border-amber-400/20 inline-block">
-                Design & Construction Studio
+        <button onclick="toggleLanguage()" class="px-4 py-2 border border-amber-500/40 rounded-full text-xs font-bold uppercase tracking-widest text-amber-400 hover:bg-gold hover:text-black transition">
+            <span id="lang-btn-text">العربية</span>
+        </button>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section class="relative h-screen w-full flex items-center justify-center pt-16">
+        <div class="swiper heroSwiper w-full h-full absolute inset-0 z-0">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide bg-cover bg-center" style="background-image: linear-gradient(to bottom, rgba(13,13,13,0.4), rgba(13,13,13,0.9)), url('Hero1.png');"></div>
+                <div class="swiper-slide bg-cover bg-center" style="background-image: linear-gradient(to bottom, rgba(13,13,13,0.4), rgba(13,13,13,0.9)), url('Hero2.png');"></div>
+            </div>
+            <div class="swiper-pagination"></div>
+        </div>
+
+        <div class="relative z-10 text-center px-4 max-w-4xl mx-auto" data-aos="zoom-in">
+            <span class="text-xs md:text-sm uppercase tracking-widest font-bold gold-accent block mb-4">
+                <span class="lang-en">Architectural Design & Precision Execution</span>
+                <span class="lang-ar">تصميم معماري وتنفيذ بدقة متناهية</span>
             </span>
-            <h1 class="text-4xl md:text-7xl font-bold tracking-tight text-white leading-tight">
-                Architectural Excellence & <span class="gold-gradient">Interior Mastery</span>
+            <h1 class="text-4xl md:text-7xl font-black uppercase text-white mb-6 leading-tight">
+                Sketchy Chapters
             </h1>
-            <p class="text-gray-400 text-lg md:text-xl max-w-2xl mx-auto font-light leading-relaxed">
-                Transforming spatial concepts into refined structural reality. Established in 2021, delivering full turnkey projects across Lebanon, KSA, and Qatar.
+            <p class="text-gray-300 text-sm md:text-lg font-light max-w-2xl mx-auto mb-8">
+                <span class="lang-en">Crafting luxury residential and commercial spaces from conceptual architectural blueprints to full turn-key execution.</span>
+                <span class="lang-ar">تصميم وتنفيذ المساحات السكنية والتجارية الفاخرة من المخططات الأولية حتى التسليم النهائي على المِفتاح.</span>
             </p>
-            <div class="pt-4 flex flex-col sm:flex-row items-center justify-center gap-4">
-                <a href="portfolio.html" class="w-full sm:w-auto bg-amber-500 hover:bg-amber-400 text-black px-8 py-4 rounded-full font-bold text-sm tracking-wide transition-all duration-300 shadow-lg shadow-amber-500/20">
-                    VIEW PORTFOLIO
-                </a>
-                <a href="#about" class="w-full sm:w-auto border border-white/20 hover:border-amber-400/50 hover:bg-white/5 px-8 py-4 rounded-full font-semibold text-sm transition-all duration-300">
-                    ABOUT SKETCHY CHAPTERS
-                </a>
-            </div>
+            <a href="#portfolio" class="inline-block bg-gold text-black px-8 py-4 rounded-full font-bold uppercase tracking-wider hover:brightness-110 transition shadow-lg shadow-amber-500/20">
+                <span class="lang-en">Explore Projects</span>
+                <span class="lang-ar">استكشف المشاريع</span>
+            </a>
         </div>
     </section>
 
-    <!-- About Section -->
-    <section id="about" class="py-24 border-t border-white/10 bg-black/30">
-        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-            <div class="space-y-6">
-                <span class="text-xs gold-accent font-bold uppercase tracking-widest text-amber-400">About Us</span>
-                <h2 class="text-3xl md:text-5xl font-bold text-white">Engineering Visions Into Precise Reality</h2>
-                <p class="text-gray-400 leading-relaxed font-light">
-                    Sketchy Chapters Design and Construction was established in 2021 in Lebanon. We specialize in comprehensive architectural design, structural engineering, and high-end bespoke interior execution. 
+    <!-- ABOUT SECTION -->
+    <section id="about" class="py-24 px-6 max-w-7xl mx-auto">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+            <div data-aos="fade-right">
+                <span class="text-xs font-bold gold-accent uppercase tracking-widest block mb-2">
+                    <span class="lang-en">Established 2021</span>
+                    <span class="lang-ar">تأسست عام 2021</span>
+                </span>
+                <h2 class="text-3xl md:text-5xl font-black text-white mb-6 leading-tight">
+                    <span class="lang-en">Turning Sketchy Ideas Into Solid Chapters</span>
+                    <span class="lang-ar">نحول الأفكار الأولية إلى واقع معماري ملموس</span>
+                </h2>
+                <p class="text-gray-400 font-light leading-relaxed mb-6">
+                    <span class="lang-en">At Sketchy Chapters Design and Construction (SCDC), we bridge the gap between creative interior design and structural engineering excellence. Based in Lebanon with projects expanding across Riyadh and Doha.</span>
+                    <span class="lang-ar">في سكتشي شابترز للتصميم والمقاولات، نجمع بين الإبداع المعماري والدقة الهندسية في التنفيذ. انطلقنا من لبنان وتوسع نطاق أعمالنا ليشمل الرياض والدوحة.</span>
                 </p>
-                <p class="text-gray-400 leading-relaxed font-light">
-                    From initial CAD/Revit drafting to final 3D rendering and on-site delivery, our studio manages residential, commercial, and custom fabrication projects with uncompromised precision.
+            </div>
+            <div class="relative" data-aos="fade-left">
+                <div class="glass-card p-8 rounded-3xl relative z-10 border border-amber-500/20">
+                    <h3 class="text-2xl font-bold text-white mb-4">SCDC Studios</h3>
+                    <p class="text-gray-400 text-sm mb-6">
+                        <span class="lang-en">Dedicated to bespoke interior spaces, architectural renovations, and custom craftsmanship.</span>
+                        <span class="lang-ar">متخصصون في التصميم الداخلي المخصص، التجديد المعماري، والتنفيذ الحرفي العالي الجودة.</span>
+                    </p>
+                    <div class="grid grid-cols-2 gap-4 text-center">
+                        <div class="bg-black/40 p-4 rounded-2xl border border-white/5">
+                            <span class="text-3xl font-black gold-accent">100%</span>
+                            <span class="block text-xs text-gray-400 uppercase mt-1">Turn-Key</span>
+                        </div>
+                        <div class="bg-black/40 p-4 rounded-2xl border border-white/5">
+                            <span class="text-3xl font-black gold-accent">3+</span>
+                            <span class="block text-xs text-gray-400 uppercase mt-1">Countries</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PORTFOLIO SHOWCASE -->
+    <section id="portfolio" class="py-24 px-6 bg-black/40 border-y border-amber-500/10">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <span class="text-xs font-bold gold-accent uppercase tracking-widest block mb-2">
+                    <span class="lang-en">Selected Works</span>
+                    <span class="lang-ar">أعمال مختارة</span>
+                </span>
+                <h2 class="text-3xl md:text-5xl font-black text-white">
+                    <span class="lang-en">Featured Projects</span>
+                    <span class="lang-ar">معرض المشاريع</span>
+                </h2>
+            </div>
+
+            <div class="swiper ShowcaseSwiper pb-12">
+                <div class="swiper-wrapper">
+                    <!-- Card 1 -->
+                    <div class="swiper-slide glass-card rounded-3xl overflow-hidden border border-amber-500/20">
+                        <div class="h-64 bg-cover bg-center" style="background-image: url('BBR1.png');"></div>
+                        <div class="p-6">
+                            <span class="text-xs text-amber-400 font-semibold block mb-1">Tripoli, Lebanon (2023)</span>
+                            <h3 class="text-xl font-bold text-white mb-2">Beauty By Rosaline</h3>
+                            <p class="text-gray-400 text-sm font-light">
+                                <span class="lang-en">Luxury commercial salon interior design and fabrication.</span>
+                                <span class="lang-ar">تصميم وتنفيذ داخلي فاخر لمركز تجميل نسائي.</span>
+                            </p>
+                        </div>
+                    </div>
+                    <!-- Card 2 -->
+                    <div class="swiper-slide glass-card rounded-3xl overflow-hidden border border-amber-500/20">
+                        <div class="h-64 bg-cover bg-center" style="background-image: url('Downtown1.png');"></div>
+                        <div class="p-6">
+                            <span class="text-xs text-amber-400 font-semibold block mb-1">Downtown Beirut (2024)</span>
+                            <h3 class="text-xl font-bold text-white mb-2">Downtown Villa Living Room</h3>
+                            <p class="text-gray-400 text-sm font-light">
+                                <span class="lang-en">Modern residential open-space living room & kitchen.</span>
+                                <span class="lang-ar">تصميم عصري متكامل لصالون ومطبخ فيلا سكنية.</span>
+                            </p>
+                        </div>
+                    </div>
+                    <!-- Card 3 -->
+                    <div class="swiper-slide glass-card rounded-3xl overflow-hidden border border-amber-500/20">
+                        <div class="h-64 bg-cover bg-center" style="background-image: url('Arz1.png');"></div>
+                        <div class="p-6">
+                            <span class="text-xs text-amber-400 font-semibold block mb-1">Arz, Lebanon (2025)</span>
+                            <h3 class="text-xl font-bold text-white mb-2">Arz Villa Reception</h3>
+                            <p class="text-gray-400 text-sm font-light">
+                                <span class="lang-en">Elegant villa reception and dining space execution.</span>
+                                <span class="lang-ar">تنفيذ وتأثيث صالون وسفرة فاخرة لفيلا في الأرز.</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- BEFORE / AFTER INTERACTIVE COMPARISON -->
+    <section id="comparison" class="py-24 px-6 max-w-7xl mx-auto">
+        <div class="text-center mb-16" data-aos="fade-up">
+            <span class="text-xs font-bold gold-accent uppercase tracking-widest block mb-2">
+                <span class="lang-en">Render Vs Execution</span>
+                <span class="lang-ar">التصميم مقابل الواقع</span>
+            </span>
+            <h2 class="text-3xl md:text-5xl font-black text-white">
+                <span class="lang-en">Precision In Every Detail</span>
+                <span class="lang-ar">دقة تطابق المخطط مع التنفيذ</span>
+            </h2>
+        </div>
+
+        <div class="relative w-full max-w-4xl mx-auto h-[350px] md:h-[500px] rounded-3xl overflow-hidden shadow-2xl border border-amber-500/30" data-aos="zoom-in">
+            <!-- 3D Render Image (Before) -->
+            <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('3DRender.png');">
+                <span class="absolute bottom-4 left-4 bg-black/70 px-4 py-1 rounded-full text-xs font-bold text-amber-400 z-10">3D Render</span>
+            </div>
+            
+            <!-- Real Photo Image (After - Overlay) -->
+            <div id="ba-after-wrapper" class="absolute inset-0 bg-cover bg-center w-1/2 overflow-hidden border-r-2 border-amber-400" style="background-image: url('RealPhoto.png');">
+                <span class="absolute bottom-4 right-4 bg-black/70 px-4 py-1 rounded-full text-xs font-bold text-amber-400 z-10">Real Execution</span>
+            </div>
+
+            <!-- Slider Range Control -->
+            <input type="range" min="0" max="100" value="50" id="ba-range" class="absolute inset-0 w-full h-full opacity-0 cursor-ew-resize z-30">
+            
+            <!-- Custom Handle Icon -->
+            <div id="ba-handle" class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 bg-gold rounded-full flex items-center justify-center text-black font-bold z-20 pointer-events-none shadow-lg">
+                <i class="fa-solid fa-arrows-left-right text-sm"></i>
+            </div>
+        </div>
+    </section>
+
+    <!-- SERVICES SECTION -->
+    <section id="services" class="py-24 px-6 max-w-7xl mx-auto">
+        <div class="text-center mb-16" data-aos="fade-up">
+            <span class="text-xs font-bold gold-accent uppercase tracking-widest block mb-2">
+                <span class="lang-en">Capabilities</span>
+                <span class="lang-ar">خبراتنا</span>
+            </span>
+            <h2 class="text-3xl md:text-5xl font-black text-white">
+                <span class="lang-en">Our Specialized Services</span>
+                <span class="lang-ar">خدماتنا المتخصصة</span>
+            </h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- Service 1 -->
+            <div class="glass-card p-8 rounded-3xl border border-amber-500/15" data-aos="fade-up" data-aos-delay="100">
+                <div class="flex items-center space-x-4 rtl:space-x-reverse mb-6">
+                    <div class="w-12 h-12 rounded-2xl bg-gold/10 flex items-center justify-center shrink-0 border border-amber-500/20">
+                        <img src="3D.png" alt="3D Design Icon" class="w-7 h-7 object-contain" onerror="this.classList.add('hidden'); this.nextElementSibling.classList.remove('hidden');">
+                        <i class="fa-solid fa-cubes text-gold text-2xl hidden"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white">3D Interior & Architecture</h3>
+                </div>
+                <p class="text-gray-400 text-sm font-light leading-relaxed">
+                    <span class="lang-en">Realistic rendering, spatial layout optimization, material selection, and lighting concepts tailored for luxury living.</span>
+                    <span class="lang-ar">نمذجة ثلاثية الأبعاد فائقة الدقة، توزيع المساحات، اختيار المواد والإضاءة لإخراج التصاميم بأعلى معايير الفخامة.</span>
                 </p>
             </div>
-            <div class="grid grid-cols-2 gap-4">
-                <div class="glass-card p-6 rounded-2xl border border-white/10">
-                    <span class="text-4xl font-bold text-amber-400">2021</span>
-                    <p class="text-xs text-gray-400 mt-2 uppercase tracking-wider">Established</p>
+
+            <!-- Service 2 -->
+            <div class="glass-card p-8 rounded-3xl border border-amber-500/15" data-aos="fade-up" data-aos-delay="200">
+                <div class="flex items-center space-x-4 rtl:space-x-reverse mb-6">
+                    <div class="w-12 h-12 rounded-2xl bg-gold/10 flex items-center justify-center shrink-0 border border-amber-500/20">
+                        <img src="3D2.png" alt="Turn-Key Icon" class="w-7 h-7 object-contain" onerror="this.classList.add('hidden'); this.nextElementSibling.classList.remove('hidden');">
+                        <i class="fa-solid fa-compass-drafting text-gold text-2xl hidden"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white">Turn-Key Contracting</h3>
                 </div>
-                <div class="glass-card p-6 rounded-2xl border border-white/10">
-                    <span class="text-4xl font-bold text-amber-400">3+</span>
-                    <p class="text-xs text-gray-400 mt-2 uppercase tracking-wider">Regional Hubs</p>
+                <p class="text-gray-400 text-sm font-light leading-relaxed">
+                    <span class="lang-en">Full project site management, architectural supervision, finishing works, custom woodwork, and exact execution matching shop drawings.</span>
+                    <span class="lang-ar">إدارة المواقع بالكامل، الإشراف المعماري، أعمال التشطيبات والديكورات الخشبية لضمان المطابقة الكاملة للمخططات.</span>
+                </p>
+            </div>
+
+            <!-- Service 3 -->
+            <div class="glass-card p-8 rounded-3xl border border-amber-500/15" data-aos="fade-up" data-aos-delay="300">
+                <div class="flex items-center space-x-4 rtl:space-x-reverse mb-6">
+                    <div class="w-12 h-12 rounded-2xl bg-gold/10 flex items-center justify-center shrink-0 border border-amber-500/20">
+                        <img src="WC.png" alt="Workshop Icon" class="w-7 h-7 object-contain" onerror="this.classList.add('hidden'); this.nextElementSibling.classList.remove('hidden');">
+                        <i class="fa-solid fa-screwdriver-wrench text-gold text-2xl hidden"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white">Workshop Center</h3>
                 </div>
-                <div class="glass-card p-6 rounded-2xl border border-white/10 col-span-2">
-                    <span class="text-2xl font-bold text-white">Full Turnkey Execution</span>
-                    <p class="text-xs text-gray-400 mt-1">From initial architectural renders to physical site fabrication.</p>
-                </div>
+                <p class="text-gray-400 text-sm font-light leading-relaxed">
+                    <span class="lang-en">Hands-on fabrication, custom furniture craftsmanship, prototype testing, and direct execution control from workshop to site installation.</span>
+                    <span class="lang-ar">التصنيع المباشر، تنفيذ الديكورات والأثاث المخصص، واختبار العينات للحفاظ على أصل الدقة من الورشة إلى الموقع.</span>
+                </p>
             </div>
         </div>
     </section>
 
-    <!-- Services Section -->
-    <section id="services" class="py-24 border-t border-white/10">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="text-center max-w-2xl mx-auto mb-16 space-y-4">
-                <span class="text-xs font-bold uppercase tracking-widest text-amber-400">Our Expertise</span>
-                <h2 class="text-3xl md:text-4xl font-bold text-white">Tailored Design & Engineering Services</h2>
+    <!-- CONTACT SECTION -->
+    <section id="contact" class="py-24 px-6 max-w-7xl mx-auto border-t border-amber-500/10">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div data-aos="fade-right">
+                <span class="text-xs font-bold gold-accent uppercase tracking-widest block mb-2">
+                    <span class="lang-en">Get In Touch</span>
+                    <span class="lang-ar">تواصل معنا</span>
+                </span>
+                <h2 class="text-3xl md:text-5xl font-black mb-6 text-white leading-tight">
+                    <span class="lang-en">Let's Build Your Next Architectural Chapter</span>
+                    <span class="lang-ar">لنبدأ بتصميم وتنفيذ مشروعك القادم</span>
+                </h2>
+                <p class="text-gray-400 font-light leading-relaxed mb-8">
+                    <span class="lang-en">Reach out for consultations, architectural layout reviews, or full turnkey execution proposals.</span>
+                    <span class="lang-ar">تواصل معنا للحصول على استشارات هندسية، دراسة مخططات، أو تقديم عروض للتنفيذ الكامل.</span>
+                </p>
+
+                <div class="space-y-4">
+                    <div class="flex items-center space-x-4 rtl:space-x-reverse glass-card p-4 rounded-2xl">
+                        <div class="w-10 h-10 rounded-xl bg-gold/10 text-gold flex items-center justify-center shrink-0">
+                            <i class="fa-solid fa-location-dot"></i>
+                        </div>
+                        <div>
+                            <span class="text-xs text-gray-400 block uppercase font-bold">Location</span>
+                            <span class="text-sm text-white font-medium">Tripoli, Lebanon • Riyadh • Doha</span>
+                        </div>
+                    </div>
+                    <div class="flex items-center space-x-4 rtl:space-x-reverse glass-card p-4 rounded-2xl">
+                        <div class="w-10 h-10 rounded-xl bg-gold/10 text-gold flex items-center justify-center shrink-0">
+                            <i class="fa-solid fa-envelope"></i>
+                        </div>
+                        <div>
+                            <span class="text-xs text-gray-400 block uppercase font-bold">Email</span>
+                            <span class="text-sm text-white font-medium">contact@sketchychapters.com</span>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="glass-card p-8 rounded-2xl border border-white/10 hover:border-amber-500/30 transition-all">
-                    <h3 class="text-xl font-bold text-white mb-3">Architectural & Engineering</h3>
-                    <p class="text-gray-400 text-sm leading-relaxed">Full architectural planning, structural drafting, and BIM modeling using AutoCAD & Revit.</p>
-                </div>
-                <div class="glass-card p-8 rounded-2xl border border-white/10 hover:border-amber-500/30 transition-all">
-                    <h3 class="text-xl font-bold text-white mb-3">Interior Design & Rendering</h3>
-                    <p class="text-gray-400 text-sm leading-relaxed">High-end residential & commercial interior concepts, photorealistic 3D visualization, and space planning.</p>
-                </div>
-                <div class="glass-card p-8 rounded-2xl border border-white/10 hover:border-amber-500/30 transition-all">
-                    <h3 class="text-xl font-bold text-white mb-3">Custom Fabrication & Execution</h3>
-                    <p class="text-gray-400 text-sm leading-relaxed">On-site construction management, bespoke carpentry, partition installations, and commercial display stands.</p>
-                </div>
+
+            <div class="glass-card p-8 rounded-3xl border border-amber-500/20" data-aos="fade-left">
+                <form class="space-y-4" onsubmit="event.preventDefault();">
+                    <div>
+                        <label class="block text-xs font-bold text-gray-400 uppercase mb-2">
+                            <span class="lang-en">Full Name</span>
+                            <span class="lang-ar">الاسم الكامل</span>
+                        </label>
+                        <input type="text" class="w-full bg-black/50 border border-amber-500/20 rounded-xl p-3 text-white focus:outline-none focus:border-amber-500 transition" placeholder="...">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-gray-400 uppercase mb-2">
+                            <span class="lang-en">Email or Phone</span>
+                            <span class="lang-ar">البريد أو رقم الهاتف</span>
+                        </label>
+                        <input type="text" class="w-full bg-black/50 border border-amber-500/20 rounded-xl p-3 text-white focus:outline-none focus:border-amber-500 transition" placeholder="...">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-gray-400 uppercase mb-2">
+                            <span class="lang-en">Project Details</span>
+                            <span class="lang-ar">تفاصيل المشروع</span>
+                        </label>
+                        <textarea rows="4" class="w-full bg-black/50 border border-amber-500/20 rounded-xl p-3 text-white focus:outline-none focus:border-amber-500 transition" placeholder="..."></textarea>
+                    </div>
+                    <button type="submit" class="w-full bg-gold text-black py-4 rounded-xl font-bold uppercase tracking-wider hover:brightness-110 transition shadow-lg shadow-amber-500/20">
+                        <span class="lang-en">Send Inquiry</span>
+                        <span class="lang-ar">إرسال الطلب</span>
+                    </button>
+                </form>
             </div>
         </div>
     </section>
 
-    <!-- Locations Section -->
-    <section id="locations" class="py-20 border-t border-white/10 bg-black/40">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
-                <div class="p-6">
-                    <h3 class="text-xl font-bold text-white mb-2">Tripoli & Beirut</h3>
-                    <p class="text-gray-400 text-sm">Lebanon (Main Hub)</p>
-                </div>
-                <div class="p-6 border-y md:border-y-0 md:border-x border-white/10">
-                    <h3 class="text-xl font-bold text-white mb-2">Riyadh</h3>
-                    <p class="text-gray-400 text-sm">Kingdom of Saudi Arabia</p>
-                </div>
-                <div class="p-6">
-                    <h3 class="text-xl font-bold text-white mb-2">Doha</h3>
-                    <p class="text-gray-400 text-sm">State of Qatar</p>
-                </div>
+    <!-- FOOTER -->
+    <footer class="border-t border-amber-500/10 py-8 px-6 text-center text-xs text-gray-500 glass-card">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+            <div>
+                &copy; 2026 <span class="gold-accent font-bold">Sketchy Chapters Design & Construction (SCDC)</span>. All rights reserved.
+            </div>
+            <div class="flex space-x-4 rtl:space-x-reverse text-base text-gray-400">
+                <a href="#" class="hover:text-amber-400 transition"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#" class="hover:text-amber-400 transition"><i class="fa-brands fa-linkedin"></i></a>
+                <a href="#" class="hover:text-amber-400 transition"><i class="fa-brands fa-facebook"></i></a>
             </div>
         </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="py-12 border-t border-white/10 text-center text-gray-500 text-sm">
-        <p>&copy; 2026 Sketchy Chapters Design and Construction Studio. All rights reserved.</p>
     </footer>
 
+    <!-- Swiper JS & AOS Animations -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+    <script>
+        // 1. Initialize AOS Animations
+        AOS.init({ duration: 1000, once: true });
+
+        // 2. Initialize Hero Swiper
+        const heroSwiper = new Swiper('.heroSwiper', {
+            loop: true,
+            autoplay: { delay: 4000, disableOnInteraction: false },
+            pagination: { el: '.swiper-pagination', clickable: true },
+            effect: 'fade',
+            fadeEffect: { crossFade: true }
+        });
+
+        // 3. Initialize Showcase Swiper
+        const showcaseSwiper = new Swiper('.ShowcaseSwiper', {
+            loop: true,
+            slidesPerView: 1,
+            spaceBetween: 20,
+            autoplay: { delay: 3500, disableOnInteraction: false },
+            breakpoints: {
+                768: { slidesPerView: 2 },
+                1024: { slidesPerView: 3 }
+            }
+        });
+
+        // 4. Interactive Before/After Slider Engine
+        const rangeInput = document.getElementById('ba-range');
+        const afterWrapper = document.getElementById('ba-after-wrapper');
+        const handle = document.getElementById('ba-handle');
+
+        if(rangeInput && afterWrapper && handle) {
+            rangeInput.addEventListener('input', (e) => {
+                const val = e.target.value;
+                afterWrapper.style.width = `${val}%`;
+                handle.style.left = `${val}%`;
+            });
+        }
+
+        // 5. Multi-language Dynamic Switcher (EN / AR)
+        function toggleLanguage() {
+            const htmlTag = document.getElementById('main-html');
+            const langBtnText = document.getElementById('lang-btn-text');
+            
+            if (htmlTag.getAttribute('lang') === 'en') {
+                htmlTag.setAttribute('lang', 'ar');
+                htmlTag.setAttribute('dir', 'rtl');
+                langBtnText.innerText = 'English';
+            } else {
+                htmlTag.setAttribute('lang', 'en');
+                htmlTag.setAttribute('dir', 'ltr');
+                langBtnText.innerText = 'العربية';
+            }
+        }
+    </script>
 </body>
 </html>
