@@ -475,49 +475,56 @@
                 </a>
             </div>
         </div>
+
+        <div class="text-center pt-8 border-t border-amber-500/10">
+            <a href="https://wa.me/96181427589?text=Hello%20SCDC,%20I%20would%20like%20to%20inquire%20about%20a%20new%20project" target="_blank" class="glass-card px-8 py-4 rounded-full text-white font-bold text-sm uppercase tracking-wider hover:bg-amber-500/10 border border-amber-500/30 inline-flex items-center space-x-3 rtl:space-x-reverse">
+                <i class="fa-brands fa-whatsapp gold-accent text-xl"></i>
+                <span>
+                    <span class="lang-en">Start Consultation via WhatsApp</span>
+                    <span class="lang-ar">استشارة مباشرة عبر واتساب</span>
+                </span>
+            </a>
+        </div>
     </section>
 
-    <!-- FOOTER -->
-    <footer class="mt-20 border-t border-amber-500/10 py-10 px-6 text-center text-gray-500 text-xs font-light">
-        <p>&copy; <script>document.write(new Date().getFullYear())</script> Sketchy Chapters Design & Construction (SCDC). All Rights Reserved.</p>
+    <!-- Footer -->
+    <footer class="py-12 text-center text-gray-500 text-xs border-t border-gray-900">
+        <p>© 2026 Sketchy Chapters Design & Construction (SCDC). All Rights Reserved.</p>
     </footer>
 
-    <!-- JS Libraries -->
+    <!-- JS Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        // Initialize AOS
         AOS.init({ duration: 1000, once: true });
 
-        // Initialize Hero Swiper
-        const heroSwiper = new Swiper('.heroSwiper', {
+        var heroSwiper = new Swiper(".heroSwiper", {
             loop: true,
-            autoplay: { delay: 5000, disableOnInteraction: false },
-            pagination: { el: '.swiper-pagination', clickable: true },
+            autoplay: { delay: 4000, disableOnInteraction: false },
+            pagination: { el: ".swiper-pagination", clickable: true },
         });
 
-        // Initialize Showcase Swiper
-        const showcaseSwiper = new Swiper('.ShowcaseSwiper', {
+        var showcaseSwiper = new Swiper(".ShowcaseSwiper", {
             loop: true,
-            spaceBetween: 20,
             slidesPerView: 1,
-            autoplay: { delay: 4000 },
+            spaceBetween: 20,
+            autoplay: { delay: 3500 },
+            breakpoints: { 768: { slidesPerView: 2 } }
         });
 
-        // Language Toggle Handler
+        // Language Switcher Logic
         function toggleLanguage() {
             const htmlTag = document.getElementById('main-html');
             const langBtnText = document.getElementById('lang-btn-text');
-            const currentLang = htmlTag.getAttribute('lang');
-
-            if (currentLang === 'en') {
+            
+            if (htmlTag.getAttribute('lang') === 'en') {
                 htmlTag.setAttribute('lang', 'ar');
                 htmlTag.setAttribute('dir', 'rtl');
-                langBtnText.textContent = 'English';
+                langBtnText.innerText = 'English';
             } else {
                 htmlTag.setAttribute('lang', 'en');
                 htmlTag.setAttribute('dir', 'ltr');
-                langBtnText.textContent = 'العربية';
+                langBtnText.innerText = 'العربية';
             }
         }
     </script>
