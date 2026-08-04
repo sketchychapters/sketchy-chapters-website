@@ -24,9 +24,11 @@
 </head>
 <body class="pt-24 selection:bg-amber-500 selection:text-black" oncontextmenu="return false;">
 
-    <nav class="fixed w-full z-50 glass-card px-6 py-4 flex justify-between items-center top-0 border-b border-amber-500/10">
-        <a href="index.html" class="flex items-center space-x-3">
-            <span class="text-xl font-black tracking-wider text-white">SKETCHY <span class="gold-accent">CHAPTERS</span></span>
+    <!-- Header Navigation -->
+    <nav class="fixed w-full z-50 glass-card px-6 py-4 flex justify-between items-center top-0 border-b border-amber-500/15">
+        <a href="index.html" class="flex items-center space-x-3 rtl:space-x-reverse">
+            <img src="logo.png" alt="SCDC Logo" class="h-10 md:h-12 w-auto object-contain" onerror="this.style.display='none'; document.getElementById('logo-fallback').style.display='block';">
+            <span id="logo-fallback" class="hidden text-xl font-black tracking-wider text-white">SKETCHY <span class="gold-accent">CHAPTERS</span></span>
         </a>
         <div class="flex space-x-6 text-sm font-semibold">
             <a href="portfolio.html" class="text-xs font-bold text-gray-400 hover:text-amber-400 transition flex items-center space-x-2">
