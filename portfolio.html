@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio Grid | Sketchy Chapters Design & Construction</title>
+    <title>Beauty By Rosaline | Sketchy Chapters</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Google Fonts -->
@@ -18,7 +18,7 @@
         .gold-gradient-text { background: linear-gradient(135deg, #bf953f, #fcf6ba, #b38728, #fbf5b7); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .bg-gold { background: linear-gradient(135deg, #d4af37 0%, #aa7c11 100%); }
         .glass-card { background: rgba(18, 18, 22, 0.6); backdrop-filter: blur(16px); border: 1px solid rgba(212, 175, 55, 0.15); }
-        .glass-card:hover { border-color: rgba(212, 175, 55, 0.5); box-shadow: 0 10px 30px -10px rgba(212, 175, 55, 0.2); }
+        .glass-card:hover { border-color: rgba(212, 175, 55, 0.4); }
         /* Prevent Image Dragging & Selection */
         img { user-select: none; -webkit-user-drag: none; }
     </style>
@@ -31,73 +31,123 @@
             <span class="text-xl font-black tracking-wider text-white">SKETCHY <span class="gold-accent">CHAPTERS</span></span>
         </a>
         <div class="flex space-x-6 text-sm font-semibold">
-            <a href="index.html" class="text-xs font-bold text-gray-400 hover:text-amber-400 transition flex items-center space-x-2">
+            <a href="portfolio.html" class="text-xs font-bold text-gray-400 hover:text-amber-400 transition flex items-center space-x-2">
                 <i class="fa-solid fa-arrow-left"></i>
-                <span>Back to Main Site</span>
+                <span>Back to Portfolio</span>
             </a>
         </div>
     </nav>
 
-    <!-- Portfolio Main Section -->
+    <!-- Main Project Case Study -->
     <section class="py-12 px-6 max-w-7xl mx-auto">
-        <!-- Section Header Title -->
-        <div class="text-center mb-16" data-aos="fade-up">
+        <!-- Title Banner -->
+        <div class="mb-12" data-aos="fade-up">
             <div class="inline-block px-4 py-1.5 rounded-full glass-card text-xs font-bold gold-accent mb-4 uppercase tracking-widest border border-amber-500/30">
-                SCDC Architectural & Interior Portfolio
+                Render vs Reality • 2023
             </div>
-            <h1 class="text-4xl md:text-6xl font-black gold-gradient-text mb-4">Our Executed Projects</h1>
-            <p class="text-gray-400 font-light max-w-2xl mx-auto text-base">
-                Explore our localized and international interior design, architectural planning, and execution achievements.
-            </p>
+            <h1 class="text-4xl md:text-6xl font-black text-white mb-4">Beauty By Rosaline</h1>
+            <p class="text-gray-400 font-light max-w-3xl text-lg">Tripoli, Lebanon • Full interior concept design, 3D visualization, and physical execution for a luxury makeup salon.</p>
         </div>
 
-        <!-- Projects Grid -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
-            
-            <!-- Project 1: Beauty By Rosaline -->
-            <a href="project-rosaline.html" class="glass-card rounded-3xl overflow-hidden group transition duration-500 block" data-aos="fade-up" data-aos-delay="100">
-                <div class="h-80 overflow-hidden relative">
-                    <img src="Rosaline-Salon-0.jpg" class="w-full h-full object-cover group-hover:scale-105 transition duration-700" onerror="this.src='Rosaline-Salon-Render-0.jpg'">
-                    <div class="absolute top-4 left-4 bg-black/80 backdrop-blur-md px-3 py-1 rounded-full text-xs font-bold gold-accent border border-amber-500/30">
-                        Render vs Reality • 2023
-                    </div>
-                </div>
-                <div class="p-8">
-                    <span class="text-xs text-gray-400 uppercase font-bold tracking-widest">Tripoli, Lebanon</span>
-                    <h3 class="text-2xl font-bold text-white mt-1 group-hover:text-amber-400 transition">Beauty By Rosaline</h3>
-                    <p class="text-gray-400 text-sm font-light mt-2">Full interior concept design and physical execution for a luxury beauty and makeup salon.</p>
-                </div>
-            </a>
-
-            <!-- Project 2: Berlin Office Interior -->
-            <a href="project-berlin.html" class="glass-card rounded-3xl overflow-hidden group transition duration-500 block" data-aos="fade-up" data-aos-delay="200">
-                <div class="h-80 overflow-hidden relative">
-                    <img src="Office-Berlin-1.jpg" class="w-full h-full object-cover group-hover:scale-105 transition duration-700">
-                    <div class="absolute top-4 left-4 bg-black/80 backdrop-blur-md px-3 py-1 rounded-full text-xs font-bold gold-accent border border-amber-500/30">
-                        Commercial Interior • 2023
-                    </div>
-                </div>
-                <div class="p-8">
-                    <span class="text-xs text-gray-400 uppercase font-bold tracking-widest">Berlin, Germany</span>
-                    <h3 class="text-2xl font-bold text-white mt-1 group-hover:text-amber-400 transition">Berlin Office Interior</h3>
-                    <p class="text-gray-400 text-sm font-light mt-2">Modern workspace interior planning and spatial layout designed for corporate efficiency.</p>
-                </div>
-            </a>
-
+        <!-- Project Meta Information -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12 glass-card p-6 rounded-3xl" data-aos="fade-up" data-aos-delay="100">
+            <div>
+                <span class="text-xs text-gray-500 uppercase font-bold block">Location</span>
+                <span class="text-white font-semibold text-sm md:text-base">Tripoli, Lebanon</span>
+            </div>
+            <div>
+                <span class="text-xs text-gray-500 uppercase font-bold block">Scope of Work</span>
+                <span class="text-white font-semibold text-sm md:text-base">Interior Design & Execution</span>
+            </div>
+            <div>
+                <span class="text-xs text-gray-500 uppercase font-bold block">Year</span>
+                <span class="text-white font-semibold text-sm md:text-base">2023</span>
+            </div>
+            <div>
+                <span class="text-xs text-gray-500 uppercase font-bold block">Category</span>
+                <span class="text-white font-semibold text-sm md:text-base">Beauty & Retail Commercial</span>
+            </div>
         </div>
 
-        <!-- Consultation Banner -->
-        <div class="text-center py-12 px-6 glass-card rounded-3xl" data-aos="fade-up">
-            <h3 class="text-2xl font-bold text-white mb-2">Have a project in mind?</h3>
-            <p class="text-gray-400 font-light text-sm max-w-xl mx-auto mb-6">
-                From architectural blueprints to high-end interior execution, SCDC team delivers tailored solutions across Lebanon, KSA, and Qatar.
-            </p>
-            <a href="https://wa.me/96181427589?text=Hello%20SCDC,%20I%20would%20like%20to%20discuss%20a%20new%20project" target="_blank" class="inline-flex items-center space-x-2 bg-gold text-black font-extrabold px-8 py-3.5 rounded-full hover:brightness-110 transition shadow-lg shadow-amber-500/10">
-                <i class="fa-brands fa-whatsapp text-lg"></i>
-                <span>Start Consultation via WhatsApp</span>
-            </a>
+        <!-- Design Concept Description -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-12 mb-16">
+            <div class="lg:col-span-2" data-aos="fade-right">
+                <h2 class="text-2xl font-bold mb-4 gold-gradient-text">Architectural Concept & Spatial Execution</h2>
+                <p class="text-gray-300 font-light leading-relaxed mb-6">
+                    Designed and executed by <strong class="text-white">Sketchy Chapters Design & Construction (SCDC)</strong>, Beauty By Rosaline combines tailored lighting solutions, elegant material finishes, and spatial ergonomics tailored specifically for high-end makeup and beauty services.
+                </p>
+                <p class="text-gray-400 font-light leading-relaxed">
+                    Our commitment to precision ensured a 100% match between the initial 3D conceptual renders and the final physically built space in Tripoli.
+                </p>
+            </div>
+            <div class="glass-card p-8 rounded-3xl flex flex-col justify-between" data-aos="fade-left">
+                <div>
+                    <h3 class="text-xl font-bold text-white mb-3">Planning a commercial interior?</h3>
+                    <p class="text-gray-400 text-sm font-light mb-6">Consult SCDC for turnkey interior design and precision execution services.</p>
+                </div>
+                <a href="https://wa.me/96181427589?text=Hello%20SCDC,%20I%20am%20interested%20in%20a%20commercial%20interior%20similar%20to%20Rosaline%20Salon" target="_blank" class="bg-gold text-black font-extrabold text-center py-4 rounded-2xl hover:brightness-110 transition flex items-center justify-center space-x-2">
+                    <i class="fa-brands fa-whatsapp text-lg"></i>
+                    <span>Inquire via WhatsApp</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Real Executed Photos Gallery -->
+        <div class="mb-16">
+            <h2 class="text-2xl font-bold mb-8 gold-gradient-text" data-aos="fade-up"><i class="fa-solid fa-camera mr-2"></i> Real Executed Reality</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="glass-card rounded-3xl overflow-hidden group cursor-pointer" onclick="openModal('Rosaline-Salon-0.jpg', 'Executed Space 1')">
+                    <div class="h-80 overflow-hidden relative"><img src="Rosaline-Salon-0.jpg" class="w-full h-full object-cover group-hover:scale-105 transition duration-500"></div>
+                </div>
+                <div class="glass-card rounded-3xl overflow-hidden group cursor-pointer" onclick="openModal('Rosaline-Salon-1.jpg', 'Executed Space 2')">
+                    <div class="h-80 overflow-hidden relative"><img src="Rosaline-Salon-1.jpg" class="w-full h-full object-cover group-hover:scale-105 transition duration-500"></div>
+                </div>
+                <div class="glass-card rounded-3xl overflow-hidden group cursor-pointer" onclick="openModal('Rosaline-Salon-2.jpg', 'Executed Space 3')">
+                    <div class="h-80 overflow-hidden relative"><img src="Rosaline-Salon-2.jpg" class="w-full h-full object-cover group-hover:scale-105 transition duration-500"></div>
+                </div>
+                <div class="glass-card rounded-3xl overflow-hidden group cursor-pointer" onclick="openModal('Rosaline-Salon-3.jpg', 'Executed Space 4')">
+                    <div class="h-80 overflow-hidden relative"><img src="Rosaline-Salon-3.jpg" class="w-full h-full object-cover group-hover:scale-105 transition duration-500"></div>
+                </div>
+                <div class="glass-card rounded-3xl overflow-hidden group cursor-pointer" onclick="openModal('Rosaline-Salon-4.jpg', 'Executed Space 5')">
+                    <div class="h-80 overflow-hidden relative"><img src="Rosaline-Salon-4.jpg" class="w-full h-full object-cover group-hover:scale-105 transition duration-500"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3D Conceptual Renders Gallery -->
+        <div class="mb-12">
+            <h2 class="text-2xl font-bold mb-8 text-gray-400" data-aos="fade-up"><i class="fa-solid fa-cubes mr-2"></i> 3D Conceptual Renders</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="glass-card rounded-3xl overflow-hidden group cursor-pointer opacity-80 hover:opacity-100 transition" onclick="openModal('Rosaline-Salon-Render-0.jpg', 'Render 1')">
+                    <div class="h-72 overflow-hidden relative"><img src="Rosaline-Salon-Render-0.jpg" class="w-full h-full object-cover group-hover:scale-105 transition duration-500"></div>
+                </div>
+                <div class="glass-card rounded-3xl overflow-hidden group cursor-pointer opacity-80 hover:opacity-100 transition" onclick="openModal('Rosaline-Salon-Render-1.jpg', 'Render 2')">
+                    <div class="h-72 overflow-hidden relative"><img src="Rosaline-Salon-Render-1.jpg" class="w-full h-full object-cover group-hover:scale-105 transition duration-500"></div>
+                </div>
+                <div class="glass-card rounded-3xl overflow-hidden group cursor-pointer opacity-80 hover:opacity-100 transition" onclick="openModal('Rosaline-Salon-Render-2.jpg', 'Render 3')">
+                    <div class="h-72 overflow-hidden relative"><img src="Rosaline-Salon-Render-2.jpg" class="w-full h-full object-cover group-hover:scale-105 transition duration-500"></div>
+                </div>
+                <div class="glass-card rounded-3xl overflow-hidden group cursor-pointer opacity-80 hover:opacity-100 transition" onclick="openModal('Rosaline-Salon-Render-3.jpg', 'Render 4')">
+                    <div class="h-72 overflow-hidden relative"><img src="Rosaline-Salon-Render-3.jpg" class="w-full h-full object-cover group-hover:scale-105 transition duration-500"></div>
+                </div>
+                <div class="glass-card rounded-3xl overflow-hidden group cursor-pointer opacity-80 hover:opacity-100 transition" onclick="openModal('Rosaline-Salon-Render-4.jpg', 'Render 5')">
+                    <div class="h-72 overflow-hidden relative"><img src="Rosaline-Salon-Render-4.jpg" class="w-full h-full object-cover group-hover:scale-105 transition duration-500"></div>
+                </div>
+                <div class="glass-card rounded-3xl overflow-hidden group cursor-pointer opacity-80 hover:opacity-100 transition" onclick="openModal('Rosaline-Salon-Render-5.jpg', 'Render 6')">
+                    <div class="h-72 overflow-hidden relative"><img src="Rosaline-Salon-Render-5.jpg" class="w-full h-full object-cover group-hover:scale-105 transition duration-500"></div>
+                </div>
+            </div>
         </div>
     </section>
+
+    <!-- Modal Lightbox -->
+    <div id="imageModal" class="fixed inset-0 z-50 bg-black/95 hidden flex items-center justify-center p-4">
+        <div class="max-w-5xl w-full glass-card p-4 rounded-3xl relative">
+            <button onclick="closeModal()" class="absolute top-4 right-4 text-white text-3xl hover:text-amber-400">&times;</button>
+            <img id="modalImg" src="" class="w-full h-auto max-h-[80vh] object-contain rounded-2xl mb-4">
+            <h3 id="modalTitle" class="text-xl font-bold text-white text-center"></h3>
+        </div>
+    </div>
 
     <!-- Footer -->
     <footer class="py-12 text-center text-gray-500 text-xs border-t border-gray-900">
@@ -108,6 +158,16 @@
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         AOS.init({ duration: 1000, once: true });
+
+        function openModal(imgSrc, title) {
+            document.getElementById('modalImg').src = imgSrc;
+            document.getElementById('modalTitle').innerText = title;
+            document.getElementById('imageModal').classList.remove('hidden');
+        }
+
+        function closeModal() {
+            document.getElementById('imageModal').classList.add('hidden');
+        }
     </script>
 </body>
 </html>
