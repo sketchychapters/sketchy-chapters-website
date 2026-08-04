@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Summer Packages | Workshop Center</title>
+    <title>Workshop Center | Sketchy Chapters</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Google Fonts -->
@@ -41,13 +41,14 @@
 
     <!-- Navigation Bar -->
     <nav class="fixed w-full z-50 glass-card px-6 py-4 flex justify-between items-center top-0 border-b border-amber-500/15">
-        <a href="index.html" class="flex items-center">
+        <a href="workshop.html" class="flex items-center">
             <img src="workshop.png" alt="Sketchy Chapters Workshop Center" class="h-10 w-auto object-contain">
         </a>
         <div class="hidden md:flex space-x-6 rtl:space-x-reverse text-sm font-semibold">
             <a href="index.html" class="hover:text-amber-400 transition" data-en="Home">الرئيسية</a>
-            <a href="index.html#categories" class="hover:text-amber-400 transition" data-en="Training Departments">الأقسام التدريبية</a>
-            <a href="#summer-packages" class="hover:text-amber-400 transition gold-accent" data-en="Summer Packages">الباقات الصيفية</a>
+            <a href="#stats" class="hover:text-amber-400 transition" data-en="Achievements">إنجازاتنا</a>
+            <a href="#categories" class="hover:text-amber-400 transition" data-en="Training Departments">الأقسام التدريبية</a>
+            <a href="offers.html" class="hover:text-amber-400 transition" data-en="Summer Packages">الباقات الصيفية</a>
         </div>
         <div class="flex items-center space-x-4 rtl:space-x-reverse">
             <!-- Language Switcher Button -->
@@ -61,101 +62,159 @@
     </nav>
 
     <!-- Hero Section -->
-    <section class="min-h-[40vh] relative flex items-center justify-center pt-32 px-6 text-center">
+    <section class="min-h-[50vh] relative flex items-center justify-center pt-32 px-6 text-center">
         <div class="max-w-4xl z-10">
-            <div class="inline-block px-4 py-1.5 rounded-full glass-card text-xs font-bold gold-accent mb-6 uppercase tracking-widest border border-amber-500/30" data-en="Exclusive Seasonal Offers">
-                عروض حصرية لفترة محدودة
+            <div id="hero-badge" class="inline-block px-4 py-1.5 rounded-full glass-card text-xs font-bold gold-accent mb-6 uppercase tracking-widest border border-amber-500/30" data-en="Engineering & Professional Training Center">
+                مركز التدريب الهندسي والمهني
             </div>
-            <h1 class="text-4xl md:text-6xl font-black mb-6 leading-tight text-white" data-en="Summer Training Packages">
-                الباقات الصيفية المتكاملة <br>
-                <span class="gold-gradient-text">SUMMER PACKAGES</span>
+            <h1 id="hero-title" class="text-4xl md:text-6xl font-black mb-6 leading-tight text-white" data-en="Training Departments & Specialties">
+                أقسام الدورات والتخصصات <br>
+                <span class="gold-gradient-text">TRAINING DEPARTMENTS</span>
             </h1>
-            <p class="text-base md:text-lg text-gray-400 mb-8 max-w-2xl mx-auto font-light leading-relaxed" data-en="Choose your bundle and kickstart your professional engineering and design journey with certified certificates.">
-                اختر باقتك المفضلة وانطلق في مسيرتك المهنية والهندسية بأقوى الدورات وبتخفيضات استثنائية.
+            <p id="hero-desc" class="text-base md:text-lg text-gray-400 mb-8 max-w-2xl mx-auto font-light leading-relaxed" data-en="Choose the required training department to explore available courses and full details for each program.">
+                اختر القسم التدريبي المطلوب لاستعراض الدورات المتاحة والتفاصيل الكاملة لكل برنامج.
             </p>
         </div>
     </section>
 
-    <!-- Summer Packages Section (محتوى الباقات الصيفية داخل workshop.html) -->
-    <section id="summer-packages" class="py-16 px-6 max-w-7xl mx-auto">
+    <!-- STATS / ANIMATION SECTION -->
+    <section id="stats" class="py-16 px-6 max-w-7xl mx-auto">
+        <div class="glass-card rounded-3xl p-8 md:p-12 border border-amber-500/30 grid grid-cols-2 lg:grid-cols-4 gap-8 text-center">
+            
+            <!-- Stat 1: Countries -->
+            <div class="space-y-2">
+                <div class="text-3xl md:text-5xl font-black gold-gradient-text">
+                    <span class="counter" data-target="10">0</span>+
+                </div>
+                <p class="text-gray-400 text-xs md:text-sm font-medium" data-en="Countries Worldwide">دول حول العالم</p>
+            </div>
+
+            <!-- Stat 2: Training Hours -->
+            <div class="space-y-2">
+                <div class="text-3xl md:text-5xl font-black gold-gradient-text">
+                    <span class="counter" data-target="12000">0</span>+
+                </div>
+                <p class="text-gray-400 text-xs md:text-sm font-medium" data-en="Training Hours">ساعة تدريبية</p>
+            </div>
+
+            <!-- Stat 3: Courses (Online & Offline) -->
+            <div class="space-y-2">
+                <div class="text-3xl md:text-5xl font-black gold-gradient-text">
+                    <span class="counter" data-target="100">0</span>+
+                </div>
+                <p class="text-gray-400 text-xs md:text-sm font-medium" data-en="Courses (Online & Offline)">دورة تدريبية (حضوري وأونلاين)</p>
+            </div>
+
+            <!-- Stat 4: Students Worldwide -->
+            <div class="space-y-2">
+                <div class="text-3xl md:text-5xl font-black gold-gradient-text">
+                    <span class="counter" data-target="6200">0</span>+
+                </div>
+                <p class="text-gray-400 text-xs md:text-sm font-medium" data-en="Students Worldwide">طالب حول العالم</p>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Categories Grid Section -->
+    <section id="categories" class="py-16 px-6 max-w-7xl mx-auto">
         <div class="text-center mb-12">
-            <span class="text-xs font-bold gold-accent uppercase tracking-widest block mb-2" data-en="Special Bundles">باقات التوفير الشاملة</span>
-            <h2 class="text-3xl md:text-4xl font-black text-white" data-en="Available Summer Packages">الباقات المتاحة للتسجيل</h2>
+            <span class="text-xs font-bold gold-accent uppercase tracking-widest block mb-2" data-en="Certified Categories">التصنيفات المعتمدة</span>
+            <h2 class="text-3xl md:text-4xl font-black text-white" data-en="Browse Training Departments">تصفح الأقسام التدريبية والباقات</h2>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             
-            <!-- Package 1: Architectural Mastery -->
-            <div class="glass-card p-8 rounded-3xl flex flex-col justify-between border-amber-500/40 relative overflow-hidden group">
-                <div class="absolute -top-12 -left-12 w-32 h-32 bg-amber-500/10 rounded-full blur-2xl group-hover:bg-amber-500/20 transition"></div>
+            <!-- Summer Packages Featured Card -->
+            <a href="offers.html" class="glass-card p-6 rounded-3xl flex flex-col justify-between group border-amber-500/60 bg-gradient-to-b from-amber-500/10 via-black/60 to-black/80 relative overflow-hidden shadow-[0_0_25px_rgba(212,175,55,0.15)]">
+                <div class="absolute -top-12 -left-12 w-32 h-32 bg-amber-500/20 rounded-full blur-2xl group-hover:bg-amber-500/30 transition"></div>
                 <div>
-                    <span class="bg-gold text-black text-[10px] font-extrabold px-2.5 py-0.5 rounded uppercase mb-4 inline-block">Pro Bundle</span>
-                    <h3 class="text-2xl font-black text-white mb-2" data-en="Architectural Mastery">باقة الاحتراف الهندسي</h3>
-                    <p class="text-gray-400 text-xs font-light leading-relaxed mb-6" data-en="AutoCAD 2D/3D + Revit Architecture + Executive Blueprints.">تتضمن دورات AutoCAD، و Revit Architecture، والمخططات التنفيذية.</p>
-                    <ul class="space-y-3 text-xs text-gray-300 mb-8">
-                        <li class="flex items-center"><i class="fa-solid fa-check gold-accent ml-2"></i> شهادات معتمدة لكل دورة</li>
-                        <li class="flex items-center"><i class="fa-solid fa-check gold-accent ml-2"></i> مشاريع تطبيقية حية</li>
-                        <li class="flex items-center"><i class="fa-solid fa-check gold-accent ml-2"></i> متابعة ودعم مباشر</li>
-                    </ul>
-                </div>
-                <div>
-                    <div class="flex items-center justify-between mb-6 pt-4 border-t border-gray-800">
-                        <span class="text-xs text-gray-400" data-en="Special Summer Price">السعر الصيفي:</span>
-                        <span class="text-xl font-black gold-gradient-text">خصم خاص</span>
+                    <div class="h-48 rounded-2xl bg-cover bg-center mb-6 border border-amber-500/40 group-hover:scale-[1.02] transition duration-300" style="background-image: url('https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=600');"></div>
+                    <div class="flex items-center space-x-2 rtl:space-x-reverse mb-1">
+                        <span class="bg-gold text-black text-[10px] font-extrabold px-2.5 py-0.5 rounded uppercase">Hot Offer</span>
+                        <span class="gold-accent text-xs font-bold uppercase" data-en="Special Offer">عرض لفترة محدودة</span>
                     </div>
-                    <a href="https://wa.me/" target="_blank" class="w-full bg-gold text-black font-bold py-3 px-4 rounded-xl text-center block hover:opacity-90 transition text-xs shadow-lg" data-en="Register Now">
-                        احجز باقتك الآن
-                    </a>
+                    <h3 class="text-2xl font-black text-white mt-1 mb-3" data-en="Summer Packages">الباقات الصيفية</h3>
+                    <p class="text-gray-300 text-xs font-light leading-relaxed mb-4" data-en="Get exclusive bundled courses with special summer discounts and certified certificates.">احصل على باقات الدورات المتكاملة بخصومات صيفية مميزة وعروض تخصصية لا تعوض.</p>
                 </div>
-            </div>
+                <div class="flex items-center justify-between pt-4 border-t border-amber-500/30 text-xs font-bold gold-accent">
+                    <span class="link-text" data-en="Explore Summer Packages">استعراض الباقات الصيفية</span>
+                    <i class="fa-solid fa-arrow-left transition transform group-hover:-translate-x-1 icon-dir"></i>
+                </div>
+            </a>
 
-            <!-- Package 2: Interior & Design Suite -->
-            <div class="glass-card p-8 rounded-3xl flex flex-col justify-between border-amber-500/60 relative overflow-hidden group shadow-[0_0_30px_rgba(212,175,55,0.1)]">
-                <div class="absolute -top-12 -left-12 w-32 h-32 bg-amber-500/15 rounded-full blur-2xl group-hover:bg-amber-500/25 transition"></div>
+            <!-- 1. Architecture & Interior -->
+            <a href="arch-courses.html" class="glass-card p-6 rounded-3xl flex flex-col justify-between group">
                 <div>
-                    <span class="bg-amber-500 text-black text-[10px] font-extrabold px-2.5 py-0.5 rounded uppercase mb-4 inline-block">Most Popular</span>
-                    <h3 class="text-2xl font-black text-white mb-2" data-en="Interior Design & Graphics">باقة التصميم الداخلي والجرافيك</h3>
-                    <p class="text-gray-400 text-xs font-light leading-relaxed mb-6" data-en="Interior Design basics + Photoshop & Illustrator for designers.">تتضمن أساسيات التصميم الداخلي، وفوتوشوب وإليستريتور للمصممين.</p>
-                    <ul class="space-y-3 text-xs text-gray-300 mb-8">
-                        <li class="flex items-center"><i class="fa-solid fa-check gold-accent ml-2"></i> إخراج بصري احترافي</li>
-                        <li class="flex items-center"><i class="fa-solid fa-check gold-accent ml-2"></i> تصميم اللوحات والموديل</li>
-                        <li class="flex items-center"><i class="fa-solid fa-check gold-accent ml-2"></i> شهادات معتمدة</li>
-                    </ul>
+                    <div class="h-48 rounded-2xl bg-cover bg-center mb-6 border border-amber-500/20 group-hover:scale-[1.02] transition duration-300" style="background-image: url('https://images.unsplash.com/photo-1503387762-592deb58ef4e?q=80&w=600');"></div>
+                    <span class="gold-accent text-xs font-bold uppercase tracking-wider">Part 01</span>
+                    <h3 class="text-2xl font-black text-white mt-1 mb-3">Architecture & Interior</h3>
+                    <p class="text-gray-400 text-xs font-light leading-relaxed mb-4" data-en="AutoCAD, Revit courses, executive engineering blueprints, and interior design.">دورات AutoCAD, Revit، المخططات الهندسية التنفيذية، والتصميم الداخلي.</p>
                 </div>
-                <div>
-                    <div class="flex items-center justify-between mb-6 pt-4 border-t border-gray-800">
-                        <span class="text-xs text-gray-400" data-en="Special Summer Price">السعر الصيفي:</span>
-                        <span class="text-xl font-black gold-gradient-text">خصم خاص</span>
-                    </div>
-                    <a href="https://wa.me/" target="_blank" class="w-full bg-gold text-black font-bold py-3 px-4 rounded-xl text-center block hover:opacity-90 transition text-xs shadow-lg" data-en="Register Now">
-                        احجز باقتك الآن
-                    </a>
+                <div class="flex items-center justify-between pt-4 border-t border-gray-800 text-xs font-bold gold-accent">
+                    <span class="link-text" data-en="Explore Courses">استعراض الدورات</span>
+                    <i class="fa-solid fa-arrow-left transition transform group-hover:-translate-x-1 icon-dir"></i>
                 </div>
-            </div>
+            </a>
 
-            <!-- Package 3: Ultimate All-In-One -->
-            <div class="glass-card p-8 rounded-3xl flex flex-col justify-between border-amber-500/40 relative overflow-hidden group">
-                <div class="absolute -top-12 -left-12 w-32 h-32 bg-amber-500/10 rounded-full blur-2xl group-hover:bg-amber-500/20 transition"></div>
+            <!-- 2. Graphic Design & Editing -->
+            <a href="graphic-courses.html" class="glass-card p-6 rounded-3xl flex flex-col justify-between group">
                 <div>
-                    <span class="bg-gold text-black text-[10px] font-extrabold px-2.5 py-0.5 rounded uppercase mb-4 inline-block">Ultimate Bundle</span>
-                    <h3 class="text-2xl font-black text-white mb-2" data-en="Ultimate Engineering Suite">الباقة الهندسية الشاملة</h3>
-                    <p class="text-gray-400 text-xs font-light leading-relaxed mb-6" data-en="All major engineering and office programs bundled together.">تجمع كافة الدورات الهندسية وبرامج الأوساط المكتبية والجرافيك ببعضها.</p>
-                    <ul class="space-y-3 text-xs text-gray-300 mb-8">
-                        <li class="flex items-center"><i class="fa-solid fa-check gold-accent ml-2"></i> باقة متكاملة من الصفر للاحتراف</li>
-                        <li class="flex items-center"><i class="fa-solid fa-check gold-accent ml-2"></i> الأفضل لسوق العمل</li>
-                        <li class="flex items-center"><i class="fa-solid fa-check gold-accent ml-2"></i> خصم توفير مضاعف</li>
-                    </ul>
+                    <div class="h-48 rounded-2xl bg-cover bg-center mb-6 border border-amber-500/20 group-hover:scale-[1.02] transition duration-300" style="background-image: url('https://images.unsplash.com/photo-1626785774573-4b799315345d?q=80&w=600');"></div>
+                    <span class="gold-accent text-xs font-bold uppercase tracking-wider">Part 02</span>
+                    <h3 class="text-2xl font-black text-white mt-1 mb-3">Graphic Design & Editing</h3>
+                    <p class="text-gray-400 text-xs font-light leading-relaxed mb-4" data-en="Adobe Suite (Photoshop, Illustrator, Premiere) and visual editing.">حزمة Adobe (Photoshop, Illustrator, Premiere) والمونتاج البصري.</p>
                 </div>
+                <div class="flex items-center justify-between pt-4 border-t border-gray-800 text-xs font-bold gold-accent">
+                    <span class="link-text" data-en="Explore Courses">استعراض الدورات</span>
+                    <i class="fa-solid fa-arrow-left transition transform group-hover:-translate-x-1 icon-dir"></i>
+                </div>
+            </a>
+
+            <!-- 3. Electrical Engineering -->
+            <a href="electrical-courses.html" class="glass-card p-6 rounded-3xl flex flex-col justify-between group">
                 <div>
-                    <div class="flex items-center justify-between mb-6 pt-4 border-t border-gray-800">
-                        <span class="text-xs text-gray-400" data-en="Special Summer Price">السعر الصيفي:</span>
-                        <span class="text-xl font-black gold-gradient-text">خصم خاص</span>
+                    <div class="h-48 rounded-2xl bg-cover bg-center mb-6 border border-amber-500/20 group-hover:scale-[1.02] transition duration-300" style="background-image: url('https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?q=80&w=600');"></div>
+                    <span class="gold-accent text-xs font-bold uppercase tracking-wider">Part 03</span>
+                    <h3 class="text-2xl font-black text-white mt-1 mb-3">Electrical Engineering</h3>
+                    <p class="text-gray-400 text-xs font-light leading-relaxed mb-4" data-en="Electrical engineering courses, lighting plans, and industrial installations.">دورات الهندسة الكهربائية، مخططات الإنارة، والتمديدات الصناعية.</p>
+                </div>
+                <div class="flex items-center justify-between pt-4 border-t border-gray-800 text-xs font-bold gold-accent">
+                    <span class="link-text" data-en="Explore Courses">استعراض الدورات</span>
+                    <i class="fa-solid fa-arrow-left transition transform group-hover:-translate-x-1 icon-dir"></i>
+                </div>
+            </a>
+
+            <!-- 4. Microsoft Office -->
+            <a href="office-courses.html" class="glass-card p-6 rounded-3xl flex flex-col justify-between group">
+                <div>
+                    <div class="h-48 rounded-2xl bg-cover bg-center mb-6 border border-amber-500/20 group-hover:scale-[1.02] transition duration-300" style="background-image: url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=600');"></div>
+                    <span class="gold-accent text-xs font-bold uppercase tracking-wider">Part 04</span>
+                    <h3 class="text-2xl font-black text-white mt-1 mb-3">Microsoft Office</h3>
+                    <p class="text-gray-400 text-xs font-light leading-relaxed mb-4" data-en="Mastering advanced Excel, Word, and PowerPoint for data management and reports.">إتقان برامج Excel المتقدم، Word، و PowerPoint لإدارة البيانات والتقارير.</p>
+                </div>
+                <div class="flex items-center justify-between pt-4 border-t border-gray-800 text-xs font-bold gold-accent">
+                    <span class="link-text" data-en="Explore Courses">استعراض الدورات</span>
+                    <i class="fa-solid fa-arrow-left transition transform group-hover:-translate-x-1 icon-dir"></i>
+                </div>
+            </a>
+
+            <!-- 5. OEA Tripoli Cooperation Courses -->
+            <a href="oea-courses.html" class="glass-card p-6 rounded-3xl flex flex-col justify-between group border-amber-500/40 bg-gradient-to-b from-amber-950/20 to-black/60 lg:col-span-2">
+                <div>
+                    <div class="h-48 rounded-2xl bg-cover bg-center mb-6 border border-amber-500/30 group-hover:scale-[1.02] transition duration-300" style="background-image: url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=600');"></div>
+                    <div class="flex items-center space-x-2 rtl:space-x-reverse mb-1 badge-container">
+                        <span class="bg-amber-500 text-black text-[10px] font-extrabold px-2 py-0.5 rounded uppercase">Part 05</span>
+                        <span class="gold-accent text-xs font-bold uppercase" data-en="In Cooperation with OEA Tripoli">بالتعاون مع نقابة المهندسين - طرابلس</span>
                     </div>
-                    <a href="https://wa.me/" target="_blank" class="w-full bg-gold text-black font-bold py-3 px-4 rounded-xl text-center block hover:opacity-90 transition text-xs shadow-lg" data-en="Register Now">
-                        احجز باقتك الآن
-                    </a>
+                    <h3 class="text-2xl font-black text-white mb-2">OEA Tripoli Cooperation Courses</h3>
+                    <p class="text-gray-300 text-xs font-light leading-relaxed mb-4" data-en="Specialized training courses provided by us in joint cooperation with the Order of Engineers and Architects in Tripoli with certified certificates.">الدورات التدريبية التخصصية التي نقدمها بالتعاون المشترك مع نقابة المهندسين في طرابلس بشهادات معتمدة.</p>
                 </div>
-            </div>
+                <div class="flex items-center justify-between pt-4 border-t border-amber-500/20 text-xs font-bold gold-accent">
+                    <span class="link-text" data-en="Explore Cooperation Courses">استعراض دورات التعاون</span>
+                    <i class="fa-solid fa-arrow-left transition transform group-hover:-translate-x-1 icon-dir"></i>
+                </div>
+            </a>
 
         </div>
     </section>
@@ -165,7 +224,7 @@
         <p>&copy; 2026 Sketchy Chapters Workshop Center. All rights reserved.</p>
     </footer>
 
-    <!-- Language Toggle Script -->
+    <!-- Animation Script for Counters & Language Toggle -->
     <script>
         let currentLang = 'ar';
 
@@ -179,29 +238,78 @@
                 html.setAttribute('lang', 'en');
                 langBtn.innerText = 'العربية';
                 
+                // Translate elements with data-en attribute
                 document.querySelectorAll('[data-en]').forEach(el => {
                     el.setAttribute('data-ar', el.innerText);
                     el.innerText = el.getAttribute('data-en');
                 });
 
+                // Adjust nav spacing classes for LTR
                 document.querySelector('nav .md\\:flex').classList.remove('rtl:space-x-reverse');
                 document.querySelector('nav > div:last-child').classList.remove('rtl:space-x-reverse');
+
+                // Adjust arrow icons direction for LTR
+                document.querySelectorAll('.icon-dir').forEach(icon => {
+                    icon.classList.remove('fa-arrow-left');
+                    icon.classList.add('fa-arrow-right');
+                });
             } else {
                 currentLang = 'ar';
                 html.setAttribute('dir', 'rtl');
                 html.setAttribute('lang', 'ar');
                 langBtn.innerText = 'English';
                 
+                // Restore Arabic text from data-ar attribute
                 document.querySelectorAll('[data-en]').forEach(el => {
                     if (el.getAttribute('data-ar')) {
                         el.innerText = el.getAttribute('data-ar');
                     }
                 });
 
+                // Adjust nav spacing classes for RTL
                 document.querySelector('nav .md\\:flex').classList.add('rtl:space-x-reverse');
                 document.querySelector('nav > div:last-child').classList.add('rtl:space-x-reverse');
+
+                // Adjust arrow icons direction for RTL
+                document.querySelectorAll('.icon-dir').forEach(icon => {
+                    icon.classList.remove('fa-arrow-right');
+                    icon.classList.add('fa-arrow-left');
+                });
             }
         }
+
+        const counters = document.querySelectorAll('.counter');
+        let animated = false;
+
+        function runCounters() {
+            counters.forEach(counter => {
+                const target = +counter.getAttribute('data-target');
+                let count = 0;
+                const speed = target / 50;
+
+                function updateCount() {
+                    count += speed;
+                    if (count < target) {
+                        counter.innerText = Math.ceil(count);
+                        setTimeout(updateCount, 30);
+                    } else {
+                        counter.innerText = target;
+                    }
+                }
+                updateCount();
+            });
+        }
+
+        window.addEventListener('scroll', () => {
+            const statsSection = document.getElementById('stats');
+            const sectionPos = statsSection.getBoundingClientRect().top;
+            const screenHeight = window.innerHeight;
+
+            if (sectionPos < screenHeight && !animated) {
+                runCounters();
+                animated = true;
+            }
+        });
     </script>
 
 </body>
