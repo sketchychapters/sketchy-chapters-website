@@ -48,6 +48,11 @@
             box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3);
             text-transform: uppercase;
         }
+        /* Modal Backdrop */
+        #package-modal {
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(8px);
+        }
     </style>
 </head>
 <body class="selection:bg-amber-500 selection:text-black">
@@ -55,7 +60,7 @@
     <!-- Navigation Bar -->
     <nav class="fixed w-full z-50 glass-card px-6 py-4 flex justify-between items-center top-0 border-b border-amber-500/15">
         <a href="index.html" class="flex items-center">
-            <img src="workshop.png" alt="Workshop Cnters Sketchy Chapters Logo" class="h-10 md:h-12 w-auto object-contain" onerror="this.style.display='none'; document.getElementById('logo-fallback').style.display='block';">
+            <img src="workshop.png" alt="Workshop Centers Sketchy Chapters Logo" class="h-10 md:h-12 w-auto object-contain" onerror="this.style.display='none'; document.getElementById('logo-fallback').style.display='block';">
             <span id="logo-fallback" class="hidden text-xl font-black tracking-wider text-white">SKETCHY <span class="gold-accent">CHAPTERS</span></span>
         </a>
         <div class="hidden md:flex space-x-6 text-sm font-semibold">
@@ -83,18 +88,18 @@
                 <span data-ar="باقات العروض الصيفية">Summer Training Packages</span> <br>
                 <span class="gold-gradient-text">SUMMER PACKAGES</span>
             </h1>
-            <p class="text-base md:text-lg text-gray-400 mb-8 max-w-2xl mx-auto font-light leading-relaxed" data-ar="باقات تدريبية شاملة تأخذك من الأساسيات حتى الاحتراف، منسقة خصيصاً لتغطي كافة احتياجاتك وبأسعار استثنائية.">
-                Comprehensive training bundles designed to take you from fundamentals to professional mastery with special pricing.
+            <p class="text-base md:text-lg text-gray-400 mb-8 max-w-2xl mx-auto font-light leading-relaxed" data-ar="باقات تدريبية شاملة تأخذك من الأساسيات حتى الاحتراف، منسقة خصيصاً لتغطي كافة احتياجاتك وبأسعار استثنائية. انقر على أي باقة لعرض التفاصيل والتسجيل.">
+                Comprehensive training bundles designed to take you from fundamentals to professional mastery. Click any package to view details and register.
             </p>
         </div>
     </section>
 
-    <!-- Offers Grid Section -->
+    <!-- Offers Grid Section (Clickable Cards) -->
     <section class="py-16 px-6 max-w-7xl mx-auto">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
             
             <!-- 1. Engineer's Package -->
-            <div class="glass-card p-6 md:p-8 rounded-3xl flex flex-col justify-between relative overflow-hidden group">
+            <div onclick="openModal('pkg1')" class="glass-card p-6 md:p-8 rounded-3xl flex flex-col justify-between relative overflow-hidden group cursor-pointer">
                 <div class="ribbon" data-ar="شامل من 2D إلى Animation">From 2D to Animation</div>
                 <div>
                     <div class="h-48 rounded-2xl bg-cover bg-center mb-6 border border-amber-500/20" style="background-image: url('https://images.unsplash.com/photo-1503387762-592deb58ef4e?q=80&w=600');"></div>
@@ -103,61 +108,18 @@
                     <p class="text-gray-400 text-xs font-light leading-relaxed mb-4" data-ar="تتضمن: كورس أوتوكاد + ريفيت 1 + لوميون. باقة شاملة لكل شي من الـ 2D إلى الـ 3D، الـ Animation، والـ Render.">
                         Includes: AutoCAD + Revit 1 + Lumion. Comprehensive package covering everything from 2D drafts to 3D modeling, animation, and rendering.
                     </p>
-
-                    <!-- Course Breakdown Accordion / Toggle -->
-                    <div class="mb-6">
-                        <button onclick="toggleDetails('pkg1-details')" class="w-full flex justify-between items-center text-xs font-bold text-amber-400 bg-amber-500/10 border border-amber-500/30 px-4 py-2.5 rounded-xl hover:bg-amber-500/20 transition">
-                            <span data-ar="عرض تفاصيل الكورسات وشعارات البرامج">View Course Breakdown & Software Logos</span>
-                            <i class="fa-solid fa-chevron-down transition-transform duration-300" id="pkg1-icon"></i>
-                        </button>
-                        
-                        <div id="pkg1-details" class="hidden mt-3 space-y-3 p-4 rounded-xl bg-black/40 border border-amber-500/10 text-xs">
-                            <!-- Course 1: AutoCAD -->
-                            <div class="flex items-start space-x-3 rtl:space-x-reverse border-b border-gray-800 pb-2.5">
-                                <div class="w-8 h-8 rounded-lg bg-red-950/40 border border-red-500/30 flex items-center justify-center shrink-0 text-red-400 font-black text-[10px]">CAD</div>
-                                <div>
-                                    <h4 class="font-bold text-white" data-ar="كورس أوتوكاد (2D & 3D)">AutoCAD Course (2D & 3D)</h4>
-                                    <p class="text-gray-400 text-[11px]" data-ar="رسم المخططات الهندسية المعمارية بدقة متناهية وإخراج المساقط التنفيذية.">Precise architectural and technical drawing preparation.</p>
-                                </div>
-                            </div>
-                            <!-- Course 2: Revit 1 -->
-                            <div class="flex items-start space-x-3 rtl:space-x-reverse border-b border-gray-800 pb-2.5">
-                                <div class="w-8 h-8 rounded-lg bg-blue-950/40 border border-blue-500/30 flex items-center justify-center shrink-0 text-blue-400 font-black text-[10px]">RVT</div>
-                                <div>
-                                    <h4 class="font-bold text-white" data-ar="كورس ريفيت المعماري (المستوى 1)">Revit Architecture (Level 1)</h4>
-                                    <p class="text-gray-400 text-[11px]" data-ar="أساسيات نمذجة معلومات المباني BIM، الجدران، الأبواب، النوافذ، والكتل ثلاثية الأبعاد.">BIM fundamentals, walls, floors, and 3D components creation.</p>
-                                </div>
-                            </div>
-                            <!-- Course 3: Lumion -->
-                            <div class="flex items-start space-x-3 rtl:space-x-reverse">
-                                <div class="w-8 h-8 rounded-lg bg-emerald-950/40 border border-emerald-500/30 flex items-center justify-center shrink-0 text-emerald-400 font-black text-[10px]">LUM</div>
-                                <div>
-                                    <h4 class="font-bold text-white" data-ar="كورس لوميون للإخراج المعماري والتحريك">Lumion Animation & Render</h4>
-                                    <p class="text-gray-400 text-[11px]" data-ar="صنع فيديوهات الحركة (Animation)، اللقطات الواقعية السريعة (Render)، وإضافة البيئة والمواد.">Photorealistic rendering, lighting, materials, and motion walkthroughs.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
-
-                <div class="pt-4 border-t border-gray-800">
-                    <div class="flex justify-between items-center mb-4">
-                        <span class="text-xs text-gray-500 line-through" data-ar="$340 القيمة الأساسية">$340 Value</span>
+                <div class="pt-4 border-t border-gray-800 flex justify-between items-center">
+                    <div>
+                        <span class="text-xs text-gray-500 line-through block" data-ar="$340 القيمة الأساسية">$340 Value</span>
                         <span class="text-2xl font-black gold-accent">$219</span>
                     </div>
-                    <div class="grid grid-cols-2 gap-2">
-                        <a href="https://forms.gle/BZ37DUJqkzw1y3Qk6" target="_blank" class="bg-gold text-black font-bold py-3 rounded-xl text-center text-xs hover:opacity-95 transition shadow-lg shadow-amber-500/20" data-ar="سجل الآن عبر الاستمارة">
-                            Register via Form
-                        </a>
-                        <a href="https://wa.me/96171967714" target="_blank" class="glass-card text-amber-400 border border-amber-500/30 py-3 rounded-xl text-center text-xs font-bold hover:bg-amber-500/10 transition" data-ar="استفسر عبر الواتساب">
-                            WhatsApp Inquiry
-                        </a>
-                    </div>
+                    <span class="text-xs font-bold text-amber-400 bg-amber-500/10 border border-amber-500/30 px-4 py-2 rounded-xl group-hover:bg-amber-500/20 transition" data-ar="عرض التفاصيل والتسجيل">View Details & Register</span>
                 </div>
             </div>
 
             <!-- 2. Full Revit & V-Ray Package -->
-            <div class="glass-card p-6 md:p-8 rounded-3xl flex flex-col justify-between relative overflow-hidden group">
+            <div onclick="openModal('pkg2')" class="glass-card p-6 md:p-8 rounded-3xl flex flex-col justify-between relative overflow-hidden group cursor-pointer">
                 <div class="ribbon" data-ar="احتراف الإخراج والريفيت">Revit & V-Ray Mastery</div>
                 <div>
                     <div class="h-48 rounded-2xl bg-cover bg-center mb-6 border border-amber-500/20" style="background-image: url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=600');"></div>
@@ -166,53 +128,18 @@
                     <p class="text-gray-400 text-xs font-light leading-relaxed mb-4" data-ar="تتضمن: كورس ريفيت كامل (المستوى 1 + المستوى 2) + فيراي (V-Ray). لتغطية النمذجة المتقدمة والإخراج الواقعي بدقة عالية.">
                         Includes: Full Revit Course (Level 1 + Level 2) + V-Ray. Advanced architectural modeling and photorealistic rendering.
                     </p>
-
-                    <!-- Course Breakdown Accordion -->
-                    <div class="mb-6">
-                        <button onclick="toggleDetails('pkg2-details')" class="w-full flex justify-between items-center text-xs font-bold text-amber-400 bg-amber-500/10 border border-amber-500/30 px-4 py-2.5 rounded-xl hover:bg-amber-500/20 transition">
-                            <span data-ar="عرض تفاصيل الكورسات وشعارات البرامج">View Course Breakdown & Software Logos</span>
-                            <i class="fa-solid fa-chevron-down transition-transform duration-300" id="pkg2-icon"></i>
-                        </button>
-                        
-                        <div id="pkg2-details" class="hidden mt-3 space-y-3 p-4 rounded-xl bg-black/40 border border-amber-500/10 text-xs">
-                            <!-- Course 1: Revit 1 & 2 -->
-                            <div class="flex items-start space-x-3 rtl:space-x-reverse border-b border-gray-800 pb-2.5">
-                                <div class="w-8 h-8 rounded-lg bg-blue-950/40 border border-blue-500/30 flex items-center justify-center shrink-0 text-blue-400 font-black text-[10px]">RVT</div>
-                                <div>
-                                    <h4 class="font-bold text-white" data-ar="كورس ريفيت المعماري المتكامل (L1 & L2)">Full Revit Architecture (L1 & L2)</h4>
-                                    <p class="text-gray-400 text-[11px]" data-ar="النمذجة المتقدمة، إنشاء العائلات الخاصة (Families)، جداول الكميات، وإصدار المخططات التنفيذية.">Advanced BIM modeling, custom families, schedules, and construction documents.</p>
-                                </div>
-                            </div>
-                            <!-- Course 2: V-Ray -->
-                            <div class="flex items-start space-x-3 rtl:space-x-reverse">
-                                <div class="w-8 h-8 rounded-lg bg-orange-950/40 border border-orange-500/30 flex items-center justify-center shrink-0 text-orange-400 font-black text-[10px]">VRAY</div>
-                                <div>
-                                    <h4 class="font-bold text-white" data-ar="كورس فيراي (V-Ray for Revit)">V-Ray Rendering Course</h4>
-                                    <p class="text-gray-400 text-[11px]" data-ar="صنع الإضاءات الواقعية، الخامات المتقدمة، وتقديم صور معمارية فوتوغرافية مبهرة.">Photorealistic rendering, advanced lighting, materials, and environment settings.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
-
-                <div class="pt-4 border-t border-gray-800">
-                    <div class="flex justify-between items-center mb-4">
-                        <span class="text-xs text-gray-500 line-through" data-ar="$300 القيمة الأساسية">$300 Value</span>
+                <div class="pt-4 border-t border-gray-800 flex justify-between items-center">
+                    <div>
+                        <span class="text-xs text-gray-500 line-through block" data-ar="$300 القيمة الأساسية">$300 Value</span>
                         <span class="text-2xl font-black gold-accent">$199</span>
                     </div>
-                    <div class="grid grid-cols-2 gap-2">
-                        <a href="https://forms.gle/BZ37DUJqkzw1y3Qk6" target="_blank" class="bg-gold text-black font-bold py-3 rounded-xl text-center text-xs hover:opacity-95 transition shadow-lg shadow-amber-500/20" data-ar="سجل الآن عبر الاستمارة">
-                            Register via Form
-                        </a>
-                        <a href="https://wa.me/96171967714" target="_blank" class="glass-card text-amber-400 border border-amber-500/30 py-3 rounded-xl text-center text-xs font-bold hover:bg-amber-500/10 transition" data-ar="استفسر عبر الواتساب">
-                            WhatsApp Inquiry
-                        </a>
-                    </div>
+                    <span class="text-xs font-bold text-amber-400 bg-amber-500/10 border border-amber-500/30 px-4 py-2 rounded-xl group-hover:bg-amber-500/20 transition" data-ar="عرض التفاصيل والتسجيل">View Details & Register</span>
                 </div>
             </div>
 
             <!-- 3. CAD, Revit 1 & Photoshop Pack -->
-            <div class="glass-card p-6 md:p-8 rounded-3xl flex flex-col justify-between relative overflow-hidden group">
+            <div onclick="openModal('pkg3')" class="glass-card p-6 md:p-8 rounded-3xl flex flex-col justify-between relative overflow-hidden group cursor-pointer">
                 <div class="ribbon" data-ar="المخططات والتقديم المعماري">CAD, Revit & Photoshop</div>
                 <div>
                     <div class="h-48 rounded-2xl bg-cover bg-center mb-6 border border-amber-500/20" style="background-image: url('https://images.unsplash.com/photo-1524758631624-e2822e304c36?q=80&w=600');"></div>
@@ -221,61 +148,18 @@
                     <p class="text-gray-400 text-xs font-light leading-relaxed mb-4" data-ar="تتضمن: أوتوكاد + ريفيت 1 + فوتوشوب. الدمج المثالي بين الرسم الهندسي، أساسيات البيم، ومعالجة اللوحات المعمارية.">
                         Includes: AutoCAD + Revit 1 + Photoshop. Essential software combo for technical drawings, BIM foundation, and architectural board post-production.
                     </p>
-
-                    <!-- Course Breakdown Accordion -->
-                    <div class="mb-6">
-                        <button onclick="toggleDetails('pkg3-details')" class="w-full flex justify-between items-center text-xs font-bold text-amber-400 bg-amber-500/10 border border-amber-500/30 px-4 py-2.5 rounded-xl hover:bg-amber-500/20 transition">
-                            <span data-ar="عرض تفاصيل الكورسات وشعارات البرامج">View Course Breakdown & Software Logos</span>
-                            <i class="fa-solid fa-chevron-down transition-transform duration-300" id="pkg3-icon"></i>
-                        </button>
-                        
-                        <div id="pkg3-details" class="hidden mt-3 space-y-3 p-4 rounded-xl bg-black/40 border border-amber-500/10 text-xs">
-                            <!-- Course 1: AutoCAD -->
-                            <div class="flex items-start space-x-3 rtl:space-x-reverse border-b border-gray-800 pb-2.5">
-                                <div class="w-8 h-8 rounded-lg bg-red-950/40 border border-red-500/30 flex items-center justify-center shrink-0 text-red-400 font-black text-[10px]">CAD</div>
-                                <div>
-                                    <h4 class="font-bold text-white" data-ar="كورس أوتوكاد الهندسي">AutoCAD Technical Course</h4>
-                                    <p class="text-gray-400 text-[11px]" data-ar="إتقان الأوامر الهندسية وإنشاء المخططات التنفيذية للمشاريع السكنية.">Mastering 2D drafting and executive drawing creation.</p>
-                                </div>
-                            </div>
-                            <!-- Course 2: Revit 1 -->
-                            <div class="flex items-start space-x-3 rtl:space-x-reverse border-b border-gray-800 pb-2.5">
-                                <div class="w-8 h-8 rounded-lg bg-blue-950/40 border border-blue-500/30 flex items-center justify-center shrink-0 text-blue-400 font-black text-[10px]">RVT</div>
-                                <div>
-                                    <h4 class="font-bold text-white" data-ar="كورس ريفيت المعماري (المستوى 1)">Revit Architecture (Level 1)</h4>
-                                    <p class="text-gray-400 text-[11px]" data-ar="التحول من الرسم التقليدي إلى النمذجة ثلاثية الأبعاد ببرمجيات البيم.">Transitioning to 3D BIM modeling and design workflow.</p>
-                                </div>
-                            </div>
-                            <!-- Course 3: Photoshop -->
-                            <div class="flex items-start space-x-3 rtl:space-x-reverse">
-                                <div class="w-8 h-8 rounded-lg bg-cyan-950/40 border border-cyan-500/30 flex items-center justify-center shrink-0 text-cyan-400 font-black text-[10px]">PS</div>
-                                <div>
-                                    <h4 class="font-bold text-white" data-ar="كورس فوتوشوب للمعماريين">Photoshop for Architects</h4>
-                                    <p class="text-gray-400 text-[11px]" data-ar="إخراج لوحات العرض المعمارية (Presentations)، إضافة الفراغات والتشجير، ومعالجة الصور.">Architectural board post-production, color grading, and rendering enhancement.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
-
-                <div class="pt-4 border-t border-gray-800">
-                    <div class="flex justify-between items-center mb-4">
-                        <span class="text-xs text-gray-500 line-through" data-ar="$340 القيمة الأساسية">$340 Value</span>
+                <div class="pt-4 border-t border-gray-800 flex justify-between items-center">
+                    <div>
+                        <span class="text-xs text-gray-500 line-through block" data-ar="$340 القيمة الأساسية">$340 Value</span>
                         <span class="text-2xl font-black gold-accent">$219</span>
                     </div>
-                    <div class="grid grid-cols-2 gap-2">
-                        <a href="https://forms.gle/BZ37DUJqkzw1y3Qk6" target="_blank" class="bg-gold text-black font-bold py-3 rounded-xl text-center text-xs hover:opacity-95 transition shadow-lg shadow-amber-500/20" data-ar="سجل الآن عبر الاستمارة">
-                            Register via Form
-                        </a>
-                        <a href="https://wa.me/96171967714" target="_blank" class="glass-card text-amber-400 border border-amber-500/30 py-3 rounded-xl text-center text-xs font-bold hover:bg-amber-500/10 transition" data-ar="استفسر عبر الواتساب">
-                            WhatsApp Inquiry
-                        </a>
-                    </div>
+                    <span class="text-xs font-bold text-amber-400 bg-amber-500/10 border border-amber-500/30 px-4 py-2 rounded-xl group-hover:bg-amber-500/20 transition" data-ar="عرض التفاصيل والتسجيل">View Details & Register</span>
                 </div>
             </div>
 
             <!-- 4. The Designer's Package -->
-            <div class="glass-card p-6 md:p-8 rounded-3xl flex flex-col justify-between relative overflow-hidden group border-amber-500/40 bg-gradient-to-b from-amber-950/20 to-black/60">
+            <div onclick="openModal('pkg4')" class="glass-card p-6 md:p-8 rounded-3xl flex flex-col justify-between relative overflow-hidden group cursor-pointer border-amber-500/40 bg-gradient-to-b from-amber-950/20 to-black/60">
                 <div class="ribbon" data-ar="المصمم البصري وصانع المحتوى">Graphic & Video Mastery</div>
                 <div>
                     <div class="h-48 rounded-2xl bg-cover bg-center mb-6 border border-amber-500/30" style="background-image: url('https://images.unsplash.com/photo-1626785774573-4b799315345d?q=80&w=600');"></div>
@@ -284,82 +168,166 @@
                     <p class="text-gray-300 text-xs font-light leading-relaxed mb-4" data-ar="تتضمن: أدوبي إيليستريتور + فوتوشوب + بريمير برو. باقة المصمم المتكاملة للـ Branding، التصميم الجرافيكي، والمونتاج الاحترافي.">
                         Includes: Adobe Illustrator + Photoshop + Premiere Pro. Complete package for graphic design, visual branding, and professional video editing.
                     </p>
-
-                    <!-- Course Breakdown Accordion -->
-                    <div class="mb-6">
-                        <button onclick="toggleDetails('pkg4-details')" class="w-full flex justify-between items-center text-xs font-bold text-amber-400 bg-amber-500/10 border border-amber-500/30 px-4 py-2.5 rounded-xl hover:bg-amber-500/20 transition">
-                            <span data-ar="عرض تفاصيل الكورسات وشعارات البرامج">View Course Breakdown & Software Logos</span>
-                            <i class="fa-solid fa-chevron-down transition-transform duration-300" id="pkg4-icon"></i>
-                        </button>
-                        
-                        <div id="pkg4-details" class="hidden mt-3 space-y-3 p-4 rounded-xl bg-black/40 border border-amber-500/10 text-xs">
-                            <!-- Course 1: Illustrator -->
-                            <div class="flex items-start space-x-3 rtl:space-x-reverse border-b border-gray-800 pb-2.5">
-                                <div class="w-8 h-8 rounded-lg bg-amber-950/40 border border-amber-500/30 flex items-center justify-center shrink-0 text-amber-400 font-black text-[10px]">AI</div>
-                                <div>
-                                    <h4 class="font-bold text-white" data-ar="كورس أدوبي إيليستريتور">Adobe Illustrator Course</h4>
-                                    <p class="text-gray-400 text-[11px]" data-ar="تصميم الشعارات، الهويات البصرية (Branding)، والرسوم المتجهية (Vector Graphics).">Vector graphics, branding creation, logos, and typography design.</p>
-                                </div>
-                            </div>
-                            <!-- Course 2: Photoshop -->
-                            <div class="flex items-start space-x-3 rtl:space-x-reverse border-b border-gray-800 pb-2.5">
-                                <div class="w-8 h-8 rounded-lg bg-cyan-950/40 border border-cyan-500/30 flex items-center justify-center shrink-0 text-cyan-400 font-black text-[10px]">PS</div>
-                                <div>
-                                    <h4 class="font-bold text-white" data-ar="كورس أدوبي فوتوشوب المتكامل">Adobe Photoshop Course</h4>
-                                    <p class="text-gray-400 text-[11px]" data-ar="تعديل الصور، دمج العناصر البصرية، والتصميم الإعلاني الرقمي.">Advanced image manipulation, digital painting, and composition.</p>
-                                </div>
-                            </div>
-                            <!-- Course 3: Premiere Pro -->
-                            <div class="flex items-start space-x-3 rtl:space-x-reverse">
-                                <div class="w-8 h-8 rounded-lg bg-purple-950/40 border border-purple-500/30 flex items-center justify-center shrink-0 text-purple-400 font-black text-[10px]">PR</div>
-                                <div>
-                                    <h4 class="font-bold text-white" data-ar="كورس أدوبي بريمير برو للمونتاج">Adobe Premiere Pro Course</h4>
-                                    <p class="text-gray-400 text-[11px]" data-ar="مونتاج الفيديوهات الاحترافية، المؤثرات البصرية، وهندسة الصوت لوسائل التواصل الاجتماعي.">Professional video editing, color grading, sound mixing, and content creation.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
-
-                <div class="pt-4 border-t border-amber-500/20">
-                    <div class="flex justify-between items-center mb-4">
-                        <span class="text-xs text-gray-500 line-through" data-ar="$340 القيمة الأساسية">$340 Value</span>
+                <div class="pt-4 border-t border-amber-500/20 flex justify-between items-center">
+                    <div>
+                        <span class="text-xs text-gray-500 line-through block" data-ar="$340 القيمة الأساسية">$340 Value</span>
                         <span class="text-2xl font-black gold-accent">$219</span>
                     </div>
-                    <div class="grid grid-cols-2 gap-2">
-                        <a href="https://forms.gle/BZ37DUJqkzw1y3Qk6" target="_blank" class="bg-gold text-black font-bold py-3 rounded-xl text-center text-xs hover:opacity-95 transition shadow-lg shadow-amber-500/20" data-ar="سجل الآن عبر الاستمارة">
-                            Register via Form
-                        </a>
-                        <a href="https://wa.me/96171967714" target="_blank" class="glass-card text-amber-400 border border-amber-500/30 py-3 rounded-xl text-center text-xs font-bold hover:bg-amber-500/10 transition" data-ar="استفسر عبر الواتساب">
-                            WhatsApp Inquiry
-                        </a>
-                    </div>
+                    <span class="text-xs font-bold text-amber-400 bg-amber-500/10 border border-amber-500/30 px-4 py-2 rounded-xl group-hover:bg-amber-500/20 transition" data-ar="عرض التفاصيل والتسجيل">View Details & Register</span>
                 </div>
             </div>
 
         </div>
     </section>
 
+    <!-- Package Details Modal Window -->
+    <div id="package-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4">
+        <div class="glass-card max-w-2xl w-full p-6 md:p-8 rounded-3xl relative border border-amber-500/40 bg-[#0d0d12] shadow-2xl max-h-[90vh] overflow-y-auto">
+            <!-- Close Button -->
+            <button onclick="closeModal()" class="absolute top-4 right-4 w-10 h-10 rounded-full bg-black/60 border border-amber-500/30 flex items-center justify-center text-amber-400 hover:bg-amber-500/20 transition">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+
+            <!-- Modal Content Dynamically Injected -->
+            <div id="modal-content"></div>
+        </div>
+    </div>
+
     <!-- Footer -->
     <footer class="py-12 text-center text-gray-500 text-xs border-t border-gray-900 mt-20">
         <p>&copy; 2026 Sketchy Chapters Workshop Center. All rights reserved.</p>
     </footer>
 
-    <!-- Scripts for Accordion and Language Toggle -->
+    <!-- Scripts for Modal, Language, and Content Data -->
     <script>
-        function toggleDetails(id) {
-            const el = document.getElementById(id);
-            const icon = document.getElementById(id.replace('-details', '-icon'));
-            if (el.classList.contains('hidden')) {
-                el.classList.remove('hidden');
-                icon.classList.add('rotate-180');
-            } else {
-                el.classList.add('hidden');
-                icon.classList.remove('rotate-180');
+        // Data for packages
+        const packageData = {
+            pkg1: {
+                titleEn: "Engineer's Package",
+                titleAr: "باقة المهندس",
+                valueEn: "$340 Value",
+                valueAr: "$340 القيمة الأساسية",
+                price: "$219",
+                descEn: "Comprehensive package covering everything from 2D drafts to 3D modeling, animation, and rendering.",
+                descAr: "باقة شاملة لكل شي من الـ 2D إلى الـ 3D، الـ Animation، والـ Render.",
+                courses: [
+                    { code: "CAD", bg: "red", titleEn: "AutoCAD Course (2D & 3D)", titleAr: "كورس أوتوكاد (2D & 3D)", descEn: "Precise architectural and technical drawing preparation.", descAr: "رسم المخططات الهندسية المعمارية بدقة متناهية وإخراج المساقط التنفيذية." },
+                    { code: "RVT", bg: "blue", titleEn: "Revit Architecture (Level 1)", titleAr: "كورس ريفيت المعماري (المستوى 1)", descEn: "BIM fundamentals, walls, floors, and 3D components creation.", descAr: "أساسيات نمذجة معلومات المباني BIM، الجدران، الأبواب، النوافذ، والكتل ثلاثية الأبعاد." },
+                    { code: "LUM", bg: "emerald", titleEn: "Lumion Animation & Render", titleAr: "كورس لوميون للإخراج المعماري والتحريك", descEn: "Photorealistic rendering, lighting, materials, and motion walkthroughs.", descAr: "صنع فيديوهات الحركة (Animation)، اللقطات الواقعية السريعة (Render)، وإضافة البيئة والمواد." }
+                ]
+            },
+            pkg2: {
+                titleEn: "Full Revit & V-Ray Package",
+                titleAr: "باقة ريفيت المتكاملة",
+                valueEn: "$300 Value",
+                valueAr: "$300 القيمة الأساسية",
+                price: "$199",
+                descEn: "Advanced architectural modeling and photorealistic rendering combo.",
+                descAr: "لتغطية النمذجة المتقدمة والإخراج الواقعي بدقة عالية.",
+                courses: [
+                    { code: "RVT", bg: "blue", titleEn: "Full Revit Architecture (L1 & L2)", titleAr: "كورس ريفيت المعماري المتكامل (L1 & L2)", descEn: "Advanced BIM modeling, custom families, schedules, and construction documents.", descAr: "النمذجة المتقدمة، إنشاء العائلات الخاصة (Families)، جداول الكميات، وإصدار المخططات التنفيذية." },
+                    { code: "VRAY", bg: "orange", titleEn: "V-Ray Rendering Course", titleAr: "كورس فيراي (V-Ray for Revit)", descEn: "Photorealistic rendering, advanced lighting, materials, and environment settings.", descAr: "صنع الإضاءات الواقعية، الخامات المتقدمة، وتقديم صور معمارية فوتوغرافية مبهرة." }
+                ]
+            },
+            pkg3: {
+                titleEn: "CAD, Revit 1 & Photoshop Pack",
+                titleAr: "باقة CAD, Revit 1 & Photoshop",
+                valueEn: "$340 Value",
+                valueAr: "$340 القيمة الأساسية",
+                price: "$219",
+                descEn: "Essential software combo for technical drawings, BIM foundation, and architectural board post-production.",
+                descAr: "الدمج المثالي بين الرسم الهندسي، أساسيات البيم، ومعالجة اللوحات المعمارية.",
+                courses: [
+                    { code: "CAD", bg: "red", titleEn: "AutoCAD Technical Course", titleAr: "كورس أوتوكاد الهندسي", descEn: "Mastering 2D drafting and executive drawing creation.", descAr: "إتقان الأوامر الهندسية وإنشاء المخططات التنفيذية للمشاريع السكنية." },
+                    { code: "RVT", bg: "blue", titleEn: "Revit Architecture (Level 1)", titleAr: "كورس ريفيت المعماري (المستوى 1)", descEn: "Transitioning to 3D BIM modeling and design workflow.", descAr: "التحول من الرسم التقليدي إلى النمذجة ثلاثية الأبعاد ببرمجيات البيم." },
+                    { code: "PS", bg: "cyan", titleEn: "Photoshop for Architects", titleAr: "كورس فوتوشوب للمعماريين", descEn: "Architectural board post-production, color grading, and rendering enhancement.", descAr: "إخراج لوحات العرض المعمارية (Presentations)، إضافة الفراغات والتشجير، ومعالجة الصور." }
+                ]
+            },
+            pkg4: {
+                titleEn: "The Designer's Package",
+                titleAr: "باقة المصمم",
+                valueEn: "$340 Value",
+                valueAr: "$340 القيمة الأساسية",
+                price: "$219",
+                descEn: "Complete package for graphic design, visual branding, and professional video editing.",
+                descAr: "باقة المصمم المتكاملة للـ Branding، التصميم الجرافيكي، والمونتاج الاحترافي.",
+                courses: [
+                    { code: "AI", bg: "amber", titleEn: "Adobe Illustrator Course", titleAr: "كورس أدوبي إيليستريتور", descEn: "Vector graphics, branding creation, logos, and typography design.", descAr: "تصميم الشعارات، الهويات البصرية (Branding)، والرسوم المتجهية (Vector Graphics)." },
+                    { code: "PS", bg: "cyan", titleEn: "Adobe Photoshop Course", titleAr: "كورس أدوبي فوتوشوب المتكامل", descEn: "Advanced image manipulation, digital painting, and composition.", descAr: "تعديل الصور، دمج العناصر البصرية، والتصميم الإعلاني الرقمي." },
+                    { code: "PR", bg: "purple", titleEn: "Adobe Premiere Pro Course", titleAr: "كورس أدوبي بريمير برو للمونتاج", descEn: "Professional video editing, color grading, sound mixing, and content creation.", descAr: "مونتاج الفيديوهات الاحترافية، المؤثرات البصرية، وهندسة الصوت لوسائل التواصل الاجتماعي." }
+                ]
             }
-        }
+        };
 
         let currentLang = 'en';
+        let activePkgId = null;
+
+        function openModal(pkgId) {
+            activePkgId = pkgId;
+            const data = packageData[pkgId];
+            const modal = document.getElementById('package-modal');
+            const content = document.getElementById('modal-content');
+
+            let coursesHtml = '';
+            data.courses.forEach(c => {
+                coursesHtml += `
+                    <div class="flex items-start space-x-3 rtl:space-x-reverse bg-black/40 border border-amber-500/10 p-3 rounded-xl">
+                        <div class="w-9 h-9 rounded-lg bg-${c.bg}-950/40 border border-${c.bg}-500/30 flex items-center justify-center shrink-0 text-${c.bg}-400 font-black text-xs">${c.code}</div>
+                        <div>
+                            <h4 class="font-bold text-white text-sm">${currentLang === 'ar' ? c.titleAr : c.titleEn}</h4>
+                            <p class="text-gray-400 text-xs mt-0.5">${currentLang === 'ar' ? c.descAr : c.descEn}</p>
+                        </div>
+                    </div>
+                `;
+            });
+
+            content.innerHTML = `
+                <div class="mb-4">
+                    <span class="gold-accent text-xs font-bold uppercase tracking-wider">${currentLang === 'ar' ? 'تفاصيل الباقة التدريبية' : 'Package Training Details'}</span>
+                    <h2 class="text-2xl md:text-3xl font-black text-white mt-1">${currentLang === 'ar' ? data.titleAr : data.titleEn}</h2>
+                    <p class="text-gray-400 text-xs mt-2">${currentLang === 'ar' ? data.descAr : data.descEn}</p>
+                </div>
+
+                <div class="space-y-2 mb-6">
+                    <h3 class="text-xs font-bold text-amber-400 uppercase tracking-widest mb-3" data-ar="الكورسات المضمنة في هذه الباقة:">${currentLang === 'ar' ? 'الكورسات المضمنة في هذه الباقة:' : 'Included Courses in this Package:'}</h3>
+                    ${coursesHtml}
+                </div>
+
+                <div class="pt-4 border-t border-gray-800 flex justify-between items-center mb-6">
+                    <div>
+                        <span class="text-xs text-gray-500 line-through block">${currentLang === 'ar' ? data.valueAr : data.valueEn}</span>
+                        <span class="text-3xl font-black gold-accent">${data.price}</span>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                    <a href="https://forms.gle/BZ37DUJqkzw1y3Qk6" target="_blank" class="bg-gold text-black font-bold py-3.5 rounded-xl text-center text-xs hover:opacity-95 transition shadow-lg shadow-amber-500/20 flex items-center justify-center space-x-2 rtl:space-x-reverse">
+                        <i class="fa-solid fa-file-lines"></i>
+                        <span data-ar="تعبئة استمارة التسجيل">${currentLang === 'ar' ? 'تعبئة استمارة التسجيل' : 'Register via Form'}</span>
+                    </a>
+                    <a href="https://wa.me/96171967714" target="_blank" class="glass-card text-amber-400 border border-amber-500/30 py-3.5 rounded-xl text-center text-xs font-bold hover:bg-amber-500/10 transition flex items-center justify-center space-x-2 rtl:space-x-reverse">
+                        <i class="fa-brands fa-whatsapp text-sm"></i>
+                        <span data-ar="استفسر عبر الواتساب">${currentLang === 'ar' ? 'استفسر عبر الواتساب' : 'WhatsApp Inquiry'}</span>
+                    </a>
+                </div>
+            `;
+
+            modal.classList.remove('hidden');
+        }
+
+        function closeModal() {
+            document.getElementById('package-modal').classList.add('hidden');
+            activePkgId = null;
+        }
+
+        // Close modal when clicking outside of it
+        window.onclick = function(event) {
+            const modal = document.getElementById('package-modal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        }
 
         function toggleLanguage() {
             const html = document.documentElement;
@@ -370,24 +338,24 @@
                 html.setAttribute('dir', 'rtl');
                 html.setAttribute('lang', 'ar');
                 langBtn.innerText = 'English';
-                
-                document.querySelectorAll('[data-ar]').forEach(el => {
-                    if (!el.getAttribute('data-en')) {
-                        el.setAttribute('data-en', el.innerText);
-                    }
-                    el.innerText = el.getAttribute('data-ar');
-                });
             } else {
                 currentLang = 'en';
                 html.setAttribute('dir', 'ltr');
                 html.setAttribute('lang', 'en');
                 langBtn.innerText = 'العربية';
-                
-                document.querySelectorAll('[data-ar]').forEach(el => {
-                    if (el.getAttribute('data-en')) {
-                        el.innerText = el.getAttribute('data-en');
-                    }
-                });
+            }
+
+            // Translate normal elements
+            document.querySelectorAll('[data-ar]').forEach(el => {
+                if (!el.getAttribute('data-en')) {
+                    el.setAttribute('data-en', el.innerText);
+                }
+                el.innerText = currentLang === 'ar' ? el.getAttribute('data-ar') : el.getAttribute('data-en');
+            });
+
+            // If modal is open, refresh modal content language too
+            if (activePkgId) {
+                openModal(activePkgId);
             }
         }
     </script>
