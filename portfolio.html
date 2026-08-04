@@ -31,10 +31,11 @@
 </head>
 <body class="selection:bg-amber-500 selection:text-black min-h-screen flex flex-col justify-between">
 
-<!-- Header Navigation -->
+    <!-- Header Navigation -->
     <nav class="fixed w-full z-50 glass-card px-6 py-4 flex justify-between items-center top-0 border-b border-amber-500/15">
         <a href="index.html" class="flex items-center space-x-3 rtl:space-x-reverse">
-            <span class="text-xl font-black tracking-wider text-white">SKETCHY <span class="gold-accent">CHAPTERS</span></span>
+            <img src="logo.png" alt="SCDC Logo" class="h-10 md:h-12 w-auto object-contain" onerror="this.style.display='none'; document.getElementById('logo-fallback').style.display='block';">
+            <span id="logo-fallback" class="hidden text-xl font-black tracking-wider text-white">SKETCHY <span class="gold-accent">CHAPTERS</span></span>
         </a>
 
         <div class="flex items-center space-x-4 rtl:space-x-reverse">
