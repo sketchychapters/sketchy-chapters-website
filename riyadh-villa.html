@@ -24,8 +24,9 @@
         img { user-select: none; -webkit-user-drag: none; }
     </style>
 </head>
-<body class="selection:bg-amber-500 selection:text-black" oncontextmenu="return false;">
+<body class="pt-24 selection:bg-amber-500 selection:text-black" oncontextmenu="return false;">
 
+    <!-- Header Navigation -->
     <nav class="fixed w-full z-50 glass-card px-6 py-4 flex justify-between items-center top-0 border-b border-amber-500/15">
         <a href="index.html" class="flex items-center space-x-3 rtl:space-x-reverse">
             <img src="logo.png" alt="SCDC Logo" class="h-10 md:h-12 w-auto object-contain" onerror="this.style.display='none'; document.getElementById('logo-fallback').style.display='block';">
@@ -46,20 +47,20 @@
         </div>
     </nav>
 
-    <section class="pt-32 pb-12 px-6 max-w-7xl mx-auto">
-        <div data-aos="fade-up">
+    <section class="py-12 px-6 max-w-7xl mx-auto">
+        <div class="mb-12" data-aos="fade-up">
             <div class="inline-block px-4 py-1.5 rounded-full glass-card text-xs font-bold gold-accent mb-4 uppercase tracking-widest border border-amber-500/30">
-                <span class="lang-en">2025 • Luxury Residential Villa</span>
-                <span class="lang-ar">2025 • فيلا سكنية فاخرة</span>
+                <span class="lang-en">Luxury Residential Interior • 2025</span>
+                <span class="lang-ar">تصميم داخلي سكني فاخر • 2025</span>
             </div>
             <h1 class="text-4xl md:text-6xl font-black text-white mb-4">Villa in Riyadh</h1>
-            <p class="text-gray-400 font-light max-w-3xl text-lg leading-relaxed">
+            <p class="text-gray-400 font-light max-w-3xl text-lg">
                 <span class="lang-en">Riyadh, Saudi Arabia • Comprehensive luxury interior design and execution featuring master bedroom, dressing room, coffee corner, bespoke kitchen, living room, and formal dining area.</span>
                 <span class="lang-ar">الرياض، المملكة العربية السعودية • تصميم وتنفيذ داخلي متكامل وفخم يضم غرفة نوم رئيسية، غرفة ملابس، ركن قهوة، مطبخ مميز، غرفة معيشة، وغرفة طعام أنيقة.</span>
             </p>
         </div>
 
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8 glass-card p-6 rounded-3xl" data-aos="fade-up" data-aos-delay="100">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12 glass-card p-6 rounded-3xl" data-aos="fade-up" data-aos-delay="100">
             <div>
                 <span class="text-xs text-gray-500 uppercase font-bold block">
                     <span class="lang-en">Location</span>
@@ -98,181 +99,207 @@
                 </span>
             </div>
         </div>
-    </section>
 
-    <!-- 1. Master Bedroom -->
-    <section class="py-12 px-6 max-w-7xl mx-auto border-t border-amber-500/10">
-        <div class="mb-8" data-aos="fade-up">
-            <h2 class="text-2xl md:text-3xl font-black gold-gradient-text">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-12 mb-16">
+            <div class="lg:col-span-2" data-aos="fade-right">
+                <h2 class="text-2xl font-bold mb-4 gold-gradient-text">
+                    <span class="lang-en">Architectural Concept & Spatial Design</span>
+                    <span class="lang-ar">المفهوم المعماري والتصميم الفراغي</span>
+                </h2>
+                <p class="text-gray-300 font-light leading-relaxed mb-6">
+                    <span class="lang-en">Executed by <strong class="text-white">Sketchy Chapters Design & Construction (SCDC)</strong>, this luxury villa project in Riyadh showcases high-end residential craftsmanship, merging elegant marble finishes, custom woodwork, and sophisticated lighting across all private and living quarters.</span>
+                    <span class="lang-ar">تم تنفيذ هذا المشروع بواسطة <strong class="text-white">Sketchy Chapters Design & Construction (SCDC)</strong>، ويُبرز هذا المشروع الفاخر في الرياض الحرفية العالية في التشطيبات السكنية، جامعاً بين التشطيبات الرخامية الأنيقة، الأعمال الخشبية المخصصة، والإضاءة المدروسة بعناية في كافة الأقسام والمساحات المعيشية.</span>
+                </p>
+                <p class="text-gray-400 font-light leading-relaxed">
+                    <span class="lang-en">Every zone was meticulously planned to ensure a seamless blend of comfort, modern luxury, and practical daily utility.</span>
+                    <span class="lang-ar">تم التخطيط لكل زاوية بدقة لضمان مزيج متناغم من الراحة، الفخامة العصرية، والعملية في الاستخدام اليومي.</span>
+                </p>
+            </div>
+            <div class="glass-card p-8 rounded-3xl flex flex-col justify-between" data-aos="fade-left">
+                <div>
+                    <h3 class="text-xl font-bold text-white mb-3">
+                        <span class="lang-en">Planning a Luxury Villa Project?</span>
+                        <span class="lang-ar">هل تخطط لمشروع فيلا فاخرة؟</span>
+                    </h3>
+                    <p class="text-gray-400 text-sm font-light mb-6">
+                        <span class="lang-en">Consult SCDC for high-end interior concepts and complete architectural solutions.</span>
+                        <span class="lang-ar">استشر SCDC للحصول على تصاميم داخلية راقية وحلول معمارية متكاملة.</span>
+                    </p>
+                </div>
+                <a href="https://wa.me/96181427589?text=Hello%20SCDC,%20I%20am%20interested%20in%20a%20luxury%20villa%20design%20similar%20to%20Riyadh%20Villa" target="_blank" class="bg-gold text-black font-extrabold text-center py-4 rounded-2xl hover:brightness-110 transition flex items-center justify-center space-x-2 rtl:space-x-reverse">
+                    <i class="fa-brands fa-whatsapp text-lg"></i>
+                    <span>
+                        <span class="lang-en">Inquire via WhatsApp</span>
+                        <span class="lang-ar">تواصل عبر واتساب</span>
+                    </span>
+                </a>
+            </div>
+        </div>
+
+        <!-- 1. Master Bedroom Gallery -->
+        <div class="mb-12">
+            <h2 class="text-2xl font-bold mb-8 gold-gradient-text" data-aos="fade-up">
                 <span class="lang-en">Master Bedroom</span>
                 <span class="lang-ar">غرفة النوم الرئيسية</span>
             </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="glass-card rounded-3xl overflow-hidden group cursor-pointer" onclick="openModal('Villa-Riyadh-MasterBedroom-1.jpg', 'Master Bedroom - View 01')" data-aos="fade-up" data-aos-delay="100">
+                    <div class="h-72 overflow-hidden relative">
+                        <img src="Villa-Riyadh-MasterBedroom-1.jpg" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                        <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition flex items-center justify-center text-gold text-3xl"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+                    </div>
+                    <p class="text-xs text-gray-400 p-3 text-center">Master Bedroom - View 01</p>
+                </div>
+                <div class="glass-card rounded-3xl overflow-hidden group cursor-pointer" onclick="openModal('Villa-Riyadh-MasterBedroom-2.jpg', 'Master Bedroom - View 02')" data-aos="fade-up" data-aos-delay="200">
+                    <div class="h-72 overflow-hidden relative">
+                        <img src="Villa-Riyadh-MasterBedroom-2.jpg" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                        <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition flex items-center justify-center text-gold text-3xl"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+                    </div>
+                    <p class="text-xs text-gray-400 p-3 text-center">Master Bedroom - View 02</p>
+                </div>
+                <div class="glass-card rounded-3xl overflow-hidden group cursor-pointer" onclick="openModal('Villa-Riyadh-MasterBedroom-3.jpg', 'Master Bedroom - View 03')" data-aos="fade-up" data-aos-delay="300">
+                    <div class="h-72 overflow-hidden relative">
+                        <img src="Villa-Riyadh-MasterBedroom-3.jpg" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                        <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition flex items-center justify-center text-gold text-3xl"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+                    </div>
+                    <p class="text-xs text-gray-400 p-3 text-center">Master Bedroom - View 03</p>
+                </div>
+                <div class="glass-card rounded-3xl overflow-hidden group cursor-pointer" onclick="openModal('Villa-Riyadh-MasterBedroom-4.jpg', 'Master Bedroom - View 04')" data-aos="fade-up" data-aos-delay="400">
+                    <div class="h-72 overflow-hidden relative">
+                        <img src="Villa-Riyadh-MasterBedroom-4.jpg" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                        <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition flex items-center justify-center text-gold text-3xl"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+                    </div>
+                    <p class="text-xs text-gray-400 p-3 text-center">Master Bedroom - View 04</p>
+                </div>
+            </div>
         </div>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6" data-aos="fade-up">
-            <div class="glass-card p-3 rounded-2xl cursor-pointer group" onclick="openModal('Villa-Riyadh-MasterBedroom-1.jpg', 'Master Bedroom - View 01')">
-                <div class="h-80 overflow-hidden rounded-xl relative">
-                    <img src="Villa-Riyadh-MasterBedroom-1.jpg" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
-                    <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition flex items-center justify-center text-gold text-3xl"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
-                </div>
-                <p class="text-xs text-gray-400 mt-3 text-center">Master Bedroom - View 01</p>
-            </div>
-            <div class="glass-card p-3 rounded-2xl cursor-pointer group" onclick="openModal('Villa-Riyadh-MasterBedroom-2.jpg', 'Master Bedroom - View 02')">
-                <div class="h-80 overflow-hidden rounded-xl relative">
-                    <img src="Villa-Riyadh-MasterBedroom-2.jpg" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
-                    <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition flex items-center justify-center text-gold text-3xl"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
-                </div>
-                <p class="text-xs text-gray-400 mt-3 text-center">Master Bedroom - View 02</p>
-            </div>
-            <div class="glass-card p-3 rounded-2xl cursor-pointer group" onclick="openModal('Villa-Riyadh-MasterBedroom-3.jpg', 'Master Bedroom - View 03')">
-                <div class="h-80 overflow-hidden rounded-xl relative">
-                    <img src="Villa-Riyadh-MasterBedroom-3.jpg" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
-                    <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition flex items-center justify-center text-gold text-3xl"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
-                </div>
-                <p class="text-xs text-gray-400 mt-3 text-center">Master Bedroom - View 03</p>
-            </div>
-            <div class="glass-card p-3 rounded-2xl cursor-pointer group" onclick="openModal('Villa-Riyadh-MasterBedroom-4.jpg', 'Master Bedroom - View 04')">
-                <div class="h-80 overflow-hidden rounded-xl relative">
-                    <img src="Villa-Riyadh-MasterBedroom-4.jpg" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
-                    <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition flex items-center justify-center text-gold text-3xl"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
-                </div>
-                <p class="text-xs text-gray-400 mt-3 text-center">Master Bedroom - View 04</p>
-            </div>
-        </div>
-    </section>
 
-    <!-- 2. Dressing Room -->
-    <section class="py-12 px-6 max-w-7xl mx-auto border-t border-amber-500/10">
-        <div class="mb-8" data-aos="fade-up">
-            <h2 class="text-2xl md:text-3xl font-black gold-gradient-text">
+        <!-- 2. Dressing Room Gallery -->
+        <div class="mb-12">
+            <h2 class="text-2xl font-bold mb-8 gold-gradient-text" data-aos="fade-up">
                 <span class="lang-en">Dressing Room</span>
                 <span class="lang-ar">غرفة الملابس</span>
             </h2>
-        </div>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6" data-aos="fade-up">
-            <div class="glass-card p-3 rounded-2xl cursor-pointer group" onclick="openModal('Villa-Riyadh-Dressing-1.jpg', 'Dressing Room - Angle 01')">
-                <div class="h-80 overflow-hidden rounded-xl relative">
-                    <img src="Villa-Riyadh-Dressing-1.jpg" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
-                    <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition flex items-center justify-center text-gold text-3xl"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+                <div class="glass-card rounded-3xl overflow-hidden group cursor-pointer" onclick="openModal('Villa-Riyadh-Dressing-1.jpg', 'Dressing Room - Angle 01')" data-aos="fade-up" data-aos-delay="100">
+                    <div class="h-80 overflow-hidden relative">
+                        <img src="Villa-Riyadh-Dressing-1.jpg" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                        <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition flex items-center justify-center text-gold text-3xl"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+                    </div>
+                    <p class="text-xs text-gray-400 p-3 text-center">Dressing Room - Angle 01</p>
                 </div>
-                <p class="text-xs text-gray-400 mt-3 text-center">Dressing Room - Angle 01</p>
-            </div>
-            <div class="glass-card p-3 rounded-2xl cursor-pointer group" onclick="openModal('Villa-Riyadh-Dressing-2.jpg', 'Dressing Room - Angle 02')">
-                <div class="h-80 overflow-hidden rounded-xl relative">
-                    <img src="Villa-Riyadh-Dressing-2.jpg" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
-                    <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition flex items-center justify-center text-gold text-3xl"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+                <div class="glass-card rounded-3xl overflow-hidden group cursor-pointer" onclick="openModal('Villa-Riyadh-Dressing-2.jpg', 'Dressing Room - Angle 02')" data-aos="fade-up" data-aos-delay="200">
+                    <div class="h-80 overflow-hidden relative">
+                        <img src="Villa-Riyadh-Dressing-2.jpg" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                        <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition flex items-center justify-center text-gold text-3xl"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+                    </div>
+                    <p class="text-xs text-gray-400 p-3 text-center">Dressing Room - Angle 02</p>
                 </div>
-                <p class="text-xs text-gray-400 mt-3 text-center">Dressing Room - Angle 02</p>
             </div>
         </div>
-    </section>
 
-    <!-- 3. Living Room -->
-    <section class="py-12 px-6 max-w-7xl mx-auto border-t border-amber-500/10">
-        <div class="mb-8" data-aos="fade-up">
-            <h2 class="text-2xl md:text-3xl font-black gold-gradient-text">
+        <!-- 3. Living Room Gallery -->
+        <div class="mb-12">
+            <h2 class="text-2xl font-bold mb-8 gold-gradient-text" data-aos="fade-up">
                 <span class="lang-en">Living Room</span>
                 <span class="lang-ar">غرفة المعيشة</span>
             </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="glass-card rounded-3xl overflow-hidden group cursor-pointer" onclick="openModal('Villa-Riyadh-Living-1.jpg', 'Living Room - View 01')" data-aos="fade-up" data-aos-delay="100">
+                    <div class="h-72 overflow-hidden relative">
+                        <img src="Villa-Riyadh-Living-1.jpg" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                        <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition flex items-center justify-center text-gold text-3xl"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+                    </div>
+                    <p class="text-xs text-gray-400 p-3 text-center">Living Room - View 01</p>
+                </div>
+                <div class="glass-card rounded-3xl overflow-hidden group cursor-pointer" onclick="openModal('Villa-Riyadh-Living-2.jpg', 'Living Room - View 02')" data-aos="fade-up" data-aos-delay="200">
+                    <div class="h-72 overflow-hidden relative">
+                        <img src="Villa-Riyadh-Living-2.jpg" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                        <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition flex items-center justify-center text-gold text-3xl"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+                    </div>
+                    <p class="text-xs text-gray-400 p-3 text-center">Living Room - View 02</p>
+                </div>
+                <div class="glass-card rounded-3xl overflow-hidden group cursor-pointer" onclick="openModal('Villa-Riyadh-Living-3.jpg', 'Living Room - View 03')" data-aos="fade-up" data-aos-delay="300">
+                    <div class="h-72 overflow-hidden relative">
+                        <img src="Villa-Riyadh-Living-3.jpg" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                        <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition flex items-center justify-center text-gold text-3xl"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+                    </div>
+                    <p class="text-xs text-gray-400 p-3 text-center">Living Room - View 03</p>
+                </div>
+                <div class="glass-card rounded-3xl overflow-hidden group cursor-pointer" onclick="openModal('Villa-Riyadh-Living-4.jpg', 'Living Room - View 04')" data-aos="fade-up" data-aos-delay="400">
+                    <div class="h-72 overflow-hidden relative">
+                        <img src="Villa-Riyadh-Living-4.jpg" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                        <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition flex items-center justify-center text-gold text-3xl"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+                    </div>
+                    <p class="text-xs text-gray-400 p-3 text-center">Living Room - View 04</p>
+                </div>
+            </div>
         </div>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6" data-aos="fade-up">
-            <div class="glass-card p-3 rounded-2xl cursor-pointer group" onclick="openModal('Villa-Riyadh-Living-1.jpg', 'Living Room - View 01')">
-                <div class="h-80 overflow-hidden rounded-xl relative">
-                    <img src="Villa-Riyadh-Living-1.jpg" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
-                    <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition flex items-center justify-center text-gold text-3xl"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
-                </div>
-                <p class="text-xs text-gray-400 mt-3 text-center">Living Room - View 01</p>
-            </div>
-            <div class="glass-card p-3 rounded-2xl cursor-pointer group" onclick="openModal('Villa-Riyadh-Living-2.jpg', 'Living Room - View 02')">
-                <div class="h-80 overflow-hidden rounded-xl relative">
-                    <img src="Villa-Riyadh-Living-2.jpg" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
-                    <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition flex items-center justify-center text-gold text-3xl"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
-                </div>
-                <p class="text-xs text-gray-400 mt-3 text-center">Living Room - View 02</p>
-            </div>
-            <div class="glass-card p-3 rounded-2xl cursor-pointer group" onclick="openModal('Villa-Riyadh-Living-3.jpg', 'Living Room - View 03')">
-                <div class="h-80 overflow-hidden rounded-xl relative">
-                    <img src="Villa-Riyadh-Living-3.jpg" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
-                    <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition flex items-center justify-center text-gold text-3xl"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
-                </div>
-                <p class="text-xs text-gray-400 mt-3 text-center">Living Room - View 03</p>
-            </div>
-            <div class="glass-card p-3 rounded-2xl cursor-pointer group" onclick="openModal('Villa-Riyadh-Living-4.jpg', 'Living Room - View 04')">
-                <div class="h-80 overflow-hidden rounded-xl relative">
-                    <img src="Villa-Riyadh-Living-4.jpg" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
-                    <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition flex items-center justify-center text-gold text-3xl"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
-                </div>
-                <p class="text-xs text-gray-400 mt-3 text-center">Living Room - View 04</p>
-            </div>
-        </div>
-    </section>
 
-    <!-- 4. Kitchen & Coffee Corner -->
-    <section class="py-12 px-6 max-w-7xl mx-auto border-t border-amber-500/10">
-        <div class="mb-8" data-aos="fade-up">
-            <h2 class="text-2xl md:text-3xl font-black gold-gradient-text">
+        <!-- 4. Kitchen & Coffee Corner Gallery -->
+        <div class="mb-12">
+            <h2 class="text-2xl font-bold mb-8 gold-gradient-text" data-aos="fade-up">
                 <span class="lang-en">Kitchen & Coffee Corner</span>
                 <span class="lang-ar">المطبخ وركن القهوة</span>
             </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="glass-card rounded-3xl overflow-hidden group cursor-pointer" onclick="openModal('Villa-Riyadh-Kitchen-1.jpg', 'Kitchen - Main View')" data-aos="fade-up" data-aos-delay="100">
+                    <div class="h-72 overflow-hidden relative">
+                        <img src="Villa-Riyadh-Kitchen-1.jpg" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                        <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition flex items-center justify-center text-gold text-3xl"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+                    </div>
+                    <p class="text-xs text-gray-400 p-3 text-center">Kitchen - Main View</p>
+                </div>
+                <div class="glass-card rounded-3xl overflow-hidden group cursor-pointer" onclick="openModal('Villa-Riyadh-Kitchen-2.jpg', 'Kitchen - Details')" data-aos="fade-up" data-aos-delay="200">
+                    <div class="h-72 overflow-hidden relative">
+                        <img src="Villa-Riyadh-Kitchen-2.jpg" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                        <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition flex items-center justify-center text-gold text-3xl"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+                    </div>
+                    <p class="text-xs text-gray-400 p-3 text-center">Kitchen - Details</p>
+                </div>
+                <div class="glass-card rounded-3xl overflow-hidden group cursor-pointer" onclick="openModal('Villa-Riyadh-CoffeeCorner-1.jpg', 'Coffee Corner - Angle 01')" data-aos="fade-up" data-aos-delay="300">
+                    <div class="h-72 overflow-hidden relative">
+                        <img src="Villa-Riyadh-CoffeeCorner-1.jpg" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                        <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition flex items-center justify-center text-gold text-3xl"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+                    </div>
+                    <p class="text-xs text-gray-400 p-3 text-center">Coffee Corner - Angle 01</p>
+                </div>
+                <div class="glass-card rounded-3xl overflow-hidden group cursor-pointer" onclick="openModal('Villa-Riyadh-CoffeeCorner-2.jpg', 'Coffee Corner - Angle 02')" data-aos="fade-up" data-aos-delay="400">
+                    <div class="h-72 overflow-hidden relative">
+                        <img src="Villa-Riyadh-CoffeeCorner-2.jpg" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                        <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition flex items-center justify-center text-gold text-3xl"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+                    </div>
+                    <p class="text-xs text-gray-400 p-3 text-center">Coffee Corner - Angle 02</p>
+                </div>
+                <div class="glass-card rounded-3xl overflow-hidden group md:col-span-2 cursor-pointer" onclick="openModal('Villa-Riyadh-CoffeeCorner-3.jpg', 'Coffee Corner - Angle 03')" data-aos="fade-up" data-aos-delay="500">
+                    <div class="h-72 overflow-hidden relative">
+                        <img src="Villa-Riyadh-CoffeeCorner-3.jpg" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                        <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition flex items-center justify-center text-gold text-3xl"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+                    </div>
+                    <p class="text-xs text-gray-400 p-3 text-center">Coffee Corner - Angle 03</p>
+                </div>
+            </div>
         </div>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6" data-aos="fade-up">
-            <div class="glass-card p-3 rounded-2xl cursor-pointer group" onclick="openModal('Villa-Riyadh-Kitchen-1.jpg', 'Kitchen - Main View')">
-                <div class="h-72 overflow-hidden rounded-xl relative">
-                    <img src="Villa-Riyadh-Kitchen-1.jpg" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
-                    <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition flex items-center justify-center text-gold text-3xl"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
-                </div>
-                <p class="text-xs text-gray-400 mt-3 text-center">Kitchen - Main View</p>
-            </div>
-            <div class="glass-card p-3 rounded-2xl cursor-pointer group" onclick="openModal('Villa-Riyadh-Kitchen-2.jpg', 'Kitchen - Details')">
-                <div class="h-72 overflow-hidden rounded-xl relative">
-                    <img src="Villa-Riyadh-Kitchen-2.jpg" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
-                    <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition flex items-center justify-center text-gold text-3xl"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
-                </div>
-                <p class="text-xs text-gray-400 mt-3 text-center">Kitchen - Details</p>
-            </div>
-            <div class="glass-card p-3 rounded-2xl cursor-pointer group" onclick="openModal('Villa-Riyadh-CoffeeCorner-1.jpg', 'Coffee Corner - Angle 01')">
-                <div class="h-72 overflow-hidden rounded-xl relative">
-                    <img src="Villa-Riyadh-CoffeeCorner-1.jpg" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
-                    <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition flex items-center justify-center text-gold text-3xl"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
-                </div>
-                <p class="text-xs text-gray-400 mt-3 text-center">Coffee Corner - Angle 01</p>
-            </div>
-            <div class="glass-card p-3 rounded-2xl cursor-pointer group" onclick="openModal('Villa-Riyadh-CoffeeCorner-2.jpg', 'Coffee Corner - Angle 02')">
-                <div class="h-72 overflow-hidden rounded-xl relative">
-                    <img src="Villa-Riyadh-CoffeeCorner-2.jpg" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
-                    <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition flex items-center justify-center text-gold text-3xl"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
-                </div>
-                <p class="text-xs text-gray-400 mt-3 text-center">Coffee Corner - Angle 02</p>
-            </div>
-            <div class="glass-card p-3 rounded-2xl md:col-span-2 cursor-pointer group" onclick="openModal('Villa-Riyadh-CoffeeCorner-3.jpg', 'Coffee Corner - Angle 03')">
-                <div class="h-72 overflow-hidden rounded-xl relative">
-                    <img src="Villa-Riyadh-CoffeeCorner-3.jpg" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
-                    <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition flex items-center justify-center text-gold text-3xl"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
-                </div>
-                <p class="text-xs text-gray-400 mt-3 text-center">Coffee Corner - Angle 03</p>
-            </div>
-        </div>
-    </section>
 
-    <!-- 5. Dining Room -->
-    <section class="py-12 px-6 max-w-7xl mx-auto border-t border-amber-500/10">
-        <div class="mb-8" data-aos="fade-up">
-            <h2 class="text-2xl md:text-3xl font-black gold-gradient-text">
+        <!-- 5. Dining Room Gallery -->
+        <div class="mb-12">
+            <h2 class="text-2xl font-bold mb-8 gold-gradient-text" data-aos="fade-up">
                 <span class="lang-en">Dining Room</span>
                 <span class="lang-ar">غرفة الطعام</span>
             </h2>
-        </div>
-        <div class="grid grid-cols-1 max-w-2xl mx-auto" data-aos="fade-up">
-            <div class="glass-card p-3 rounded-2xl cursor-pointer group" onclick="openModal('Villa-Riyadh-Dining.jpg', 'Formal Dining Area')">
-                <div class="h-96 overflow-hidden rounded-xl relative">
-                    <img src="Villa-Riyadh-Dining.jpg" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
-                    <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition flex items-center justify-center text-gold text-3xl"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+            <div class="grid grid-cols-1 max-w-xl mx-auto">
+                <div class="glass-card rounded-3xl overflow-hidden group cursor-pointer" onclick="openModal('Villa-Riyadh-Dining.jpg', 'Formal Dining Area')" data-aos="fade-up">
+                    <div class="h-96 overflow-hidden relative">
+                        <img src="Villa-Riyadh-Dining.jpg" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                        <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition flex items-center justify-center text-gold text-3xl"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+                    </div>
+                    <p class="text-xs text-gray-400 p-3 text-center">Formal Dining Area</p>
                 </div>
-                <p class="text-xs text-gray-400 mt-3 text-center">Formal Dining Area</p>
             </div>
         </div>
     </section>
 
-    <!-- Modal for Image Preview -->
+    <!-- Image Modal -->
     <div id="imageModal" class="fixed inset-0 z-50 bg-black/95 hidden flex items-center justify-center p-4">
         <div class="max-w-5xl w-full glass-card p-4 rounded-3xl relative">
             <button onclick="closeModal()" class="absolute top-4 right-4 text-white text-3xl hover:text-amber-400">&times;</button>
@@ -281,21 +308,8 @@
         </div>
     </div>
 
-    <section class="py-16 px-6 max-w-4xl mx-auto text-center" data-aos="zoom-in">
-        <div class="glass-card p-10 rounded-3xl border border-amber-500/20">
-            <h3 class="text-2xl font-black text-white mb-4">
-                <span class="lang-en">Planning a Luxury Villa Project?</span>
-                <span class="lang-ar">هل تخطط لتصميم وتنفيذ فيلا فاخرة؟</span>
-            </h3>
-            <a href="https://wa.me/96181427589?text=Hello%20SCDC,%20I%20am%20interested%20in%20a%20luxury%20villa%20design%20similar%20to%20Riyadh%20Villa" target="_blank" class="bg-gold text-black px-8 py-3.5 rounded-full font-bold text-xs uppercase tracking-wider inline-block hover:brightness-110 transition">
-                <span class="lang-en">Contact via WhatsApp</span>
-                <span class="lang-ar">تواصل عبر واتساب</span>
-            </a>
-        </div>
-    </section>
-
-    <footer class="border-t border-amber-500/10 py-8 text-center text-gray-500 text-xs">
-        <p>&copy; <script>document.write(new Date().getFullYear())</script> Sketchy Chapters Design & Construction (SCDC). All Rights Reserved.</p>
+    <footer class="py-12 text-center text-gray-500 text-xs border-t border-gray-900">
+        <p>© <script>document.write(new Date().getFullYear())</script> Sketchy Chapters Design & Construction (SCDC). All Rights Reserved.</p>
     </footer>
 
     <!-- AOS Script -->
