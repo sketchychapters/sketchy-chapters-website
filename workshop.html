@@ -41,8 +41,8 @@
 
     <!-- Navigation Bar -->
     <nav class="fixed w-full z-50 glass-card px-6 py-4 flex justify-between items-center top-0 border-b border-amber-500/15">
-        <a href="index.html" class="flex items-center space-x-3 rtl:space-x-reverse">
-            <span class="text-xl font-black tracking-wider text-white">SKETCHY <span class="gold-accent">CHAPTERS</span> <span class="text-xs text-gray-400 font-light">| Workshops</span></span>
+        <a href="index.html" class="flex items-center">
+            <img src="workshop.png" alt="Sketchy Chapters Workshop Center" class="h-10 w-auto object-contain">
         </a>
         <div class="hidden md:flex space-x-6 rtl:space-x-reverse text-sm font-semibold">
             <a href="index.html" class="hover:text-amber-400 transition">الرئيسية</a>
@@ -210,7 +210,7 @@
             counters.forEach(counter => {
                 const target = +counter.getAttribute('data-target');
                 let count = 0;
-                const speed = target / 50; // سرعة العد
+                const speed = target / 50;
 
                 function updateCount() {
                     count += speed;
