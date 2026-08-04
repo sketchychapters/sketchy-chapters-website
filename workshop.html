@@ -48,7 +48,6 @@
             box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3);
             text-transform: uppercase;
         }
-        /* Modal Backdrop */
         #package-modal {
             background: rgba(0, 0, 0, 0.8);
             backdrop-filter: blur(8px);
@@ -94,7 +93,7 @@
         </div>
     </section>
 
-    <!-- Offers Grid Section (Clickable Cards) -->
+    <!-- Offers Grid Section -->
     <section class="py-16 px-6 max-w-7xl mx-auto">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
             
@@ -199,9 +198,8 @@
         <p>&copy; 2026 Sketchy Chapters Workshop Center. All rights reserved.</p>
     </footer>
 
-    <!-- Scripts for Modal, Language, and Content Data -->
+    <!-- Scripts -->
     <script>
-        // Data for packages
         const packageData = {
             pkg1: {
                 titleEn: "Engineer's Package",
@@ -282,6 +280,11 @@
                 `;
             });
 
+            // WhatsApp message custom text including package title
+            const pkgTitleText = currentLang === 'ar' ? data.titleAr : data.titleEn;
+            const waMessage = encodeURIComponent(currentLang === 'ar' ? `مرحباً، أود الاستفسار عن تفاصيل والاشتراك في ${pkgTitleText}` : `Hello, I would like to inquire about details and registration for ${pkgTitleText}`);
+            const waLink = `https://wa.me/96171967714?text=${waMessage}`;
+
             content.innerHTML = `
                 <div class="mb-4">
                     <span class="gold-accent text-xs font-bold uppercase tracking-wider">${currentLang === 'ar' ? 'تفاصيل الباقة التدريبية' : 'Package Training Details'}</span>
@@ -290,7 +293,7 @@
                 </div>
 
                 <div class="space-y-2 mb-6">
-                    <h3 class="text-xs font-bold text-amber-400 uppercase tracking-widest mb-3" data-ar="الكورسات المضمنة في هذه الباقة:">${currentLang === 'ar' ? 'الكورسات المضمنة في هذه الباقة:' : 'Included Courses in this Package:'}</h3>
+                    <h3 class="text-xs font-bold text-amber-400 uppercase tracking-widest mb-3">${currentLang === 'ar' ? 'الكورسات المضمنة في هذه الباقة:' : 'Included Courses in this Package:'}</h3>
                     ${coursesHtml}
                 </div>
 
@@ -303,12 +306,12 @@
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
                     <a href="https://forms.gle/BZ37DUJqkzw1y3Qk6" target="_blank" class="bg-gold text-black font-bold py-3.5 rounded-xl text-center text-xs hover:opacity-95 transition shadow-lg shadow-amber-500/20 flex items-center justify-center space-x-2 rtl:space-x-reverse">
-                        <i class="fa-solid fa-file-lines"></i>
-                        <span data-ar="تعبئة استمارة التسجيل">${currentLang === 'ar' ? 'تعبئة استمارة التسجيل' : 'Register via Form'}</span>
+                        <i class="fa-solid fa-file-lines text-sm"></i>
+                        <span>${currentLang === 'ar' ? 'تسجيل عبر الاستمارة' : 'Register via Form'}</span>
                     </a>
-                    <a href="https://wa.me/96171967714" target="_blank" class="glass-card text-amber-400 border border-amber-500/30 py-3.5 rounded-xl text-center text-xs font-bold hover:bg-amber-500/10 transition flex items-center justify-center space-x-2 rtl:space-x-reverse">
+                    <a href="${waLink}" target="_blank" class="glass-card text-amber-400 border border-amber-500/30 py-3.5 rounded-xl text-center text-xs font-bold hover:bg-amber-500/10 transition flex items-center justify-center space-x-2 rtl:space-x-reverse">
                         <i class="fa-brands fa-whatsapp text-sm"></i>
-                        <span data-ar="استفسر عبر الواتساب">${currentLang === 'ar' ? 'استفسر عبر الواتساب' : 'WhatsApp Inquiry'}</span>
+                        <span>${currentLang === 'ar' ? 'استفسر عبر الواتساب' : 'WhatsApp Inquiry'}</span>
                     </a>
                 </div>
             `;
@@ -321,7 +324,6 @@
             activePkgId = null;
         }
 
-        // Close modal when clicking outside of it
         window.onclick = function(event) {
             const modal = document.getElementById('package-modal');
             if (event.target === modal) {
@@ -345,7 +347,6 @@
                 langBtn.innerText = 'العربية';
             }
 
-            // Translate normal elements
             document.querySelectorAll('[data-ar]').forEach(el => {
                 if (!el.getAttribute('data-en')) {
                     el.setAttribute('data-en', el.innerText);
@@ -353,7 +354,6 @@
                 el.innerText = currentLang === 'ar' ? el.getAttribute('data-ar') : el.getAttribute('data-en');
             });
 
-            // If modal is open, refresh modal content language too
             if (activePkgId) {
                 openModal(activePkgId);
             }
