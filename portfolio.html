@@ -3,21 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio | Sketchy Chapters Design & Construction</title>
-    <!-- Tailwind CSS -->
+    <title id="page-title">Project Details | Sketchy Chapters</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&family=Tajawal:wght@300;500;700;900&display=swap" rel="stylesheet">
-    <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- AOS Animation Library -->
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <style>
         body {
             font-family: 'Plus Jakarta Sans', 'Tajawal', sans-serif;
             background-color: #08080a;
             color: #e0e6ed;
-            overflow-x: hidden;
         }
         .gold-accent { color: #d4af37; }
         .gold-gradient-text {
@@ -31,18 +25,13 @@
             backdrop-filter: blur(16px);
             border: 1px solid rgba(212, 175, 55, 0.15);
         }
-        .glass-card:hover {
-            border-color: rgba(212, 175, 55, 0.5);
-            box-shadow: 0 10px 30px -10px rgba(212, 175, 55, 0.15);
-        }
-        img { user-select: none; -webkit-user-drag: none; }
         [lang="ar"] .lang-en { display: none !important; }
         [lang="en"] .lang-ar { display: none !important; }
     </style>
 </head>
-<body class="selection:bg-amber-500 selection:text-black">
+<body class="selection:bg-amber-500 selection:text-black min-h-screen flex flex-col justify-between">
 
-    <!-- Header Navigation -->
+<!-- Header Navigation -->
     <nav class="fixed w-full z-50 glass-card px-6 py-4 flex justify-between items-center top-0 border-b border-amber-500/15">
         <a href="index.html" class="flex items-center space-x-3 rtl:space-x-reverse">
             <span class="text-xl font-black tracking-wider text-white">SKETCHY <span class="gold-accent">CHAPTERS</span></span>
@@ -53,9 +42,9 @@
                 <i class="fa-solid fa-globe"></i>
                 <span id="lang-btn-text">العربية</span>
             </button>
-            <a href="portfolio.html" class="bg-gold text-black px-5 py-2 rounded-full font-bold text-xs uppercase tracking-wider hover:brightness-110 transition shadow-lg shadow-amber-500/10">
+            <a href="portfolio.html" class="bg-gold text-black px-5 py-2 rounded-full font-bold text-xs uppercase tracking-wider hover:brightness-110 transition">
                 <span class="lang-en">← Back to Portfolio</span>
-                <span class="lang-ar">العودة للمُعرَض ←</span>
+                <span class="lang-ar">العودة للمعرض ←</span>
             </a>
         </div>
     </nav>
