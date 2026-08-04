@@ -24,7 +24,6 @@
 </head>
 <body class="pt-24 selection:bg-amber-500 selection:text-black" oncontextmenu="return false;">
 
-    <!-- Navigation Header -->
     <nav class="fixed w-full z-50 glass-card px-6 py-4 flex justify-between items-center top-0 border-b border-amber-500/10">
         <a href="index.html" class="flex items-center space-x-3">
             <span class="text-xl font-black tracking-wider text-white">SKETCHY <span class="gold-accent">CHAPTERS</span></span>
@@ -37,9 +36,7 @@
         </div>
     </nav>
 
-    <!-- Main Project Case Study -->
     <section class="py-12 px-6 max-w-7xl mx-auto">
-        <!-- Title Banner -->
         <div class="mb-12" data-aos="fade-up">
             <div class="inline-block px-4 py-1.5 rounded-full glass-card text-xs font-bold gold-accent mb-4 uppercase tracking-widest border border-amber-500/30">
                 Luxury Residential Interior • 2024
@@ -48,7 +45,6 @@
             <p class="text-gray-400 font-light max-w-3xl text-lg">Downtown Beirut, Lebanon • High-end residential architecture, bespoke furniture design, and luxury interior concepts.</p>
         </div>
 
-        <!-- Project Meta Information -->
         <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12 glass-card p-6 rounded-3xl" data-aos="fade-up" data-aos-delay="100">
             <div>
                 <span class="text-xs text-gray-500 uppercase font-bold block">Location</span>
@@ -68,7 +64,6 @@
             </div>
         </div>
 
-        <!-- Design Concept Description -->
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-12 mb-16">
             <div class="lg:col-span-2" data-aos="fade-right">
                 <h2 class="text-2xl font-bold mb-4 gold-gradient-text">Architectural Concept & Spatial Design</h2>
@@ -91,13 +86,25 @@
             </div>
         </div>
 
-        <!-- Project Photo Gallery Grid -->
+        <!-- Full Photo Gallery (3 Images) -->
         <div class="mb-12">
             <h2 class="text-2xl font-bold mb-8 gold-gradient-text" data-aos="fade-up">Project Visual Gallery</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <div class="glass-card rounded-3xl overflow-hidden group cursor-pointer" onclick="openModal('Downtown-Villa-Living.jpg', 'Living Area')" data-aos="fade-up" data-aos-delay="100">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="glass-card rounded-3xl overflow-hidden group cursor-pointer" onclick="openModal('Downtown-Villa-Living.jpg', 'Living Room Interior')" data-aos="fade-up" data-aos-delay="100">
                     <div class="h-80 overflow-hidden relative">
-                        <img src="Downtown-Villa-Living.jpg" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                        <img src="Downtown-Villa-Living.jpg" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" onerror="this.src='https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=1200'">
+                        <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition flex items-center justify-center text-gold text-3xl"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+                    </div>
+                </div>
+                <div class="glass-card rounded-3xl overflow-hidden group cursor-pointer" onclick="openModal('Downtown-Villa-Dining.jpg', 'Dining Area Design')" data-aos="fade-up" data-aos-delay="200">
+                    <div class="h-80 overflow-hidden relative">
+                        <img src="Downtown-Villa-Dining.jpg" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" onerror="this.src='https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?q=80&w=1200'">
+                        <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition flex items-center justify-center text-gold text-3xl"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+                    </div>
+                </div>
+                <div class="glass-card rounded-3xl overflow-hidden group cursor-pointer" onclick="openModal('Downtown-Villa-Bedroom.jpg', 'Master Bedroom Interior')" data-aos="fade-up" data-aos-delay="300">
+                    <div class="h-80 overflow-hidden relative">
+                        <img src="Downtown-Villa-Bedroom.jpg" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" onerror="this.src='https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?q=80&w=1200'">
                         <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition flex items-center justify-center text-gold text-3xl"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
                     </div>
                 </div>
@@ -105,7 +112,6 @@
         </div>
     </section>
 
-    <!-- Modal Lightbox -->
     <div id="imageModal" class="fixed inset-0 z-50 bg-black/95 hidden flex items-center justify-center p-4">
         <div class="max-w-5xl w-full glass-card p-4 rounded-3xl relative">
             <button onclick="closeModal()" class="absolute top-4 right-4 text-white text-3xl hover:text-amber-400">&times;</button>
@@ -114,12 +120,10 @@
         </div>
     </div>
 
-    <!-- Footer -->
     <footer class="py-12 text-center text-gray-500 text-xs border-t border-gray-900">
         <p>© 2026 Sketchy Chapters Design & Construction (SCDC). All Rights Reserved.</p>
     </footer>
 
-    <!-- JS Scripts -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         AOS.init({ duration: 1000, once: true });
