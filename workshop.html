@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr" class="scroll-smooth" id="main-html">
+<html lang="ar" dir="rtl" class="scroll-smooth" id="main-html">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         body {
-            font-family: 'Plus Jakarta Sans', 'Tajawal', sans-serif;
+            font-family: 'Tajawal', 'Plus Jakarta Sans', sans-serif;
             background-color: #08080a;
             color: #e0e6ed;
             overflow-x: hidden;
@@ -33,8 +33,6 @@
             border-color: rgba(212, 175, 55, 0.5);
             box-shadow: 0 10px 30px -10px rgba(212, 175, 55, 0.15);
         }
-        [lang="ar"] .lang-en { display: none !important; }
-        [lang="en"] .lang-ar { display: none !important; }
     </style>
 </head>
 <body class="selection:bg-amber-500 selection:text-black">
@@ -47,15 +45,10 @@
 
         <div class="hidden md:flex space-x-6 rtl:space-x-reverse text-sm font-semibold tracking-wide">
             <a href="index.html" class="hover:text-amber-400 transition">الرئيسية</a>
-            <a href="#categories" class="hover:text-amber-400 transition">الأقسام والدورات</a>
+            <a href="#categories" class="hover:text-amber-400 transition">الأقسام التخصصية</a>
         </div>
 
         <div class="flex items-center space-x-4 rtl:space-x-reverse">
-            <!-- Language Switcher -->
-            <button onclick="toggleLanguage()" class="glass-card px-3.5 py-1.5 rounded-full text-xs font-bold text-amber-400 border border-amber-500/30 hover:bg-amber-500/20 transition">
-                <span id="lang-btn-text">العربية</span>
-            </button>
-            <!-- Login Button -->
             <button onclick="openLoginModal()" class="bg-gold text-black px-5 py-2 rounded-full font-bold text-xs uppercase tracking-wider hover:brightness-110 transition shadow-lg shadow-amber-500/10">
                 بوابة الطالب
             </button>
@@ -63,109 +56,135 @@
     </nav>
 
     <!-- Hero Section -->
-    <section class="min-h-[80vh] relative flex items-center justify-center pt-32 px-6 text-center">
+    <section class="min-h-[70vh] relative flex items-center justify-center pt-32 px-6 text-center">
         <div class="max-w-4xl z-10">
             <div class="inline-block px-4 py-1.5 rounded-full glass-card text-xs font-bold gold-accent mb-6 uppercase tracking-widest border border-amber-500/30">
                 مركز التدريب الهندسي والمهني
             </div>
-            <h1 class="text-4xl md:text-7xl font-black mb-6 leading-tight tracking-tight text-white">
-                WORKSHOP CENTER & <br>
-                <span class="gold-gradient-text">STUDENT PORTAL</span>
+            <h1 class="text-4xl md:text-6xl font-black mb-6 leading-tight tracking-tight text-white">
+                منصة الدورات والأقسام التخصصية <br>
+                <span class="gold-gradient-text">SKETCHY CHAPTERS WORKSHOP</span>
             </h1>
             <p class="text-base md:text-lg text-gray-400 mb-8 max-w-2xl mx-auto font-light leading-relaxed">
-                استعرض دوراتك، تابع نقاط الولاء الخاصة بك، وسجل في البرامج التخصصية ودورات نقابة المهندسين من مكان واحد.
+                اختر تخصصك واكتشف الدورات التدريبية المعتمدة في مجالات الهندسة، التصميم، الجرافيك، والبرمجيات المكتبية.
             </p>
-            <div class="flex flex-wrap justify-center gap-4">
-                <a href="#categories" class="bg-gold text-black px-8 py-4 rounded-full font-extrabold text-sm uppercase tracking-wider hover:brightness-110 transition shadow-xl shadow-amber-500/20">
-                    تصفح الأقسام التدريبية
-                </a>
-                <button onclick="openLoginModal()" class="glass-card text-white border border-amber-500/30 px-8 py-4 rounded-full font-extrabold text-sm uppercase tracking-wider hover:bg-amber-500/10 transition">
-                    تسجيل الدخول للحساب
-                </button>
-            </div>
         </div>
     </section>
 
-    <!-- Categories / Sections Grid -->
-    <section id="categories" class="py-24 px-6 max-w-7xl mx-auto">
-        <div class="text-center mb-16">
-            <span class="text-xs font-bold gold-accent uppercase tracking-widest block mb-2">التصنيفات المعتمدة</span>
-            <h2 class="text-3xl md:text-5xl font-black text-white">الأقسام التدريبية الرئيسية</h2>
+    <!-- Categories Detailed Section -->
+    <section id="categories" class="py-20 px-6 max-w-7xl mx-auto space-y-16">
+
+        <!-- 1. Architecture & Interior -->
+        <div class="glass-card p-8 md:p-12 rounded-3xl grid grid-cols-1 lg:grid-cols-2 gap-8 items-center border border-amber-500/20">
+            <div>
+                <span class="bg-amber-500/20 gold-accent text-xs font-extrabold px-3 py-1 rounded-full uppercase tracking-wider border border-amber-500/30 inline-block mb-4">Part 01</span>
+                <h2 class="text-3xl font-black text-white mb-4">Architecture & Interior</h2>
+                <p class="text-gray-300 text-sm font-light leading-relaxed mb-6">
+                    دورات احترافية متكاملة لبرامج التصميم الهندسي والمعماري (AutoCAD & Revit)، تشمل رسم الخرائط التنفيذية، دراسة الواجهات، النمذجة ثلاثية الأبعاد، وتفاصيل التنفيذ الداخلي والخارجي للمشاريع السكنية والتجارية.
+                </p>
+                <ul class="space-y-2 text-xs text-gray-400 mb-6">
+                    <li><i class="fa-solid fa-check gold-accent ml-2"></i> AutoCAD 2D & 3D Drafting & Floor Plans</li>
+                    <li><i class="fa-solid fa-check gold-accent ml-2"></i> Revit Architecture & BIM Modeling</li>
+                    <li><i class="fa-solid fa-check gold-accent ml-2"></i> Interior Design Layouts & Working Drawings</li>
+                </ul>
+                <button onclick="openLoginModal()" class="bg-gold text-black px-6 py-3 rounded-xl font-bold text-xs uppercase tracking-wider hover:brightness-110 transition">
+                    التسجيل في قسم العمارة
+                </button>
+            </div>
+            <div class="grid grid-cols-2 gap-4">
+                <div class="h-48 rounded-2xl bg-cover bg-center border border-amber-500/20 shadow-lg" style="background-image: url('https://images.unsplash.com/photo-1503387762-592deb58ef4e?q=80&w=600');"></div>
+                <div class="h-48 rounded-2xl bg-cover bg-center border border-amber-500/20 shadow-lg mt-6" style="background-image: url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=600');"></div>
+            </div>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            
-            <!-- Part 1: Architecture & Interior -->
-            <div class="glass-card p-6 rounded-3xl flex flex-col justify-between">
-                <div>
-                    <div class="h-40 rounded-2xl bg-cover bg-center mb-6" style="background-image: url('https://images.unsplash.com/photo-1503387762-592deb58ef4e?q=80&w=600');"></div>
-                    <span class="gold-accent text-xs font-bold uppercase">Part 01</span>
-                    <h3 class="text-xl font-bold text-white mt-1 mb-3">Architecture & Interior</h3>
-                    <p class="text-gray-400 text-xs font-light leading-relaxed mb-4">دورات AutoCAD و Revit والتصميم الداخلي والإخراج المعماري الاحترافي.</p>
-                </div>
-                <button onclick="openLoginModal()" class="w-full bg-gold/25 border border-amber-500/40 text-amber-400 py-3 rounded-xl font-bold text-xs uppercase tracking-wider hover:bg-gold hover:text-black transition">
-                    التسجيل عبر البوابة
+        <!-- 2. Graphic Design & Editing -->
+        <div class="glass-card p-8 md:p-12 rounded-3xl grid grid-cols-1 lg:grid-cols-2 gap-8 items-center border border-amber-500/20">
+            <div class="order-2 lg:order-1 grid grid-cols-2 gap-4">
+                <div class="h-48 rounded-2xl bg-cover bg-center border border-amber-500/20 shadow-lg" style="background-image: url('https://images.unsplash.com/photo-1626785774573-4b799315345d?q=80&w=600');"></div>
+                <div class="h-48 rounded-2xl bg-cover bg-center border border-amber-500/20 shadow-lg mt-6" style="background-image: url('https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?q=80&w=600');"></div>
+            </div>
+            <div class="order-1 lg:order-2">
+                <span class="bg-amber-500/20 gold-accent text-xs font-extrabold px-3 py-1 rounded-full uppercase tracking-wider border border-amber-500/30 inline-block mb-4">Part 02</span>
+                <h2 class="text-3xl font-black text-white mb-4">Graphic Design & Editing</h2>
+                <p class="text-gray-300 text-sm font-light leading-relaxed mb-6">
+                    احترف حزمة برامج Adobe الشهيرة. دورات مخصصة لتصميم الهويات البصرية، تعديل الصور الاحترافي، ومونتاج وتعديل الفيديوهات بدقة عالية لمحتوى السوشيال ميديا والمشاريع الرقمية.
+                </p>
+                <ul class="space-y-2 text-xs text-gray-400 mb-6">
+                    <li><i class="fa-solid fa-check gold-accent ml-2"></i> Adobe Photoshop & Illustrator (Branding & Vector Art)</li>
+                    <li><i class="fa-solid fa-check gold-accent ml-2"></i> Adobe Premiere Pro (Video Editing & Rendering)</li>
+                    <li><i class="fa-solid fa-check gold-accent ml-2"></i> Social Media Content Creation & Post Production</li>
+                </ul>
+                <button onclick="openLoginModal()" class="bg-gold text-black px-6 py-3 rounded-xl font-bold text-xs uppercase tracking-wider hover:brightness-110 transition">
+                    التسجيل في قسم الجرافيك
                 </button>
             </div>
-
-            <!-- Part 2: Graphic Design & Editing -->
-            <div class="glass-card p-6 rounded-3xl flex flex-col justify-between">
-                <div>
-                    <div class="h-40 rounded-2xl bg-cover bg-center mb-6" style="background-image: url('https://images.unsplash.com/photo-1626785774573-4b799315345d?q=80&w=600');"></div>
-                    <span class="gold-accent text-xs font-bold uppercase">Part 02</span>
-                    <h3 class="text-xl font-bold text-white mt-1 mb-3">Graphic Design & Editing</h3>
-                    <p class="text-gray-400 text-xs font-light leading-relaxed mb-4">برامج Adobe (Photoshop, Illustrator, Premiere) والمونتاج والتصميم البصري.</p>
-                </div>
-                <button onclick="openLoginModal()" class="w-full bg-gold/25 border border-amber-500/40 text-amber-400 py-3 rounded-xl font-bold text-xs uppercase tracking-wider hover:bg-gold hover:text-black transition">
-                    التسجيل عبر البوابة
-                </button>
-            </div>
-
-            <!-- Part 3: Electrical Engineering -->
-            <div class="glass-card p-6 rounded-3xl flex flex-col justify-between">
-                <div>
-                    <div class="h-40 rounded-2xl bg-cover bg-center mb-6" style="background-image: url('https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?q=80&w=600');"></div>
-                    <span class="gold-accent text-xs font-bold uppercase">Part 03</span>
-                    <h3 class="text-xl font-bold text-white mt-1 mb-3">Electrical Engineering</h3>
-                    <p class="text-gray-400 text-xs font-light leading-relaxed mb-4">الدورات الهندسية الكهربائية والتمديدات وأنظمة الطاقة والتحكم.</p>
-                </div>
-                <button onclick="openLoginModal()" class="w-full bg-gold/25 border border-amber-500/40 text-amber-400 py-3 rounded-xl font-bold text-xs uppercase tracking-wider hover:bg-gold hover:text-black transition">
-                    التسجيل عبر البوابة
-                </button>
-            </div>
-
-            <!-- Part 4: Microsoft Office -->
-            <div class="glass-card p-6 rounded-3xl flex flex-col justify-between">
-                <div>
-                    <div class="h-40 rounded-2xl bg-cover bg-center mb-6" style="background-image: url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=600');"></div>
-                    <span class="gold-accent text-xs font-bold uppercase">Part 04</span>
-                    <h3 class="text-xl font-bold text-white mt-1 mb-3">Microsoft Office</h3>
-                    <p class="text-gray-400 text-xs font-light leading-relaxed mb-4">المهارات المكتبية المتقدمة Excel, Word, PowerPoint وإدارة البيانات.</p>
-                </div>
-                <button onclick="openLoginModal()" class="w-full bg-gold/25 border border-amber-500/40 text-amber-400 py-3 rounded-xl font-bold text-xs uppercase tracking-wider hover:bg-gold hover:text-black transition">
-                    التسجيل عبر البوابة
-                </button>
-            </div>
-
-            <!-- Part 5: Training Center - OEA Tripoli -->
-            <div class="glass-card p-6 rounded-3xl flex flex-col justify-between border-amber-500/50 bg-gradient-to-b from-amber-950/20 to-black/60 lg:col-span-2">
-                <div>
-                    <div class="h-40 rounded-2xl bg-cover bg-center mb-6" style="background-image: url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=600');"></div>
-                    <div class="flex items-center space-x-2 rtl:space-x-reverse mb-1">
-                        <span class="bg-amber-500 text-black text-[10px] font-extrabold px-2 py-0.5 rounded uppercase">Part 05</span>
-                        <span class="gold-accent text-xs font-bold uppercase">اعتماد رسمي</span>
-                    </div>
-                    <h3 class="text-2xl font-black text-white mb-3">Training Center - OEA Tripoli</h3>
-                    <p class="text-gray-300 text-xs font-light leading-relaxed mb-4">
-                        الدورات التدريبية التخصصية بالتعاون المشترك مع نقابة المهندسين في طرابلس، مع شهادات معتمدة وموثقة للمهندسين والمتدربين.
-                    </p>
-                </div>
-                <button onclick="openLoginModal()" class="w-full bg-gold text-black py-3 rounded-xl font-extrabold text-xs uppercase tracking-wider hover:brightness-110 transition shadow-lg shadow-amber-500/20">
-                    استعلام وتسجيل دورات النقابة
-                </button>
-            </div>
-
         </div>
+
+        <!-- 3. Electrical Engineering -->
+        <div class="glass-card p-8 md:p-12 rounded-3xl grid grid-cols-1 lg:grid-cols-2 gap-8 items-center border border-amber-500/20">
+            <div>
+                <span class="bg-amber-500/20 gold-accent text-xs font-extrabold px-3 py-1 rounded-full uppercase tracking-wider border border-amber-500/30 inline-block mb-4">Part 03</span>
+                <h2 class="text-3xl font-black text-white mb-4">Electrical Engineering</h2>
+                <p class="text-gray-300 text-sm font-light leading-relaxed mb-6">
+                    دورات تخصصية في الهندسة الكهربائية والتمديدات المنزلية والصناعية، تصميم مخططات الإنارة والقوى، حسابات الأحمال الكهربائية، وأنظمة الطاقة الحديثة.
+                </p>
+                <ul class="space-y-2 text-xs text-gray-400 mb-6">
+                    <li><i class="fa-solid fa-check gold-accent ml-2"></i> Electrical Installation & Power Layouts</li>
+                    <li><i class="fa-solid fa-check gold-accent ml-2"></i> Lighting Design & Load Calculations</li>
+                    <li><i class="fa-solid fa-check gold-accent ml-2"></i> Smart Systems & Control Panels Wiring</li>
+                </ul>
+                <button onclick="openLoginModal()" class="bg-gold text-black px-6 py-3 rounded-xl font-bold text-xs uppercase tracking-wider hover:brightness-110 transition">
+                    التسجيل في قسم الكهرباء
+                </button>
+            </div>
+            <div class="grid grid-cols-2 gap-4">
+                <div class="h-48 rounded-2xl bg-cover bg-center border border-amber-500/20 shadow-lg" style="background-image: url('https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?q=80&w=600');"></div>
+                <div class="h-48 rounded-2xl bg-cover bg-center border border-amber-500/20 shadow-lg mt-6" style="background-image: url('https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=600');"></div>
+            </div>
+        </div>
+
+        <!-- 4. Microsoft Office -->
+        <div class="glass-card p-8 md:p-12 rounded-3xl grid grid-cols-1 lg:grid-cols-2 gap-8 items-center border border-amber-500/20">
+            <div class="order-2 lg:order-1 grid grid-cols-2 gap-4">
+                <div class="h-48 rounded-2xl bg-cover bg-center border border-amber-500/20 shadow-lg" style="background-image: url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=600');"></div>
+                <div class="h-48 rounded-2xl bg-cover bg-center border border-amber-500/20 shadow-lg mt-6" style="background-image: url('https://images.unsplash.com/photo-1551836022-d5d88e9218df?q=80&w=600');"></div>
+            </div>
+            <div class="order-1 lg:order-2">
+                <span class="bg-amber-500/20 gold-accent text-xs font-extrabold px-3 py-1 rounded-full uppercase tracking-wider border border-amber-500/30 inline-block mb-4">Part 04</span>
+                <h2 class="text-3xl font-black text-white mb-4">Microsoft Office</h2>
+                <p class="text-gray-300 text-sm font-light leading-relaxed mb-6">
+                    إتقان الأدوات المكتبية الأساسية لإدارة الأعمال والهندسة، تشمل الجداول المتقدمة، التقارير الاحترافية، والعروض التقديمية الفعالة.
+                </p>
+                <ul class="space-y-2 text-xs text-gray-400 mb-6">
+                    <li><i class="fa-solid fa-check gold-accent ml-2"></i> Microsoft Excel (Advanced Data & Formulas)</li>
+                    <li><i class="fa-solid fa-check gold-accent ml-2"></i> Microsoft Word (Professional Reports Formatting)</li>
+                    <li><i class="fa-solid fa-check gold-accent ml-2"></i> Microsoft PowerPoint (Executive Presentations)</li>
+                </ul>
+                <button onclick="openLoginModal()" class="bg-gold text-black px-6 py-3 rounded-xl font-bold text-xs uppercase tracking-wider hover:brightness-110 transition">
+                    التسجيل في قسم مايكروسوفت
+                </button>
+            </div>
+        </div>
+
+        <!-- 5. Training Center - OEA Tripoli -->
+        <div class="glass-card p-8 md:p-12 rounded-3xl border border-amber-500/50 bg-gradient-to-b from-amber-950/20 to-black/80">
+            <div class="text-center max-w-3xl mx-auto mb-8">
+                <div class="flex justify-center items-center space-x-2 rtl:space-x-reverse mb-2">
+                    <span class="bg-amber-500 text-black text-[10px] font-extrabold px-2.5 py-0.5 rounded uppercase">Part 05</span>
+                    <span class="gold-accent text-xs font-bold uppercase">اعتماد رسمي ومعتمد</span>
+                </div>
+                <h2 class="text-3xl md:text-4xl font-black text-white mb-4">Training Center - OEA Tripoli</h2>
+                <p class="text-gray-300 text-xs md:text-sm font-light leading-relaxed">
+                    الدورات التدريبية المعتمدة بالتعاون المشترك مع نقابة المهندسين في طرابلس، موجهة للمهندسين والمتدربين الراغبين بتطوير مهاراتهم المهنية والحصول على شهادات رسمية موثقة.
+                </p>
+            </div>
+            <div class="flex justify-center">
+                <button onclick="openLoginModal()" class="bg-gold text-black px-8 py-4 rounded-xl font-extrabold text-xs uppercase tracking-wider hover:brightness-110 transition shadow-lg shadow-amber-500/20">
+                    استعلام وتسجيل دورات نقابة المهندسين
+                </button>
+            </div>
+        </div>
+
     </section>
 
     <!-- STUDENT LOGIN / DASHBOARD MODAL -->
@@ -209,7 +228,7 @@
                     <h4 class="text-xs font-bold text-gray-300 uppercase tracking-widest">الدورات المسجلة والسابقة</h4>
                     <div class="bg-black/40 p-4 rounded-xl border border-amber-500/10 flex justify-between items-center">
                         <div>
-                            <div class="text-sm font-bold text-white">AutoCAD & Engineering Drafting</div>
+                            <div class="text-sm font-bold text-white">Architecture & Interior Masterclass</div>
                             <span class="text-[10px] text-green-400 font-semibold">مكتمل (معتمد)</span>
                         </div>
                         <span class="text-xs gold-accent font-bold">+300 Pts</span>
@@ -248,19 +267,6 @@
         function logout() {
             document.getElementById('dashboardView').classList.add('hidden');
             document.getElementById('loginView').classList.remove('hidden');
-        }
-        function toggleLanguage() {
-            const html = document.getElementById('main-html');
-            const btnText = document.getElementById('lang-btn-text');
-            if (html.getAttribute('lang') === 'en') {
-                html.setAttribute('lang', 'ar');
-                html.setAttribute('dir', 'rtl');
-                btnText.innerText = 'English';
-            } else {
-                html.setAttribute('lang', 'en');
-                html.setAttribute('dir', 'ltr');
-                btnText.innerText = 'العربية';
-            }
         }
     </script>
 </body>
