@@ -79,8 +79,8 @@
             <div class="inline-block px-4 py-1.5 rounded-full glass-card text-xs font-bold gold-accent mb-6 uppercase tracking-widest border border-amber-500/30" data-ar="العروض والباقات الصيفية الحصرية">
                 Exclusive Summer Packages
             </div>
-            <h1 class="text-4xl md:text-6xl font-black mb-6 leading-tight text-white" data-ar="باقات العروض الصيفية">
-                Summer Training Packages <br>
+            <h1 class="text-4xl md:text-6xl font-black mb-6 leading-tight text-white">
+                <span data-ar="باقات العروض الصيفية">Summer Training Packages</span> <br>
                 <span class="gold-gradient-text">SUMMER PACKAGES</span>
             </h1>
             <p class="text-base md:text-lg text-gray-400 mb-8 max-w-2xl mx-auto font-light leading-relaxed" data-ar="باقات تدريبية شاملة تأخذك من الأساسيات حتى الاحتراف، منسقة خصيصاً لتغطي كافة احتياجاتك وبأسعار استثنائية.">
@@ -372,7 +372,9 @@
                 langBtn.innerText = 'English';
                 
                 document.querySelectorAll('[data-ar]').forEach(el => {
-                    el.setAttribute('data-en', el.innerText);
+                    if (!el.getAttribute('data-en')) {
+                        el.setAttribute('data-en', el.innerText);
+                    }
                     el.innerText = el.getAttribute('data-ar');
                 });
             } else {
