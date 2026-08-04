@@ -33,7 +33,7 @@
         .glass-card:hover {
             border-color: rgba(212, 175, 55, 0.5);
             box-shadow: 0 10px 30px -10px rgba(212, 175, 55, 0.2);
-            transform: translateY(-5px);
+            transform: translateY(-3px);
         }
         .ribbon {
             position: absolute;
@@ -48,6 +48,15 @@
             box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3);
             text-transform: uppercase;
         }
+        /* دعم الاتجاه للعربية والإنجليزية للريبن */
+        [dir="rtl"] .ribbon {
+            right: auto;
+            left: -10px;
+        }
+        #package-modal {
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(8px);
+        }
     </style>
 </head>
 <body class="selection:bg-amber-500 selection:text-black">
@@ -55,18 +64,19 @@
     <!-- Navigation Bar -->
     <nav class="fixed w-full z-50 glass-card px-6 py-4 flex justify-between items-center top-0 border-b border-amber-500/15">
         <a href="workshop.html" class="flex items-center">
-            <img src="workshop.png" alt="Sketchy Chapters Workshop Center" class="h-10 w-auto object-contain">
+            <img src="workshop.png" alt="Workshop Centers Sketchy Chapters Logo" class="h-10 md:h-12 w-auto object-contain" onerror="this.style.display='none'; document.getElementById('logo-fallback').style.display='block';">
+            <span id="logo-fallback" class="hidden text-xl font-black tracking-wider text-white">SKETCHY <span class="gold-accent">CHAPTERS</span></span>
         </a>
-        <div class="hidden md:flex space-x-6 text-sm font-semibold">
-            <a href="index.html" class="hover:text-amber-400 transition" data-ar="الرئيسية">Home</a>
-            <a href="workshop.html" class="hover:text-amber-400 transition" data-ar="ورش العمل">Workshops</a>
-            <a href="offers.html" class="hover:text-amber-400 transition gold-accent font-bold" data-ar="الباقات الصيفية">Summer Packages</a>
+        <div class="hidden md:flex space-x-6 rtl:space-x-reverse text-sm font-semibold">
+            <a href="index.html" class="hover:text-amber-400 transition" data-ar="الرئيسية" data-en="Home">Home</a>
+            <a href="workshop.html" class="hover:text-amber-400 transition" data-ar="ورش العمل" data-en="Workshops">Workshops</a>
+            <a href="offers.html" class="hover:text-amber-400 transition gold-accent font-bold" data-ar="الباقات الصيفية" data-en="Summer Packages">Summer Packages</a>
         </div>
-        <div class="flex items-center space-x-4">
+        <div class="flex items-center space-x-4 rtl:space-x-reverse">
             <button onclick="toggleLanguage()" id="lang-btn" class="glass-card text-amber-400 border border-amber-500/30 px-3 py-2 rounded-full text-xs font-bold hover:bg-amber-500/10 transition">
                 العربية
             </button>
-            <a href="workshop.html" class="glass-card text-amber-400 border border-amber-500/30 px-4 py-2 rounded-full text-xs font-bold hover:bg-amber-500/10 transition" data-ar="العودة للورش">
+            <a href="workshop.html" class="glass-card text-amber-400 border border-amber-500/30 px-4 py-2 rounded-full text-xs font-bold hover:bg-amber-500/10 transition" data-ar="العودة للورش" data-en="Back to Workshops">
                 Back to Workshops
             </a>
         </div>
@@ -75,122 +85,267 @@
     <!-- Hero Section -->
     <section class="min-h-[45vh] relative flex items-center justify-center pt-32 px-6 text-center">
         <div class="max-w-4xl z-10">
-            <div class="inline-block px-4 py-1.5 rounded-full glass-card text-xs font-bold gold-accent mb-6 uppercase tracking-widest border border-amber-500/30" data-ar="العروض والباقات الصيفية الحصرية">
+            <div class="inline-block px-4 py-1.5 rounded-full glass-card text-xs font-bold gold-accent mb-6 uppercase tracking-widest border border-amber-500/30" data-ar="العروض والباقات الصيفية الحصرية" data-en="Exclusive Summer Packages">
                 Exclusive Summer Packages
             </div>
-            <h1 class="text-4xl md:text-6xl font-black mb-6 leading-tight text-white" data-ar="باقات العروض الصيفية">
-                Summer Training Packages <br>
+            <h1 class="text-4xl md:text-6xl font-black mb-6 leading-tight text-white">
+                <span data-ar="باقات العروض الصيفية" data-en="Summer Training Packages">Summer Training Packages</span> <br>
                 <span class="gold-gradient-text">SUMMER PACKAGES</span>
             </h1>
-            <p class="text-base md:text-lg text-gray-400 mb-8 max-w-2xl mx-auto font-light leading-relaxed" data-ar="باقات تدريبية شاملة تأخذك من الأساسيات حتى الاحتراف، منسقة خصيصاً لتغطي كافة احتياجاتك وبأسعار استثنائية.">
-                Comprehensive training bundles designed to take you from fundamentals to professional mastery with special pricing.
+            <p class="text-base md:text-lg text-gray-400 mb-8 max-w-2xl mx-auto font-light leading-relaxed" data-ar="باقات تدريبية شاملة تأخذك من الأساسيات حتى الاحتراف، منسقة خصيصاً لتغطي كافة احتياجاتك وبأسعار استثنائية. انقر على أي باقة لعرض التفاصيل والتسجيل." data-en="Comprehensive training bundles designed to take you from fundamentals to professional mastery. Click any package to view details and register.">
+                Comprehensive training bundles designed to take you from fundamentals to professional mastery. Click any package to view details and register.
             </p>
         </div>
     </section>
 
     <!-- Offers Grid Section -->
     <section class="py-16 px-6 max-w-7xl mx-auto">
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
             
             <!-- 1. Engineer's Package -->
-            <div class="glass-card p-6 md:p-8 rounded-3xl flex flex-col justify-between relative overflow-hidden group">
-                <div class="ribbon" data-ar="شامل من 2D إلى Animation">From 2D to Animation</div>
+            <div onclick="openModal('pkg1')" class="glass-card p-6 md:p-8 rounded-3xl flex flex-col justify-between relative overflow-hidden group cursor-pointer">
+                <div class="ribbon" data-ar="شامل من 2D إلى Animation" data-en="From 2D to Animation">From 2D to Animation</div>
                 <div>
-                    <div class="h-48 rounded-2xl bg-cover bg-center mb-6 border border-amber-500/20 group-hover:scale-[1.02] transition duration-300" style="background-image: url('https://images.unsplash.com/photo-1503387762-592deb58ef4e?q=80&w=600');"></div>
+                    <div class="h-48 rounded-2xl bg-cover bg-center mb-6 border border-amber-500/20" style="background-image: url('https://images.unsplash.com/photo-1503387762-592deb58ef4e?q=80&w=600');"></div>
                     <span class="gold-accent text-xs font-bold uppercase tracking-wider">Package 01</span>
-                    <h3 class="text-2xl font-black text-white mt-1 mb-3" data-ar="باقة المهندس">Engineer's Package</h3>
-                    <p class="text-gray-400 text-xs font-light leading-relaxed mb-4" data-ar="تتضمن: كورس أوتوكاد + ريفيت 1 + لوميون. باقة شاملة لكل شي من الـ 2D إلى الـ 3D، الـ Animation، والـ Render.">
+                    <h3 class="text-2xl font-black text-white mt-1 mb-2" data-ar="باقة المهندس" data-en="Engineer's Package">Engineer's Package</h3>
+                    <p class="text-gray-400 text-xs font-light leading-relaxed mb-4" data-ar="تتضمن: كورس أوتوكاد + ريفيت 1 + لوميون. باقة شاملة لكل شي من الـ 2D إلى الـ 3D، الـ Animation، والـ Render." data-en="Includes: AutoCAD + Revit 1 + Lumion. Comprehensive package covering everything from 2D drafts to 3D modeling, animation, and rendering.">
                         Includes: AutoCAD + Revit 1 + Lumion. Comprehensive package covering everything from 2D drafts to 3D modeling, animation, and rendering.
                     </p>
                 </div>
-                <div class="pt-4 border-t border-gray-800">
-                    <div class="flex justify-between items-center mb-4">
-                        <span class="text-xs text-gray-500 line-through" data-ar="$340 القيمة الأساسية">$340 Value</span>
+                <div class="pt-4 border-t border-gray-800 flex justify-between items-center">
+                    <div>
+                        <span class="text-xs text-gray-500 line-through block" data-ar="$340 القيمة الأساسية" data-en="$340 Value">$340 Value</span>
                         <span class="text-2xl font-black gold-accent">$219</span>
                     </div>
-                    <a href="https://wa.me/961..." target="_blank" class="w-full bg-gold text-black font-bold py-3.5 rounded-xl block text-center text-xs hover:opacity-95 transition shadow-lg shadow-amber-500/20" data-ar="احجز باقة المهندس الآن">
-                        Book Engineer's Package
-                    </a>
+                    <span class="text-xs font-bold text-amber-400 bg-amber-500/10 border border-amber-500/30 px-4 py-2 rounded-xl group-hover:bg-amber-500/20 transition" data-ar="عرض التفاصيل والتسجيل" data-en="View Details & Register">View Details & Register</span>
                 </div>
             </div>
 
             <!-- 2. Full Revit & V-Ray Package -->
-            <div class="glass-card p-6 md:p-8 rounded-3xl flex flex-col justify-between relative overflow-hidden group">
-                <div class="ribbon" data-ar="احتراف الإخراج والريفيت">Revit & V-Ray Mastery</div>
+            <div onclick="openModal('pkg2')" class="glass-card p-6 md:p-8 rounded-3xl flex flex-col justify-between relative overflow-hidden group cursor-pointer">
+                <div class="ribbon" data-ar="احتراف الإخراج والريفيت" data-en="Revit & V-Ray Mastery">Revit & V-Ray Mastery</div>
                 <div>
-                    <div class="h-48 rounded-2xl bg-cover bg-center mb-6 border border-amber-500/20 group-hover:scale-[1.02] transition duration-300" style="background-image: url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=600');"></div>
+                    <div class="h-48 rounded-2xl bg-cover bg-center mb-6 border border-amber-500/20" style="background-image: url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=600');"></div>
                     <span class="gold-accent text-xs font-bold uppercase tracking-wider">Package 02</span>
-                    <h3 class="text-2xl font-black text-white mt-1 mb-3" data-ar="باقة ريفيت المتكاملة">Full Revit & V-Ray Package</h3>
-                    <p class="text-gray-400 text-xs font-light leading-relaxed mb-4" data-ar="تتضمن: كورس ريفيت كامل (المستوى 1 + المستوى 2) + فيراي (V-Ray). لتغطية النمذجة المتقدمة والإخراج الواقعي بدقة عالية.">
+                    <h3 class="text-2xl font-black text-white mt-1 mb-2" data-ar="باقة ريفيت المتكاملة" data-en="Full Revit & V-Ray Package">Full Revit & V-Ray Package</h3>
+                    <p class="text-gray-400 text-xs font-light leading-relaxed mb-4" data-ar="تتضمن: كورس ريفيت كامل (المستوى 1 + المستوى 2) + فيراي (V-Ray). لتغطية النمذجة المتقدمة والإخراج الواقعي بدقة عالية." data-en="Includes: Full Revit Course (Level 1 + Level 2) + V-Ray. Advanced architectural modeling and photorealistic rendering.">
                         Includes: Full Revit Course (Level 1 + Level 2) + V-Ray. Advanced architectural modeling and photorealistic rendering.
                     </p>
                 </div>
-                <div class="pt-4 border-t border-gray-800">
-                    <div class="flex justify-between items-center mb-4">
-                        <span class="text-xs text-gray-500 line-through" data-ar="$300 القيمة الأساسية">$300 Value</span>
+                <div class="pt-4 border-t border-gray-800 flex justify-between items-center">
+                    <div>
+                        <span class="text-xs text-gray-500 line-through block" data-ar="$300 القيمة الأساسية" data-en="$300 Value">$300 Value</span>
                         <span class="text-2xl font-black gold-accent">$199</span>
                     </div>
-                    <a href="https://wa.me/961..." target="_blank" class="w-full bg-gold text-black font-bold py-3.5 rounded-xl block text-center text-xs hover:opacity-95 transition shadow-lg shadow-amber-500/20" data-ar="احجز باقة الريفيت الآن">
-                        Book Revit Package
-                    </a>
+                    <span class="text-xs font-bold text-amber-400 bg-amber-500/10 border border-amber-500/30 px-4 py-2 rounded-xl group-hover:bg-amber-500/20 transition" data-ar="عرض التفاصيل والتسجيل" data-en="View Details & Register">View Details & Register</span>
                 </div>
             </div>
 
             <!-- 3. CAD, Revit 1 & Photoshop Pack -->
-            <div class="glass-card p-6 md:p-8 rounded-3xl flex flex-col justify-between relative overflow-hidden group">
-                <div class="ribbon" data-ar="المخططات والتقديم المعماري">CAD, Revit & Photoshop</div>
+            <div onclick="openModal('pkg3')" class="glass-card p-6 md:p-8 rounded-3xl flex flex-col justify-between relative overflow-hidden group cursor-pointer">
+                <div class="ribbon" data-ar="المخططات والتقديم المعماري" data-en="CAD, Revit & Photoshop">CAD, Revit & Photoshop</div>
                 <div>
-                    <div class="h-48 rounded-2xl bg-cover bg-center mb-6 border border-amber-500/20 group-hover:scale-[1.02] transition duration-300" style="background-image: url('https://images.unsplash.com/photo-1524758631624-e2822e304c36?q=80&w=600');"></div>
+                    <div class="h-48 rounded-2xl bg-cover bg-center mb-6 border border-amber-500/20" style="background-image: url('https://images.unsplash.com/photo-1524758631624-e2822e304c36?q=80&w=600');"></div>
                     <span class="gold-accent text-xs font-bold uppercase tracking-wider">Package 03</span>
-                    <h3 class="text-2xl font-black text-white mt-1 mb-3" data-ar="باقة CAD, Revit 1 & Photoshop">CAD, Revit 1 & Photoshop Pack</h3>
-                    <p class="text-gray-400 text-xs font-light leading-relaxed mb-4" data-ar="تتضمن: أوتوكاد + ريفيت 1 + فوتوشوب. الدمج المثالي بين الرسم الهندسي، أساسيات البيم، ومعالجة اللوحات المعمارية.">
+                    <h3 class="text-2xl font-black text-white mt-1 mb-2" data-ar="باقة CAD, Revit 1 & Photoshop" data-en="CAD, Revit 1 & Photoshop Pack">CAD, Revit 1 & Photoshop Pack</h3>
+                    <p class="text-gray-400 text-xs font-light leading-relaxed mb-4" data-ar="تتضمن: أوتوكاد + ريفيت 1 + فوتوشوب. الدمج المثالي بين الرسم الهندسي، أساسيات البيم، ومعالجة اللوحات المعمارية." data-en="Includes: AutoCAD + Revit 1 + Photoshop. Essential software combo for technical drawings, BIM foundation, and architectural board post-production.">
                         Includes: AutoCAD + Revit 1 + Photoshop. Essential software combo for technical drawings, BIM foundation, and architectural board post-production.
                     </p>
                 </div>
-                <div class="pt-4 border-t border-gray-800">
-                    <div class="flex justify-between items-center mb-4">
-                        <span class="text-xs text-gray-500 line-through" data-ar="$340 القيمة الأساسية">$340 Value</span>
+                <div class="pt-4 border-t border-gray-800 flex justify-between items-center">
+                    <div>
+                        <span class="text-xs text-gray-500 line-through block" data-ar="$340 القيمة الأساسية" data-en="$340 Value">$340 Value</span>
                         <span class="text-2xl font-black gold-accent">$219</span>
                     </div>
-                    <a href="https://wa.me/961..." target="_blank" class="w-full bg-gold text-black font-bold py-3.5 rounded-xl block text-center text-xs hover:opacity-95 transition shadow-lg shadow-amber-500/20" data-ar="احجز الباقة الآن">
-                        Book CAD & Revit Pack
-                    </a>
+                    <span class="text-xs font-bold text-amber-400 bg-amber-500/10 border border-amber-500/30 px-4 py-2 rounded-xl group-hover:bg-amber-500/20 transition" data-ar="عرض التفاصيل والتسجيل" data-en="View Details & Register">View Details & Register</span>
                 </div>
             </div>
 
             <!-- 4. The Designer's Package -->
-            <div class="glass-card p-6 md:p-8 rounded-3xl flex flex-col justify-between relative overflow-hidden group border-amber-500/40 bg-gradient-to-b from-amber-950/20 to-black/60">
-                <div class="ribbon" data-ar="المصمم البصري وصانع المحتوى">Graphic & Video Mastery</div>
+            <div onclick="openModal('pkg4')" class="glass-card p-6 md:p-8 rounded-3xl flex flex-col justify-between relative overflow-hidden group cursor-pointer border-amber-500/40 bg-gradient-to-b from-amber-950/20 to-black/60">
+                <div class="ribbon" data-ar="المصمم البصري وصانع المحتوى" data-en="Graphic & Video Mastery">Graphic & Video Mastery</div>
                 <div>
-                    <div class="h-48 rounded-2xl bg-cover bg-center mb-6 border border-amber-500/30 group-hover:scale-[1.02] transition duration-300" style="background-image: url('https://images.unsplash.com/photo-1626785774573-4b799315345d?q=80&w=600');"></div>
+                    <div class="h-48 rounded-2xl bg-cover bg-center mb-6 border border-amber-500/30" style="background-image: url('https://images.unsplash.com/photo-1626785774573-4b799315345d?q=80&w=600');"></div>
                     <span class="gold-accent text-xs font-bold uppercase tracking-wider">Package 04</span>
-                    <h3 class="text-2xl font-black text-white mt-1 mb-3" data-ar="باقة المصمم">The Designer's Package</h3>
-                    <p class="text-gray-300 text-xs font-light leading-relaxed mb-4" data-ar="تتضمن: أدوبي إيليستريتور + فوتوشوب + بريمير برو. باقة المصمم المتكاملة للـ Branding، التصميم الجرافيكي، والمونتاج الاحترافي.">
+                    <h3 class="text-2xl font-black text-white mt-1 mb-2" data-ar="باقة المصمم" data-en="The Designer's Package">The Designer's Package</h3>
+                    <p class="text-gray-300 text-xs font-light leading-relaxed mb-4" data-ar="تتضمن: أدوبي إيليستريتور + فوتوشوب + بريمير برو. باقة المصمم المتكاملة للـ Branding، التصميم الجرافيكي، والمونتاج الاحترافي." data-en="Includes: Adobe Illustrator + Photoshop + Premiere Pro. Complete package for graphic design, visual branding, and professional video editing.">
                         Includes: Adobe Illustrator + Photoshop + Premiere Pro. Complete package for graphic design, visual branding, and professional video editing.
                     </p>
                 </div>
-                <div class="pt-4 border-t border-amber-500/20">
-                    <div class="flex justify-between items-center mb-4">
-                        <span class="text-xs text-gray-500 line-through" data-ar="$340 القيمة الأساسية">$340 Value</span>
+                <div class="pt-4 border-t border-amber-500/20 flex justify-between items-center">
+                    <div>
+                        <span class="text-xs text-gray-500 line-through block" data-ar="$340 القيمة الأساسية" data-en="$340 Value">$340 Value</span>
                         <span class="text-2xl font-black gold-accent">$219</span>
                     </div>
-                    <a href="https://wa.me/961..." target="_blank" class="w-full bg-gold text-black font-bold py-3.5 rounded-xl block text-center text-xs hover:opacity-95 transition shadow-lg shadow-amber-500/20" data-ar="احجز باقة المصمم الآن">
-                        Book Designer's Package
-                    </a>
+                    <span class="text-xs font-bold text-amber-400 bg-amber-500/10 border border-amber-500/30 px-4 py-2 rounded-xl group-hover:bg-amber-500/20 transition" data-ar="عرض التفاصيل والتسجيل" data-en="View Details & Register">View Details & Register</span>
                 </div>
             </div>
 
         </div>
     </section>
 
+    <!-- Package Details Modal Window -->
+    <div id="package-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4">
+        <div class="glass-card max-w-2xl w-full p-6 md:p-8 rounded-3xl relative border border-amber-500/40 bg-[#0d0d12] shadow-2xl max-h-[90vh] overflow-y-auto">
+            <!-- Close Button -->
+            <button onclick="closeModal()" class="absolute top-4 right-4 rtl:right-auto rtl:left-4 w-10 h-10 rounded-full bg-black/60 border border-amber-500/30 flex items-center justify-center text-amber-400 hover:bg-amber-500/20 transition">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+
+            <!-- Modal Content Dynamically Injected -->
+            <div id="modal-content"></div>
+        </div>
+    </div>
+
     <!-- Footer -->
     <footer class="py-12 text-center text-gray-500 text-xs border-t border-gray-900 mt-20">
         <p>&copy; 2026 Sketchy Chapters Workshop Center. All rights reserved.</p>
     </footer>
 
-    <!-- Language Toggle Script (English to Arabic switch) -->
+    <!-- Scripts -->
     <script>
+        const packageData = {
+            pkg1: {
+                titleEn: "Engineer's Package",
+                titleAr: "باقة المهندس",
+                valueEn: "$340 Value",
+                valueAr: "$340 القيمة الأساسية",
+                price: "$219",
+                descEn: "Comprehensive package covering everything from 2D drafts to 3D modeling, animation, and rendering.",
+                descAr: "باقة شاملة لكل شي من الـ 2D إلى الـ 3D، الـ Animation، والـ Render.",
+                courses: [
+                    { code: "CAD", colorClass: "red", titleEn: "AutoCAD Course (2D & 3D)", titleAr: "كورس أوتوكاد (2D & 3D)", descEn: "Precise architectural and technical drawing preparation.", descAr: "رسم المخططات الهندسية المعمارية بدقة متناهية وإخراج المساقط التنفيذية." },
+                    { code: "RVT", colorClass: "blue", titleEn: "Revit Architecture (Level 1)", titleAr: "كورس ريفيت المعماري (المستوى 1)", descEn: "BIM fundamentals, walls, floors, and 3D components creation.", descAr: "أساسيات نمذجة معلومات المباني BIM، الجدران، الأبواب، النوافذ، والكتل ثلاثية الأبعاد." },
+                    { code: "LUM", colorClass: "emerald", titleEn: "Lumion Animation & Render", titleAr: "كورس لوميون للإخراج المعماري والتحريك", descEn: "Photorealistic rendering, lighting, materials, and motion walkthroughs.", descAr: "صنع فيديوهات الحركة (Animation)، اللقطات الواقعية السريعة (Render)، وإضافة البيئة والمواد." }
+                ]
+            },
+            pkg2: {
+                titleEn: "Full Revit & V-Ray Package",
+                titleAr: "باقة ريفيت المتكاملة",
+                valueEn: "$300 Value",
+                valueAr: "$300 القيمة الأساسية",
+                price: "$199",
+                descEn: "Advanced architectural modeling and photorealistic rendering combo.",
+                descAr: "لتغطية النمذجة المتقدمة والإخراج الواقعي بدقة عالية.",
+                courses: [
+                    { code: "RVT", colorClass: "blue", titleEn: "Full Revit Architecture (L1 & L2)", titleAr: "كورس ريفيت المعماري المتكامل (L1 & L2)", descEn: "Advanced BIM modeling, custom families, schedules, and construction documents.", descAr: "النمذجة المتقدمة، إنشاء العائلات الخاصة (Families)، جداول الكميات، وإصدار المخططات التنفيذية." },
+                    { code: "VRAY", colorClass: "orange", titleEn: "V-Ray Rendering Course", titleAr: "كورس فيراي (V-Ray for Revit)", descEn: "Photorealistic rendering, advanced lighting, materials, and environment settings.", descAr: "صنع الإضاءات الواقعية، الخامات المتقدمة، وتقديم صور معمارية فوتوغرافية مبهرة." }
+                ]
+            },
+            pkg3: {
+                titleEn: "CAD, Revit 1 & Photoshop Pack",
+                titleAr: "باقة CAD, Revit 1 & Photoshop",
+                valueEn: "$340 Value",
+                valueAr: "$340 القيمة الأساسية",
+                price: "$219",
+                descEn: "Essential software combo for technical drawings, BIM foundation, and architectural board post-production.",
+                descAr: "الدمج المثالي بين الرسم الهندسي، أساسيات البيم، ومعالجة اللوحات المعمارية.",
+                courses: [
+                    { code: "CAD", colorClass: "red", titleEn: "AutoCAD Technical Course", titleAr: "كورس أوتوكاد الهندسي", descEn: "Mastering 2D drafting and executive drawing creation.", descAr: "إتقان الأوامر الهندسية وإنشاء المخططات التنفيذية للمشاريع السكنية." },
+                    { code: "RVT", colorClass: "blue", titleEn: "Revit Architecture (Level 1)", titleAr: "كورس ريفيت المعماري (المستوى 1)", descEn: "Transitioning to 3D BIM modeling and design workflow.", descAr: "التحول من الرسم التقليدي إلى النمذجة ثلاثية الأبعاد ببرمجيات البيم." },
+                    { code: "PS", colorClass: "cyan", titleEn: "Photoshop for Architects", titleAr: "كورس فوتوشوب للمعماريين", descEn: "Architectural board post-production, color grading, and rendering enhancement.", descAr: "إخراج لوحات العرض المعمارية (Presentations)، إضافة الفراغات والتشجير، ومعالجة الصور." }
+                ]
+            },
+            pkg4: {
+                titleEn: "The Designer's Package",
+                titleAr: "باقة المصمم",
+                valueEn: "$340 Value",
+                valueAr: "$340 القيمة الأساسية",
+                price: "$219",
+                descEn: "Complete package for graphic design, visual branding, and professional video editing.",
+                descAr: "باقة المصمم المتكاملة للـ Branding، التصميم الجرافيكي، والمونتاج الاحترافي.",
+                courses: [
+                    { code: "AI", colorClass: "amber", titleEn: "Adobe Illustrator Course", titleAr: "كورس أدوبي إيليستريتور", descEn: "Vector graphics, branding creation, logos, and typography design.", descAr: "تصميم الشعارات، الهويات البصرية (Branding)، والرسوم المتجهية (Vector Graphics)." },
+                    { code: "PS", colorClass: "cyan", titleEn: "Adobe Photoshop Course", titleAr: "كورس أدوبي فوتوشوب المتكامل", descEn: "Advanced image manipulation, digital painting, and composition.", descAr: "تعديل الصور، دمج العناصر البصرية، والتصميم الإعلاني الرقمي." },
+                    { code: "PR", colorClass: "purple", titleEn: "Adobe Premiere Pro Course", titleAr: "كورس أدوبي بريمير برو للمونتاج", descEn: "Professional video editing, color grading, sound mixing, and content creation.", descAr: "مونتاج الفيديوهات الاحترافية، المؤثرات البصرية، وهندسة الصوت لوسائل التواصل الاجتماعي." }
+                ]
+            }
+        };
+
+        // خريطة ألوان ثابتة لتجنب مشاكل توليد Tailwind الديناميكي في المتصفح
+        const colorStyles = {
+            red: { bg: 'bg-red-950/40', border: 'border-red-500/30', text: 'text-red-400' },
+            blue: { bg: 'bg-blue-950/40', border: 'border-blue-500/30', text: 'text-blue-400' },
+            emerald: { bg: 'bg-emerald-950/40', border: 'border-emerald-500/30', text: 'text-emerald-400' },
+            orange: { bg: 'bg-orange-950/40', border: 'border-orange-500/30', text: 'text-orange-400' },
+            cyan: { bg: 'bg-cyan-950/40', border: 'border-cyan-500/30', text: 'text-cyan-400' },
+            amber: { bg: 'bg-amber-950/40', border: 'border-amber-500/30', text: 'text-amber-400' },
+            purple: { bg: 'bg-purple-950/40', border: 'border-purple-500/30', text: 'text-purple-400' }
+        };
+
         let currentLang = 'en';
+        let activePkgId = null;
+
+        function openModal(pkgId) {
+            activePkgId = pkgId;
+            const data = packageData[pkgId];
+            const modal = document.getElementById('package-modal');
+            const content = document.getElementById('modal-content');
+
+            let coursesHtml = '';
+            data.courses.forEach(c => {
+                const colors = colorStyles[c.colorClass] || colorStyles.amber;
+                coursesHtml += `
+                    <div class="flex items-start space-x-3 rtl:space-x-reverse bg-black/40 border border-amber-500/10 p-3 rounded-xl">
+                        <div class="w-9 h-9 rounded-lg ${colors.bg} border ${colors.border} flex items-center justify-center shrink-0 ${colors.text} font-black text-xs">${c.code}</div>
+                        <div>
+                            <h4 class="font-bold text-white text-sm">${currentLang === 'ar' ? c.titleAr : c.titleEn}</h4>
+                            <p class="text-gray-400 text-xs mt-0.5">${currentLang === 'ar' ? c.descAr : c.descEn}</p>
+                        </div>
+                    </div>
+                `;
+            });
+
+            const pkgTitleText = currentLang === 'ar' ? data.titleAr : data.titleEn;
+            const waMessage = encodeURIComponent(currentLang === 'ar' ? `مرحباً، أود الاستفسار عن تفاصيل والاشتراك في ${pkgTitleText}` : `Hello, I would like to inquire about details and registration for ${pkgTitleText}`);
+            const waLink = `https://wa.me/96171967714?text=${waMessage}`;
+
+            content.innerHTML = `
+                <div class="mb-4">
+                    <span class="gold-accent text-xs font-bold uppercase tracking-wider">${currentLang === 'ar' ? 'تفاصيل الباقة التدريبية' : 'Package Training Details'}</span>
+                    <h2 class="text-2xl md:text-3xl font-black text-white mt-1">${currentLang === 'ar' ? data.titleAr : data.titleEn}</h2>
+                    <p class="text-gray-400 text-xs mt-2">${currentLang === 'ar' ? data.descAr : data.descEn}</p>
+                </div>
+
+                <div class="space-y-2 mb-6">
+                    <h3 class="text-xs font-bold text-amber-400 uppercase tracking-widest mb-3">${currentLang === 'ar' ? 'الكورسات المضمنة في هذه الباقة:' : 'Included Courses in this Package:'}</h3>
+                    ${coursesHtml}
+                </div>
+
+                <div class="pt-4 border-t border-gray-800 flex justify-between items-center mb-6">
+                    <div>
+                        <span class="text-xs text-gray-500 line-through block">${currentLang === 'ar' ? data.valueAr : data.valueEn}</span>
+                        <span class="text-3xl font-black gold-accent">${data.price}</span>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                    <a href="https://forms.gle/BZ37DUJqkzw1y3Qk6" target="_blank" class="bg-gold text-black font-bold py-3.5 rounded-xl text-center text-xs hover:opacity-95 transition shadow-lg shadow-amber-500/20 flex items-center justify-center space-x-2 rtl:space-x-reverse">
+                        <i class="fa-solid fa-file-lines text-sm"></i>
+                        <span>${currentLang === 'ar' ? 'تسجيل عبر الاستمارة' : 'Register via Form'}</span>
+                    </a>
+                    <a href="${waLink}" target="_blank" class="glass-card text-amber-400 border border-amber-500/30 py-3.5 rounded-xl text-center text-xs font-bold hover:bg-amber-500/10 transition flex items-center justify-center space-x-2 rtl:space-x-reverse">
+                        <i class="fa-brands fa-whatsapp text-sm"></i>
+                        <span>${currentLang === 'ar' ? 'استفسر عبر الواتساب' : 'WhatsApp Inquiry'}</span>
+                    </a>
+                </div>
+            `;
+
+            modal.classList.remove('hidden');
+        }
+
+        function closeModal() {
+            document.getElementById('package-modal').classList.add('hidden');
+            activePkgId = null;
+        }
+
+        window.onclick = function(event) {
+            const modal = document.getElementById('package-modal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        }
 
         function toggleLanguage() {
             const html = document.documentElement;
@@ -201,24 +356,22 @@
                 html.setAttribute('dir', 'rtl');
                 html.setAttribute('lang', 'ar');
                 langBtn.innerText = 'English';
-                
-                // Swap text with data-ar attribute
-                document.querySelectorAll('[data-ar]').forEach(el => {
-                    el.setAttribute('data-en', el.innerText);
-                    el.innerText = el.getAttribute('data-ar');
-                });
             } else {
                 currentLang = 'en';
                 html.setAttribute('dir', 'ltr');
                 html.setAttribute('lang', 'en');
                 langBtn.innerText = 'العربية';
-                
-                // Restore English text from data-en attribute
-                document.querySelectorAll('[data-ar]').forEach(el => {
-                    if (el.getAttribute('data-en')) {
-                        el.innerText = el.getAttribute('data-en');
-                    }
-                });
+            }
+
+            document.querySelectorAll('[data-ar]').forEach(el => {
+                const targetText = currentLang === 'ar' ? el.getAttribute('data-ar') : el.getAttribute('data-en');
+                if (targetText) {
+                    el.innerText = targetText;
+                }
+            });
+
+            if (activePkgId) {
+                openModal(activePkgId);
             }
         }
     </script>
