@@ -17,6 +17,8 @@
     </style>
 </head>
 <body class="selection:bg-amber-500 selection:text-black">
+
+    <!-- Navigation Bar -->
     <nav class="fixed w-full z-50 glass-card px-6 py-4 flex justify-between items-center top-0 border-b border-amber-500/15">
         <a href="workshop.html" class="flex items-center space-x-3 rtl:space-x-reverse"><span class="text-xl font-black tracking-wider text-white">SKETCHY <span class="gold-accent">CHAPTERS</span></span></a>
         <div class="hidden md:flex space-x-6 rtl:space-x-reverse text-sm font-semibold">
@@ -25,6 +27,8 @@
         </div>
         <div><a href="workshop.html" class="glass-card text-amber-400 border border-amber-500/30 px-4 py-2 rounded-full text-xs font-bold hover:bg-amber-500/10 transition"><i class="fa-solid fa-arrow-right ml-1"></i> العودة للأقسام</a></div>
     </nav>
+
+    <!-- Header Section -->
     <section class="min-h-[35vh] relative flex items-center justify-center pt-32 px-6 text-center">
         <div class="max-w-4xl z-10">
             <span class="text-xs font-bold gold-accent uppercase tracking-widest block mb-2">Part 01</span>
@@ -32,9 +36,12 @@
             <p class="text-sm md:text-base text-gray-400 max-w-xl mx-auto font-light">الدورات التدريبية المعتمدة في التصميم المعماري والداخلي بأحدث البرامج العالمية.</p>
         </div>
     </section>
+
+    <!-- Courses Grid -->
     <section class="py-12 px-6 max-w-7xl mx-auto">
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <!-- AutoCAD -->
+            
+            <!-- 1. AutoCAD -->
             <div class="glass-card p-6 rounded-3xl flex flex-col justify-between border border-amber-500/20 relative">
                 <div>
                     <div class="flex items-center justify-between mb-5">
@@ -45,12 +52,17 @@
                     <h3 class="text-xl font-black text-white mb-2">AutoCAD 2D/3D</h3>
                     <p class="text-gray-400 text-xs font-light leading-relaxed mb-6">إتقان رسم المخططات التنفيذية الهندسية، إدارة الطبقات، والنمذجة ثنائية وثلاثية الأبعاد بدقة كاملة.</p>
                 </div>
-                <div class="space-y-3">
+                <div class="space-y-2.5">
+                    <button onclick="openModal('autocadModal')" class="w-full glass-card text-amber-400 border border-amber-500/30 py-2.5 rounded-xl font-bold text-xs flex items-center justify-center space-x-2 rtl:space-x-reverse hover:bg-amber-500/10 transition">
+                        <i class="fa-solid fa-circle-info"></i>
+                        <span>تفاصيل الدورة (السعر، الموعد، الأهداف)</span>
+                    </button>
                     <a href="https://forms.gle/ShVDMvXgE9sNeSxz8" target="_blank" class="w-full bg-gold text-black py-2.5 rounded-xl font-extrabold text-xs uppercase tracking-wider flex items-center justify-center space-x-2 rtl:space-x-reverse hover:brightness-110 transition shadow-lg shadow-amber-500/15"><span>التسجيل (Google Form)</span><i class="fa-solid fa-external-link-alt text-[10px]"></i></a>
                     <a href="https://wa.me/96171967714?text=مرحباً، أهتم بالاستفسار عن دورة AutoCAD 2D/3D" target="_blank" class="w-full glass-card text-emerald-400 border border-emerald-500/30 py-2.5 rounded-xl font-bold text-xs flex items-center justify-center space-x-2 rtl:space-x-reverse hover:bg-emerald-500/10 transition"><i class="fa-brands fa-whatsapp text-sm"></i><span>استفسار واتساب</span></a>
                 </div>
             </div>
-            <!-- Revit Part 1 -->
+
+            <!-- 2. Revit Part 1 -->
             <div class="glass-card p-6 rounded-3xl flex flex-col justify-between border border-amber-500/20 relative">
                 <div>
                     <div class="flex items-center justify-between mb-5">
@@ -61,12 +73,17 @@
                     <h3 class="text-xl font-black text-white mb-2">Revit Part 1</h3>
                     <p class="text-gray-400 text-xs font-light leading-relaxed mb-6">الأساسيات البرمجية للريفيت المعماري، بناء العناصر الإنشائية والجدران، وإنشاء المساقط بأسلوب BIM المتقدم.</p>
                 </div>
-                <div class="space-y-3">
+                <div class="space-y-2.5">
+                    <button onclick="openModal('revit1Modal')" class="w-full glass-card text-amber-400 border border-amber-500/30 py-2.5 rounded-xl font-bold text-xs flex items-center justify-center space-x-2 rtl:space-x-reverse hover:bg-amber-500/10 transition">
+                        <i class="fa-solid fa-circle-info"></i>
+                        <span>تفاصيل الدورة (السعر، الموعد، الأهداف)</span>
+                    </button>
                     <a href="https://forms.gle/ShVDMvXgE9sNeSxz8" target="_blank" class="w-full bg-gold text-black py-2.5 rounded-xl font-extrabold text-xs uppercase tracking-wider flex items-center justify-center space-x-2 rtl:space-x-reverse hover:brightness-110 transition shadow-lg shadow-amber-500/15"><span>التسجيل (Google Form)</span><i class="fa-solid fa-external-link-alt text-[10px]"></i></a>
                     <a href="https://wa.me/96171967714?text=مرحباً، أهتم بالاستفسار عن دورة Revit Part 1" target="_blank" class="w-full glass-card text-emerald-400 border border-emerald-500/30 py-2.5 rounded-xl font-bold text-xs flex items-center justify-center space-x-2 rtl:space-x-reverse hover:bg-emerald-500/10 transition"><i class="fa-brands fa-whatsapp text-sm"></i><span>استفسار واتساب</span></a>
                 </div>
             </div>
-            <!-- Revit Part 2 + Vray -->
+
+            <!-- 3. Revit Part 2 + Vray -->
             <div class="glass-card p-6 rounded-3xl flex flex-col justify-between border border-amber-500/20 relative">
                 <div>
                     <div class="flex items-center justify-between mb-5">
@@ -77,12 +94,17 @@
                     <h3 class="text-xl font-black text-white mb-2">Revit Part 2 + Vray</h3>
                     <p class="text-gray-400 text-xs font-light leading-relaxed mb-6">المستوى المتقدم في الريفيت مع تقنيات الإضاءة والرندرة الواقعية باستخدام محرك Vray لإخراج تصاميم مذهلة.</p>
                 </div>
-                <div class="space-y-3">
+                <div class="space-y-2.5">
+                    <button onclick="openModal('revit2Modal')" class="w-full glass-card text-amber-400 border border-amber-500/30 py-2.5 rounded-xl font-bold text-xs flex items-center justify-center space-x-2 rtl:space-x-reverse hover:bg-amber-500/10 transition">
+                        <i class="fa-solid fa-circle-info"></i>
+                        <span>تفاصيل الدورة (السعر، الموعد، الأهداف)</span>
+                    </button>
                     <a href="https://forms.gle/ShVDMvXgE9sNeSxz8" target="_blank" class="w-full bg-gold text-black py-2.5 rounded-xl font-extrabold text-xs uppercase tracking-wider flex items-center justify-center space-x-2 rtl:space-x-reverse hover:brightness-110 transition shadow-lg shadow-amber-500/15"><span>التسجيل (Google Form)</span><i class="fa-solid fa-external-link-alt text-[10px]"></i></a>
                     <a href="https://wa.me/96171967714?text=مرحباً، أهتم بالاستفسار عن دورة Revit Part 2 + Vray" target="_blank" class="w-full glass-card text-emerald-400 border border-emerald-500/30 py-2.5 rounded-xl font-bold text-xs flex items-center justify-center space-x-2 rtl:space-x-reverse hover:bg-emerald-500/10 transition"><i class="fa-brands fa-whatsapp text-sm"></i><span>استفسار واتساب</span></a>
                 </div>
             </div>
-            <!-- PS Rendering -->
+
+            <!-- 4. PS Rendering -->
             <div class="glass-card p-6 rounded-3xl flex flex-col justify-between border border-amber-500/20 relative">
                 <div>
                     <div class="flex items-center justify-between mb-5">
@@ -93,12 +115,17 @@
                     <h3 class="text-xl font-black text-white mb-2">PS Rendering</h3>
                     <p class="text-gray-400 text-xs font-light leading-relaxed mb-6">المعالجة البصرية وإخراج المخططات المعمارية والواجهات ببرنامج الفوتوشوب لإضافة اللمسات الاحترافية الجذابة.</p>
                 </div>
-                <div class="space-y-3">
+                <div class="space-y-2.5">
+                    <button onclick="openModal('psModal')" class="w-full glass-card text-amber-400 border border-amber-500/30 py-2.5 rounded-xl font-bold text-xs flex items-center justify-center space-x-2 rtl:space-x-reverse hover:bg-amber-500/10 transition">
+                        <i class="fa-solid fa-circle-info"></i>
+                        <span>تفاصيل الدورة (السعر، الموعد، الأهداف)</span>
+                    </button>
                     <a href="https://forms.gle/ShVDMvXgE9sNeSxz8" target="_blank" class="w-full bg-gold text-black py-2.5 rounded-xl font-extrabold text-xs uppercase tracking-wider flex items-center justify-center space-x-2 rtl:space-x-reverse hover:brightness-110 transition shadow-lg shadow-amber-500/15"><span>التسجيل (Google Form)</span><i class="fa-solid fa-external-link-alt text-[10px]"></i></a>
                     <a href="https://wa.me/96171967714?text=مرحباً، أهتم بالاستفسار عن دورة PS Rendering" target="_blank" class="w-full glass-card text-emerald-400 border border-emerald-500/30 py-2.5 rounded-xl font-bold text-xs flex items-center justify-center space-x-2 rtl:space-x-reverse hover:bg-emerald-500/10 transition"><i class="fa-brands fa-whatsapp text-sm"></i><span>استفسار واتساب</span></a>
                 </div>
             </div>
-            <!-- Lumion -->
+
+            <!-- 5. Lumion -->
             <div class="glass-card p-6 rounded-3xl flex flex-col justify-between border border-amber-500/20 relative lg:col-span-2">
                 <div>
                     <div class="flex items-center justify-between mb-5">
@@ -109,13 +136,215 @@
                     <h3 class="text-xl font-black text-white mb-2">Lumion</h3>
                     <p class="text-gray-400 text-xs font-light leading-relaxed mb-6">صناعة الفيديوهات المعمارية الحية والرندرة الفورية ثلاثية الأبعاد (Real-time Rendering) مع تأثيرات الطبيعة والمواد الاحترافية.</p>
                 </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <a href="https://forms.gle/ShVDMvXgE9sNeSxz8" target="_blank" class="w-full bg-gold text-black py-2.5 rounded-xl font-extrabold text-xs uppercase tracking-wider flex items-center justify-center space-x-2 rtl:space-x-reverse hover:brightness-110 transition shadow-lg shadow-amber-500/15"><span>التسجيل (Google Form)</span><i class="fa-solid fa-external-link-alt text-[10px]"></i></a>
-                    <a href="https://wa.me/96171967714?text=مرحباً، أهتم بالاستفسار عن دورة Lumion" target="_blank" class="w-full glass-card text-emerald-400 border border-emerald-500/30 py-2.5 rounded-xl font-bold text-xs flex items-center justify-center space-x-2 rtl:space-x-reverse hover:bg-emerald-500/10 transition"><i class="fa-brands fa-whatsapp text-sm"></i><span>استفسار واتساب</span></a>
+                <div class="space-y-3">
+                    <button onclick="openModal('lumionModal')" class="w-full glass-card text-amber-400 border border-amber-500/30 py-2.5 rounded-xl font-bold text-xs flex items-center justify-center space-x-2 rtl:space-x-reverse hover:bg-amber-500/10 transition">
+                        <i class="fa-solid fa-circle-info"></i>
+                        <span>تفاصيل الدورة (السعر، الموعد، الأهداف)</span>
+                    </button>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <a href="https://forms.gle/ShVDMvXgE9sNeSxz8" target="_blank" class="w-full bg-gold text-black py-2.5 rounded-xl font-extrabold text-xs uppercase tracking-wider flex items-center justify-center space-x-2 rtl:space-x-reverse hover:brightness-110 transition shadow-lg shadow-amber-500/15"><span>التسجيل (Google Form)</span><i class="fa-solid fa-external-link-alt text-[10px]"></i></a>
+                        <a href="https://wa.me/96171967714?text=مرحباً، أهتم بالاستفسار عن دورة Lumion" target="_blank" class="w-full glass-card text-emerald-400 border border-emerald-500/30 py-2.5 rounded-xl font-bold text-xs flex items-center justify-center space-x-2 rtl:space-x-reverse hover:bg-emerald-500/10 transition"><i class="fa-brands fa-whatsapp text-sm"></i><span>استفسار واتساب</span></a>
+                    </div>
                 </div>
             </div>
+
         </div>
     </section>
+
+    <!-- ================= MODALS SECTION ================= -->
+
+    <!-- 1. AutoCAD Modal -->
+    <div id="autocadModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md hidden p-4">
+        <div class="glass-card bg-[#121216] border border-amber-500/40 rounded-3xl max-w-lg w-full p-6 relative max-h-[90vh] overflow-y-auto">
+            <button onclick="closeModal('autocadModal')" class="absolute top-4 left-4 text-gray-400 hover:text-white text-xl"><i class="fa-solid fa-xmark"></i></button>
+            <div class="flex items-center space-x-3 rtl:space-x-reverse mb-4">
+                <div class="w-12 h-12 rounded-xl glass-card flex items-center justify-center p-2 border border-amber-500/30"><img src="https://upload.wikimedia.org/wikipedia/commons/3/3a/AutoCAD_Logo.svg" alt="AutoCAD" class="w-full h-full object-contain"></div>
+                <div><span class="text-[10px] gold-accent font-bold uppercase">تفاصيل البرنامج التدريبي</span><h3 class="text-xl font-black text-white">AutoCAD 2D/3D</h3></div>
+            </div>
+            <div class="space-y-4 text-xs text-gray-300">
+                <div class="grid grid-cols-3 gap-2 bg-black/40 p-3 rounded-2xl border border-amber-500/10 text-center">
+                    <div><span class="text-gray-500 block text-[10px]">عدد الجلسات</span><strong class="text-amber-400 text-sm">-- جلسة</strong></div>
+                    <div><span class="text-gray-500 block text-[10px]">التكلفة (السعر)</span><strong class="text-amber-400 text-sm">$--</strong></div>
+                    <div><span class="text-gray-500 block text-[10px]">تاريخ البدء</span><strong class="text-amber-400 text-sm">قريباً</strong></div>
+                </div>
+                <div>
+                    <h4 class="font-bold text-white mb-1.5 flex items-center"><i class="fa-solid fa-bullseye gold-accent ml-1.5"></i> أهداف الدورة:</h4>
+                    <p class="text-gray-400 font-light leading-relaxed">إتقان رسم المخططات التنفيذية الهندسية بدقة عالية، فهم إدارة الطبقات (Layers)، والتحول من الرسم ثنائي الأبعاد إلى النمذجة ثلاثية الأبعاد باحترافية تامة تؤهلك لسوق العمل.</p>
+                </div>
+                <div>
+                    <h4 class="font-bold text-white mb-1.5 flex items-center"><i class="fa-solid fa-list-check gold-accent ml-1.5"></i> المحاور والمحتوى:</h4>
+                    <ul class="list-disc list-inside space-y-1 text-gray-400 font-light">
+                        <li>أساسيات واجهة البرنامج وأوامر الرسم والتعديل.</li>
+                        <li>إعداد اللوحات وطباعة المخططات بالمقاييس العالمية.</li>
+                        <li>رسم المساقط الأفقية والواجهات والمقاطع المعمارية.</li>
+                        <li>مقدمة في النمذجة 3D واستخراج الصور الأولية.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="mt-6 flex gap-3">
+                <a href="https://forms.gle/ShVDMvXgE9sNeSxz8" target="_blank" class="flex-1 bg-gold text-black py-2.5 rounded-xl font-extrabold text-xs uppercase tracking-wider flex items-center justify-center space-x-2 rtl:space-x-reverse hover:brightness-110 transition shadow-lg shadow-amber-500/15"><span>التسجيل الآن</span><i class="fa-solid fa-external-link-alt text-[10px]"></i></a>
+                <a href="https://wa.me/96171967714?text=مرحباً، أهتم بالتسجيل والاستفسار عن تفاصيل دورة AutoCAD" target="_blank" class="flex-1 glass-card text-emerald-400 border border-emerald-500/30 py-2.5 rounded-xl font-bold text-xs flex items-center justify-center space-x-2 rtl:space-x-reverse hover:bg-emerald-500/10 transition"><i class="fa-brands fa-whatsapp text-sm"></i><span>استفسار واتساب</span></a>
+            </div>
+        </div>
+    </div>
+
+    <!-- 2. Revit Part 1 Modal -->
+    <div id="revit1Modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md hidden p-4">
+        <div class="glass-card bg-[#121216] border border-amber-500/40 rounded-3xl max-w-lg w-full p-6 relative max-h-[90vh] overflow-y-auto">
+            <button onclick="closeModal('revit1Modal')" class="absolute top-4 left-4 text-gray-400 hover:text-white text-xl"><i class="fa-solid fa-xmark"></i></button>
+            <div class="flex items-center space-x-3 rtl:space-x-reverse mb-4">
+                <div class="w-12 h-12 rounded-xl glass-card flex items-center justify-center p-2 border border-amber-500/30"><img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/Autodesk_Revit_logo.svg" alt="Revit" class="w-full h-full object-contain"></div>
+                <div><span class="text-[10px] gold-accent font-bold uppercase">تفاصيل البرنامج التدريبي</span><h3 class="text-xl font-black text-white">Revit Part 1</h3></div>
+            </div>
+            <div class="space-y-4 text-xs text-gray-300">
+                <div class="grid grid-cols-3 gap-2 bg-black/40 p-3 rounded-2xl border border-amber-500/10 text-center">
+                    <div><span class="text-gray-500 block text-[10px]">عدد الجلسات</span><strong class="text-amber-400 text-sm">-- جلسة</strong></div>
+                    <div><span class="text-gray-500 block text-[10px]">التكلفة (السعر)</span><strong class="text-amber-400 text-sm">$--</strong></div>
+                    <div><span class="text-gray-500 block text-[10px]">تاريخ البدء</span><strong class="text-amber-400 text-sm">قريباً</strong></div>
+                </div>
+                <div>
+                    <h4 class="font-bold text-white mb-1.5 flex items-center"><i class="fa-solid fa-bullseye gold-accent ml-1.5"></i> أهداف الدورة:</h4>
+                    <p class="text-gray-400 font-light leading-relaxed">فهم فلسفة نمذجة معلومات المباني (BIM)، بناء العناصر المعمارية الأساسية وإدارتها باحترافية لتسريع وتيرة العمل الهندسي.</p>
+                </div>
+                <div>
+                    <h4 class="font-bold text-white mb-1.5 flex items-center"><i class="fa-solid fa-list-check gold-accent ml-1.5"></i> المحاور والمحتوى:</h4>
+                    <ul class="list-disc list-inside space-y-1 text-gray-400 font-light">
+                        <li>مقدمة في نظام BIM واجهات الريفيت الأساسية.</li>
+                        <li>إنشاء المحاور، المستويات، الجدران، والأبواب والنوافذ.</li>
+                        <li>تصميم الأسطح، الأرضيات، والسلالم المعمارية.</li>
+                        <li>استخراج المساقط، الواجهات، والجداول الكمية البسيطة.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="mt-6 flex gap-3">
+                <a href="https://forms.gle/ShVDMvXgE9sNeSxz8" target="_blank" class="flex-1 bg-gold text-black py-2.5 rounded-xl font-extrabold text-xs uppercase tracking-wider flex items-center justify-center space-x-2 rtl:space-x-reverse hover:brightness-110 transition shadow-lg shadow-amber-500/15"><span>التسجيل الآن</span><i class="fa-solid fa-external-link-alt text-[10px]"></i></a>
+                <a href="https://wa.me/96171967714?text=مرحباً، أهتم بالتسجيل والاستفسار عن تفاصيل دورة Revit Part 1" target="_blank" class="flex-1 glass-card text-emerald-400 border border-emerald-500/30 py-2.5 rounded-xl font-bold text-xs flex items-center justify-center space-x-2 rtl:space-x-reverse hover:bg-emerald-500/10 transition"><i class="fa-brands fa-whatsapp text-sm"></i><span>استفسار واتساب</span></a>
+            </div>
+        </div>
+    </div>
+
+    <!-- 3. Revit Part 2 + Vray Modal -->
+    <div id="revit2Modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md hidden p-4">
+        <div class="glass-card bg-[#121216] border border-amber-500/40 rounded-3xl max-w-lg w-full p-6 relative max-h-[90vh] overflow-y-auto">
+            <button onclick="closeModal('revit2Modal')" class="absolute top-4 left-4 text-gray-400 hover:text-white text-xl"><i class="fa-solid fa-xmark"></i></button>
+            <div class="flex items-center space-x-3 rtl:space-x-reverse mb-4">
+                <div class="w-12 h-12 rounded-xl glass-card flex items-center justify-center p-2 border border-amber-500/30"><img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/Autodesk_Revit_logo.svg" alt="Revit" class="w-full h-full object-contain"></div>
+                <div><span class="text-[10px] gold-accent font-bold uppercase">تفاصيل البرنامج التدريبي</span><h3 class="text-xl font-black text-white">Revit Part 2 + Vray</h3></div>
+            </div>
+            <div class="space-y-4 text-xs text-gray-300">
+                <div class="grid grid-cols-3 gap-2 bg-black/40 p-3 rounded-2xl border border-amber-500/10 text-center">
+                    <div><span class="text-gray-500 block text-[10px]">عدد الجلسات</span><strong class="text-amber-400 text-sm">-- جلسة</strong></div>
+                    <div><span class="text-gray-500 block text-[10px]">التكلفة (السعر)</span><strong class="text-amber-400 text-sm">$--</strong></div>
+                    <div><span class="text-gray-500 block text-[10px]">تاريخ البدء</span><strong class="text-amber-400 text-sm">قريباً</strong></div>
+                </div>
+                <div>
+                    <h4 class="font-bold text-white mb-1.5 flex items-center"><i class="fa-solid fa-bullseye gold-accent ml-1.5"></i> أهداف الدورة:</h4>
+                    <p class="text-gray-400 font-light leading-relaxed">التعمق في تفاصيل العائلات المتقدمة (Families)، إعداد اللوحات التنفيذية الكاملة، واستخدام محرك Vray لإنتاج صور واقعية مذهلة.</p>
+                </div>
+                <div>
+                    <h4 class="font-bold text-white mb-1.5 flex items-center"><i class="fa-solid fa-list-check gold-accent ml-1.5"></i> المحاور والمحتوى:</h4>
+                    <ul class="list-disc list-inside space-y-1 text-gray-400 font-light">
+                        <li>تصميم العائلات المخصصة (Custom Families).</li>
+                        <li>إعداد اللوحات التنفيذية وإدارة جداول الكميات الشاملة.</li>
+                        <li>ربط البرنامج بمحرك Vray وتطبيق الخامات الواقعية.</li>
+                        <li>إعداد الإضاءات الداخلية والخارجية والرندرة النهائية.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="mt-6 flex gap-3">
+                <a href="https://forms.gle/ShVDMvXgE9sNeSxz8" target="_blank" class="flex-1 bg-gold text-black py-2.5 rounded-xl font-extrabold text-xs uppercase tracking-wider flex items-center justify-center space-x-2 rtl:space-x-reverse hover:brightness-110 transition shadow-lg shadow-amber-500/15"><span>التسجيل الآن</span><i class="fa-solid fa-external-link-alt text-[10px]"></i></a>
+                <a href="https://wa.me/96171967714?text=مرحباً، أهتم بالتسجيل والاستفسار عن تفاصيل دورة Revit Part 2 + Vray" target="_blank" class="flex-1 glass-card text-emerald-400 border border-emerald-500/30 py-2.5 rounded-xl font-bold text-xs flex items-center justify-center space-x-2 rtl:space-x-reverse hover:bg-emerald-500/10 transition"><i class="fa-brands fa-whatsapp text-sm"></i><span>استفسار واتساب</span></a>
+            </div>
+        </div>
+    </div>
+
+    <!-- 4. PS Rendering Modal -->
+    <div id="psModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md hidden p-4">
+        <div class="glass-card bg-[#121216] border border-amber-500/40 rounded-3xl max-w-lg w-full p-6 relative max-h-[90vh] overflow-y-auto">
+            <button onclick="closeModal('psModal')" class="absolute top-4 left-4 text-gray-400 hover:text-white text-xl"><i class="fa-solid fa-xmark"></i></button>
+            <div class="flex items-center space-x-3 rtl:space-x-reverse mb-4">
+                <div class="w-12 h-12 rounded-xl glass-card flex items-center justify-center p-2 border border-amber-500/30"><img src="https://upload.wikimedia.org/wikipedia/commons/a/af/Adobe_Photoshop_CC_icon.svg" alt="Photoshop" class="w-full h-full object-contain"></div>
+                <div><span class="text-[10px] gold-accent font-bold uppercase">تفاصيل البرنامج التدريبي</span><h3 class="text-xl font-black text-white">PS Rendering</h3></div>
+            </div>
+            <div class="space-y-4 text-xs text-gray-300">
+                <div class="grid grid-cols-3 gap-2 bg-black/40 p-3 rounded-2xl border border-amber-500/10 text-center">
+                    <div><span class="text-gray-500 block text-[10px]">عدد الجلسات</span><strong class="text-amber-400 text-sm">-- جلسة</strong></div>
+                    <div><span class="text-gray-500 block text-[10px]">التكلفة (السعر)</span><strong class="text-amber-400 text-sm">$--</strong></div>
+                    <div><span class="text-gray-500 block text-[10px]">تاريخ البدء</span><strong class="text-amber-400 text-sm">قريباً</strong></div>
+                </div>
+                <div>
+                    <h4 class="font-bold text-white mb-1.5 flex items-center"><i class="fa-solid fa-bullseye gold-accent ml-1.5"></i> أهداف الدورة:</h4>
+                    <p class="text-gray-400 font-light leading-relaxed">تحويل المخططات الهندسية الصامتة إلى لوحات بصرية تنبض بالحياة باستخدام تقنيات الفوتوشوب المتقدمة للإخراج المعماري.</p>
+                </div>
+                <div>
+                    <h4 class="font-bold text-white mb-1.5 flex items-center"><i class="fa-solid fa-list-check gold-accent ml-1.5"></i> المحاور والمحتوى:</h4>
+                    <ul class="list-disc list-inside space-y-1 text-gray-400 font-light">
+                        <li>تلوين وإبراز المساقط الأفقية (Site Plans & Floor Plans).</li>
+                        <li>إضافة الظلال، الأشجار، الأثاث، والعناصر البشرية للمخططات.</li>
+                        <li>معالجة واجهات المباني وإبراز تفاصيل المواد.</li>
+                        <li>التصحيح اللوني وضبط الإضاءة للصور النهائية.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="mt-6 flex gap-3">
+                <a href="https://forms.gle/ShVDMvXgE9sNeSxz8" target="_blank" class="flex-1 bg-gold text-black py-2.5 rounded-xl font-extrabold text-xs uppercase tracking-wider flex items-center justify-center space-x-2 rtl:space-x-reverse hover:brightness-110 transition shadow-lg shadow-amber-500/15"><span>التسجيل الآن</span><i class="fa-solid fa-external-link-alt text-[10px]"></i></a>
+                <a href="https://wa.me/96171967714?text=مرحباً، أهتم بالتسجيل والاستفسار عن تفاصيل دورة PS Rendering" target="_blank" class="flex-1 glass-card text-emerald-400 border border-emerald-500/30 py-2.5 rounded-xl font-bold text-xs flex items-center justify-center space-x-2 rtl:space-x-reverse hover:bg-emerald-500/10 transition"><i class="fa-brands fa-whatsapp text-sm"></i><span>استفسار واتساب</span></a>
+            </div>
+        </div>
+    </div>
+
+    <!-- 5. Lumion Modal -->
+    <div id="lumionModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md hidden p-4">
+        <div class="glass-card bg-[#121216] border border-amber-500/40 rounded-3xl max-w-lg w-full p-6 relative max-h-[90vh] overflow-y-auto">
+            <button onclick="closeModal('lumionModal')" class="absolute top-4 left-4 text-gray-400 hover:text-white text-xl"><i class="fa-solid fa-xmark"></i></button>
+            <div class="flex items-center space-x-3 rtl:space-x-reverse mb-4">
+                <div class="w-12 h-12 rounded-xl glass-card flex items-center justify-center p-2 border border-amber-500/30"><i class="fa-solid fa-cube text-2xl gold-accent"></i></div>
+                <div><span class="text-[10px] gold-accent font-bold uppercase">تفاصيل البرنامج التدريبي</span><h3 class="text-xl font-black text-white">Lumion</h3></div>
+            </div>
+            <div class="space-y-4 text-xs text-gray-300">
+                <div class="grid grid-cols-3 gap-2 bg-black/40 p-3 rounded-2xl border border-amber-500/10 text-center">
+                    <div><span class="text-gray-500 block text-[10px]">عدد الجلسات</span><strong class="text-amber-400 text-sm">-- جلسة</strong></div>
+                    <div><span class="text-gray-500 block text-[10px]">التكلفة (السعر)</span><strong class="text-amber-400 text-sm">$--</strong></div>
+                    <div><span class="text-gray-500 block text-[10px]">تاريخ البدء</span><strong class="text-amber-400 text-sm">قريباً</strong></div>
+                </div>
+                <div>
+                    <h4 class="font-bold text-white mb-1.5 flex items-center"><i class="fa-solid fa-bullseye gold-accent ml-1.5"></i> أهداف الدورة:</h4>
+                    <p class="text-gray-400 font-light leading-relaxed">احتراف صناعة الرندرة الحية والفيديوهات المعمارية المبهرة بسرعة فائقة وبتأثيرات واقعية متطورة.</p>
+                </div>
+                <div>
+                    <h4 class="font-bold text-white mb-1.5 flex items-center"><i class="fa-solid fa-list-check gold-accent ml-1.5"></i> المحاور والمحتوى:</h4>
+                    <ul class="list-disc list-inside space-y-1 text-gray-400 font-light">
+                        <li>استيراد النماذج وتطبيق المواد والخامات المتقدمة.</li>
+                        <li>إضافة المؤثرات الطبيعية (طقس، إضاءة الشمس، المياه، والرياح).</li>
+                        <li>تنسيق البيئة المحيطة (أشجار، سيارات، وحركة بشرية).</li>
+                        <li>إنتاج الصور الفوتوغرافية وتصدير الفيديوهات المعمارية السينمائية.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="mt-6 flex gap-3">
+                <a href="https://forms.gle/ShVDMvXgE9sNeSxz8" target="_blank" class="flex-1 bg-gold text-black py-2.5 rounded-xl font-extrabold text-xs uppercase tracking-wider flex items-center justify-center space-x-2 rtl:space-x-reverse hover:brightness-110 transition shadow-lg shadow-amber-500/15"><span>التسجيل الآن</span><i class="fa-solid fa-external-link-alt text-[10px]"></i></a>
+                <a href="https://wa.me/96171967714?text=مرحباً، أهتم بالتسجيل والاستفسار عن تفاصيل دورة Lumion" target="_blank" class="flex-1 glass-card text-emerald-400 border border-emerald-500/30 py-2.5 rounded-xl font-bold text-xs flex items-center justify-center space-x-2 rtl:space-x-reverse hover:bg-emerald-500/10 transition"><i class="fa-brands fa-whatsapp text-sm"></i><span>استفسار واتساب</span></a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
     <footer class="py-12 text-center text-gray-500 text-xs border-t border-gray-900 mt-20"><p>&copy; 2026 Sketchy Chapters Workshop Center. All rights reserved.</p></footer>
+
+    <!-- JavaScript for Modals -->
+    <script>
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.remove('hidden');
+        }
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.add('hidden');
+        }
+        // إغلاق النافذة عند الضغط في المساحة السوداء خارج الصندوق
+        window.onclick = function(event) {
+            if (event.target.classList.contains('fixed') && event.target.id) {
+                event.target.classList.add('hidden');
+            }
+        }
+    </script>
 </body>
 </html>
