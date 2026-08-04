@@ -41,23 +41,23 @@
 
     <!-- Navigation Bar -->
     <nav class="fixed w-full z-50 glass-card px-6 py-4 flex justify-between items-center top-0 border-b border-amber-500/15">
-        <a href="index.html" class="flex items-center space-x-3">
+        <a href="index.html" class="flex items-center space-x-3 rtl:space-x-reverse">
             <span class="text-xl font-black tracking-wider text-white">SKETCHY <span class="gold-accent">CHAPTERS</span> <span class="text-xs text-gray-400 font-light">| Workshops</span></span>
         </a>
-        <div class="hidden md:flex space-x-6 text-sm font-semibold">
-            <a href="index.html" class="hover:text-amber-400 transition" data-ar="الرئيسية">Home</a>
-            <a href="offers.html" class="hover:text-amber-400 transition gold-accent font-bold" data-ar="الباقات الصيفية">Summer Packages</a>
-            <a href="#stats" class="hover:text-amber-400 transition" data-ar="إنجازاتنا">Our Achievements</a>
-            <a href="#categories" class="hover:text-amber-400 transition" data-ar="الأقسام التدريبية">Training Departments</a>
+        <div class="hidden md:flex space-x-6 rtl:space-x-reverse text-sm font-semibold">
+            <a href="index.html" class="hover:text-amber-400 transition" data-en="Home" data-ar="الرئيسية">Home</a>
+            <a href="offers.html" class="hover:text-amber-400 transition gold-accent font-bold" data-en="Summer Packages" data-ar="الباقات الصيفية">Summer Packages</a>
+            <a href="#stats" class="hover:text-amber-400 transition" data-en="Our Achievements" data-ar="إنجازاتنا">Our Achievements</a>
+            <a href="#categories" class="hover:text-amber-400 transition" data-en="Training Departments" data-ar="الأقسام التدريبية">Training Departments</a>
         </div>
-        <div class="flex items-center space-x-4">
+        <div class="flex items-center space-x-4 rtl:space-x-reverse">
             <!-- Language Switcher Button -->
             <button onclick="toggleLanguage()" id="lang-btn" class="glass-card text-amber-400 border border-amber-500/30 px-3 py-2 rounded-full text-xs font-bold hover:bg-amber-500/10 transition">
                 العربية
             </button>
-            <a href="offers.html" class="glass-card text-amber-400 border border-amber-500/30 px-4 py-2 rounded-full text-xs font-bold hover:bg-amber-500/10 transition flex items-center space-x-2">
+            <a href="offers.html" class="glass-card text-amber-400 border border-amber-500/30 px-4 py-2 rounded-full text-xs font-bold hover:bg-amber-500/10 transition flex items-center space-x-2 rtl:space-x-reverse">
                 <i class="fa-solid fa-gift text-amber-400"></i>
-                <span data-ar="عروض الباقات">Offers</span>
+                <span data-en="Offers" data-ar="عروض الباقات">Offers</span>
             </a>
         </div>
     </nav>
@@ -65,53 +65,49 @@
     <!-- Hero Section -->
     <section class="min-h-[50vh] relative flex items-center justify-center pt-32 px-6 text-center">
         <div class="max-w-4xl z-10">
-            <div class="inline-block px-4 py-1.5 rounded-full glass-card text-xs font-bold gold-accent mb-6 uppercase tracking-widest border border-amber-500/30" data-ar="مركز التدريب الهندسي والمهني">
+            <div class="inline-block px-4 py-1.5 rounded-full glass-card text-xs font-bold gold-accent mb-6 uppercase tracking-widest border border-amber-500/30" data-en="Engineering & Professional Training Center" data-ar="مركز التدريب الهندسي والمهني">
                 Engineering & Professional Training Center
             </div>
-            <h1 class="text-4xl md:text-6xl font-black mb-6 leading-tight text-white" data-ar="أقسام الدورات والتخصصات">
-                Training Departments <br>
-                <span class="gold-gradient-text">& Specialties</span>
+            <h1 class="text-4xl md:text-6xl font-black mb-6 leading-tight text-white">
+                <span data-en="Training Departments" data-ar="أقسام الدورات والتخصصات">Training Departments</span> <br>
+                <span class="gold-gradient-text" data-en="& Specialties" data-ar="& Specialties">& Specialties</span>
             </h1>
-            <p class="text-base md:text-lg text-gray-400 mb-8 max-w-2xl mx-auto font-light leading-relaxed" data-ar="اختر القسم التدريبي المطلوب لاستعراض الدورات المتاحة والتفاصيل الكاملة لكل برنامج.">
+            <p class="text-base md:text-lg text-gray-400 mb-8 max-w-2xl mx-auto font-light leading-relaxed" data-en="Choose your required training department to explore available courses and complete program details." data-ar="اختر القسم التدريبي المطلوب لاستعراض الدورات المتاحة والتفاصيل الكاملة لكل برنامج.">
                 Choose your required training department to explore available courses and complete program details.
             </p>
         </div>
     </section>
 
-    <!-- STATS / ANIMATION SECTION -->
+    <!-- STATS SECTION -->
     <section id="stats" class="py-16 px-6 max-w-7xl mx-auto">
         <div class="glass-card rounded-3xl p-8 md:p-12 border border-amber-500/30 grid grid-cols-2 lg:grid-cols-4 gap-8 text-center">
             
-            <!-- Stat 1: Countries -->
             <div class="space-y-2">
                <div class="text-3xl md:text-5xl font-black gold-gradient-text">
                    <span class="counter" data-target="10">0</span>+
                </div>
-                <p class="text-gray-400 text-xs md:text-sm font-medium" data-ar="دول حول العالم">Countries Worldwide</p>
+                <p class="text-gray-400 text-xs md:text-sm font-medium" data-en="Countries Worldwide" data-ar="دول حول العالم">Countries Worldwide</p>
            </div>
 
-            <!-- Stat 2: Training Hours -->
             <div class="space-y-2">
                <div class="text-3xl md:text-5xl font-black gold-gradient-text">
                    <span class="counter" data-target="12000">0</span>+
                </div>
-                <p class="text-gray-400 text-xs md:text-sm font-medium" data-ar="ساعة تدريبية">Training Hours</p>
+                <p class="text-gray-400 text-xs md:text-sm font-medium" data-en="Training Hours" data-ar="ساعة تدريبية">Training Hours</p>
            </div>
 
-            <!-- Stat 3: Courses (Online & Offline) -->
             <div class="space-y-2">
                <div class="text-3xl md:text-5xl font-black gold-gradient-text">
                    <span class="counter" data-target="100">0</span>+
                </div>
-                <p class="text-gray-400 text-xs md:text-sm font-medium" data-ar="دورة تدريبية (حضوري وأونلاين)">Courses (Online & Offline)</p>
+                <p class="text-gray-400 text-xs md:text-sm font-medium" data-en="Courses (Online & Offline)" data-ar="دورة تدريبية (حضوري وأونلاين)">Courses (Online & Offline)</p>
            </div>
 
-            <!-- Stat 4: Students Worldwide -->
             <div class="space-y-2">
                <div class="text-3xl md:text-5xl font-black gold-gradient-text">
                    <span class="counter" data-target="6200">0</span>+
                </div>
-                <p class="text-gray-400 text-xs md:text-sm font-medium" data-ar="طالب حول العالم">Students Worldwide</p>
+                <p class="text-gray-400 text-xs md:text-sm font-medium" data-en="Students Worldwide" data-ar="طالب حول العالم">Students Worldwide</p>
            </div>
 
         </div>
@@ -120,26 +116,26 @@
     <!-- Categories Grid Section -->
     <section id="categories" class="py-16 px-6 max-w-7xl mx-auto">
         <div class="text-center mb-12">
-            <span class="text-xs font-bold gold-accent uppercase tracking-widest block mb-2" data-ar="التصنيفات المعتمدة">Certified Categories</span>
-            <h2 class="text-3xl md:text-4xl font-black text-white" data-ar="تصفح الأقسام التدريبية">Browse Training Departments</h2>
+            <span class="text-xs font-bold gold-accent uppercase tracking-widest block mb-2" data-en="Certified Categories" data-ar="التصنيفات المعتمدة">Certified Categories</span>
+            <h2 class="text-3xl md:text-4xl font-black text-white" data-en="Browse Training Departments" data-ar="تصفح الأقسام التدريبية">Browse Training Departments</h2>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             
-            <!-- 0. Summer Packages Special Banner -->
+            <!-- 0. Summer Packages -->
             <a href="offers.html" class="glass-card p-6 rounded-3xl flex flex-col justify-between group border-amber-500/60 bg-gradient-to-b from-amber-500/10 via-black/40 to-black/80 relative overflow-hidden shadow-[0_0_30px_rgba(212,175,55,0.15)]">
                 <div class="absolute -top-12 -left-12 w-32 h-32 bg-amber-500/20 rounded-full blur-2xl group-hover:bg-amber-500/30 transition"></div>
                 <div>
                     <div class="h-48 rounded-2xl bg-cover bg-center mb-6 border border-amber-500/40 group-hover:scale-[1.02] transition duration-300" style="background-image: url('https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=600');"></div>
-                    <div class="flex items-center space-x-2 mb-1">
+                    <div class="flex items-center space-x-2 rtl:space-x-reverse mb-1">
                         <span class="bg-gold text-black text-[10px] font-extrabold px-2.5 py-0.5 rounded uppercase">Special Offer</span>
-                        <span class="gold-accent text-xs font-bold uppercase" data-ar="عروض حصرية">Exclusive Offers</span>
+                        <span class="gold-accent text-xs font-bold uppercase" data-en="Exclusive Offers" data-ar="عروض حصرية">Exclusive Offers</span>
                     </div>
-                    <h3 class="text-2xl font-black text-white mb-2" data-ar="الباقات الصيفية">Summer Packages</h3>
-                    <p class="text-gray-300 text-xs font-light leading-relaxed mb-4" data-ar="باقات التوفير الصيفية المتكاملة للدورات الهندسية والجرافيك بخصومات استثنائية.">Comprehensive summer bundle offers for engineering and graphic courses with exceptional discounts.</p>
+                    <h3 class="text-2xl font-black text-white mb-2" data-en="Summer Packages" data-ar="الباقات الصيفية">Summer Packages</h3>
+                    <p class="text-gray-300 text-xs font-light leading-relaxed mb-4" data-en="Comprehensive summer bundle offers for engineering and graphic courses with exceptional discounts." data-ar="باقات التوفير الصيفية المتكاملة للدورات الهندسية والجرافيك بخصومات استثنائية.">Comprehensive summer bundle offers for engineering and graphic courses with exceptional discounts.</p>
                 </div>
                 <div class="flex items-center justify-between pt-4 border-t border-amber-500/30 text-xs font-bold gold-accent">
-                    <span data-ar="استعراض الباقات والعروض">Explore Bundles & Offers</span>
+                    <span data-en="Explore Bundles & Offers" data-ar="استعراض الباقات والعروض">Explore Bundles & Offers</span>
                     <i class="fa-solid fa-arrow-right transition transform group-hover:translate-x-1 icon-arrow"></i>
                 </div>
             </a>
@@ -150,10 +146,10 @@
                     <div class="h-48 rounded-2xl bg-cover bg-center mb-6 border border-amber-500/20 group-hover:scale-[1.02] transition duration-300" style="background-image: url('https://images.unsplash.com/photo-1503387762-592deb58ef4e?q=80&w=600');"></div>
                     <span class="gold-accent text-xs font-bold uppercase tracking-wider">Part 01</span>
                     <h3 class="text-2xl font-black text-white mt-1 mb-3">Architecture & Interior</h3>
-                    <p class="text-gray-400 text-xs font-light leading-relaxed mb-4" data-ar="دورات AutoCAD, Revit، المخططات الهندسية التنفيذية، والتصميم الداخلي.">AutoCAD and Revit courses, executive engineering blueprints, and interior design.</p>
+                    <p class="text-gray-400 text-xs font-light leading-relaxed mb-4" data-en="AutoCAD and Revit courses, executive engineering blueprints, and interior design." data-ar="دورات AutoCAD, Revit، المخططات الهندسية التنفيذية، والتصميم الداخلي.">AutoCAD and Revit courses, executive engineering blueprints, and interior design.</p>
                 </div>
                 <div class="flex items-center justify-between pt-4 border-t border-gray-800 text-xs font-bold gold-accent">
-                    <span data-ar="استعراض الدورات">Explore Courses</span>
+                    <span data-en="Explore Courses" data-ar="استعراض الدورات">Explore Courses</span>
                     <i class="fa-solid fa-arrow-right transition transform group-hover:translate-x-1 icon-arrow"></i>
                 </div>
             </a>
@@ -164,10 +160,10 @@
                     <div class="h-48 rounded-2xl bg-cover bg-center mb-6 border border-amber-500/20 group-hover:scale-[1.02] transition duration-300" style="background-image: url('https://images.unsplash.com/photo-1626785774573-4b799315345d?q=80&w=600');"></div>
                     <span class="gold-accent text-xs font-bold uppercase tracking-wider">Part 02</span>
                     <h3 class="text-2xl font-black text-white mt-1 mb-3">Graphic Design & Editing</h3>
-                    <p class="text-gray-400 text-xs font-light leading-relaxed mb-4" data-ar="حزمة Adobe (Photoshop, Illustrator, Premiere) والمونتاج البصري.">Adobe suite (Photoshop, Illustrator, Premiere) and visual editing.</p>
+                    <p class="text-gray-400 text-xs font-light leading-relaxed mb-4" data-en="Adobe suite (Photoshop, Illustrator, Premiere) and visual editing." data-ar="حزمة Adobe (Photoshop, Illustrator, Premiere) والمونتاج البصري.">Adobe suite (Photoshop, Illustrator, Premiere) and visual editing.</p>
                 </div>
                 <div class="flex items-center justify-between pt-4 border-t border-gray-800 text-xs font-bold gold-accent">
-                    <span data-ar="استعراض الدورات">Explore Courses</span>
+                    <span data-en="Explore Courses" data-ar="استعراض الدورات">Explore Courses</span>
                     <i class="fa-solid fa-arrow-right transition transform group-hover:translate-x-1 icon-arrow"></i>
                 </div>
             </a>
@@ -178,10 +174,10 @@
                     <div class="h-48 rounded-2xl bg-cover bg-center mb-6 border border-amber-500/20 group-hover:scale-[1.02] transition duration-300" style="background-image: url('https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?q=80&w=600');"></div>
                     <span class="gold-accent text-xs font-bold uppercase tracking-wider">Part 03</span>
                     <h3 class="text-2xl font-black text-white mt-1 mb-3">Electrical Engineering</h3>
-                    <p class="text-gray-400 text-xs font-light leading-relaxed mb-4" data-ar="دورات الهندسة الكهربائية، مخططات الإنارة، والتمديدات الصناعية.">Electrical engineering courses, lighting blueprints, and industrial installations.</p>
+                    <p class="text-gray-400 text-xs font-light leading-relaxed mb-4" data-en="Electrical engineering courses, lighting blueprints, and industrial installations." data-ar="دورات الهندسة الكهربائية، مخططات الإنارة، والتمديدات الصناعية.">Electrical engineering courses, lighting blueprints, and industrial installations.</p>
                 </div>
                 <div class="flex items-center justify-between pt-4 border-t border-gray-800 text-xs font-bold gold-accent">
-                    <span data-ar="استعراض الدورات">Explore Courses</span>
+                    <span data-en="Explore Courses" data-ar="استعراض الدورات">Explore Courses</span>
                     <i class="fa-solid fa-arrow-right transition transform group-hover:translate-x-1 icon-arrow"></i>
                 </div>
             </a>
@@ -192,10 +188,10 @@
                     <div class="h-48 rounded-2xl bg-cover bg-center mb-6 border border-amber-500/20 group-hover:scale-[1.02] transition duration-300" style="background-image: url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=600');"></div>
                     <span class="gold-accent text-xs font-bold uppercase tracking-wider">Part 04</span>
                     <h3 class="text-2xl font-black text-white mt-1 mb-3">Microsoft Office</h3>
-                    <p class="text-gray-400 text-xs font-light leading-relaxed mb-4" data-ar="إتقان برامج Excel المتقدم، Word، و PowerPoint لإدارة البيانات والتقارير.">Mastering advanced Excel, Word, and PowerPoint for data management and reporting.</p>
+                    <p class="text-gray-400 text-xs font-light leading-relaxed mb-4" data-en="Mastering advanced Excel, Word, and PowerPoint for data management and reporting." data-ar="إتقان برامج Excel المتقدم، Word، و PowerPoint لإدارة البيانات والتقارير.">Mastering advanced Excel, Word, and PowerPoint for data management and reporting.</p>
                 </div>
                 <div class="flex items-center justify-between pt-4 border-t border-gray-800 text-xs font-bold gold-accent">
-                    <span data-ar="استعراض الدورات">Explore Courses</span>
+                    <span data-en="Explore Courses" data-ar="استعراض الدورات">Explore Courses</span>
                     <i class="fa-solid fa-arrow-right transition transform group-hover:translate-x-1 icon-arrow"></i>
                 </div>
             </a>
@@ -204,15 +200,15 @@
             <a href="oea-courses.html" class="glass-card p-6 rounded-3xl flex flex-col justify-between group border-amber-500/40 bg-gradient-to-b from-amber-950/20 to-black/60 lg:col-span-2">
                 <div>
                     <div class="h-48 rounded-2xl bg-cover bg-center mb-6 border border-amber-500/30 group-hover:scale-[1.02] transition duration-300" style="background-image: url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=600');"></div>
-                    <div class="flex items-center space-x-2 mb-1">
+                    <div class="flex items-center space-x-2 rtl:space-x-reverse mb-1">
                         <span class="bg-amber-500 text-black text-[10px] font-extrabold px-2 py-0.5 rounded uppercase">Part 05</span>
-                        <span class="gold-accent text-xs font-bold uppercase" data-ar="اعتماد رسمي ومعتمد">Official & Certified Accreditation</span>
+                        <span class="gold-accent text-xs font-bold uppercase" data-en="Official & Certified Accreditation" data-ar="اعتماد رسمي ومعتمد">Official & Certified Accreditation</span>
                     </div>
                     <h3 class="text-2xl font-black text-white mb-2">Training Center - OEA Tripoli</h3>
-                    <p class="text-gray-300 text-xs font-light leading-relaxed mb-4" data-ar="الدورات التدريبية التخصصية بالتعاون المشترك مع نقابة المهندسين في طرابلس بشهادات معتمدة.">Specialized training courses in joint cooperation with the Order of Engineers and Architects in Tripoli with certified certificates.</p>
+                    <p class="text-gray-300 text-xs font-light leading-relaxed mb-4" data-en="Specialized training courses in joint cooperation with the Order of Engineers and Architects in Tripoli with certified certificates." data-ar="الدورات التدريبية التخصصية بالتعاون المشترك مع نقابة المهندسين في طرابلس بشهادات معتمدة.">Specialized training courses in joint cooperation with the Order of Engineers and Architects in Tripoli with certified certificates.</p>
                 </div>
                 <div class="flex items-center justify-between pt-4 border-t border-amber-500/20 text-xs font-bold gold-accent">
-                    <span data-ar="استعراض دورات النقابة">Explore OEA Courses</span>
+                    <span data-en="Explore OEA Courses" data-ar="استعراض دورات النقابة">Explore OEA Courses</span>
                     <i class="fa-solid fa-arrow-right transition transform group-hover:translate-x-1 icon-arrow"></i>
                 </div>
             </a>
@@ -222,12 +218,11 @@
 
     <!-- Footer -->
     <footer class="py-12 text-center text-gray-500 text-xs border-t border-gray-900 mt-20">
-        <p>&copy; 2026 Sketchy Chapters Workshop Center. All rights reserved.</p>
+        <p data-en="&copy; 2026 Sketchy Chapters Workshop Center. All rights reserved." data-ar="&copy; 2026 مركز ورش عمل سكتشي تشابترز. جميع الحقوق محفوظة.">&copy; 2026 Sketchy Chapters Workshop Center. All rights reserved.</p>
     </footer>
 
     <!-- Scripts -->
     <script>
-        // Counters Animation
         const counters = document.querySelectorAll('.counter');
         let animated = false;
 
@@ -261,7 +256,7 @@
             }
         });
 
-        // Language Toggle Function (English Default)
+        // Fixed Language Toggle Function
         let currentLang = 'en';
 
         function toggleLanguage() {
@@ -274,13 +269,10 @@
                 html.setAttribute('lang', 'ar');
                 langBtn.innerText = 'English';
                 
-                // Switch text to Arabic using data-ar attribute
                 document.querySelectorAll('[data-ar]').forEach(el => {
-                    el.setAttribute('data-en', el.innerText);
                     el.innerText = el.getAttribute('data-ar');
                 });
 
-                // Adjust arrow icons direction for RTL
                 document.querySelectorAll('.icon-arrow').forEach(icon => {
                     icon.classList.remove('fa-arrow-right', 'group-hover:translate-x-1');
                     icon.classList.add('fa-arrow-left', 'group-hover:-translate-x-1');
@@ -291,14 +283,10 @@
                 html.setAttribute('lang', 'en');
                 langBtn.innerText = 'العربية';
                 
-                // Restore English text from data-en attribute
-                document.querySelectorAll('[data-ar]').forEach(el => {
-                    if (el.getAttribute('data-en')) {
-                        el.innerText = el.getAttribute('data-en');
-                    }
+                document.querySelectorAll('[data-en]').forEach(el => {
+                    el.innerText = el.getAttribute('data-en');
                 });
 
-                // Adjust arrow icons direction for LTR
                 document.querySelectorAll('.icon-arrow').forEach(icon => {
                     icon.classList.remove('fa-arrow-left', 'group-hover:-translate-x-1');
                     icon.classList.add('fa-arrow-right', 'group-hover:translate-x-1');
