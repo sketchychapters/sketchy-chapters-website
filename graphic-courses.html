@@ -4,236 +4,118 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Graphic Design & Editing Courses | Sketchy Chapters</title>
-    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;500;700;900&display=swap" rel="stylesheet">
-    <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        body {
-            font-family: 'Tajawal', sans-serif;
-            background-color: #08080a;
-            color: #e0e6ed;
-            overflow-x: hidden;
-        }
+        body { font-family: 'Tajawal', sans-serif; background-color: #08080a; color: #e0e6ed; overflow-x: hidden; }
         .gold-accent { color: #d4af37; }
-        .gold-gradient-text {
-            background: linear-gradient(135deg, #bf953f, #fcf6ba, #b38728, #fbf5b7);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
+        .gold-gradient-text { background: linear-gradient(135deg, #bf953f, #fcf6ba, #b38728, #fbf5b7); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .bg-gold { background: linear-gradient(135deg, #d4af37 0%, #aa7c11 100%); }
-        .glass-card {
-            background: rgba(18, 18, 22, 0.6);
-            backdrop-filter: blur(16px);
-            border: 1px solid rgba(212, 175, 55, 0.15);
-            transition: all 0.3s ease;
-        }
-        .glass-card:hover {
-            border-color: rgba(212, 175, 55, 0.5);
-            box-shadow: 0 10px 30px -10px rgba(212, 175, 55, 0.2);
-            transform: translateY(-5px);
-        }
+        .glass-card { background: rgba(18, 18, 22, 0.6); backdrop-filter: blur(16px); border: 1px solid rgba(212, 175, 55, 0.15); transition: all 0.3s ease; }
+        .glass-card:hover { border-color: rgba(212, 175, 55, 0.5); box-shadow: 0 10px 30px -10px rgba(212, 175, 55, 0.2); transform: translateY(-5px); }
     </style>
 </head>
 <body class="selection:bg-amber-500 selection:text-black">
-
-    <!-- Navigation Bar -->
     <nav class="fixed w-full z-50 glass-card px-6 py-4 flex justify-between items-center top-0 border-b border-amber-500/15">
-        <a href="workshop.html" class="flex items-center space-x-3 rtl:space-x-reverse">
-            <span class="text-xl font-black tracking-wider text-white">SKETCHY <span class="gold-accent">CHAPTERS</span></span>
-        </a>
+        <a href="workshop.html" class="flex items-center space-x-3 rtl:space-x-reverse"><span class="text-xl font-black tracking-wider text-white">SKETCHY <span class="gold-accent">CHAPTERS</span></span></a>
         <div class="hidden md:flex space-x-6 rtl:space-x-reverse text-sm font-semibold">
             <a href="workshop.html" class="hover:text-amber-400 transition">الرئيسية</a>
             <a href="workshop.html#categories" class="hover:text-amber-400 transition">جميع الأقسام</a>
         </div>
-        <div>
-            <a href="workshop.html" class="glass-card text-amber-400 border border-amber-500/30 px-4 py-2 rounded-full text-xs font-bold hover:bg-amber-500/10 transition">
-                <i class="fa-solid fa-arrow-right ml-1"></i> العودة للأقسام
-            </a>
-        </div>
+        <div><a href="workshop.html" class="glass-card text-amber-400 border border-amber-500/30 px-4 py-2 rounded-full text-xs font-bold hover:bg-amber-500/10 transition"><i class="fa-solid fa-arrow-right ml-1"></i> العودة للأقسام</a></div>
     </nav>
-
-    <!-- Header Section -->
     <section class="min-h-[35vh] relative flex items-center justify-center pt-32 px-6 text-center">
         <div class="max-w-4xl z-10">
             <span class="text-xs font-bold gold-accent uppercase tracking-widest block mb-2">Part 02</span>
-            <h1 class="text-3xl md:text-5xl font-black mb-4 text-white">
-                Graphic Design & <span class="gold-gradient-text">Editing Courses</span>
-            </h1>
-            <p class="text-sm md:text-base text-gray-400 max-w-xl mx-auto font-light">
-                الدورات التدريبية المعتمدة في التصميم البصري، المونتاج السينمائي، وكتابة المحتوى الفني.
-            </p>
+            <h1 class="text-3xl md:text-5xl font-black mb-4 text-white">Graphic Design & <span class="gold-gradient-text">Editing Courses</span></h1>
+            <p class="text-sm md:text-base text-gray-400 max-w-xl mx-auto font-light">الدورات التدريبية المعتمدة في التصميم البصري، المونتاج السينمائي، وكتابة المحتوى الفني.</p>
         </div>
     </section>
-
-    <!-- Courses List Grid -->
     <section class="py-12 px-6 max-w-7xl mx-auto">
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            
-            <!-- 1. Adobe Illustrator -->
+            <!-- Illustrator -->
             <div class="glass-card p-6 rounded-3xl flex flex-col justify-between border border-amber-500/20 relative">
                 <div>
-                    <!-- Software Logo Header -->
                     <div class="flex items-center justify-between mb-5">
-                        <div class="w-14 h-14 rounded-2xl glass-card flex items-center justify-center p-2 border border-amber-500/30 shadow-lg">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/f/fb/Adobe_Illustrator_CC_icon.svg" alt="Illustrator" class="w-full h-full object-contain">
-                        </div>
+                        <div class="w-14 h-14 rounded-2xl glass-card flex items-center justify-center p-2 border border-amber-500/30 shadow-lg"><img src="https://upload.wikimedia.org/wikipedia/commons/f/fb/Adobe_Illustrator_CC_icon.svg" alt="Illustrator" class="w-full h-full object-contain"></div>
                         <span class="bg-red-500/10 text-red-400 border border-red-500/30 text-[10px] px-2.5 py-1 rounded-full font-extrabold">خصم 00%</span>
                     </div>
-
-                    <div class="mb-2">
-                        <span class="gold-accent text-xs font-bold uppercase"><i class="fa-solid fa-certificate ml-1"></i> Certified Course</span>
-                    </div>
+                    <div class="mb-2"><span class="gold-accent text-xs font-bold uppercase"><i class="fa-solid fa-certificate ml-1"></i> Certified Course</span></div>
                     <h3 class="text-xl font-black text-white mb-2">Adobe Illustrator</h3>
-                    <p class="text-gray-400 text-xs font-light leading-relaxed mb-6">
-                        احتراف تصميم الشعارات، الهويات البصرية، الرسوم المتجهية (Vectors)، والمطبوعات الإعلانية بجودة عالية.
-                    </p>
+                    <p class="text-gray-400 text-xs font-light leading-relaxed mb-6">احتراف تصميم الشعارات، الهويات البصرية، الرسوم المتجهية (Vectors)، والمطبوعات الإعلانية بجودة عالية.</p>
                 </div>
                 <div class="space-y-3">
-                    <a href="https://forms.gle/YOUR_GOOGLE_FORM_LINK" target="_blank" class="w-full bg-gold text-black py-2.5 rounded-xl font-extrabold text-xs uppercase tracking-wider flex items-center justify-center space-x-2 rtl:space-x-reverse hover:brightness-110 transition shadow-lg shadow-amber-500/15">
-                        <span>التسجيل (Google Form)</span>
-                        <i class="fa-solid fa-external-link-alt text-[10px]"></i>
-                    </a>
-                    <a href="https://wa.me/000000000000?text=مرحباً، أهتم بالاستفسار عن دورة Adobe Illustrator" target="_blank" class="w-full glass-card text-emerald-400 border border-emerald-500/30 py-2.5 rounded-xl font-bold text-xs flex items-center justify-center space-x-2 rtl:space-x-reverse hover:bg-emerald-500/10 transition">
-                        <i class="fa-brands fa-whatsapp text-sm"></i>
-                        <span>استفسار واتساب</span>
-                    </a>
+                    <a href="https://forms.gle/ShVDMvXgE9sNeSxz8" target="_blank" class="w-full bg-gold text-black py-2.5 rounded-xl font-extrabold text-xs uppercase tracking-wider flex items-center justify-center space-x-2 rtl:space-x-reverse hover:brightness-110 transition shadow-lg shadow-amber-500/15"><span>التسجيل (Google Form)</span><i class="fa-solid fa-external-link-alt text-[10px]"></i></a>
+                    <a href="https://wa.me/96171967714?text=مرحباً، أهتم بالاستفسار عن دورة Adobe Illustrator" target="_blank" class="w-full glass-card text-emerald-400 border border-emerald-500/30 py-2.5 rounded-xl font-bold text-xs flex items-center justify-center space-x-2 rtl:space-x-reverse hover:bg-emerald-500/10 transition"><i class="fa-brands fa-whatsapp text-sm"></i><span>استفسار واتساب</span></a>
                 </div>
             </div>
-
-            <!-- 2. Adobe Photoshop -->
+            <!-- Photoshop -->
             <div class="glass-card p-6 rounded-3xl flex flex-col justify-between border border-amber-500/20 relative">
                 <div>
-                    <!-- Software Logo Header -->
                     <div class="flex items-center justify-between mb-5">
-                        <div class="w-14 h-14 rounded-2xl glass-card flex items-center justify-center p-2 border border-amber-500/30 shadow-lg">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/a/af/Adobe_Photoshop_CC_icon.svg" alt="Photoshop" class="w-full h-full object-contain">
-                        </div>
+                        <div class="w-14 h-14 rounded-2xl glass-card flex items-center justify-center p-2 border border-amber-500/30 shadow-lg"><img src="https://upload.wikimedia.org/wikipedia/commons/a/af/Adobe_Photoshop_CC_icon.svg" alt="Photoshop" class="w-full h-full object-contain"></div>
                         <span class="bg-red-500/10 text-red-400 border border-red-500/30 text-[10px] px-2.5 py-1 rounded-full font-extrabold">خصم 00%</span>
                     </div>
-
-                    <div class="mb-2">
-                        <span class="gold-accent text-xs font-bold uppercase"><i class="fa-solid fa-certificate ml-1"></i> Certified Course</span>
-                    </div>
+                    <div class="mb-2"><span class="gold-accent text-xs font-bold uppercase"><i class="fa-solid fa-certificate ml-1"></i> Certified Course</span></div>
                     <h3 class="text-xl font-black text-white mb-2">Adobe Photoshop</h3>
-                    <p class="text-gray-400 text-xs font-light leading-relaxed mb-6">
-                        معالجة الصور، التعديل الاحترافي، الدمج البصري، وتصميم محتوى منصات التواصل الاجتماعي ومواقع الويب.
-                    </p>
+                    <p class="text-gray-400 text-xs font-light leading-relaxed mb-6">معالجة الصور، التعديل الاحترافي، الدمج البصري، وتصميم محتوى منصات التواصل الاجتماعي ومواقع الويب.</p>
                 </div>
                 <div class="space-y-3">
-                    <a href="https://forms.gle/YOUR_GOOGLE_FORM_LINK" target="_blank" class="w-full bg-gold text-black py-2.5 rounded-xl font-extrabold text-xs uppercase tracking-wider flex items-center justify-center space-x-2 rtl:space-x-reverse hover:brightness-110 transition shadow-lg shadow-amber-500/15">
-                        <span>التسجيل (Google Form)</span>
-                        <i class="fa-solid fa-external-link-alt text-[10px]"></i>
-                    </a>
-                    <a href="https://wa.me/000000000000?text=مرحباً، أهتم بالاستفسار عن دورة Adobe Photoshop" target="_blank" class="w-full glass-card text-emerald-400 border border-emerald-500/30 py-2.5 rounded-xl font-bold text-xs flex items-center justify-center space-x-2 rtl:space-x-reverse hover:bg-emerald-500/10 transition">
-                        <i class="fa-brands fa-whatsapp text-sm"></i>
-                        <span>استفسار واتساب</span>
-                    </a>
+                    <a href="https://forms.gle/ShVDMvXgE9sNeSxz8" target="_blank" class="w-full bg-gold text-black py-2.5 rounded-xl font-extrabold text-xs uppercase tracking-wider flex items-center justify-center space-x-2 rtl:space-x-reverse hover:brightness-110 transition shadow-lg shadow-amber-500/15"><span>التسجيل (Google Form)</span><i class="fa-solid fa-external-link-alt text-[10px]"></i></a>
+                    <a href="https://wa.me/96171967714?text=مرحباً، أهتم بالاستفسار عن دورة Adobe Photoshop" target="_blank" class="w-full glass-card text-emerald-400 border border-emerald-500/30 py-2.5 rounded-xl font-bold text-xs flex items-center justify-center space-x-2 rtl:space-x-reverse hover:bg-emerald-500/10 transition"><i class="fa-brands fa-whatsapp text-sm"></i><span>استفسار واتساب</span></a>
                 </div>
             </div>
-
-            <!-- 3. Adobe Lightroom -->
+            <!-- Lightroom -->
             <div class="glass-card p-6 rounded-3xl flex flex-col justify-between border border-amber-500/20 relative">
                 <div>
-                    <!-- Software Logo Header -->
                     <div class="flex items-center justify-between mb-5">
-                        <div class="w-14 h-14 rounded-2xl glass-card flex items-center justify-center p-2 border border-amber-500/30 shadow-lg">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/b/b6/Adobe_Photoshop_Lightroom_CC_icon.svg" alt="Lightroom" class="w-full h-full object-contain">
-                        </div>
+                        <div class="w-14 h-14 rounded-2xl glass-card flex items-center justify-center p-2 border border-amber-500/30 shadow-lg"><img src="https://upload.wikimedia.org/wikipedia/commons/b/b6/Adobe_Photoshop_Lightroom_CC_icon.svg" alt="Lightroom" class="w-full h-full object-contain"></div>
                         <span class="bg-red-500/10 text-red-400 border border-red-500/30 text-[10px] px-2.5 py-1 rounded-full font-extrabold">خصم 00%</span>
                     </div>
-
-                    <div class="mb-2">
-                        <span class="gold-accent text-xs font-bold uppercase"><i class="fa-solid fa-certificate ml-1"></i> Certified Course</span>
-                    </div>
+                    <div class="mb-2"><span class="gold-accent text-xs font-bold uppercase"><i class="fa-solid fa-certificate ml-1"></i> Certified Course</span></div>
                     <h3 class="text-xl font-black text-white mb-2">Adobe Lightroom</h3>
-                    <p class="text-gray-400 text-xs font-light leading-relaxed mb-6">
-                        التطوير اللوني المتقدم للصور الفوتوغرافية، إدارة الألوان، وإعطاء الطابع السينمائي الاحترافي للأعمال.
-                    </p>
+                    <p class="text-gray-400 text-xs font-light leading-relaxed mb-6">التطوير اللوني المتقدم للصور الفوتوغرافية، إدارة الألوان، وإعطاء الطابع السينمائي الاحترافي للأعمال.</p>
                 </div>
                 <div class="space-y-3">
-                    <a href="https://forms.gle/YOUR_GOOGLE_FORM_LINK" target="_blank" class="w-full bg-gold text-black py-2.5 rounded-xl font-extrabold text-xs uppercase tracking-wider flex items-center justify-center space-x-2 rtl:space-x-reverse hover:brightness-110 transition shadow-lg shadow-amber-500/15">
-                        <span>التسجيل (Google Form)</span>
-                        <i class="fa-solid fa-external-link-alt text-[10px]"></i>
-                    </a>
-                    <a href="https://wa.me/000000000000?text=مرحباً، أهتم بالاستفسار عن دورة Adobe Lightroom" target="_blank" class="w-full glass-card text-emerald-400 border border-emerald-500/30 py-2.5 rounded-xl font-bold text-xs flex items-center justify-center space-x-2 rtl:space-x-reverse hover:bg-emerald-500/10 transition">
-                        <i class="fa-brands fa-whatsapp text-sm"></i>
-                        <span>استفسار واتساب</span>
-                    </a>
+                    <a href="https://forms.gle/ShVDMvXgE9sNeSxz8" target="_blank" class="w-full bg-gold text-black py-2.5 rounded-xl font-extrabold text-xs uppercase tracking-wider flex items-center justify-center space-x-2 rtl:space-x-reverse hover:brightness-110 transition shadow-lg shadow-amber-500/15"><span>التسجيل (Google Form)</span><i class="fa-solid fa-external-link-alt text-[10px]"></i></a>
+                    <a href="https://wa.me/96171967714?text=مرحباً، أهتم بالاستفسار عن دورة Adobe Lightroom" target="_blank" class="w-full glass-card text-emerald-400 border border-emerald-500/30 py-2.5 rounded-xl font-bold text-xs flex items-center justify-center space-x-2 rtl:space-x-reverse hover:bg-emerald-500/10 transition"><i class="fa-brands fa-whatsapp text-sm"></i><span>استفسار واتساب</span></a>
                 </div>
             </div>
-
-            <!-- 4. Adobe Premiere -->
+            <!-- Premiere -->
             <div class="glass-card p-6 rounded-3xl flex flex-col justify-between border border-amber-500/20 relative">
                 <div>
-                    <!-- Software Logo Header -->
                     <div class="flex items-center justify-between mb-5">
-                        <div class="w-14 h-14 rounded-2xl glass-card flex items-center justify-center p-2 border border-amber-500/30 shadow-lg">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/4/40/Adobe_Premiere_Pro_CC_icon.svg" alt="Premiere" class="w-full h-full object-contain">
-                        </div>
+                        <div class="w-14 h-14 rounded-2xl glass-card flex items-center justify-center p-2 border border-amber-500/30 shadow-lg"><img src="https://upload.wikimedia.org/wikipedia/commons/4/40/Adobe_Premiere_Pro_CC_icon.svg" alt="Premiere" class="w-full h-full object-contain"></div>
                         <span class="bg-red-500/10 text-red-400 border border-red-500/30 text-[10px] px-2.5 py-1 rounded-full font-extrabold">خصم 00%</span>
                     </div>
-
-                    <div class="mb-2">
-                        <span class="gold-accent text-xs font-bold uppercase"><i class="fa-solid fa-certificate ml-1"></i> Certified Course</span>
-                    </div>
+                    <div class="mb-2"><span class="gold-accent text-xs font-bold uppercase"><i class="fa-solid fa-certificate ml-1"></i> Certified Course</span></div>
                     <h3 class="text-xl font-black text-white mb-2">Adobe Premiere</h3>
-                    <p class="text-gray-400 text-xs font-light leading-relaxed mb-6">
-                        المونتاج السينمائي الاحترافي، تقطيع ودمج الفيديوهات، إضافة المؤثرات الانتقالية، وهندسة الصوت للإنتاج المرئي.
-                    </p>
+                    <p class="text-gray-400 text-xs font-light leading-relaxed mb-6">المونتاج السينمائي الاحترافي، تقطيع ودمج الفيديوهات، إضافة المؤثرات الانتقالية، وهندسة الصوت للإنتاج المرئي.</p>
                 </div>
                 <div class="space-y-3">
-                    <a href="https://forms.gle/YOUR_GOOGLE_FORM_LINK" target="_blank" class="w-full bg-gold text-black py-2.5 rounded-xl font-extrabold text-xs uppercase tracking-wider flex items-center justify-center space-x-2 rtl:space-x-reverse hover:brightness-110 transition shadow-lg shadow-amber-500/15">
-                        <span>التسجيل (Google Form)</span>
-                        <i class="fa-solid fa-external-link-alt text-[10px]"></i>
-                    </a>
-                    <a href="https://wa.me/000000000000?text=مرحباً، أهتم بالاستفسار عن دورة Adobe Premiere" target="_blank" class="w-full glass-card text-emerald-400 border border-emerald-500/30 py-2.5 rounded-xl font-bold text-xs flex items-center justify-center space-x-2 rtl:space-x-reverse hover:bg-emerald-500/10 transition">
-                        <i class="fa-brands fa-whatsapp text-sm"></i>
-                        <span>استفسار واتساب</span>
-                    </a>
+                    <a href="https://forms.gle/ShVDMvXgE9sNeSxz8" target="_blank" class="w-full bg-gold text-black py-2.5 rounded-xl font-extrabold text-xs uppercase tracking-wider flex items-center justify-center space-x-2 rtl:space-x-reverse hover:brightness-110 transition shadow-lg shadow-amber-500/15"><span>التسجيل (Google Form)</span><i class="fa-solid fa-external-link-alt text-[10px]"></i></a>
+                    <a href="https://wa.me/96171967714?text=مرحباً، أهتم بالاستفسار عن دورة Adobe Premiere" target="_blank" class="w-full glass-card text-emerald-400 border border-emerald-500/30 py-2.5 rounded-xl font-bold text-xs flex items-center justify-center space-x-2 rtl:space-x-reverse hover:bg-emerald-500/10 transition"><i class="fa-brands fa-whatsapp text-sm"></i><span>استفسار واتساب</span></a>
                 </div>
             </div>
-
-            <!-- 5. Scriptwriting -->
+            <!-- Scriptwriting -->
             <div class="glass-card p-6 rounded-3xl flex flex-col justify-between border border-amber-500/20 relative lg:col-span-2">
                 <div>
-                    <!-- Icon Header -->
                     <div class="flex items-center justify-between mb-5">
-                        <div class="w-14 h-14 rounded-2xl glass-card flex items-center justify-center p-2 border border-amber-500/30 shadow-lg">
-                            <i class="fa-solid fa-pen-nib text-2xl gold-accent"></i>
-                        </div>
+                        <div class="w-14 h-14 rounded-2xl glass-card flex items-center justify-center p-2 border border-amber-500/30 shadow-lg"><i class="fa-solid fa-pen-nib text-2xl gold-accent"></i></div>
                         <span class="bg-red-500/10 text-red-400 border border-red-500/30 text-[10px] px-2.5 py-1 rounded-full font-extrabold">خصم 00%</span>
                     </div>
-
-                    <div class="mb-2">
-                        <span class="gold-accent text-xs font-bold uppercase"><i class="fa-solid fa-certificate ml-1"></i> Certified Course</span>
-                    </div>
+                    <div class="mb-2"><span class="gold-accent text-xs font-bold uppercase"><i class="fa-solid fa-certificate ml-1"></i> Certified Course</span></div>
                     <h3 class="text-xl font-black text-white mb-2">Scriptwriting</h3>
-                    <p class="text-gray-400 text-xs font-light leading-relaxed mb-6">
-                        فن كتابة السيناريو والحوار، بناء القصة الدرامية، وصياغة المحتوى المؤثر للمنصات الرقمية والأعمال المرئية.
-                    </p>
+                    <p class="text-gray-400 text-xs font-light leading-relaxed mb-6">فن كتابة السيناريو والحوار، بناء القصة الدرامية، وصياغة المحتوى المؤثر للمنصات الرقمية والأعمال المرئية.</p>
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <a href="https://forms.gle/YOUR_GOOGLE_FORM_LINK" target="_blank" class="w-full bg-gold text-black py-2.5 rounded-xl font-extrabold text-xs uppercase tracking-wider flex items-center justify-center space-x-2 rtl:space-x-reverse hover:brightness-110 transition shadow-lg shadow-amber-500/15">
-                        <span>التسجيل (Google Form)</span>
-                        <i class="fa-solid fa-external-link-alt text-[10px]"></i>
-                    </a>
-                    <a href="https://wa.me/000000000000?text=مرحباً، أهتم بالاستفسار عن دورة Scriptwriting" target="_blank" class="w-full glass-card text-emerald-400 border border-emerald-500/30 py-2.5 rounded-xl font-bold text-xs flex items-center justify-center space-x-2 rtl:space-x-reverse hover:bg-emerald-500/10 transition">
-                        <i class="fa-brands fa-whatsapp text-sm"></i>
-                        <span>استفسار واتساب</span>
-                    </a>
+                    <a href="https://forms.gle/ShVDMvXgE9sNeSxz8" target="_blank" class="w-full bg-gold text-black py-2.5 rounded-xl font-extrabold text-xs uppercase tracking-wider flex items-center justify-center space-x-2 rtl:space-x-reverse hover:brightness-110 transition shadow-lg shadow-amber-500/15"><span>التسجيل (Google Form)</span><i class="fa-solid fa-external-link-alt text-[10px]"></i></a>
+                    <a href="https://wa.me/96171967714?text=مرحباً، أهتم بالاستفسار عن دورة Scriptwriting" target="_blank" class="w-full glass-card text-emerald-400 border border-emerald-500/30 py-2.5 rounded-xl font-bold text-xs flex items-center justify-center space-x-2 rtl:space-x-reverse hover:bg-emerald-500/10 transition"><i class="fa-brands fa-whatsapp text-sm"></i><span>استفسار واتساب</span></a>
                 </div>
             </div>
-
         </div>
     </section>
-
-    <!-- Footer -->
-    <footer class="py-12 text-center text-gray-500 text-xs border-t border-gray-900 mt-20">
-        <p>&copy; 2026 Sketchy Chapters Workshop Center. All rights reserved.</p>
-    </footer>
-
+    <footer class="py-12 text-center text-gray-500 text-xs border-t border-gray-900 mt-20"><p>&copy; 2026 Sketchy Chapters Workshop Center. All rights reserved.</p></footer>
 </body>
 </html>
