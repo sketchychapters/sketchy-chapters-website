@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr" class="scroll-smooth">
+<html lang="en" dir="ltr" class="scroll-smooth" id="main-html">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Downtown Villa Interior | Sketchy Chapters</title>
+    <title>Downtown Villa Interior | Sketchy Chapters (SCDC)</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Google Fonts -->
@@ -13,12 +13,14 @@
     <!-- AOS Animation Library -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <style>
-        body { font-family: 'Plus Jakarta Sans', 'Tajawal', sans-serif; background-color: #08080a; color: #e0e6ed; }
+        body { font-family: 'Plus Jakarta Sans', 'Tajawal', sans-serif; background-color: #08080a; color: #e0e6ed; overflow-x: hidden; }
         .gold-accent { color: #d4af37; }
         .gold-gradient-text { background: linear-gradient(135deg, #bf953f, #fcf6ba, #b38728, #fbf5b7); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .bg-gold { background: linear-gradient(135deg, #d4af37 0%, #aa7c11 100%); }
         .glass-card { background: rgba(18, 18, 22, 0.6); backdrop-filter: blur(16px); border: 1px solid rgba(212, 175, 55, 0.15); }
         .glass-card:hover { border-color: rgba(212, 175, 55, 0.4); }
+        [lang="ar"] .lang-en { display: none !important; }
+        [lang="en"] .lang-ar { display: none !important; }
         img { user-select: none; -webkit-user-drag: none; }
     </style>
 </head>
@@ -30,79 +32,130 @@
             <img src="logo.png" alt="SCDC Logo" class="h-10 md:h-12 w-auto object-contain" onerror="this.style.display='none'; document.getElementById('logo-fallback').style.display='block';">
             <span id="logo-fallback" class="hidden text-xl font-black tracking-wider text-white">SKETCHY <span class="gold-accent">CHAPTERS</span></span>
         </a>
-        <div class="flex space-x-6 text-sm font-semibold">
-            <a href="portfolio.html" class="text-xs font-bold text-gray-400 hover:text-amber-400 transition flex items-center space-x-2">
-                <i class="fa-solid fa-arrow-left"></i>
-                <span>Back to Portfolio</span>
+        <div class="flex items-center space-x-4 rtl:space-x-reverse">
+            <a href="portfolio.html" class="text-xs font-bold text-gray-400 hover:text-amber-400 transition flex items-center space-x-2 rtl:space-x-reverse">
+                <i class="fa-solid fa-arrow-left rtl:rotate-180"></i>
+                <span>
+                    <span class="lang-en">Back to Portfolio</span>
+                    <span class="lang-ar">العودة للمعارض</span>
+                </span>
             </a>
+            <button onclick="toggleLanguage()" class="glass-card px-3 py-1.5 rounded-full text-xs font-bold text-amber-400 border border-amber-500/30 hover:bg-amber-500/20 transition flex items-center gap-1">
+                <i class="fa-solid fa-globe"></i>
+                <span id="lang-btn-text">العربية</span>
+            </button>
         </div>
     </nav>
 
     <section class="py-12 px-6 max-w-7xl mx-auto">
         <div class="mb-12" data-aos="fade-up">
             <div class="inline-block px-4 py-1.5 rounded-full glass-card text-xs font-bold gold-accent mb-4 uppercase tracking-widest border border-amber-500/30">
-                Luxury Residential Interior • 2024
+                <span class="lang-en">Luxury Residential Interior • 2024</span>
+                <span class="lang-ar">تصميم داخلي سكني فاخر • 2024</span>
             </div>
             <h1 class="text-4xl md:text-6xl font-black text-white mb-4">Downtown Villa Interior</h1>
-            <p class="text-gray-400 font-light max-w-3xl text-lg">Downtown Beirut, Lebanon • High-end residential architecture, bespoke furniture design, and luxury interior concepts.</p>
+            <p class="text-gray-400 font-light max-w-3xl text-lg">
+                <span class="lang-en">Downtown Beirut, Lebanon • High-end residential architecture, bespoke furniture design, and luxury interior concepts.</span>
+                <span class="lang-ar">وسط بيروت، لبنان • هندسة سكنية راقية، تصميم أثاث مخصص، ومفاهيم تصميم داخلي فاخرة.</span>
+            </p>
         </div>
 
         <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12 glass-card p-6 rounded-3xl" data-aos="fade-up" data-aos-delay="100">
             <div>
-                <span class="text-xs text-gray-500 uppercase font-bold block">Location</span>
-                <span class="text-white font-semibold text-sm md:text-base">Downtown Beirut, Lebanon</span>
+                <span class="text-xs text-gray-500 uppercase font-bold block">
+                    <span class="lang-en">Location</span>
+                    <span class="lang-ar">الموقع</span>
+                </span>
+                <span class="text-white font-semibold text-sm md:text-base">
+                    <span class="lang-en">Downtown Beirut, Lebanon</span>
+                    <span class="lang-ar">وسط بيروت، لبنان</span>
+                </span>
             </div>
             <div>
-                <span class="text-xs text-gray-500 uppercase font-bold block">Scope of Work</span>
-                <span class="text-white font-semibold text-sm md:text-base">Interior Design & Planning</span>
+                <span class="text-xs text-gray-500 uppercase font-bold block">
+                    <span class="lang-en">Scope of Work</span>
+                    <span class="lang-ar">نطاق العمل</span>
+                </span>
+                <span class="text-white font-semibold text-sm md:text-base">
+                    <span class="lang-en">Interior Design & Planning</span>
+                    <span class="lang-ar">تصميم وتخطيط داخلي</span>
+                </span>
             </div>
             <div>
-                <span class="text-xs text-gray-500 uppercase font-bold block">Year</span>
+                <span class="text-xs text-gray-500 uppercase font-bold block">
+                    <span class="lang-en">Year</span>
+                    <span class="lang-ar">السنة</span>
+                </span>
                 <span class="text-white font-semibold text-sm md:text-base">2024</span>
             </div>
             <div>
-                <span class="text-xs text-gray-500 uppercase font-bold block">Category</span>
-                <span class="text-white font-semibold text-sm md:text-base">Residential Luxury</span>
+                <span class="text-xs text-gray-500 uppercase font-bold block">
+                    <span class="lang-en">Category</span>
+                    <span class="lang-ar">التصنيف</span>
+                </span>
+                <span class="text-white font-semibold text-sm md:text-base">
+                    <span class="lang-en">Residential Luxury</span>
+                    <span class="lang-ar">سكني فاخر</span>
+                </span>
             </div>
         </div>
 
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-12 mb-16">
             <div class="lg:col-span-2" data-aos="fade-right">
-                <h2 class="text-2xl font-bold mb-4 gold-gradient-text">Architectural Concept & Spatial Design</h2>
+                <h2 class="text-2xl font-bold mb-4 gold-gradient-text">
+                    <span class="lang-en">Architectural Concept & Spatial Design</span>
+                    <span class="lang-ar">المفهوم المعماري والتصميم الفراغي</span>
+                </h2>
                 <p class="text-gray-300 font-light leading-relaxed mb-6">
-                    Designed by <strong class="text-white">Sketchy Chapters Design & Construction (SCDC)</strong>, this luxury villa in Downtown Beirut merges modern elegance with functional residential zoning. The interior concept highlights open-plan living areas, natural stone finishes, and tailored lighting design.
+                    <span class="lang-en">Designed by <strong class="text-white">Sketchy Chapters Design & Construction (SCDC)</strong>, this luxury villa in Downtown Beirut merges modern elegance with functional residential zoning. The interior concept highlights open-plan living areas, natural stone finishes, and tailored lighting design.</span>
+                    <span class="lang-ar">تم تصميم هذه الفاخرة في وسط بيروت بواسطة <strong class="text-white">Sketchy Chapters Design & Construction (SCDC)</strong> لتدمج الأناقة الحديثة مع تقسيم المناطق السكنية الوظيفية. يبرز التصميم الداخلي مناطق المعيشة ذات التخطيط المفتوح، والتشطيبات الحجرية الطبيعية، وتصميم الإضاءة المخصص.</span>
                 </p>
                 <p class="text-gray-400 font-light leading-relaxed">
-                    Every detail was crafted to enhance spatial harmony, incorporating rich textures and bespoke architectural elements.
+                    <span class="lang-en">Every detail was crafted to enhance spatial harmony, incorporating rich textures and bespoke architectural elements.</span>
+                    <span class="lang-ar">تم صياغة كل تفصيل لتحسين التناغم الفراغي، مع دمج الأنسجة الغنية والعناصر المعمارية المصممة خصيصاً.</span>
                 </p>
             </div>
             <div class="glass-card p-8 rounded-3xl flex flex-col justify-between" data-aos="fade-left">
                 <div>
-                    <h3 class="text-xl font-bold text-white mb-3">Planning a luxury residence?</h3>
-                    <p class="text-gray-400 text-sm font-light mb-6">Consult SCDC for high-end interior concepts and complete architectural solutions.</p>
+                    <h3 class="text-xl font-bold text-white mb-3">
+                        <span class="lang-en">Planning a luxury residence?</span>
+                        <span class="lang-ar">هل تخطط لمسكن فاخر؟</span>
+                    </h3>
+                    <p class="text-gray-400 text-sm font-light mb-6">
+                        <span class="lang-en">Consult SCDC for high-end interior concepts and complete architectural solutions.</span>
+                        <span class="lang-ar">استشر SCDC للحصول على تصاميم داخلية راقية وحلول معماريّة متكاملة.</span>
+                    </p>
                 </div>
-                <a href="https://wa.me/96181427589?text=Hello%20SCDC,%20I%20am%20interested%20in%20a%20luxury%20residential%20design%20similar%20to%20Downtown%20Villa" target="_blank" class="bg-gold text-black font-extrabold text-center py-4 rounded-2xl hover:brightness-110 transition flex items-center justify-center space-x-2">
+                <a href="https://wa.me/96181427589?text=Hello%20SCDC,%20I%20am%20interested%20in%20a%20luxury%20residential%20design%20similar%20to%20Downtown%20Villa" target="_blank" class="bg-gold text-black font-extrabold text-center py-4 rounded-2xl hover:brightness-110 transition flex items-center justify-center space-x-2 rtl:space-x-reverse">
                     <i class="fa-brands fa-whatsapp text-lg"></i>
-                    <span>Inquire via WhatsApp</span>
+                    <span>
+                        <span class="lang-en">Inquire via WhatsApp</span>
+                        <span class="lang-ar">تواصل عبر واتساب</span>
+                    </span>
                 </a>
             </div>
         </div>
 
         <!-- Full Photo Gallery (2 Images) -->
         <div class="mb-12">
-            <h2 class="text-2xl font-bold mb-8 gold-gradient-text" data-aos="fade-up">Project Visual Gallery</h2>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <h2 class="text-2xl font-bold mb-8 gold-gradient-text" data-aos="fade-up">
+                <span class="lang-en">Project Visual Gallery</span>
+                <span class="lang-ar">معرض صور المشروع المرئي</span>
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div class="glass-card rounded-3xl overflow-hidden group cursor-pointer" onclick="openModal('Downtown-Villa-Living.jpg', 'Living Room Interior')" data-aos="fade-up" data-aos-delay="100">
                     <div class="h-80 overflow-hidden relative">
                         <img src="Downtown-Villa-Living.jpg" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" onerror="this.src='https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=1200'">
                         <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition flex items-center justify-center text-gold text-3xl"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
                     </div>
+                    <p class="text-xs text-gray-400 p-3 text-center">Living Room Interior</p>
                 </div>
                 <div class="glass-card rounded-3xl overflow-hidden group cursor-pointer" onclick="openModal('Downtown-Villa-Kitchen.jpg', 'Kitchen Area Design')" data-aos="fade-up" data-aos-delay="200">
                     <div class="h-80 overflow-hidden relative">
                         <img src="Downtown-Villa-Kitchen.jpg" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" onerror="this.src='https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?q=80&w=1200'">
                         <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition flex items-center justify-center text-gold text-3xl"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
                     </div>
+                    <p class="text-xs text-gray-400 p-3 text-center">Kitchen Area Design</p>
                 </div>
             </div>
         </div>
@@ -117,17 +170,33 @@
     </div>
 
     <footer class="py-12 text-center text-gray-500 text-xs border-t border-gray-900">
-        <p>© 2026 Sketchy Chapters Design & Construction (SCDC). All Rights Reserved.</p>
+        <p>© <script>document.write(new Date().getFullYear())</script> Sketchy Chapters Design & Construction (SCDC). All Rights Reserved.</p>
     </footer>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         AOS.init({ duration: 1000, once: true });
+
+        function toggleLanguage() {
+            const htmlTag = document.getElementById('main-html');
+            const langBtnText = document.getElementById('lang-btn-text');
+            if (htmlTag.getAttribute('lang') === 'en') {
+                htmlTag.setAttribute('lang', 'ar'); 
+                htmlTag.setAttribute('dir', 'rtl'); 
+                langBtnText.textContent = 'English';
+            } else {
+                htmlTag.setAttribute('lang', 'en'); 
+                htmlTag.setAttribute('dir', 'ltr'); 
+                langBtnText.textContent = 'العربية';
+            }
+        }
+
         function openModal(imgSrc, title) {
             document.getElementById('modalImg').src = imgSrc;
             document.getElementById('modalTitle').innerText = title;
             document.getElementById('imageModal').classList.remove('hidden');
         }
+        
         function closeModal() {
             document.getElementById('imageModal').classList.add('hidden');
         }
