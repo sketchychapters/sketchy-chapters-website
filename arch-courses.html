@@ -4,236 +4,118 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Architecture & Interior Courses | Sketchy Chapters</title>
-    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;500;700;900&display=swap" rel="stylesheet">
-    <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        body {
-            font-family: 'Tajawal', sans-serif;
-            background-color: #08080a;
-            color: #e0e6ed;
-            overflow-x: hidden;
-        }
+        body { font-family: 'Tajawal', sans-serif; background-color: #08080a; color: #e0e6ed; overflow-x: hidden; }
         .gold-accent { color: #d4af37; }
-        .gold-gradient-text {
-            background: linear-gradient(135deg, #bf953f, #fcf6ba, #b38728, #fbf5b7);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
+        .gold-gradient-text { background: linear-gradient(135deg, #bf953f, #fcf6ba, #b38728, #fbf5b7); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .bg-gold { background: linear-gradient(135deg, #d4af37 0%, #aa7c11 100%); }
-        .glass-card {
-            background: rgba(18, 18, 22, 0.6);
-            backdrop-filter: blur(16px);
-            border: 1px solid rgba(212, 175, 55, 0.15);
-            transition: all 0.3s ease;
-        }
-        .glass-card:hover {
-            border-color: rgba(212, 175, 55, 0.5);
-            box-shadow: 0 10px 30px -10px rgba(212, 175, 55, 0.2);
-            transform: translateY(-5px);
-        }
+        .glass-card { background: rgba(18, 18, 22, 0.6); backdrop-filter: blur(16px); border: 1px solid rgba(212, 175, 55, 0.15); transition: all 0.3s ease; }
+        .glass-card:hover { border-color: rgba(212, 175, 55, 0.5); box-shadow: 0 10px 30px -10px rgba(212, 175, 55, 0.2); transform: translateY(-5px); }
     </style>
 </head>
 <body class="selection:bg-amber-500 selection:text-black">
-
-    <!-- Navigation Bar -->
     <nav class="fixed w-full z-50 glass-card px-6 py-4 flex justify-between items-center top-0 border-b border-amber-500/15">
-        <a href="workshop.html" class="flex items-center space-x-3 rtl:space-x-reverse">
-            <span class="text-xl font-black tracking-wider text-white">SKETCHY <span class="gold-accent">CHAPTERS</span></span>
-        </a>
+        <a href="workshop.html" class="flex items-center space-x-3 rtl:space-x-reverse"><span class="text-xl font-black tracking-wider text-white">SKETCHY <span class="gold-accent">CHAPTERS</span></span></a>
         <div class="hidden md:flex space-x-6 rtl:space-x-reverse text-sm font-semibold">
             <a href="workshop.html" class="hover:text-amber-400 transition">الرئيسية</a>
             <a href="workshop.html#categories" class="hover:text-amber-400 transition">جميع الأقسام</a>
         </div>
-        <div>
-            <a href="workshop.html" class="glass-card text-amber-400 border border-amber-500/30 px-4 py-2 rounded-full text-xs font-bold hover:bg-amber-500/10 transition">
-                <i class="fa-solid fa-arrow-right ml-1"></i> العودة للأقسام
-            </a>
-        </div>
+        <div><a href="workshop.html" class="glass-card text-amber-400 border border-amber-500/30 px-4 py-2 rounded-full text-xs font-bold hover:bg-amber-500/10 transition"><i class="fa-solid fa-arrow-right ml-1"></i> العودة للأقسام</a></div>
     </nav>
-
-    <!-- Header Section -->
     <section class="min-h-[35vh] relative flex items-center justify-center pt-32 px-6 text-center">
         <div class="max-w-4xl z-10">
             <span class="text-xs font-bold gold-accent uppercase tracking-widest block mb-2">Part 01</span>
-            <h1 class="text-3xl md:text-5xl font-black mb-4 text-white">
-                Architecture & <span class="gold-gradient-text">Interior Courses</span>
-            </h1>
-            <p class="text-sm md:text-base text-gray-400 max-w-xl mx-auto font-light">
-                الدورات التدريبية المعتمدة في التصميم المعماري والداخلي بأحدث البرامج العالمية.
-            </p>
+            <h1 class="text-3xl md:text-5xl font-black mb-4 text-white">Architecture & <span class="gold-gradient-text">Interior Courses</span></h1>
+            <p class="text-sm md:text-base text-gray-400 max-w-xl mx-auto font-light">الدورات التدريبية المعتمدة في التصميم المعماري والداخلي بأحدث البرامج العالمية.</p>
         </div>
     </section>
-
-    <!-- Courses List Grid -->
     <section class="py-12 px-6 max-w-7xl mx-auto">
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            
-            <!-- 1. AutoCAD 2D/3D -->
+            <!-- AutoCAD -->
             <div class="glass-card p-6 rounded-3xl flex flex-col justify-between border border-amber-500/20 relative">
                 <div>
-                    <!-- Software Logo Header -->
                     <div class="flex items-center justify-between mb-5">
-                        <div class="w-14 h-14 rounded-2xl glass-card flex items-center justify-center p-2 border border-amber-500/30 shadow-lg">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/3/3a/AutoCAD_Logo.svg" alt="AutoCAD" class="w-full h-full object-contain">
-                        </div>
+                        <div class="w-14 h-14 rounded-2xl glass-card flex items-center justify-center p-2 border border-amber-500/30 shadow-lg"><img src="https://upload.wikimedia.org/wikipedia/commons/3/3a/AutoCAD_Logo.svg" alt="AutoCAD" class="w-full h-full object-contain"></div>
                         <span class="bg-red-500/10 text-red-400 border border-red-500/30 text-[10px] px-2.5 py-1 rounded-full font-extrabold">خصم 00%</span>
                     </div>
-                    
-                    <div class="mb-2">
-                        <span class="gold-accent text-xs font-bold uppercase"><i class="fa-solid fa-certificate ml-1"></i> Certified Course</span>
-                    </div>
+                    <div class="mb-2"><span class="gold-accent text-xs font-bold uppercase"><i class="fa-solid fa-certificate ml-1"></i> Certified Course</span></div>
                     <h3 class="text-xl font-black text-white mb-2">AutoCAD 2D/3D</h3>
-                    <p class="text-gray-400 text-xs font-light leading-relaxed mb-6">
-                        إتقان رسم المخططات التنفيذية الهندسية، إدارة الطبقات، والنمذجة ثنائية وثلاثية الأبعاد بدقة كاملة.
-                    </p>
+                    <p class="text-gray-400 text-xs font-light leading-relaxed mb-6">إتقان رسم المخططات التنفيذية الهندسية، إدارة الطبقات، والنمذجة ثنائية وثلاثية الأبعاد بدقة كاملة.</p>
                 </div>
                 <div class="space-y-3">
-                    <a href="https://forms.gle/YOUR_GOOGLE_FORM_LINK" target="_blank" class="w-full bg-gold text-black py-2.5 rounded-xl font-extrabold text-xs uppercase tracking-wider flex items-center justify-center space-x-2 rtl:space-x-reverse hover:brightness-110 transition shadow-lg shadow-amber-500/15">
-                        <span>التسجيل (Google Form)</span>
-                        <i class="fa-solid fa-external-link-alt text-[10px]"></i>
-                    </a>
-                    <a href="https://wa.me/000000000000?text=مرحباً، أهتم بالاستفسار عن دورة AutoCAD 2D/3D" target="_blank" class="w-full glass-card text-emerald-400 border border-emerald-500/30 py-2.5 rounded-xl font-bold text-xs flex items-center justify-center space-x-2 rtl:space-x-reverse hover:bg-emerald-500/10 transition">
-                        <i class="fa-brands fa-whatsapp text-sm"></i>
-                        <span>استفسار واتساب</span>
-                    </a>
+                    <a href="https://forms.gle/ShVDMvXgE9sNeSxz8" target="_blank" class="w-full bg-gold text-black py-2.5 rounded-xl font-extrabold text-xs uppercase tracking-wider flex items-center justify-center space-x-2 rtl:space-x-reverse hover:brightness-110 transition shadow-lg shadow-amber-500/15"><span>التسجيل (Google Form)</span><i class="fa-solid fa-external-link-alt text-[10px]"></i></a>
+                    <a href="https://wa.me/96171967714?text=مرحباً، أهتم بالاستفسار عن دورة AutoCAD 2D/3D" target="_blank" class="w-full glass-card text-emerald-400 border border-emerald-500/30 py-2.5 rounded-xl font-bold text-xs flex items-center justify-center space-x-2 rtl:space-x-reverse hover:bg-emerald-500/10 transition"><i class="fa-brands fa-whatsapp text-sm"></i><span>استفسار واتساب</span></a>
                 </div>
             </div>
-
-            <!-- 2. Revit Part 1 -->
+            <!-- Revit Part 1 -->
             <div class="glass-card p-6 rounded-3xl flex flex-col justify-between border border-amber-500/20 relative">
                 <div>
-                    <!-- Software Logo Header -->
                     <div class="flex items-center justify-between mb-5">
-                        <div class="w-14 h-14 rounded-2xl glass-card flex items-center justify-center p-2 border border-amber-500/30 shadow-lg">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/Autodesk_Revit_logo.svg" alt="Revit" class="w-full h-full object-contain">
-                        </div>
+                        <div class="w-14 h-14 rounded-2xl glass-card flex items-center justify-center p-2 border border-amber-500/30 shadow-lg"><img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/Autodesk_Revit_logo.svg" alt="Revit" class="w-full h-full object-contain"></div>
                         <span class="bg-red-500/10 text-red-400 border border-red-500/30 text-[10px] px-2.5 py-1 rounded-full font-extrabold">خصم 00%</span>
                     </div>
-
-                    <div class="mb-2">
-                        <span class="gold-accent text-xs font-bold uppercase"><i class="fa-solid fa-certificate ml-1"></i> Certified Course</span>
-                    </div>
+                    <div class="mb-2"><span class="gold-accent text-xs font-bold uppercase"><i class="fa-solid fa-certificate ml-1"></i> Certified Course</span></div>
                     <h3 class="text-xl font-black text-white mb-2">Revit Part 1</h3>
-                    <p class="text-gray-400 text-xs font-light leading-relaxed mb-6">
-                        الأساسيات البرمجية للريفيت المعماري، بناء العناصر الإنشائية والجدران، وإنشاء المساقط بأسلوب BIM المتقدم.
-                    </p>
+                    <p class="text-gray-400 text-xs font-light leading-relaxed mb-6">الأساسيات البرمجية للريفيت المعماري، بناء العناصر الإنشائية والجدران، وإنشاء المساقط بأسلوب BIM المتقدم.</p>
                 </div>
                 <div class="space-y-3">
-                    <a href="https://forms.gle/YOUR_GOOGLE_FORM_LINK" target="_blank" class="w-full bg-gold text-black py-2.5 rounded-xl font-extrabold text-xs uppercase tracking-wider flex items-center justify-center space-x-2 rtl:space-x-reverse hover:brightness-110 transition shadow-lg shadow-amber-500/15">
-                        <span>التسجيل (Google Form)</span>
-                        <i class="fa-solid fa-external-link-alt text-[10px]"></i>
-                    </a>
-                    <a href="https://wa.me/000000000000?text=مرحباً، أهتم بالاستفسار عن دورة Revit Part 1" target="_blank" class="w-full glass-card text-emerald-400 border border-emerald-500/30 py-2.5 rounded-xl font-bold text-xs flex items-center justify-center space-x-2 rtl:space-x-reverse hover:bg-emerald-500/10 transition">
-                        <i class="fa-brands fa-whatsapp text-sm"></i>
-                        <span>استفسار واتساب</span>
-                    </a>
+                    <a href="https://forms.gle/ShVDMvXgE9sNeSxz8" target="_blank" class="w-full bg-gold text-black py-2.5 rounded-xl font-extrabold text-xs uppercase tracking-wider flex items-center justify-center space-x-2 rtl:space-x-reverse hover:brightness-110 transition shadow-lg shadow-amber-500/15"><span>التسجيل (Google Form)</span><i class="fa-solid fa-external-link-alt text-[10px]"></i></a>
+                    <a href="https://wa.me/96171967714?text=مرحباً، أهتم بالاستفسار عن دورة Revit Part 1" target="_blank" class="w-full glass-card text-emerald-400 border border-emerald-500/30 py-2.5 rounded-xl font-bold text-xs flex items-center justify-center space-x-2 rtl:space-x-reverse hover:bg-emerald-500/10 transition"><i class="fa-brands fa-whatsapp text-sm"></i><span>استفسار واتساب</span></a>
                 </div>
             </div>
-
-            <!-- 3. Revit Part 2 + Vray -->
+            <!-- Revit Part 2 + Vray -->
             <div class="glass-card p-6 rounded-3xl flex flex-col justify-between border border-amber-500/20 relative">
                 <div>
-                    <!-- Software Logo Header -->
                     <div class="flex items-center justify-between mb-5">
-                        <div class="w-14 h-14 rounded-2xl glass-card flex items-center justify-center p-2 border border-amber-500/30 shadow-lg">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/Autodesk_Revit_logo.svg" alt="Revit + Vray" class="w-full h-full object-contain">
-                        </div>
+                        <div class="w-14 h-14 rounded-2xl glass-card flex items-center justify-center p-2 border border-amber-500/30 shadow-lg"><img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/Autodesk_Revit_logo.svg" alt="Revit + Vray" class="w-full h-full object-contain"></div>
                         <span class="bg-red-500/10 text-red-400 border border-red-500/30 text-[10px] px-2.5 py-1 rounded-full font-extrabold">خصم 00%</span>
                     </div>
-
-                    <div class="mb-2">
-                        <span class="gold-accent text-xs font-bold uppercase"><i class="fa-solid fa-certificate ml-1"></i> Certified Course</span>
-                    </div>
+                    <div class="mb-2"><span class="gold-accent text-xs font-bold uppercase"><i class="fa-solid fa-certificate ml-1"></i> Certified Course</span></div>
                     <h3 class="text-xl font-black text-white mb-2">Revit Part 2 + Vray</h3>
-                    <p class="text-gray-400 text-xs font-light leading-relaxed mb-6">
-                        المستوى المتقدم في الريفيت مع تقنيات الإضاءة والرندرة الواقعية باستخدام محرك Vray لإخراج تصاميم مذهلة.
-                    </p>
+                    <p class="text-gray-400 text-xs font-light leading-relaxed mb-6">المستوى المتقدم في الريفيت مع تقنيات الإضاءة والرندرة الواقعية باستخدام محرك Vray لإخراج تصاميم مذهلة.</p>
                 </div>
                 <div class="space-y-3">
-                    <a href="https://forms.gle/YOUR_GOOGLE_FORM_LINK" target="_blank" class="w-full bg-gold text-black py-2.5 rounded-xl font-extrabold text-xs uppercase tracking-wider flex items-center justify-center space-x-2 rtl:space-x-reverse hover:brightness-110 transition shadow-lg shadow-amber-500/15">
-                        <span>التسجيل (Google Form)</span>
-                        <i class="fa-solid fa-external-link-alt text-[10px]"></i>
-                    </a>
-                    <a href="https://wa.me/000000000000?text=مرحباً، أهتم بالاستفسار عن دورة Revit Part 2 + Vray" target="_blank" class="w-full glass-card text-emerald-400 border border-emerald-500/30 py-2.5 rounded-xl font-bold text-xs flex items-center justify-center space-x-2 rtl:space-x-reverse hover:bg-emerald-500/10 transition">
-                        <i class="fa-brands fa-whatsapp text-sm"></i>
-                        <span>استفسار واتساب</span>
-                    </a>
+                    <a href="https://forms.gle/ShVDMvXgE9sNeSxz8" target="_blank" class="w-full bg-gold text-black py-2.5 rounded-xl font-extrabold text-xs uppercase tracking-wider flex items-center justify-center space-x-2 rtl:space-x-reverse hover:brightness-110 transition shadow-lg shadow-amber-500/15"><span>التسجيل (Google Form)</span><i class="fa-solid fa-external-link-alt text-[10px]"></i></a>
+                    <a href="https://wa.me/96171967714?text=مرحباً، أهتم بالاستفسار عن دورة Revit Part 2 + Vray" target="_blank" class="w-full glass-card text-emerald-400 border border-emerald-500/30 py-2.5 rounded-xl font-bold text-xs flex items-center justify-center space-x-2 rtl:space-x-reverse hover:bg-emerald-500/10 transition"><i class="fa-brands fa-whatsapp text-sm"></i><span>استفسار واتساب</span></a>
                 </div>
             </div>
-
-            <!-- 4. PS Rendering -->
+            <!-- PS Rendering -->
             <div class="glass-card p-6 rounded-3xl flex flex-col justify-between border border-amber-500/20 relative">
                 <div>
-                    <!-- Software Logo Header -->
                     <div class="flex items-center justify-between mb-5">
-                        <div class="w-14 h-14 rounded-2xl glass-card flex items-center justify-center p-2 border border-amber-500/30 shadow-lg">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/a/af/Adobe_Photoshop_CC_icon.svg" alt="Photoshop" class="w-full h-full object-contain">
-                        </div>
+                        <div class="w-14 h-14 rounded-2xl glass-card flex items-center justify-center p-2 border border-amber-500/30 shadow-lg"><img src="https://upload.wikimedia.org/wikipedia/commons/a/af/Adobe_Photoshop_CC_icon.svg" alt="Photoshop" class="w-full h-full object-contain"></div>
                         <span class="bg-red-500/10 text-red-400 border border-red-500/30 text-[10px] px-2.5 py-1 rounded-full font-extrabold">خصم 00%</span>
                     </div>
-
-                    <div class="mb-2">
-                        <span class="gold-accent text-xs font-bold uppercase"><i class="fa-solid fa-certificate ml-1"></i> Certified Course</span>
-                    </div>
+                    <div class="mb-2"><span class="gold-accent text-xs font-bold uppercase"><i class="fa-solid fa-certificate ml-1"></i> Certified Course</span></div>
                     <h3 class="text-xl font-black text-white mb-2">PS Rendering</h3>
-                    <p class="text-gray-400 text-xs font-light leading-relaxed mb-6">
-                        المعالجة البصرية وإخراج المخططات المعمارية والواجهات ببرنامج الفوتوشوب لإضافة اللمسات الاحترافية الجذابة.
-                    </p>
+                    <p class="text-gray-400 text-xs font-light leading-relaxed mb-6">المعالجة البصرية وإخراج المخططات المعمارية والواجهات ببرنامج الفوتوشوب لإضافة اللمسات الاحترافية الجذابة.</p>
                 </div>
                 <div class="space-y-3">
-                    <a href="https://forms.gle/YOUR_GOOGLE_FORM_LINK" target="_blank" class="w-full bg-gold text-black py-2.5 rounded-xl font-extrabold text-xs uppercase tracking-wider flex items-center justify-center space-x-2 rtl:space-x-reverse hover:brightness-110 transition shadow-lg shadow-amber-500/15">
-                        <span>التسجيل (Google Form)</span>
-                        <i class="fa-solid fa-external-link-alt text-[10px]"></i>
-                    </a>
-                    <a href="https://wa.me/000000000000?text=مرحباً، أهتم بالاستفسار عن دورة PS Rendering" target="_blank" class="w-full glass-card text-emerald-400 border border-emerald-500/30 py-2.5 rounded-xl font-bold text-xs flex items-center justify-center space-x-2 rtl:space-x-reverse hover:bg-emerald-500/10 transition">
-                        <i class="fa-brands fa-whatsapp text-sm"></i>
-                        <span>استفسار واتساب</span>
-                    </a>
+                    <a href="https://forms.gle/ShVDMvXgE9sNeSxz8" target="_blank" class="w-full bg-gold text-black py-2.5 rounded-xl font-extrabold text-xs uppercase tracking-wider flex items-center justify-center space-x-2 rtl:space-x-reverse hover:brightness-110 transition shadow-lg shadow-amber-500/15"><span>التسجيل (Google Form)</span><i class="fa-solid fa-external-link-alt text-[10px]"></i></a>
+                    <a href="https://wa.me/96171967714?text=مرحباً، أهتم بالاستفسار عن دورة PS Rendering" target="_blank" class="w-full glass-card text-emerald-400 border border-emerald-500/30 py-2.5 rounded-xl font-bold text-xs flex items-center justify-center space-x-2 rtl:space-x-reverse hover:bg-emerald-500/10 transition"><i class="fa-brands fa-whatsapp text-sm"></i><span>استفسار واتساب</span></a>
                 </div>
             </div>
-
-            <!-- 5. Lumion -->
+            <!-- Lumion -->
             <div class="glass-card p-6 rounded-3xl flex flex-col justify-between border border-amber-500/20 relative lg:col-span-2">
                 <div>
-                    <!-- Software Logo Header -->
                     <div class="flex items-center justify-between mb-5">
-                        <div class="w-14 h-14 rounded-2xl glass-card flex items-center justify-center p-2 border border-amber-500/30 shadow-lg">
-                            <i class="fa-solid fa-cube text-2xl gold-accent"></i>
-                        </div>
+                        <div class="w-14 h-14 rounded-2xl glass-card flex items-center justify-center p-2 border border-amber-500/30 shadow-lg"><i class="fa-solid fa-cube text-2xl gold-accent"></i></div>
                         <span class="bg-red-500/10 text-red-400 border border-red-500/30 text-[10px] px-2.5 py-1 rounded-full font-extrabold">خصم 00%</span>
                     </div>
-
-                    <div class="mb-2">
-                        <span class="gold-accent text-xs font-bold uppercase"><i class="fa-solid fa-certificate ml-1"></i> Certified Course</span>
-                    </div>
+                    <div class="mb-2"><span class="gold-accent text-xs font-bold uppercase"><i class="fa-solid fa-certificate ml-1"></i> Certified Course</span></div>
                     <h3 class="text-xl font-black text-white mb-2">Lumion</h3>
-                    <p class="text-gray-400 text-xs font-light leading-relaxed mb-6">
-                        صناعة الفيديوهات المعمارية الحية والرندرة الفورية ثلاثية الأبعاد (Real-time Rendering) مع تأثيرات الطبيعة والمواد الاحترافية.
-                    </p>
+                    <p class="text-gray-400 text-xs font-light leading-relaxed mb-6">صناعة الفيديوهات المعمارية الحية والرندرة الفورية ثلاثية الأبعاد (Real-time Rendering) مع تأثيرات الطبيعة والمواد الاحترافية.</p>
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <a href="https://forms.gle/YOUR_GOOGLE_FORM_LINK" target="_blank" class="w-full bg-gold text-black py-2.5 rounded-xl font-extrabold text-xs uppercase tracking-wider flex items-center justify-center space-x-2 rtl:space-x-reverse hover:brightness-110 transition shadow-lg shadow-amber-500/15">
-                        <span>التسجيل (Google Form)</span>
-                        <i class="fa-solid fa-external-link-alt text-[10px]"></i>
-                    </a>
-                    <a href="https://wa.me/000000000000?text=مرحباً، أهتم بالاستفسار عن دورة Lumion" target="_blank" class="w-full glass-card text-emerald-400 border border-emerald-500/30 py-2.5 rounded-xl font-bold text-xs flex items-center justify-center space-x-2 rtl:space-x-reverse hover:bg-emerald-500/10 transition">
-                        <i class="fa-brands fa-whatsapp text-sm"></i>
-                        <span>استفسار واتساب</span>
-                    </a>
+                    <a href="https://forms.gle/ShVDMvXgE9sNeSxz8" target="_blank" class="w-full bg-gold text-black py-2.5 rounded-xl font-extrabold text-xs uppercase tracking-wider flex items-center justify-center space-x-2 rtl:space-x-reverse hover:brightness-110 transition shadow-lg shadow-amber-500/15"><span>التسجيل (Google Form)</span><i class="fa-solid fa-external-link-alt text-[10px]"></i></a>
+                    <a href="https://wa.me/96171967714?text=مرحباً، أهتم بالاستفسار عن دورة Lumion" target="_blank" class="w-full glass-card text-emerald-400 border border-emerald-500/30 py-2.5 rounded-xl font-bold text-xs flex items-center justify-center space-x-2 rtl:space-x-reverse hover:bg-emerald-500/10 transition"><i class="fa-brands fa-whatsapp text-sm"></i><span>استفسار واتساب</span></a>
                 </div>
             </div>
-
         </div>
     </section>
-
-    <!-- Footer -->
-    <footer class="py-12 text-center text-gray-500 text-xs border-t border-gray-900 mt-20">
-        <p>&copy; 2026 Sketchy Chapters Workshop Center. All rights reserved.</p>
-    </footer>
-
+    <footer class="py-12 text-center text-gray-500 text-xs border-t border-gray-900 mt-20"><p>&copy; 2026 Sketchy Chapters Workshop Center. All rights reserved.</p></footer>
 </body>
 </html>
