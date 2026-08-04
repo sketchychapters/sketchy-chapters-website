@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Special Offers & Packages | Sketchy Chapters</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;500;700;900&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background-color: #08080a;
+            color: #e0e6ed;
+            overflow-x: hidden;
+        }
+        .gold-accent { color: #d4af37; }
+        .gold-gradient-text {
+            background: linear-gradient(135deg, #bf953f, #fcf6ba, #b38728, #fbf5b7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .bg-gold { background: linear-gradient(135deg, #d4af37 0%, #aa7c11 100%); }
+        .glass-card {
+            background: rgba(18, 18, 22, 0.6);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(212, 175, 55, 0.15);
+            transition: all 0.3s ease;
+        }
+        .glass-card:hover {
+            border-color: rgba(212, 175, 55, 0.5);
+            box-shadow: 0 10px 30px -10px rgba(212, 175, 55, 0.2);
+            transform: translateY(-5px);
+        }
+        .ribbon {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background: linear-gradient(135deg, #d4af37, #aa7c11);
+            color: black;
+            font-size: 10px;
+            font-weight: 900;
+            padding: 6px 16px;
+            border-radius: 20px;
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3);
+            text-transform: uppercase;
+        }
+    </style>
+</head>
+<body class="selection:bg-amber-500 selection:text-black">
+
+    <!-- Navigation Bar -->
+    <nav class="fixed w-full z-50 glass-card px-6 py-4 flex justify-between items-center top-0 border-b border-amber-500/15">
+        <a href="index.html" class="flex items-center">
+            <img src="workshop.png" alt="Sketchy Chapters" class="h-10 w-auto object-contain">
+        </a>
+        <div class="hidden md:flex space-x-6 rtl:space-x-reverse text-sm font-semibold">
+            <a href="index.html" class="hover:text-amber-400 transition" data-en="Home">الرئيسية</a>
+            <a href="workshop.html" class="hover:text-amber-400 transition" data-en="Workshops">ورش العمل</a>
+            <a href="offers.html" class="hover:text-amber-400 transition gold-accent font-bold" data-en="Packages">العروض الخاصة</a>
+        </div>
+        <div class="flex items-center space-x-4 rtl:space-x-reverse">
+            <button onclick="toggleLanguage()" id="lang-btn" class="glass-card text-amber-400 border border-amber-500/30 px-3 py-2 rounded-full text-xs font-bold hover:bg-amber-500/10 transition">
+                English
+            </button>
+            <a href="workshop.html" class="glass-card text-amber-400 border border-amber-500/30 px-4 py-2 rounded-full text-xs font-bold hover:bg-amber-500/10 transition" data-en="Back to Workshops">
+                العودة للورش
+            </a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="min-h-[45vh] relative flex items-center justify-center pt-32 px-6 text-center">
+        <div class="max-w-4xl z-10">
+            <div class="inline-block px-4 py-1.5 rounded-full glass-card text-xs font-bold gold-accent mb-6 uppercase tracking-widest border border-amber-500/30" data-en="Exclusive Bundles & Packages">
+                باقات العروض التوفيرية
+            </div>
+            <h1 class="text-4xl md:text-6xl font-black mb-6 leading-tight text-white" data-en="Special Course Packages">
+                عروض الدورات المدمجة <br>
+                <span class="gold-gradient-text">SPECIAL PACKAGES</span>
+            </h1>
+            <p class="text-base md:text-lg text-gray-400 mb-8 max-w-2xl mx-auto font-light leading-relaxed" data-en="Combine two or more courses in one specialized bundle with exclusive pricing and double certification.">
+                اختر الباقة المناسبة التي تجمع عدة كورسات معاً بتخفيضات مميزة واحترافية متكاملة.
+            </p>
+        </div>
+    </section>
+
+    <!-- Offers Grid Section -->
+    <section class="py-16 px-6 max-w-7xl mx-auto">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            
+            <!-- Package 1: Architectural Bundle -->
+            <div class="glass-card p-6 rounded-3xl flex flex-col justify-between relative overflow-hidden group">
+                <div class="ribbon">وفر 25%</div>
+                <div>
+                    <div class="h-48 rounded-2xl bg-cover bg-center mb-6 border border-amber-500/20 group-hover:scale-[1.02] transition duration-300" style="background-image: url('https://images.unsplash.com/photo-1503387762-592deb58ef4e?q=80&w=600');"></div>
+                    <span class="gold-accent text-xs font-bold uppercase tracking-wider">Bundle 01</span>
+                    <h3 class="text-2xl font-black text-white mt-1 mb-3">Architectural Pro Bundle</h3>
+                    <p class="text-gray-400 text-xs font-light leading-relaxed mb-4" data-en="Includes: AutoCAD 2D/3D + Revit Architecture Complete Course. Perfect for interior and structural designers.">
+                        يشمل: كورس AutoCAD المتكامل + كورس Revit Architecture. الخيار الأمثل للمهندسين والمصممين الداخليين.
+                    </p>
+                </div>
+                <div class="pt-4 border-t border-gray-800">
+                    <div class="flex justify-between items-center mb-4">
+                        <span class="text-xs text-gray-500 line-through">$300</span>
+                        <span class="text-xl font-black gold-accent">$220</span>
+                    </div>
+                    <a href="https://wa.me/961..." target="_blank" class="w-full bg-gold text-black font-bold py-3 rounded-xl block text-center text-xs hover:opacity-95 transition shadow-lg shadow-amber-500/20" data-en="Book This Package">
+                        احجز الباقة الآن
+                    </a>
+                </div>
+            </div>
+
+            <!-- Package 2: Graphic & Editing Master -->
+            <div class="glass-card p-6 rounded-3xl flex flex-col justify-between relative overflow-hidden group">
+                <div class="ribbon">الأكثر طلباً</div>
+                <div>
+                    <div class="h-48 rounded-2xl bg-cover bg-center mb-6 border border-amber-500/20 group-hover:scale-[1.02] transition duration-300" style="background-image: url('https://images.unsplash.com/photo-1626785774573-4b799315345d?q=80&w=600');"></div>
+                    <span class="gold-accent text-xs font-bold uppercase tracking-wider">Bundle 02</span>
+                    <h3 class="text-2xl font-black text-white mt-1 mb-3">Visual & Graphic Master</h3>
+                    <p class="text-gray-400 text-xs font-light leading-relaxed mb-4" data-en="Includes: Adobe Photoshop + Illustrator + Premiere Pro. Complete content creation & branding pack.">
+                        يشمل: فوتوشوب + إليستريتور + بريمير برو. الباقة المتكاملة لصنّاع المحتوى والمصممين البصريين.
+                    </p>
+                </div>
+                <div class="pt-4 border-t border-gray-800">
+                    <div class="flex justify-between items-center mb-4">
+                        <span class="text-xs text-gray-500 line-through">$350</span>
+                        <span class="text-xl font-black gold-accent">$250</span>
+                    </div>
+                    <a href="https://wa.me/961..." target="_blank" class="w-full bg-gold text-black font-bold py-3 rounded-xl block text-center text-xs hover:opacity-95 transition shadow-lg shadow-amber-500/20" data-en="Book This Package">
+                        احجز الباقة الآن
+                    </a>
+                </div>
+            </div>
+
+            <!-- Package 3: Ultimate Engineer Pack -->
+            <div class="glass-card p-6 rounded-3xl flex flex-col justify-between relative overflow-hidden group border-amber-500/40 bg-gradient-to-b from-amber-950/20 to-black/60 lg:col-span-1">
+                <div class="ribbon">شامل كلياً</div>
+                <div>
+                    <div class="h-48 rounded-2xl bg-cover bg-center mb-6 border border-amber-500/30 group-hover:scale-[1.02] transition duration-300" style="background-image: url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=600');"></div>
+                    <span class="gold-accent text-xs font-bold uppercase tracking-wider">Bundle 03</span>
+                    <h3 class="text-2xl font-black text-white mt-1 mb-3">Ultimate Engineer Pack</h3>
+                    <p class="text-gray-300 text-xs font-light leading-relaxed mb-4" data-en="Includes: OEA Tripoli Certified Course + Office Professional + AutoCAD. Designed for career elevation.">
+                        يشمل: دبلوم معتمد مع دورات النقابة + مايكروسوفت أوفيس المتقدم + أوتوكاد. لتأهيلك التام لسوق العمل.
+                    </p>
+                </div>
+                <div class="pt-4 border-t border-amber-500/20">
+                    <div class="flex justify-between items-center mb-4">
+                        <span class="text-xs text-gray-500 line-through">$450</span>
+                        <span class="text-xl font-black gold-accent">$320</span>
+                    </div>
+                    <a href="https://wa.me/961..." target="_blank" class="w-full bg-gold text-black font-bold py-3 rounded-xl block text-center text-xs hover:opacity-95 transition shadow-lg shadow-amber-500/20" data-en="Book This Package">
+                        احجز الباقة الآن
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-12 text-center text-gray-500 text-xs border-t border-gray-900 mt-20">
+        <p>&copy; 2026 Sketchy Chapters Workshop Center. All rights reserved.</p>
+    </footer>
+
+    <!-- Language Toggle Script -->
+    <script>
+        let currentLang = 'ar';
+
+        function toggleLanguage() {
+            const html = document.documentElement;
+            const langBtn = document.getElementById('lang-btn');
+            
+            if (currentLang === 'ar') {
+                currentLang = 'en';
+                html.setAttribute('dir', 'ltr');
+                html.setAttribute('lang', 'en');
+                langBtn.innerText = 'العربية';
+                
+                document.querySelectorAll('[data-en]').forEach(el => {
+                    el.setAttribute('data-ar', el.innerText);
+                    el.innerText = el.getAttribute('data-en');
+                });
+
+                document.querySelector('nav .md\\:flex').classList.remove('rtl:space-x-reverse');
+                document.querySelector('nav > div:last-child').classList.remove('rtl:space-x-reverse');
+            } else {
+                currentLang = 'ar';
+                html.setAttribute('dir', 'rtl');
+                html.setAttribute('lang', 'ar');
+                langBtn.innerText = 'English';
+                
+                document.querySelectorAll('[data-en]').forEach(el => {
+                    if (el.getAttribute('data-ar')) {
+                        el.innerText = el.getAttribute('data-ar');
+                    }
+                });
+
+                document.querySelector('nav .md\\:flex').classList.add('rtl:space-x-reverse');
+                document.querySelector('nav > div:last-child').classList.add('rtl:space-x-reverse');
+            }
+        }
+    </script>
+</body>
+</html>
