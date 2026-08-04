@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr" class="scroll-smooth">
+<html lang="en" dir="ltr" class="scroll-smooth" id="main-html">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Arz Mountain Villa | Sketchy Chapters</title>
+    <title>Arz Mountain Villa | Sketchy Chapters (SCDC)</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Google Fonts -->
@@ -13,99 +13,169 @@
     <!-- AOS Animation Library -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <style>
-        body { font-family: 'Plus Jakarta Sans', 'Tajawal', sans-serif; background-color: #08080a; color: #e0e6ed; }
+        body { font-family: 'Plus Jakarta Sans', 'Tajawal', sans-serif; background-color: #08080a; color: #e0e6ed; overflow-x: hidden; }
         .gold-accent { color: #d4af37; }
         .gold-gradient-text { background: linear-gradient(135deg, #bf953f, #fcf6ba, #b38728, #fbf5b7); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .bg-gold { background: linear-gradient(135deg, #d4af37 0%, #aa7c11 100%); }
         .glass-card { background: rgba(18, 18, 22, 0.6); backdrop-filter: blur(16px); border: 1px solid rgba(212, 175, 55, 0.15); }
         .glass-card:hover { border-color: rgba(212, 175, 55, 0.4); }
+        [lang="ar"] .lang-en { display: none !important; }
+        [lang="en"] .lang-ar { display: none !important; }
         img { user-select: none; -webkit-user-drag: none; }
     </style>
 </head>
 <body class="pt-24 selection:bg-amber-500 selection:text-black" oncontextmenu="return false;">
 
-    <!-- Navigation Header -->
-    <nav class="fixed w-full z-50 glass-card px-6 py-4 flex justify-between items-center top-0 border-b border-amber-500/10">
-        <a href="index.html" class="flex items-center space-x-3">
-            <span class="text-xl font-black tracking-wider text-white">SKETCHY <span class="gold-accent">CHAPTERS</span></span>
+    <!-- Header Navigation -->
+    <nav class="fixed w-full z-50 glass-card px-6 py-4 flex justify-between items-center top-0 border-b border-amber-500/15">
+        <a href="index.html" class="flex items-center space-x-3 rtl:space-x-reverse">
+            <img src="logo.png" alt="SCDC Logo" class="h-10 md:h-12 w-auto object-contain" onerror="this.style.display='none'; document.getElementById('logo-fallback').style.display='block';">
+            <span id="logo-fallback" class="hidden text-xl font-black tracking-wider text-white">SKETCHY <span class="gold-accent">CHAPTERS</span></span>
         </a>
-        <div class="flex space-x-6 text-sm font-semibold">
-            <a href="portfolio.html" class="text-xs font-bold text-gray-400 hover:text-amber-400 transition flex items-center space-x-2">
-                <i class="fa-solid fa-arrow-left"></i>
-                <span>Back to Portfolio</span>
+        <div class="flex items-center space-x-4 rtl:space-x-reverse">
+            <a href="portfolio.html" class="text-xs font-bold text-gray-400 hover:text-amber-400 transition flex items-center space-x-2 rtl:space-x-reverse">
+                <i class="fa-solid fa-arrow-left rtl:rotate-180"></i>
+                <span>
+                    <span class="lang-en">Back to Portfolio</span>
+                    <span class="lang-ar">العودة للمعارض</span>
+                </span>
             </a>
+            <button onclick="toggleLanguage()" class="glass-card px-3 py-1.5 rounded-full text-xs font-bold text-amber-400 border border-amber-500/30 hover:bg-amber-500/20 transition flex items-center gap-1">
+                <i class="fa-solid fa-globe"></i>
+                <span id="lang-btn-text">العربية</span>
+            </button>
         </div>
     </nav>
 
-    <!-- Main Project Case Study -->
     <section class="py-12 px-6 max-w-7xl mx-auto">
-        <!-- Title Banner -->
         <div class="mb-12" data-aos="fade-up">
             <div class="inline-block px-4 py-1.5 rounded-full glass-card text-xs font-bold gold-accent mb-4 uppercase tracking-widest border border-amber-500/30">
-                Mountain Villa Interior • 2025
+                <span class="lang-en">Mountain Villa Interior • 2025</span>
+                <span class="lang-ar">تصميم داخلي فيلا جبلية • 2025</span>
             </div>
             <h1 class="text-4xl md:text-6xl font-black text-white mb-4">Arz Mountain Villa</h1>
-            <p class="text-gray-400 font-light max-w-3xl text-lg">Arz, Lebanon • Mountain residence architecture, warm wood textures, and cozy modern interior planning.</p>
+            <p class="text-gray-400 font-light max-w-3xl text-lg">
+                <span class="lang-en">Arz, Lebanon • Mountain residence architecture, warm wood textures, and cozy modern interior planning.</span>
+                <span class="lang-ar">الأرز، لبنان • عمارة السكن الجبلي، درجات الأخشاب الدافئة، والتخطيط الداخلي العصري المريح.</span>
+            </p>
         </div>
 
-        <!-- Project Meta Information -->
         <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12 glass-card p-6 rounded-3xl" data-aos="fade-up" data-aos-delay="100">
             <div>
-                <span class="text-xs text-gray-500 uppercase font-bold block">Location</span>
-                <span class="text-white font-semibold text-sm md:text-base">Arz, Lebanon</span>
+                <span class="text-xs text-gray-500 uppercase font-bold block">
+                    <span class="lang-en">Location</span>
+                    <span class="lang-ar">الموقع</span>
+                </span>
+                <span class="text-white font-semibold text-sm md:text-base">
+                    <span class="lang-en">Arz, Lebanon</span>
+                    <span class="lang-ar">الأرز، لبنان</span>
+                </span>
             </div>
             <div>
-                <span class="text-xs text-gray-500 uppercase font-bold block">Scope of Work</span>
-                <span class="text-white font-semibold text-sm md:text-base">Interior Design & Planning</span>
+                <span class="text-xs text-gray-500 uppercase font-bold block">
+                    <span class="lang-en">Scope of Work</span>
+                    <span class="lang-ar">نطاق العمل</span>
+                </span>
+                <span class="text-white font-semibold text-sm md:text-base">
+                    <span class="lang-en">Interior Design & Planning</span>
+                    <span class="lang-ar">تصميم داخلي وتخطيط</span>
+                </span>
             </div>
             <div>
-                <span class="text-xs text-gray-500 uppercase font-bold block">Year</span>
+                <span class="text-xs text-gray-500 uppercase font-bold block">
+                    <span class="lang-en">Year</span>
+                    <span class="lang-ar">السنة</span>
+                </span>
                 <span class="text-white font-semibold text-sm md:text-base">2025</span>
             </div>
             <div>
-                <span class="text-xs text-gray-500 uppercase font-bold block">Category</span>
-                <span class="text-white font-semibold text-sm md:text-base">Residential Mountain Chalet</span>
+                <span class="text-xs text-gray-500 uppercase font-bold block">
+                    <span class="lang-en">Category</span>
+                    <span class="lang-ar">التصنيف</span>
+                </span>
+                <span class="text-white font-semibold text-sm md:text-base">
+                    <span class="lang-en">Residential Mountain Chalet</span>
+                    <span class="lang-ar">شاليه جبلي سكنى</span>
+                </span>
             </div>
         </div>
 
-        <!-- Design Concept Description -->
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-12 mb-16">
             <div class="lg:col-span-2" data-aos="fade-right">
-                <h2 class="text-2xl font-bold mb-4 gold-gradient-text">Architectural Concept & Natural Aesthetics</h2>
+                <h2 class="text-2xl font-bold mb-4 gold-gradient-text">
+                    <span class="lang-en">Architectural Concept & Natural Aesthetics</span>
+                    <span class="lang-ar">المفهوم المعماري والجماليات الطبيعية</span>
+                </h2>
                 <p class="text-gray-300 font-light leading-relaxed mb-6">
-                    Designed by <strong class="text-white">Sketchy Chapters Design & Construction (SCDC)</strong>, Arz Mountain Villa blends rustic mountain charm with contemporary luxury. Natural stone, warm wood elements, and expansive view windows define the residence.
+                    <span class="lang-en">Designed by <strong class="text-white">Sketchy Chapters Design & Construction (SCDC)</strong>, Arz Mountain Villa blends rustic mountain charm with contemporary luxury. Natural stone, warm wood elements, and expansive view windows define the residence.</span>
+                    <span class="lang-ar">تم تصميم فيلا الأرز الجبلية بواسطة <strong class="text-white">Sketchy Chapters Design & Construction (SCDC)</strong> لتدمج بين سحر الجبال الريفي والفخامة المعاصرة، مع استخدام الحجر الطبيعي والعناصر الخشبية الدافئة والنوافذ الواسعة.</span>
                 </p>
                 <p class="text-gray-400 font-light leading-relaxed">
-                    The layout focuses on thermal comfort and spatial fluidity, delivering an exclusive retreat atmosphere in the Lebanese mountains.
+                    <span class="lang-en">The layout focuses on thermal comfort and spatial fluidity, delivering an exclusive retreat atmosphere in the Lebanese mountains.</span>
+                    <span class="lang-ar">يركز التخطيط على الراحة الحرارية وانسيابية الفراغات، مما يخلق أجواء استثنائية للاسترخاء في أعالي جبال لبنان.</span>
                 </p>
             </div>
             <div class="glass-card p-8 rounded-3xl flex flex-col justify-between" data-aos="fade-left">
                 <div>
-                    <h3 class="text-xl font-bold text-white mb-3">Planning a mountain chalet?</h3>
-                    <p class="text-gray-400 text-sm font-light mb-6">Consult SCDC for custom chalet architecture and interior design concepts.</p>
+                    <h3 class="text-xl font-bold text-white mb-3">
+                        <span class="lang-en">Planning a mountain chalet?</span>
+                        <span class="lang-ar">هل تخطط لشاليه جبلي؟</span>
+                    </h3>
+                    <p class="text-gray-400 text-sm font-light mb-6">
+                        <span class="lang-en">Consult SCDC for custom chalet architecture and interior design concepts.</span>
+                        <span class="lang-ar">استشر SCDC للحصول على تصاميم هندسية ودخلية مخصصة للشاليهات.</span>
+                    </p>
                 </div>
-                <a href="https://wa.me/96181427589?text=Hello%20SCDC,%20I%20am%20interested%20in%20a%20chalet%20design%20similar%20to%20Arz%20Villa" target="_blank" class="bg-gold text-black font-extrabold text-center py-4 rounded-2xl hover:brightness-110 transition flex items-center justify-center space-x-2">
+                <a href="https://wa.me/96181427589?text=Hello%20SCDC,%20I%20am%20interested%20in%20a%20chalet%20design%20similar%20to%20Arz%20Villa" target="_blank" class="bg-gold text-black font-extrabold text-center py-4 rounded-2xl hover:brightness-110 transition flex items-center justify-center space-x-2 rtl:space-x-reverse">
                     <i class="fa-brands fa-whatsapp text-lg"></i>
-                    <span>Inquire via WhatsApp</span>
+                    <span>
+                        <span class="lang-en">Inquire via WhatsApp</span>
+                        <span class="lang-ar">تواصل عبر واتساب</span>
+                    </span>
                 </a>
             </div>
         </div>
 
-        <!-- Project Photo Gallery Grid -->
+        <!-- Project Photo Gallery -->
         <div class="mb-12">
-            <h2 class="text-2xl font-bold mb-8 gold-gradient-text" data-aos="fade-up">Project Visual Gallery</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div class="glass-card rounded-3xl overflow-hidden group cursor-pointer" onclick="openModal('Arz-Villa-1.jpg', 'Villa Interior')" data-aos="fade-up" data-aos-delay="100">
-                    <div class="h-96 overflow-hidden relative">
+            <h2 class="text-2xl font-bold mb-8 gold-gradient-text" data-aos="fade-up">
+                <span class="lang-en">Project Visual Gallery</span>
+                <span class="lang-ar">معرض صور المشروع</span>
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="glass-card rounded-3xl overflow-hidden group cursor-pointer" onclick="openModal('Arz-Villa-1.jpg', 'Mountain Villa Living View 01')" data-aos="fade-up" data-aos-delay="100">
+                    <div class="h-80 overflow-hidden relative">
                         <img src="Arz-Villa-1.jpg" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
                         <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition flex items-center justify-center text-gold text-3xl"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
                     </div>
+                    <p class="text-xs text-gray-400 p-3 text-center">Mountain Villa Living View 01</p>
+                </div>
+                <div class="glass-card rounded-3xl overflow-hidden group cursor-pointer" onclick="openModal('Arz-Villa-2.jpg', 'Interior Architecture View 02')" data-aos="fade-up" data-aos-delay="200">
+                    <div class="h-80 overflow-hidden relative">
+                        <img src="Arz-Villa-2.jpg" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                        <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition flex items-center justify-center text-gold text-3xl"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+                    </div>
+                    <p class="text-xs text-gray-400 p-3 text-center">Interior Architecture View 02</p>
+                </div>
+                <div class="glass-card rounded-3xl overflow-hidden group cursor-pointer" onclick="openModal('Arz-Villa-3.jpg', 'Warm Wood & Lighting View 03')" data-aos="fade-up" data-aos-delay="300">
+                    <div class="h-80 overflow-hidden relative">
+                        <img src="Arz-Villa-3.jpg" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                        <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition flex items-center justify-center text-gold text-3xl"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+                    </div>
+                    <p class="text-xs text-gray-400 p-3 text-center">Warm Wood & Lighting View 03</p>
+                </div>
+                <div class="glass-card rounded-3xl overflow-hidden group cursor-pointer" onclick="openModal('Arz-Villa-4.jpg', 'Chalet Detail View 04')" data-aos="fade-up" data-aos-delay="400">
+                    <div class="h-80 overflow-hidden relative">
+                        <img src="Arz-Villa-4.jpg" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                        <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition flex items-center justify-center text-gold text-3xl"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+                    </div>
+                    <p class="text-xs text-gray-400 p-3 text-center">Chalet Detail View 04</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Modal Lightbox -->
+    <!-- Image Modal -->
     <div id="imageModal" class="fixed inset-0 z-50 bg-black/95 hidden flex items-center justify-center p-4">
         <div class="max-w-5xl w-full glass-card p-4 rounded-3xl relative">
             <button onclick="closeModal()" class="absolute top-4 right-4 text-white text-3xl hover:text-amber-400">&times;</button>
@@ -114,20 +184,35 @@
         </div>
     </div>
 
-    <!-- Footer -->
     <footer class="py-12 text-center text-gray-500 text-xs border-t border-gray-900">
-        <p>© 2026 Sketchy Chapters Design & Construction (SCDC). All Rights Reserved.</p>
+        <p>© <script>document.write(new Date().getFullYear())</script> Sketchy Chapters Design & Construction (SCDC). All Rights Reserved.</p>
     </footer>
 
-    <!-- JS Scripts -->
+    <!-- AOS Script -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         AOS.init({ duration: 1000, once: true });
+
+        function toggleLanguage() {
+            const htmlTag = document.getElementById('main-html');
+            const langBtnText = document.getElementById('lang-btn-text');
+            if (htmlTag.getAttribute('lang') === 'en') {
+                htmlTag.setAttribute('lang', 'ar'); 
+                htmlTag.setAttribute('dir', 'rtl'); 
+                langBtnText.textContent = 'English';
+            } else {
+                htmlTag.setAttribute('lang', 'en'); 
+                htmlTag.setAttribute('dir', 'ltr'); 
+                langBtnText.textContent = 'العربية';
+            }
+        }
+
         function openModal(imgSrc, title) {
             document.getElementById('modalImg').src = imgSrc;
             document.getElementById('modalTitle').innerText = title;
             document.getElementById('imageModal').classList.remove('hidden');
         }
+
         function closeModal() {
             document.getElementById('imageModal').classList.add('hidden');
         }
