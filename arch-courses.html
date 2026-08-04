@@ -563,28 +563,28 @@
     <!-- ================= JAVASCRIPT ================= -->
     <script>
         // Language Toggle System
-        let currentLang = 'en';
+        let currentLang = 'ar';
 
         function toggleLanguage() {
-            currentLang = currentLang === 'en' ? 'ar' : 'en';
+            currentLang = currentLang === 'ar' ? 'en' : 'ar';
             const htmlRoot = document.getElementById('htmlRoot');
             const bodyEl = document.getElementById('bodyEl');
             const langBtnText = document.getElementById('langBtnText');
 
-            if (currentLang === 'ar') {
-                htmlRoot.setAttribute('lang', 'ar');
-                htmlRoot.setAttribute('dir', 'ltr');
-                bodyEl.classList.add('ar-lang');
-                langBtnText.textContent = 'English';
-            } else {
+            if (currentLang === 'en') {
                 htmlRoot.setAttribute('lang', 'en');
-                htmlRoot.setAttribute('dir', 'rtl');
-                bodyEl.classList.remove('ar-lang');
+                htmlRoot.setAttribute('dir', 'ltr');
+                bodyEl.classList.add('en-lang');
                 langBtnText.textContent = 'العربية';
+            } else {
+                htmlRoot.setAttribute('lang', 'ar');
+                htmlRoot.setAttribute('dir', 'rtl');
+                bodyEl.classList.remove('en-lang');
+                langBtnText.textContent = 'English';
             }
 
             // Swap all data attributes
-            const elements = document.querySelectorAll('[data-en][data-ar]');
+            const elements = document.querySelectorAll('[data-ar][data-en]');
             elements.forEach(el => {
                 el.textContent = el.getAttribute(`data-${currentLang}`);
             });
