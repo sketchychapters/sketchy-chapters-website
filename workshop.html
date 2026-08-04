@@ -55,7 +55,8 @@
     <!-- Navigation Bar -->
     <nav class="fixed w-full z-50 glass-card px-6 py-4 flex justify-between items-center top-0 border-b border-amber-500/15">
         <a href="index.html" class="flex items-center">
-            <img src="workshop.png" alt="Sketchy Chapters Workshop Center" class="h-10 w-auto object-contain">
+            <img src="workshop.png" alt="Workshop Cnters Sketchy Chapters Logo" class="h-10 md:h-12 w-auto object-contain" onerror="this.style.display='none'; document.getElementById('logo-fallback').style.display='block';">
+            <span id="logo-fallback" class="hidden text-xl font-black tracking-wider text-white">SKETCHY <span class="gold-accent">CHAPTERS</span></span>
         </a>
         <div class="hidden md:flex space-x-6 text-sm font-semibold">
             <a href="index.html" class="hover:text-amber-400 transition" data-ar="الرئيسية">Home</a>
