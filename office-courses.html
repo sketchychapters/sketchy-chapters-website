@@ -1,177 +1,428 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl" class="scroll-smooth">
+<html lang="en" dir="ltr" id="htmlRoot">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Microsoft Office Courses | Sketchy Chapters</title>
+    <title data-ar="دورات مايكروسوفت أوفيس المعتمدة | Sketchy Chapters" data-en="Certified Microsoft Office Courses | Sketchy Chapters">Certified Microsoft Office Courses | Sketchy Chapters</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;500;700;900&display=swap" rel="stylesheet">
-    <!-- Font Awesome Icons -->
+    <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts Cairo & Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        gold: '#d4af37',
+                        'gold-light': '#f3e5ab',
+                    },
+                    fontFamily: {
+                        cairo: ['Cairo', 'sans-serif'],
+                        inter: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
     <style>
-        body {
-            font-family: 'Tajawal', sans-serif;
-            background-color: #08080a;
-            color: #e0e6ed;
-            overflow-x: hidden;
-        }
+        body { font-family: 'Inter', sans-serif; background-color: #0b0b0e; color: #f3f4f6; transition: font-family 0.3s ease; }
+        body.ar-lang { font-family: 'Cairo', sans-serif; }
+        .glass-card { background: rgba(18, 18, 22, 0.75); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid rgba(212, 175, 55, 0.15); }
         .gold-accent { color: #d4af37; }
-        .gold-gradient-text {
-            background: linear-gradient(135deg, #bf953f, #fcf6ba, #b38728, #fbf5b7);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        .bg-gold { background: linear-gradient(135deg, #d4af37 0%, #aa7c11 100%); }
-        .glass-card {
-            background: rgba(18, 18, 22, 0.6);
-            backdrop-filter: blur(16px);
-            border: 1px solid rgba(212, 175, 55, 0.15);
-            transition: all 0.3s ease;
-        }
-        .glass-card:hover {
-            border-color: rgba(212, 175, 55, 0.5);
-            box-shadow: 0 10px 30px -10px rgba(212, 175, 55, 0.2);
-            transform: translateY(-5px);
-        }
+        .bg-gold { background-color: #d4af37; }
+        .bg-gold:hover { background-color: #c19b2e; }
     </style>
 </head>
-<body class="selection:bg-amber-500 selection:text-black">
+<body class="min-h-screen flex flex-col justify-between en-lang" id="bodyEl">
 
-    <!-- Navigation Bar -->
-    <nav class="fixed w-full z-50 glass-card px-6 py-4 flex justify-between items-center top-0 border-b border-amber-500/15">
-        <a href="workshop.html" class="flex items-center space-x-3 rtl:space-x-reverse">
-            <span class="text-xl font-black tracking-wider text-white">SKETCHY <span class="gold-accent">CHAPTERS</span></span>
-        </a>
-        <div class="hidden md:flex space-x-6 rtl:space-x-reverse text-sm font-semibold">
-            <a href="workshop.html" class="hover:text-amber-400 transition">الرئيسية</a>
-            <a href="workshop.html#categories" class="hover:text-amber-400 transition">جميع الأقسام</a>
+    <!-- ================= HEADER ================= -->
+    <header class="glass-card sticky top-0 z-40 border-b border-amber-500/20 py-4 px-6 md:px-12 flex items-center justify-between">
+        <div class="flex items-center space-x-3 rtl:space-x-reverse">
+            <!-- Custom Logo -->
+            <div class="w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center">
+                <i class="fa-solid fa-file-excel gold-accent text-lg"></i>
+            </div>
+            <div>
+               <span class="text-xs text-amber-400 font-bold tracking-widest block uppercase">Sketchy Chapters</span>
+                <h1 class="text-sm font-black text-white" data-ar="قسم مهارات مايكروسوفت أوفيس" data-en="Microsoft Office Center">Microsoft Office Center</h1>
+            </div>
         </div>
-        <div>
-            <a href="workshop.html" class="glass-card text-amber-400 border border-amber-500/30 px-4 py-2 rounded-full text-xs font-bold hover:bg-amber-500/10 transition">
-                <i class="fa-solid fa-arrow-right ml-1"></i> العودة للأقسام
+        
+        <div class="flex items-center space-x-4 rtl:space-x-reverse">
+            <!-- Language Switcher Button -->
+            <button onclick="toggleLanguage()" class="bg-amber-500/10 border border-amber-500/40 text-amber-300 px-3 py-1.5 rounded-xl text-xs font-bold hover:bg-amber-500/20 transition flex items-center space-x-1.5 rtl:space-x-reverse">
+                <i class="fa-solid fa-globe text-sm"></i>
+                <span id="langBtnText">العربية</span>
+            </button>
+            <a href="https://wa.me/96171967714?text=مرحباً، أهتم بالتسجيل والاستفسار عن دورات مايكروسوفت أوفيس" target="_blank" class="hidden md:flex bg-amber-500/10 border border-amber-500/40 text-amber-400 px-4 py-2 rounded-xl text-xs font-bold hover:bg-amber-500/20 transition items-center space-x-2 rtl:space-x-reverse">
+                <i class="fa-brands fa-whatsapp text-sm"></i>
+                <span data-ar="استفسار فوري" data-en="Instant Inquiry">Instant Inquiry</span>
             </a>
         </div>
-    </nav>
+    </header>
 
-    <!-- Header Section -->
-    <section class="min-h-[35vh] relative flex items-center justify-center pt-32 px-6 text-center">
-        <div class="max-w-4xl z-10">
-            <span class="text-xs font-bold gold-accent uppercase tracking-widest block mb-2">Part 04</span>
-            <h1 class="text-3xl md:text-5xl font-black mb-4 text-white">
-                Microsoft Office <span class="gold-gradient-text">Courses</span>
-            </h1>
-            <p class="text-sm md:text-base text-gray-400 max-w-xl mx-auto font-light">
-                الدورات التدريبية المعتمدة لإتقان الأدوات المكتبية ومعالجة البيانات باحترافية.
+    <!-- ================= MAIN CONTENT ================= -->
+    <main class="flex-grow container mx-auto px-4 py-12 max-w-6xl">
+        <!-- Title Section -->
+        <div class="text-center mb-12">
+            <span class="text-xs gold-accent font-extrabold tracking-widest uppercase bg-amber-500/10 px-3 py-1 rounded-full border border-amber-500/20 inline-block mb-3" data-ar="دورات برمجية احترافية معتمدة" data-en="Professional Certified Software Programs">Professional Certified Software Programs</span>
+            <h2 class="text-3xl md:text-4xl font-black text-white mb-3" data-ar="احتراف برامج مايكروسوفت أوفيس" data-en="Master Microsoft Office Suite">Master Microsoft Office Suite</h2>
+            <p class="text-gray-400 text-sm max-w-2xl mx-auto font-light" data-ar="برامج تدريبية متخصصة في Word، PowerPoint، و Excel لرفع كفاءتك المهنية والأكاديمية." data-en="Specialized training programs in Word, PowerPoint, and Excel to elevate your professional and academic efficiency.">
+                Specialized training programs in Word, PowerPoint, and Excel to elevate your professional and academic efficiency.
             </p>
         </div>
-    </section>
 
-    <!-- Courses List Grid -->
-    <section class="py-12 px-6 max-w-7xl mx-auto">
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Courses Grid -->
+        <div id="courses" class="grid grid-cols-1 md:grid-cols-3 gap-6">
             
-            <!-- 1. Microsoft Word -->
-            <div class="glass-card p-6 rounded-3xl flex flex-col justify-between border border-amber-500/20 relative">
+            <!-- 1. Microsoft Word Card -->
+            <div class="glass-card rounded-2xl p-6 flex flex-col justify-between hover:border-amber-500/40 transition group">
                 <div>
-                    <!-- Logo Header -->
-                    <div class="flex items-center justify-between mb-5">
-                        <div class="w-14 h-14 rounded-2xl glass-card flex items-center justify-center p-2 border border-amber-500/30 shadow-lg">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/f/fd/Microsoft_Office_Word_%282019%E2%80%93present%29.svg" alt="Word" class="w-full h-full object-contain">
-                        </div>
-                        <span class="bg-red-500/10 text-red-400 border border-red-500/30 text-[10px] px-2.5 py-1 rounded-full font-extrabold">خصم 00%</span>
-                    </div>
-
-                    <div class="mb-2">
-                        <span class="gold-accent text-xs font-bold uppercase"><i class="fa-solid fa-certificate ml-1"></i> Certified Course</span>
-                    </div>
-                    <h3 class="text-xl font-black text-white mb-2">Microsoft Word</h3>
-                    <p class="text-gray-400 text-xs font-light leading-relaxed mb-6">
-                        تنسيق المستندات والتقارير الرسمية المتقدمة، إدارة الجداول، الفهارس، وأنماط الكتابة الاحترافية.
-                    </p>
+                   <div class="flex items-center justify-between mb-4">
+                       <div class="w-12 h-12 rounded-xl bg-black/40 border border-amber-500/20 flex items-center justify-center text-blue-400 text-xl">
+                           <i class="fa-solid fa-file-word"></i>
+                       </div>
+                       <div class="text-left rtl:text-right">
+                           <div class="flex items-center gap-2">
+                                <span class="text-xs bg-amber-500/10 text-amber-400 px-2.5 py-1 rounded-lg border border-amber-500/20 font-bold block">29$</span>
+                                <span class="text-xs text-gray-500 line-through">45$</span>
+                           </div>
+                           <span class="text-[10px] text-emerald-400 block font-bold mt-1" data-ar="حسم 35% (السعر الأصلي: 45$)" data-en="35% Off (Original: 45$)">35% Off (Original: 45$)</span>
+                       </div>
+                   </div>
+                   <div class="flex items-center gap-2 mb-2">
+                       <span class="text-[10px] bg-amber-500/20 text-amber-300 px-2 py-0.5 rounded font-bold" data-ar="دورة معتمدة" data-en="Certified Course">Certified Course</span>
+                   </div>
+                   <h3 class="text-lg font-bold text-white mb-2 group-hover:text-amber-400 transition" data-ar="مايكروسوفت وورد (Microsoft Word)" data-en="Microsoft Word">Microsoft Word</h3>
+                   <p class="text-xs text-gray-400 font-light mb-4 line-clamp-3" data-ar="احتراف إنشاء وتنسيق المستندات، الجداول، وأدوات المراجعة والتدقيق المتقدمة في برنامج Word." data-en="Master document creation, formatting, tables, and advanced proofing tools in Microsoft Word.">
+                       Master document creation, formatting, tables, and advanced proofing tools in Microsoft Word.
+                   </p>
                 </div>
-                <div class="space-y-3">
-                    <a href="https://forms.gle/YOUR_GOOGLE_FORM_LINK" target="_blank" class="w-full bg-gold text-black py-2.5 rounded-xl font-extrabold text-xs uppercase tracking-wider flex items-center justify-center space-x-2 rtl:space-x-reverse hover:brightness-110 transition shadow-lg shadow-amber-500/15">
-                        <span>التسجيل (Google Form)</span>
-                        <i class="fa-solid fa-external-link-alt text-[10px]"></i>
-                    </a>
-                    <a href="https://wa.me/000000000000?text=مرحباً، أهتم بالاستفسار عن دورة Microsoft Word" target="_blank" class="w-full glass-card text-emerald-400 border border-emerald-500/30 py-2.5 rounded-xl font-bold text-xs flex items-center justify-center space-x-2 rtl:space-x-reverse hover:bg-emerald-500/10 transition">
-                        <i class="fa-brands fa-whatsapp text-sm"></i>
-                        <span>استفسار واتساب</span>
-                    </a>
-                </div>
+                <button onclick="openModal('wordModal')" class="w-full bg-amber-500/10 border border-amber-500/30 text-amber-300 py-2.5 rounded-xl text-xs font-bold hover:bg-amber-500 hover:text-black transition flex items-center justify-center space-x-2 rtl:space-x-reverse">
+                    <span data-ar="عرض التفاصيل والمحاور" data-en="View Details & Syllabus">View Details & Syllabus</span>
+                    <i class="fa-solid fa-arrow-left rtl:rotate-180 text-[10px]"></i>
+                </button>
             </div>
 
-            <!-- 2. Microsoft PowerPoint -->
-            <div class="glass-card p-6 rounded-3xl flex flex-col justify-between border border-amber-500/20 relative">
+            <!-- 2. Microsoft PowerPoint Card -->
+            <div class="glass-card rounded-2xl p-6 flex flex-col justify-between hover:border-amber-500/40 transition group">
                 <div>
-                    <!-- Logo Header -->
-                    <div class="flex items-center justify-between mb-5">
-                        <div class="w-14 h-14 rounded-2xl glass-card flex items-center justify-center p-2 border border-amber-500/30 shadow-lg">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/0/0d/Microsoft_Office_PowerPoint_%282019%E2%80%93present%29.svg" alt="PowerPoint" class="w-full h-full object-contain">
-                        </div>
-                        <span class="bg-red-500/10 text-red-400 border border-red-500/30 text-[10px] px-2.5 py-1 rounded-full font-extrabold">خصم 00%</span>
-                    </div>
-
-                    <div class="mb-2">
-                        <span class="gold-accent text-xs font-bold uppercase"><i class="fa-solid fa-certificate ml-1"></i> Certified Course</span>
-                    </div>
-                    <h3 class="text-xl font-black text-white mb-2">Microsoft PowerPoint</h3>
-                    <p class="text-gray-400 text-xs font-light leading-relaxed mb-6">
-                        تصميم عروض تقديمية (Presentations) تفاعلية وجذابة بصرياً للأعمال، المحاضرات، والشركات.
-                    </p>
+                   <div class="flex items-center justify-between mb-4">
+                       <div class="w-12 h-12 rounded-xl bg-black/40 border border-amber-500/20 flex items-center justify-center text-orange-400 text-xl">
+                           <i class="fa-solid fa-file-powerpoint"></i>
+                       </div>
+                       <div class="text-left rtl:text-right">
+                           <div class="flex items-center gap-2">
+                                <span class="text-xs bg-amber-500/10 text-amber-400 px-2.5 py-1 rounded-lg border border-amber-500/20 font-bold block">29$</span>
+                                <span class="text-xs text-gray-500 line-through">45$</span>
+                           </div>
+                           <span class="text-[10px] text-emerald-400 block font-bold mt-1" data-ar="حسم 35% (السعر الأصلي: 45$)" data-en="35% Off (Original: 45$)">35% Off (Original: 45$)</span>
+                       </div>
+                   </div>
+                   <div class="flex items-center gap-2 mb-2">
+                       <span class="text-[10px] bg-amber-500/20 text-amber-300 px-2 py-0.5 rounded font-bold" data-ar="دورة معتمدة" data-en="Certified Course">Certified Course</span>
+                   </div>
+                   <h3 class="text-lg font-bold text-white mb-2 group-hover:text-amber-400 transition" data-ar="مايكروسوفت باوربوينت (PowerPoint)" data-en="Microsoft PowerPoint">Microsoft PowerPoint</h3>
+                   <p class="text-xs text-gray-400 font-light mb-4 line-clamp-3" data-ar="تصميم عروض تقديمية تفاعلية جذابة باستخدام شرائح الـ Master، الحركات الانتقالية، والوسائط المتعددة." data-en="Design engaging interactive presentations using Slide Masters, transitions, animations, and multimedia.">
+                       Design engaging interactive presentations using Slide Masters, transitions, animations, and multimedia.
+                   </p>
                 </div>
-                <div class="space-y-3">
-                    <a href="https://forms.gle/YOUR_GOOGLE_FORM_LINK" target="_blank" class="w-full bg-gold text-black py-2.5 rounded-xl font-extrabold text-xs uppercase tracking-wider flex items-center justify-center space-x-2 rtl:space-x-reverse hover:brightness-110 transition shadow-lg shadow-amber-500/15">
-                        <span>التسجيل (Google Form)</span>
-                        <i class="fa-solid fa-external-link-alt text-[10px]"></i>
-                    </a>
-                    <a href="https://wa.me/000000000000?text=مرحباً، أهتم بالاستفسار عن دورة Microsoft PowerPoint" target="_blank" class="w-full glass-card text-emerald-400 border border-emerald-500/30 py-2.5 rounded-xl font-bold text-xs flex items-center justify-center space-x-2 rtl:space-x-reverse hover:bg-emerald-500/10 transition">
-                        <i class="fa-brands fa-whatsapp text-sm"></i>
-                        <span>استفسار واتساب</span>
-                    </a>
-                </div>
+                <button onclick="openModal('powerpointModal')" class="w-full bg-amber-500/10 border border-amber-500/30 text-amber-300 py-2.5 rounded-xl text-xs font-bold hover:bg-amber-500 hover:text-black transition flex items-center justify-center space-x-2 rtl:space-x-reverse">
+                    <span data-ar="عرض التفاصيل والمحاور" data-en="View Details & Syllabus">View Details & Syllabus</span>
+                    <i class="fa-solid fa-arrow-left rtl:rotate-180 text-[10px]"></i>
+                </button>
             </div>
 
-            <!-- 3. Microsoft Excel -->
-            <div class="glass-card p-6 rounded-3xl flex flex-col justify-between border border-amber-500/20 relative lg:col-span-1">
+            <!-- 3. Microsoft Excel Card -->
+            <div class="glass-card rounded-2xl p-6 flex flex-col justify-between hover:border-amber-500/40 transition group">
                 <div>
-                    <!-- Logo Header -->
-                    <div class="flex items-center justify-between mb-5">
-                        <div class="w-14 h-14 rounded-2xl glass-card flex items-center justify-center p-2 border border-amber-500/30 shadow-lg">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/3/34/Microsoft_Office_Excel_%282019%E2%80%93present%29.svg" alt="Excel" class="w-full h-full object-contain">
-                        </div>
-                        <span class="bg-red-500/10 text-red-400 border border-red-500/30 text-[10px] px-2.5 py-1 rounded-full font-extrabold">خصم 00%</span>
-                    </div>
-
-                    <div class="mb-2">
-                        <span class="gold-accent text-xs font-bold uppercase"><i class="fa-solid fa-certificate ml-1"></i> Certified Course</span>
-                    </div>
-                    <h3 class="text-xl font-black text-white mb-2">Microsoft Excel</h3>
-                    <p class="text-gray-400 text-xs font-light leading-relaxed mb-6">
-                        إدارة الجداول البياناتية، الدالات المتقدمة، الرسوم البيانية، وتحليل البيانات للأغراض الإدارية والمالية.
-                    </p>
+                   <div class="flex items-center justify-between mb-4">
+                       <div class="w-12 h-12 rounded-xl bg-black/40 border border-amber-500/20 flex items-center justify-center text-emerald-400 text-xl">
+                           <i class="fa-solid fa-file-excel"></i>
+                       </div>
+                       <div class="text-left rtl:text-right">
+                           <div class="flex items-center gap-2">
+                                <span class="text-xs bg-amber-500/10 text-amber-400 px-2.5 py-1 rounded-lg border border-amber-500/20 font-bold block">29$</span>
+                                <span class="text-xs text-gray-500 line-through">45$</span>
+                           </div>
+                           <span class="text-[10px] text-emerald-400 block font-bold mt-1" data-ar="حسم 35% (السعر الأصلي: 45$)" data-en="35% Off (Original: 45$)">35% Off (Original: 45$)</span>
+                       </div>
+                   </div>
+                   <div class="flex items-center gap-2 mb-2">
+                       <span class="text-[10px] bg-amber-500/20 text-amber-300 px-2 py-0.5 rounded font-bold" data-ar="دورة معتمدة" data-en="Certified Course">Certified Course</span>
+                   </div>
+                   <h3 class="text-lg font-bold text-white mb-2 group-hover:text-amber-400 transition" data-ar="مايكروسوفت إكسل (Microsoft Excel)" data-en="Microsoft Excel">Microsoft Excel</h3>
+                   <p class="text-xs text-gray-400 font-light mb-4 line-clamp-3" data-ar="احتراف الجداول الإحصائية، الدوال المتقدمة، الفلاتر، الرسوم البيانية وتحليل البيانات الرقمية." data-en="Master statistical spreadsheets, advanced functions, filters, charts, and numerical data analysis.">
+                       Master statistical spreadsheets, advanced functions, filters, charts, and numerical data analysis.
+                   </p>
                 </div>
-                <div class="space-y-3">
-                    <a href="https://forms.gle/YOUR_GOOGLE_FORM_LINK" target="_blank" class="w-full bg-gold text-black py-2.5 rounded-xl font-extrabold text-xs uppercase tracking-wider flex items-center justify-center space-x-2 rtl:space-x-reverse hover:brightness-110 transition shadow-lg shadow-amber-500/15">
-                        <span>التسجيل (Google Form)</span>
-                        <i class="fa-solid fa-external-link-alt text-[10px]"></i>
-                    </a>
-                    <a href="https://wa.me/000000000000?text=مرحباً، أهتم بالاستفسار عن دورة Microsoft Excel" target="_blank" class="w-full glass-card text-emerald-400 border border-emerald-500/30 py-2.5 rounded-xl font-bold text-xs flex items-center justify-center space-x-2 rtl:space-x-reverse hover:bg-emerald-500/10 transition">
-                        <i class="fa-brands fa-whatsapp text-sm"></i>
-                        <span>استفسار واتساب</span>
-                    </a>
-                </div>
+                <button onclick="openModal('excelModal')" class="w-full bg-amber-500/10 border border-amber-500/30 text-amber-300 py-2.5 rounded-xl text-xs font-bold hover:bg-amber-500 hover:text-black transition flex items-center justify-center space-x-2 rtl:space-x-reverse">
+                    <span data-ar="عرض التفاصيل والمحاور" data-en="View Details & Syllabus">View Details & Syllabus</span>
+                    <i class="fa-solid fa-arrow-left rtl:rotate-180 text-[10px]"></i>
+                </button>
             </div>
 
         </div>
-    </section>
+    </main>
 
-    <!-- Footer -->
-    <footer class="py-12 text-center text-gray-500 text-xs border-t border-gray-900 mt-20">
-        <p>&copy; 2026 Sketchy Chapters Workshop Center. All rights reserved.</p>
+    <!-- ================= FOOTER ================= -->
+    <footer class="glass-card border-t border-amber-500/20 mt-16 py-8 px-6 text-center text-xs text-gray-400">
+        <div class="container mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+            <div class="flex items-center space-x-2 rtl:space-x-reverse">
+               <span class="font-bold text-white">Sketchy Chapters Workshop Center</span>
+               <span class="text-amber-500">•</span>
+               <span data-ar="جميع الحقوق محفوظة © 2026" data-en="All Rights Reserved © 2026">All Rights Reserved © 2026</span>
+            </div>
+            <div class="flex space-x-4 rtl:space-x-reverse">
+                <a href="https://wa.me/96171967714?text=مرحباً، أهتم بالتسجيل والاستفسار عن دورات مايكروسوفت أوفيس" target="_blank" class="hover:text-amber-400 transition"><i class="fa-brands fa-whatsapp text-sm"></i> <span data-ar="واتساب" data-en="WhatsApp">WhatsApp</span></a>
+                <a href="https://forms.gle/ShVDMvXgE9sNeSxz8" target="_blank" class="hover:text-amber-400 transition"><i class="fa-solid fa-file-lines text-sm"></i> <span data-ar="استمارة التسجيل" data-en="Registration Form">Registration Form</span></a>
+            </div>
+        </div>
     </footer>
 
+    <!-- ================= MODALS ================= -->
+
+    <!-- 1. Microsoft Word Modal -->
+    <div id="wordModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md hidden p-4">
+        <div class="glass-card bg-[#121216] border border-amber-500/40 rounded-3xl max-w-2xl w-full p-6 relative max-h-[90vh] overflow-y-auto text-left rtl:text-right">
+            <button onclick="closeModal('wordModal')" class="absolute top-4 right-4 rtl:left-4 ltr:right-4 text-gray-400 hover:text-white text-xl"><i class="fa-solid fa-xmark"></i></button>
+            
+            <div class="flex items-center space-x-3 rtl:space-x-reverse mb-4">
+               <div class="w-12 h-12 rounded-xl glass-card flex items-center justify-center border border-amber-500/30 text-blue-400 text-xl">
+                   <i class="fa-solid fa-file-word"></i>
+               </div>
+               <div>
+                   <span class="text-[10px] gold-accent font-bold uppercase" data-ar="دورة معتمدة" data-en="Certified Course">Certified Course</span>
+                   <h3 class="text-xl font-black text-white" data-ar="مايكروسوفت وورد (Microsoft Word)" data-en="Microsoft Word Course">Microsoft Word Course</h3>
+               </div>
+            </div>
+
+            <div class="space-y-4 text-xs text-gray-300">
+               <div class="grid grid-cols-3 gap-2 bg-black/40 p-3 rounded-2xl border border-amber-500/10 text-center">
+                   <div>
+                       <span class="text-gray-500 block text-[10px]" data-ar="المدة والجلسات" data-en="Duration & Schedule">Duration & Schedule</span>
+                       <strong class="text-amber-400 text-sm" data-ar="أسبوع واحد (3 جلسات)" data-en="1 week (3 sessions)">1 week (3 sessions)</strong>
+                   </div>
+                   <div>
+                       <span class="text-gray-500 block text-[10px]" data-ar="التكلفة" data-en="Price">Price</span>
+                       <strong class="text-amber-400 text-sm">29$ <span class="text-[10px] text-emerald-400 font-bold block" data-ar="حسم 35% (الأصلي: 45$)" data-en="35% Off (Orig: 45$)">35% Off</span></strong>
+                   </div>
+                   <div>
+                       <span class="text-gray-500 block text-[10px]" data-ar="البدء" data-en="Start Date">Start Date</span>
+                       <strong class="text-amber-400 text-sm">17/08</strong>
+                   </div>
+               </div>
+
+               <div>
+                   <h4 class="font-bold text-white mb-1.5 flex items-center"><i class="fa-solid fa-circle-info gold-accent mr-1.5 rtl:ml-1.5"></i> <span data-ar="نظرة عامة عن البرنامج:" data-en="Overview - Microsoft Word:">Overview - Microsoft Word:</span></h4>
+                   <p class="text-gray-400 font-light leading-relaxed" data-ar="مع برنامج Word على جهازك أو هاتفك، يمكنك إنشاء وتنسيق المستندات باستخدام السمات، مراجعة العمل بتتبع التغييرات، وتلميع النصوص بأدوات التدقيق وحفظها على OneDrive ومشاركة العمل والتعاون مع الآخرين." data-en="With Word on your PC, Mac, or mobile device, you can create and format documents with Themes, review work with Track Changes, polish words with Editor, save to OneDrive, and collaborate with others.">
+                       With Word on your PC, Mac, or mobile device, you can create and format documents with Themes, review work with Track Changes, polish words with Editor, save to OneDrive, and collaborate with others.
+                   </p>
+               </div>
+
+               <div>
+                   <h4 class="font-bold text-white mb-1.5 flex items-center"><i class="fa-solid fa-bullseye gold-accent mr-1.5 rtl:ml-1.5"></i> <span data-ar="محاور ومواضيع الدورة:" data-en="Course Objectives & Syllabus:">Course Objectives & Syllabus:</span></h4>
+                   <ul class="list-grid grid grid-cols-1 md:grid-cols-2 gap-1.5 text-gray-400 font-light">
+                       <li class="flex items-center gap-2"><i class="fa-solid fa-check text-amber-400 text-[10px]"></i> <span data-ar="التنقل والمهام الشائعة (فتح، تعديل، حفظ، طباعة، إعدادات)" data-en="Navigate & perform common tasks (open, view, edit, save)">Navigate & perform common tasks</span></li>
+                       <li class="flex items-center gap-2"><i class="fa-solid fa-check text-amber-400 text-[10px]"></i> <span data-ar="تنسيق النصوص والفقرات (Format text and paragraphs)" data-en="Format text and paragraphs">Format text and paragraphs</span></li>
+                       <li class="flex items-center gap-2"><i class="fa-solid fa-check text-amber-400 text-[10px]"></i> <span data-ar="العمليات المتكررة والأنماط (Find & Replace, Format Painter, Styles)" data-en="Find & Replace, Format Painter, Styles">Find & Replace, Styles</span></li>
+                       <li class="flex items-center gap-2"><i class="fa-solid fa-check text-amber-400 text-[10px]"></i> <span data-ar="تحسين القوائم وترقيمها وتخصيصها (Sorting, renumbering, custom lists)" data-en="Enhance lists & custom list styles">Enhance lists & custom styles</span></li>
+                       <li class="flex items-center gap-2"><i class="fa-solid fa-check text-amber-400 text-[10px]"></i> <span data-ar="إنشاء وتنسيق الجداول (Create and format tables)" data-en="Create and format tables">Create and format tables</span></li>
+                       <li class="flex items-center gap-2"><i class="fa-solid fa-check text-amber-400 text-[10px]"></i> <span data-ar="إدراج الرسومات والأشكال والرموز (Insert graphic objects, illustrations)" data-en="Insert graphic objects and illustrations">Insert graphic objects & illustrations</span></li>
+                       <li class="flex items-center gap-2"><i class="fa-solid fa-check text-amber-400 text-[10px]"></i> <span data-ar="تنسيق مظهر الصفحة (الهوامش، الخلفيات، الرأس والتذييل)" data-en="Format overall page appearance & headers/footers">Format page & headers/footers</span></li>
+                       <li class="flex items-center gap-2"><i class="fa-solid fa-check text-amber-400 text-[10px]"></i> <span data-ar="التدقيق الإملائي وتصحيح الأخطاء (Spelling, grammar, accessibility)" data-en="Spell check, grammar, and accessibility">Spell check, grammar, accessibility</span></li>
+                   </ul>
+               </div>
+            </div>
+
+            <div class="mt-6 flex gap-3">
+                <a href="https://forms.gle/ShVDMvXgE9sNeSxz8" target="_blank" class="flex-1 bg-gold text-black py-2.5 rounded-xl font-extrabold text-xs uppercase tracking-wider flex items-center justify-center space-x-2 rtl:space-x-reverse hover:brightness-110 transition shadow-lg shadow-amber-500/15">
+                    <span data-ar="التسجيل الآن" data-en="Register Now">Register Now</span>
+                    <i class="fa-solid fa-external-link-alt text-[10px]"></i>
+                </a>
+                <a href="https://wa.me/96171967714?text=مرحباً، أهتم بدورة Microsoft Word" target="_blank" class="flex-1 glass-card text-emerald-400 border border-emerald-500/30 py-2.5 rounded-xl font-bold text-xs flex items-center justify-center space-x-2 rtl:space-x-reverse hover:bg-emerald-500/10 transition">
+                    <i class="fa-brands fa-whatsapp text-sm"></i>
+                    <span data-ar="استفسار واتساب" data-en="WhatsApp">WhatsApp</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- 2. Microsoft PowerPoint Modal -->
+    <div id="powerpointModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md hidden p-4">
+        <div class="glass-card bg-[#121216] border border-amber-500/40 rounded-3xl max-w-2xl w-full p-6 relative max-h-[90vh] overflow-y-auto text-left rtl:text-right">
+            <button onclick="closeModal('powerpointModal')" class="absolute top-4 right-4 rtl:left-4 ltr:right-4 text-gray-400 hover:text-white text-xl"><i class="fa-solid fa-xmark"></i></button>
+            
+            <div class="flex items-center space-x-3 rtl:space-x-reverse mb-4">
+               <div class="w-12 h-12 rounded-xl glass-card flex items-center justify-center border border-amber-500/30 text-orange-400 text-xl">
+                   <i class="fa-solid fa-file-powerpoint"></i>
+               </div>
+               <div>
+                   <span class="text-[10px] gold-accent font-bold uppercase" data-ar="دورة معتمدة" data-en="Certified Course">Certified Course</span>
+                   <h3 class="text-xl font-black text-white" data-ar="مايكروسوفت باوربوينت (PowerPoint)" data-en="Microsoft PowerPoint Course">Microsoft PowerPoint Course</h3>
+               </div>
+            </div>
+
+            <div class="space-y-4 text-xs text-gray-300">
+               <div class="grid grid-cols-3 gap-2 bg-black/40 p-3 rounded-2xl border border-amber-500/10 text-center">
+                   <div>
+                       <span class="text-gray-500 block text-[10px]" data-ar="المدة والجلسات" data-en="Duration & Schedule">Duration & Schedule</span>
+                       <strong class="text-amber-400 text-sm" data-ar="أسبوع واحد (3 جلسات)" data-en="1 week (3 sessions)">1 week (3 sessions)</strong>
+                   </div>
+                   <div>
+                       <span class="text-gray-500 block text-[10px]" data-ar="التكلفة" data-en="Price">Price</span>
+                       <strong class="text-amber-400 text-sm">29$ <span class="text-[10px] text-emerald-400 font-bold block" data-ar="حسم 35% (الأصلي: 45$)" data-en="35% Off (Orig: 45$)">35% Off</span></strong>
+                   </div>
+                   <div>
+                       <span class="text-gray-500 block text-[10px]" data-ar="البدء" data-en="Start Date">Start Date</span>
+                       <strong class="text-amber-400 text-sm">17/08</strong>
+                   </div>
+               </div>
+
+               <div>
+                   <h4 class="font-bold text-white mb-1.5 flex items-center"><i class="fa-solid fa-circle-info gold-accent mr-1.5 rtl:ml-1.5"></i> <span data-ar="نظرة عامة عن البرنامج:" data-en="Overview - Microsoft PowerPoint:">Overview - Microsoft PowerPoint:</span></h4>
+                   <p class="text-gray-400 font-light leading-relaxed" data-ar="برنامج العروض التقديمية من مايكروسوفت الذي يمكن المستخدمين من إنشاء عروض جذابة تتكون من شرائح تحتوي على نصوص، رسومات، أصوات، أفلام، روابط تشعبية، مع إضافة الحركات والتأثيرات." data-en="PowerPoint is Microsoft's presentation software that enables users to create engaging presentations containing text, graphics, sound, movies, hyperlinks, animation, and visual effects.">
+                       PowerPoint is Microsoft's presentation software that enables users to create engaging presentations containing text, graphics, sound, movies, hyperlinks, animation, and visual effects.
+                   </p>
+               </div>
+
+               <div>
+                   <h4 class="font-bold text-white mb-1.5 flex items-center"><i class="fa-solid fa-bullseye gold-accent mr-1.5 rtl:ml-1.5"></i> <span data-ar="محاور ومواضيع الدورة:" data-en="Course Objectives & Syllabus:">Course Objectives & Syllabus:</span></h4>
+                   <ul class="list-grid grid grid-cols-1 md:grid-cols-2 gap-1.5 text-gray-400 font-light">
+                       <li class="flex items-center gap-2"><i class="fa-solid fa-check text-amber-400 text-[10px]"></i> <span data-ar="إنشاء العروض التقديمية والقوالب واستيراد الملفات" data-en="Create presentations, templates, import text/Word">Create presentations, templates, import files</span></li>
+                       <li class="flex items-center gap-2"><i class="fa-solid fa-check text-amber-400 text-[10px]"></i> <span data-ar="تنسيق الشرائح باستخدام شرائح الماستر (Slide Masters)" data-en="Format presentations using Slide Masters">Format using Slide Masters</span></li>
+                       <li class="flex items-center gap-2"><i class="fa-solid fa-check text-amber-400 text-[10px]"></i> <span data-ar="تخصيص الخيارات، طرق العرض، والخصائص" data-en="Customize options, views, and properties">Customize options, views, properties</span></li>
+                       <li class="flex items-center gap-2"><i class="fa-solid fa-check text-amber-400 text-[10px]"></i> <span data-ar="إعدادات الطباعة، النشرات، والحفظ المتقدم" data-en="Configure presentations to print or save">Configure to print or save</span></li>
+                       <li class="flex items-center gap-2"><i class="fa-solid fa-check text-amber-400 text-[10px]"></i> <span data-ar="إدارة وتقديم العروض (Slide Shows & Presenter View)" data-en="Configure and present slideshows">Configure and present slideshows</span></li>
+                       <li class="flex items-center gap-2"><i class="fa-solid fa-check text-amber-400 text-[10px]"></i> <span data-ar="إدراج وتنسيق الأشكال، الجداول، المخططات وSmartArt" data-en="Insert and format shapes, tables, charts, SmartArt">Insert shapes, tables, charts, SmartArt</span></li>
+                       <li class="flex items-center gap-2"><i class="fa-solid fa-check text-amber-400 text-[10px]"></i> <span data-ar="تطبيق الحركات الانتقالية وتوقيتاتها (Transitions & Animations)" data-en="Apply transitions, animations, and timing">Apply transitions, animations, timing</span></li>
+                       <li class="flex items-center gap-2"><i class="fa-solid fa-check text-amber-400 text-[10px]"></i> <span data-ar="دمج العروض المتعددة، المراجعة، والحماية بكلمة مرور" data-en="Manage multiple presentations, review, protect">Manage presentations, review, protect</span></li>
+                   </ul>
+               </div>
+            </div>
+
+            <div class="mt-6 flex gap-3">
+                <a href="https://forms.gle/ShVDMvXgE9sNeSxz8" target="_blank" class="flex-1 bg-gold text-black py-2.5 rounded-xl font-extrabold text-xs uppercase tracking-wider flex items-center justify-center space-x-2 rtl:space-x-reverse hover:brightness-110 transition shadow-lg shadow-amber-500/15">
+                    <span data-ar="التسجيل الآن" data-en="Register Now">Register Now</span>
+                    <i class="fa-solid fa-external-link-alt text-[10px]"></i>
+                </a>
+                <a href="https://wa.me/96171967714?text=مرحباً، أهتم بدورة Microsoft PowerPoint" target="_blank" class="flex-1 glass-card text-emerald-400 border border-emerald-500/30 py-2.5 rounded-xl font-bold text-xs flex items-center justify-center space-x-2 rtl:space-x-reverse hover:bg-emerald-500/10 transition">
+                    <i class="fa-brands fa-whatsapp text-sm"></i>
+                    <span data-ar="استفسار واتساب" data-en="WhatsApp">WhatsApp</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- 3. Microsoft Excel Modal -->
+    <div id="excelModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md hidden p-4">
+        <div class="glass-card bg-[#121216] border border-amber-500/40 rounded-3xl max-w-2xl w-full p-6 relative max-h-[90vh] overflow-y-auto text-left rtl:text-right">
+            <button onclick="closeModal('excelModal')" class="absolute top-4 right-4 rtl:left-4 ltr:right-4 text-gray-400 hover:text-white text-xl"><i class="fa-solid fa-xmark"></i></button>
+            
+            <div class="flex items-center space-x-3 rtl:space-x-reverse mb-4">
+               <div class="w-12 h-12 rounded-xl glass-card flex items-center justify-center border border-amber-500/30 text-emerald-400 text-xl">
+                   <i class="fa-solid fa-file-excel"></i>
+               </div>
+               <div>
+                   <span class="text-[10px] gold-accent font-bold uppercase" data-ar="دورة معتمدة" data-en="Certified Course">Certified Course</span>
+                   <h3 class="text-xl font-black text-white" data-ar="مايكروسوفت إكسل (Microsoft Excel)" data-en="Microsoft Excel Course">Microsoft Excel Course</h3>
+               </div>
+            </div>
+
+            <div class="space-y-4 text-xs text-gray-300">
+               <div class="grid grid-cols-3 gap-2 bg-black/40 p-3 rounded-2xl border border-amber-500/10 text-center">
+                   <div>
+                       <span class="text-gray-500 block text-[10px]" data-ar="المدة والجلسات" data-en="Duration & Schedule">Duration & Schedule</span>
+                       <strong class="text-amber-400 text-sm" data-ar="أسبوع واحد (3 جلسات)" data-en="1 week (3 sessions)">1 week (3 sessions)</strong>
+                   </div>
+                   <div>
+                       <span class="text-gray-500 block text-[10px]" data-ar="التكلفة" data-en="Price">Price</span>
+                       <strong class="text-amber-400 text-sm">29$ <span class="text-[10px] text-emerald-400 font-bold block" data-ar="حسم 35% (الأصلي: 45$)" data-en="35% Off (Orig: 45$)">35% Off</span></strong>
+                   </div>
+                   <div>
+                       <span class="text-gray-500 block text-[10px]" data-ar="البدء" data-en="Start Date">Start Date</span>
+                       <strong class="text-amber-400 text-sm">17/08</strong>
+                   </div>
+               </div>
+
+               <div>
+                   <h4 class="font-bold text-white mb-1.5 flex items-center"><i class="fa-solid fa-circle-info gold-accent mr-1.5 rtl:ml-1.5"></i> <span data-ar="نظرة عامة عن البرنامج:" data-en="Overview - Microsoft Excel:">Overview - Microsoft Excel:</span></h4>
+                   <p class="text-gray-400 font-light leading-relaxed" data-ar="برنامج الجداول الحسابية لتسجيل وتحليل البيانات الرقمية والإحصائية، ويوفر ميزات متعددة مثل العمليات الحسابية، الجداول المحورية، أدوات الرسم البياني وبرمجة الماكرو المتوافقة مع مختلف أنظمة التشغيل." data-en="Microsoft Excel is a spreadsheet program used to record and analyze numerical/statistical data, providing multiple features like calculations, pivot tables, graphs, macro programming, compatible across Windows, macOS, Android, and iOS.">
+                       Microsoft Excel is a spreadsheet program used to record and analyze numerical/statistical data, providing multiple features like calculations, pivot tables, graphs, macro programming, compatible across Windows, macOS, Android, and iOS.
+                   </p>
+               </div>
+
+               <div>
+                   <h4 class="font-bold text-white mb-1.5 flex items-center"><i class="fa-solid fa-bullseye gold-accent mr-1.5 rtl:ml-1.5"></i> <span data-ar="محاور ومواضيع الدورة:" data-en="Course Objectives & Syllabus:">Course Objectives & Syllabus:</span></h4>
+                   <ul class="list-grid grid grid-cols-1 md:grid-cols-2 gap-1.5 text-gray-400 font-light">
+                       <li class="flex items-center gap-2"><i class="fa-solid fa-check text-amber-400 text-[10px]"></i> <span data-ar="إنشاء وإدارة أوراق ومصنفات العمل (Worksheets & Workbooks)" data-en="Create and manage worksheets and workbooks">Create and manage worksheets & workbooks</span></li>
+                       <li class="flex items-center gap-2"><i class="fa-solid fa-check text-amber-400 text-[10px]"></i> <span data-ar="إنشاء خلايا ونطاقات وتنسيقها (Cells and Ranges formatting)" data-en="Create and format cells and ranges">Create and format cells and ranges</span></li>
+                       <li class="flex items-center gap-2"><i class="fa-solid fa-check text-amber-400 text-[10px]"></i> <span data-ar="إنشاء الجداول، الفلترة والفرز (Create Tables, Filter and Sort)" data-en="Create tables, filter, and sort data">Create tables, filter, and sort data</span></li>
+                       <li class="flex items-center gap-2"><i class="fa-solid fa-check text-amber-400 text-[10px]"></i> <span data-ar="تطبيق الصيغ والدوال الأساسية والمتقدمة (Formulas and Functions)" data-en="Apply formulas and functions (SUM, AVERAGE, etc.)">Apply formulas and functions</span></li>
+                       <li class="flex items-center gap-2"><i class="fa-solid fa-check text-amber-400 text-[10px]"></i> <span data-ar="استخدام المنطق الشرطي في الدوال (Conditional Logic - IF functions)" data-en="Utilize conditional logic in functions (SUMIF, COUNTIF)">Utilize conditional logic in functions</span></li>
+                       <li class="flex items-center gap-2"><i class="fa-solid fa-check text-amber-400 text-[10px]"></i> <span data-ar="تنسيق ومعالجة النصوص بالدوال (Text Functions - LEFT, RIGHT, TRIM)" data-en="Format and modify text with functions">Format and modify text with functions</span></li>
+                       <li class="flex items-center gap-2"><i class="fa-solid fa-check text-amber-400 text-[10px]"></i> <span data-ar="إنشاء المخططات والرسوم البيانية (Create Charts and Objects)" data-en="Create charts and graphical objects">Create charts and objects</span></li>
+                       <li class="flex items-center gap-2"><i class="fa-solid fa-check text-amber-400 text-[10px]"></i> <span data-ar="تخصيص الخيارات، طرق العرض، وإعدادات الطباعة الحسابية" data-en="Customize options, views, printing, and saving">Customize options, views, and printing</span></li>
+                   </ul>
+               </div>
+            </div>
+
+            <div class="mt-6 flex gap-3">
+                <a href="https://forms.gle/ShVDMvXgE9sNeSxz8" target="_blank" class="flex-1 bg-gold text-black py-2.5 rounded-xl font-extrabold text-xs uppercase tracking-wider flex items-center justify-center space-x-2 rtl:space-x-reverse hover:brightness-110 transition shadow-lg shadow-amber-500/15">
+                    <span data-ar="التسجيل الآن" data-en="Register Now">Register Now</span>
+                    <i class="fa-solid fa-external-link-alt text-[10px]"></i>
+                </a>
+                <a href="https://wa.me/96171967714?text=مرحباً، أهتم بدورة Microsoft Excel" target="_blank" class="flex-1 glass-card text-emerald-400 border border-emerald-500/30 py-2.5 rounded-xl font-bold text-xs flex items-center justify-center space-x-2 rtl:space-x-reverse hover:bg-emerald-500/10 transition">
+                    <i class="fa-brands fa-whatsapp text-sm"></i>
+                    <span data-ar="استفسار واتساب" data-en="WhatsApp">WhatsApp</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript for Modals & Language Switcher -->
+    <script>
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+
+        let currentLang = 'en';
+        function toggleLanguage() {
+            currentLang = currentLang === 'en' ? 'ar' : 'en';
+            const htmlRoot = document.getElementById('htmlRoot');
+            const bodyEl = document.getElementById('bodyEl');
+            const langBtnText = document.getElementById('langBtnText');
+
+            if (currentLang === 'ar') {
+                htmlRoot.setAttribute('dir', 'rtl');
+                htmlRoot.setAttribute('lang', 'ar');
+                bodyEl.classList.remove('en-lang');
+                bodyEl.classList.add('ar-lang');
+                langBtnText.innerText = 'English';
+            } else {
+                htmlRoot.setAttribute('dir', 'ltr');
+                htmlRoot.setAttribute('lang', 'en');
+                bodyEl.classList.remove('ar-lang');
+                bodyEl.classList.add('en-lang');
+                langBtnText.innerText = 'العربية';
+            }
+
+            // Translate elements with data-ar and data-en
+            document.querySelectorAll('[data-ar]').forEach(el => {
+                const arText = el.getAttribute('data-ar');
+                const enText = el.getAttribute('data-en');
+                if (arText && enText) {
+                    el.innerText = currentLang === 'ar' ? arText : enText;
+                }
+            });
+        }
+    </script>
 </body>
 </html>
