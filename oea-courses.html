@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" id="htmlRoot">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-ar="دورات نقابة المهندسين المعتمدة | Lumion Course" data-en="OEA Certified Training Courses | Lumion">OEA Certified Training Courses | Lumion</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts Cairo -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        gold: '#d4af37',
+                        'gold-light': '#f3e5ab',
+                    },
+                    fontFamily: {
+                        cairo: ['Cairo', 'sans-serif'],
+                        inter: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #0b0b0e; color: #f3f4f6; transition: font-family 0.3s ease; }
+        body.ar-lang { font-family: 'Cairo', sans-serif; }
+        .glass-card { background: rgba(18, 18, 22, 0.75); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid rgba(212, 175, 55, 0.15); }
+        .gold-accent { color: #d4af37; }
+        .bg-gold { background-color: #d4af37; }
+        .bg-gold:hover { background-color: #c19b2e; }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between en-lang" id="bodyEl">
+
+    <!-- ================= HEADER ================= -->
+    <header class="glass-card sticky top-0 z-40 border-b border-amber-500/20 py-4 px-6 md:px-12 flex items-center justify-between">
+        <div class="flex items-center space-x-3 rtl:space-x-reverse">
+            <div class="w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center">
+                <i class="fa-solid fa-building-columns gold-accent text-lg"></i>
+            </div>
+            <div>
+               <span class="text-xs text-amber-400 font-bold tracking-widest block uppercase" data-ar="نقابة المهندسين - طرابلس" data-en="Order of Engineers - Tripoli">Order of Engineers - Tripoli</span>
+                <h1 class="text-sm font-black text-white" data-ar="دورات التدريب الهندسي المعتمدة" data-en="Certified Engineering Training Courses">Certified Engineering Training Courses</h1>
+            </div>
+        </div>
+        
+        <div class="flex items-center space-x-4 rtl:space-x-reverse">
+            <!-- Language Switcher Button -->
+            <button onclick="toggleLanguage()" class="bg-amber-500/10 border border-amber-500/40 text-amber-300 px-3 py-1.5 rounded-xl text-xs font-bold hover:bg-amber-500/20 transition flex items-center space-x-1.5 rtl:space-x-reverse">
+                <i class="fa-solid fa-globe text-sm"></i>
+                <span id="langBtnText">العربية</span>
+            </button>
+            <a href="https://wa.me/96170017117?text=مرحباً، أهتم بالاستفسار عن دورات نقابة المهندسين" target="_blank" class="hidden md:flex bg-amber-500/10 border border-amber-500/40 text-amber-400 px-4 py-2 rounded-xl text-xs font-bold hover:bg-amber-500/20 transition items-center space-x-2 rtl:space-x-reverse">
+                <i class="fa-brands fa-whatsapp text-sm"></i>
+                <span data-ar="استفسار فوري" data-en="Instant Inquiry">Instant Inquiry</span>
+            </a>
+        </div>
+    </header>
+
+    <!-- ================= MAIN CONTENT ================= -->
+    <main class="flex-grow container mx-auto px-4 py-12 max-w-6xl">
+        <!-- Title Section -->
+        <div class="text-center mb-12">
+            <span class="text-xs gold-accent font-extrabold tracking-widest uppercase bg-amber-500/10 px-3 py-1 rounded-full border border-amber-500/20 inline-block mb-3" data-ar="دورات نقابة المهندسين المعتمدة (OEA)" data-en="OEA Certified Training Programs">OEA Certified Training Programs</span>
+            <h2 class="text-3xl md:text-4xl font-black text-white mb-3" data-ar="برامج التطوير المهني المستمر" data-en="Continuous Professional Development Programs">Continuous Professional Development Programs</h2>
+            <p class="text-gray-400 text-sm max-w-2xl mx-auto font-light" data-ar="دورات تدريبية معتمدة من نقابة المهندسين مع شهادات مشاركة رسمية. اكتشف التفاصيل وسجل عبر قنوات النقابة." data-en="Certified training courses by the Order of Engineers with official certificates of participation. Explore details and register through official channels.">
+                Certified training courses by the Order of Engineers with official certificates of participation. Explore details and register through official channels.
+            </p>
+        </div>
+
+        <!-- Courses Grid -->
+        <div id="courses" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            
+            <!-- Lumion Course Card -->
+            <div class="glass-card rounded-2xl p-6 flex flex-col justify-between hover:border-amber-500/40 transition group">
+                <div>
+                   <div class="flex items-center justify-between mb-4">
+                       <div class="w-12 h-12 rounded-xl bg-black/40 border border-amber-500/20 flex items-center justify-center p-2 overflow-hidden">
+                           <img src="lumion.png" alt="Lumion" class="w-full h-full object-contain">
+                       </div>
+                       <div class="text-left rtl:text-right">
+                           <div class="flex items-center gap-2">
+                                <span class="text-xs bg-amber-500/10 text-amber-400 px-2.5 py-1 rounded-lg border border-amber-500/20 font-bold block">50$</span>
+                           </div>
+                           <span class="text-[10px] text-amber-300 block font-bold mt-1" data-ar="شهادة معتمدة من النقابة" data-en="OEA Certified Certificate">OEA Certified Certificate</span>
+                       </div>
+                   </div>
+                   <div class="flex items-center gap-2 mb-2">
+                       <span class="text-[10px] bg-amber-500/20 text-amber-300 px-2 py-0.5 rounded font-bold">OEA Certified Course</span>
+                   </div>
+                   <h3 class="text-lg font-bold text-white mb-2 group-hover:text-amber-400 transition">Lumion</h3>
+                   <p class="text-xs text-gray-400 font-light mb-4 line-clamp-3" data-ar="دورة تفصيلية في برنامج لوميون المعماري (أونلاين عبر زوم)، يومين أسبوعياً (الإثنين والأربعاء)، بإجمالي 12 ساعة تدريبية معتمدة." data-en="Comprehensive Lumion architectural course (Online via Zoom), held 2 days a week (Monday & Wednesday) for a total of 12 training hours.">
+                       Comprehensive Lumion architectural course (Online via Zoom), held 2 days a week (Monday & Wednesday) for a total of 12 training hours.
+                   </p>
+                </div>
+                <button onclick="openModal('lumModal')" class="w-full bg-amber-500/10 border border-amber-500/30 text-amber-300 py-2.5 rounded-xl text-xs font-bold hover:bg-amber-500 hover:text-black transition flex items-center justify-center space-x-2 rtl:space-x-reverse">
+                    <span data-ar="عرض التفاصيل والمحاور" data-en="View Details & Syllabus">View Details & Syllabus</span>
+                    <i class="fa-solid fa-arrow-left rtl:rotate-180 text-[10px]"></i>
+                </button>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- ================= FOOTER ================= -->
+    <footer class="glass-card border-t border-amber-500/20 mt-16 py-8 px-6 text-center text-xs text-gray-400">
+        <div class="container mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+            <div class="flex items-center space-x-2 rtl:space-x-reverse">
+               <span class="font-bold text-white" data-ar="نقابة المهندسين - طرابلس" data-en="Order of Engineers - Tripoli">Order of Engineers - Tripoli</span>
+               <span class="text-amber-500">•</span>
+               <span data-ar="جميع الحقوق محفوظة © 2026" data-en="All Rights Reserved © 2026">All Rights Reserved © 2026</span>
+            </div>
+            <div class="flex space-x-4 rtl:space-x-reverse">
+                <a href="https://wa.me/96170017117" target="_blank" class="hover:text-amber-400 transition"><i class="fa-brands fa-whatsapp text-sm"></i> <span data-ar="التسجيل (م. لينا دبوسي)" data-en="Registration (Eng. Lina Dabboussy)">Registration (Eng. Lina Dabboussy)</span></a>
+                <a href="https://oea.tripoli.org.lb/trainings" target="_blank" class="hover:text-amber-400 transition"><i class="fa-solid fa-globe text-sm"></i> <span data-ar="موقع النقابة" data-en="OEA Website">OEA Website</span></a>
+            </div>
+        </div>
+    </footer>
+
+
+    <!-- ================= MODALS ================= -->
+
+    <!-- Lumion Modal -->
+    <div id="lumModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md hidden p-4">
+        <div class="glass-card bg-[#121216] border border-amber-500/40 rounded-3xl max-w-lg w-full p-6 relative max-h-[90vh] overflow-y-auto text-left rtl:text-right ltr:text-left">
+            <button onclick="closeModal('lumModal')" class="absolute top-4 right-4 rtl:left-4 ltr:right-4 text-gray-400 hover:text-white text-xl"><i class="fa-solid fa-xmark"></i></button>
+            
+            <div class="flex items-center space-x-3 rtl:space-x-reverse mb-4">
+               <div class="w-12 h-12 rounded-xl glass-card flex items-center justify-center p-2 border border-amber-500/30 overflow-hidden">
+                   <img src="lumion.png" alt="Lumion" class="w-full h-full object-contain">
+               </div>
+               <div>
+                   <span class="text-[10px] gold-accent font-bold uppercase" data-ar="دورات معتمدة من نقابة المهندسين" data-en="OEA Certified Training">OEA Certified Training</span>
+                   <h3 class="text-xl font-black text-white">Lumion Course</h3>
+               </div>
+            </div>
+
+            <div class="space-y-4 text-xs text-gray-300">
+               <div class="grid grid-cols-3 gap-2 bg-black/40 p-3 rounded-2xl border border-amber-500/10 text-center">
+                   <div>
+                       <span class="text-gray-500 block text-[10px]" data-ar="المدة" data-en="Duration">Duration</span>
+                       <strong class="text-amber-400 text-sm" data-ar="3 أسابيع (12 ساعة)" data-en="3 Weeks (12 Hours)">3 Weeks (12 Hours)</strong>
+                   </div>
+                   <div>
+                       <span class="text-gray-500 block text-[10px]" data-ar="التكلفة" data-en="Price">Price</span>
+                       <strong class="text-amber-400 text-sm">50$</strong>
+                   </div>
+                   <div>
+                       <span class="text-gray-500 block text-[10px]" data-ar="الجدول" data-en="Schedule">Schedule</span>
+                       <strong class="text-amber-400 text-sm" data-ar="الإثنين والأربعاء" data-en="Mon & Wed">Mon & Wed</strong>
+                   </div>
+               </div>
+
+               <div>
+                   <h4 class="font-bold text-white mb-1.5 flex items-center"><i class="fa-solid fa-circle-info gold-accent mr-1.5 rtl:ml-1.5 ltr:mr-1.5"></i> <span data-ar="تفاصيل الدورة:" data-en="Course Details:">Course Details:</span></h4>
+                   <p class="text-gray-400 font-light leading-relaxed mb-2" data-ar="دورة معتمدة مقدمة من نقابة المهندسين في طرابلس. تقام الجلسات أونلاين عبر زوم بواقع يومين أسبوعياً (الإثنين والأربعاء) ولمدة 3 أسابيع بإجمالي 12 ساعة تدريبية. يمنح المشاركون شهادة مشاركة رسمية معتمدة من النقابة." data-en="Certified course by the Order of Engineers - Tripoli. Sessions are held online via Zoom, twice a week (Monday and Wednesday) for 3 weeks, totaling 12 training hours. Participants receive an official Certificate of Participation from OEA.">
+                       Certified course by the Order of Engineers - Tripoli. Sessions are held online via Zoom, twice a week (Monday and Wednesday) for 3 weeks, totaling 12 training hours. Participants receive an official Certificate of Participation from OEA.
+                   </p>
+                   <div class="bg-amber-500/10 border border-amber-500/20 p-3 rounded-xl text-amber-300">
+                       <span class="font-bold block mb-1" data-ar="طرق التسجيل والاستعلام:" data-en="Registration & Inquiry Methods:">Registration & Inquiry Methods:</span>
+                       <ul class="list-disc list-inside space-y-1 text-gray-300 font-light">
+                           <li data-ar="عبر واتساب أو الاتصال بالمهندسة لينا دبوسي: 70017117 961+" data-en="Via WhatsApp or call Eng. Lina Dabboussy: +961 70017117">+961 70017117</li>
+                           <li data-ar="عبر موقع نقابة المهندسين: oea.tripoli.org.lb/trainings" data-en="Via OEA website: oea.tripoli.org.lb/trainings">oea.tripoli.org.lb/trainings</li>
+                           <li data-ar="أو زيارة مركز التدريب في مبنى النقابة (الجميزات) والتسجيل مباشرة." data-en="Or visit the training center at the OEA building in Gemmayzeh to register in person.">Visit the Training Center at the OEA building (Gemmayzeh).</li>
+                       </ul>
+                   </div>
+               </div>
+
+               <div>
+                   <h4 class="font-bold text-white mb-1.5 flex items-center"><i class="fa-solid fa-bullseye gold-accent mr-1.5 rtl:ml-1.5 ltr:mr-1.5"></i> <span data-ar="محاور المنهاج:" data-en="Objectives:">Objectives:</span></h4>
+                   <ul class="list-disc list-inside space-y-1 text-gray-400 font-light">
+                       <li data-ar="استيراد النماذج وتصميم اللاندسكيب والمشهد البيئي." data-en="Importing models and landscape design.">Importing models and landscape design.</li>
+                       <li data-ar="تطبيق الخامات الواقعية وإعدادات الإضاءة المتقدمة." data-en="Applying realistic materials and advanced lighting.">Applying realistic materials and advanced lighting.</li>
+                       <li data-ar="إنتاج الصور الفتوغرافية عالية الدقة والفيديوهات السينمائية المتحركة." data-en="Producing high-resolution photo renders and cinematic walkthrough videos.">Producing high-resolution photo renders and cinematic walkthrough videos.</li>
+                   </ul>
+               </div>
+            </div>
+
+            <div class="mt-6 flex gap-3">
+                <a href="https://wa.me/96170017117?text=مرحباً، أهتم بالتسجيل والاستفسار عن دورة Lumion في نقابة المهندسين" target="_blank" class="flex-1 bg-gold text-black py-2.5 rounded-xl font-extrabold text-xs uppercase tracking-wider flex items-center justify-center space-x-2 rtl:space-x-reverse hover:brightness-110 transition shadow-lg shadow-amber-500/15">
+                    <span data-ar="التسجيل عبر واتساب" data-en="Register via WhatsApp">Register via WhatsApp</span>
+                    <i class="fa-brands fa-whatsapp text-sm"></i>
+                </a>
+                <a href="https://oea.tripoli.org.lb/trainings" target="_blank" class="flex-1 glass-card text-amber-300 border border-amber-500/30 py-2.5 rounded-xl font-bold text-xs flex items-center justify-center space-x-2 rtl:space-x-reverse hover:bg-amber-500/10 transition">
+                    <span data-ar="موقع النقابة" data-en="OEA Website">OEA Website</span>
+                    <i class="fa-solid fa-external-link-alt text-[10px]"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= JAVASCRIPT ================= -->
+    <script>
+        let currentLang = 'en';
+
+        function toggleLanguage() {
+            const htmlRoot = document.getElementById('htmlRoot');
+            const bodyEl = document.getElementById('bodyEl');
+            const langBtnText = document.getElementById('langBtnText');
+
+            if (currentLang === 'en') {
+                currentLang = 'ar';
+                htmlRoot.setAttribute('dir', 'rtl');
+                htmlRoot.setAttribute('lang', 'ar');
+                bodyEl.classList.remove('en-lang');
+                bodyEl.classList.add('ar-lang');
+                langBtnText.innerText = 'English';
+            } else {
+                currentLang = 'en';
+                htmlRoot.setAttribute('dir', 'ltr');
+                htmlRoot.setAttribute('lang', 'en');
+                bodyEl.classList.remove('ar-lang');
+                bodyEl.classList.add('en-lang');
+                langBtnText.innerText = 'العربية';
+            }
+
+            // Swap all elements with data-ar and data-en
+            const translatableElements = document.querySelectorAll('[data-ar][data-en]');
+            translatableElements.forEach(el => {
+                const arText = el.getAttribute('data-ar');
+                const enText = el.getAttribute('data-en');
+                if (currentLang === 'ar') {
+                    el.innerText = arText;
+                } else {
+                    el.innerText = enText;
+                }
+            });
+        }
+
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close modal when clicking outside content
+        window.onclick = function(event) {
+            const modals = ['lumModal'];
+            modals.forEach(id => {
+                const modal = document.getElementById(id);
+                if (event.target === modal) {
+                    closeModal(id);
+                }
+            });
+        }
+    </script>
+</body>
+</html>
