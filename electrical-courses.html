@@ -1,146 +1,333 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl" class="scroll-smooth">
+<html lang="en" dir="ltr" id="htmlRoot">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Electrical Engineering Courses | Sketchy Chapters</title>
+    <title data-ar="دورات الطاقة الشمسية والتحكم الكلاسيكي | Sketchy Chapters" data-en="Solar Systems & Classic Control Courses | Sketchy Chapters">Solar Systems & Classic Control Courses | Sketchy Chapters</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;500;700;900&display=swap" rel="stylesheet">
-    <!-- Font Awesome Icons -->
+    <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts Cairo & Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        gold: '#d4af37',
+                        'gold-light': '#f3e5ab',
+                    },
+                    fontFamily: {
+                        cairo: ['Cairo', 'sans-serif'],
+                        inter: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
     <style>
-        body {
-            font-family: 'Tajawal', sans-serif;
-            background-color: #08080a;
-            color: #e0e6ed;
-            overflow-x: hidden;
-        }
+        body { font-family: 'Inter', sans-serif; background-color: #0b0b0e; color: #f3f4f6; transition: font-family 0.3s ease; }
+        body.ar-lang { font-family: 'Cairo', sans-serif; }
+        .glass-card { background: rgba(18, 18, 22, 0.75); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid rgba(212, 175, 55, 0.15); }
         .gold-accent { color: #d4af37; }
-        .gold-gradient-text {
-            background: linear-gradient(135deg, #bf953f, #fcf6ba, #b38728, #fbf5b7);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        .bg-gold { background: linear-gradient(135deg, #d4af37 0%, #aa7c11 100%); }
-        .glass-card {
-            background: rgba(18, 18, 22, 0.6);
-            backdrop-filter: blur(16px);
-            border: 1px solid rgba(212, 175, 55, 0.15);
-            transition: all 0.3s ease;
-        }
-        .glass-card:hover {
-            border-color: rgba(212, 175, 55, 0.5);
-            box-shadow: 0 10px 30px -10px rgba(212, 175, 55, 0.2);
-            transform: translateY(-5px);
-        }
+        .bg-gold { background-color: #d4af37; }
+        .bg-gold:hover { background-color: #c19b2e; }
     </style>
 </head>
-<body class="selection:bg-amber-500 selection:text-black">
+<body class="min-h-screen flex flex-col justify-between en-lang" id="bodyEl">
 
-    <!-- Navigation Bar -->
-    <nav class="fixed w-full z-50 glass-card px-6 py-4 flex justify-between items-center top-0 border-b border-amber-500/15">
-        <a href="workshop.html" class="flex items-center space-x-3 rtl:space-x-reverse">
-            <span class="text-xl font-black tracking-wider text-white">SKETCHY <span class="gold-accent">CHAPTERS</span></span>
-        </a>
-        <div class="hidden md:flex space-x-6 rtl:space-x-reverse text-sm font-semibold">
-            <a href="workshop.html" class="hover:text-amber-400 transition">الرئيسية</a>
-            <a href="workshop.html#categories" class="hover:text-amber-400 transition">جميع الأقسام</a>
+    <!-- ================= HEADER ================= -->
+    <header class="glass-card sticky top-0 z-40 border-b border-amber-500/20 py-4 px-6 md:px-12 flex items-center justify-between">
+        <div class="flex items-center space-x-3 rtl:space-x-reverse">
+            <!-- Custom Logo -->
+            <div class="w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center">
+                <i class="fa-solid fa-solar-panel gold-accent text-lg"></i>
+            </div>
+            <div>
+               <span class="text-xs text-amber-400 font-bold tracking-widest block uppercase">Sketchy Chapters</span>
+                <h1 class="text-sm font-black text-white" data-ar="قسم الطاقة المتجددة والتحكم" data-en="Solar & Control Center">Solar & Control Center</h1>
+            </div>
         </div>
-        <div>
-            <a href="workshop.html" class="glass-card text-amber-400 border border-amber-500/30 px-4 py-2 rounded-full text-xs font-bold hover:bg-amber-500/10 transition">
-                <i class="fa-solid fa-arrow-right ml-1"></i> العودة للأقسام
+        
+        <div class="flex items-center space-x-4 rtl:space-x-reverse">
+            <!-- Language Switcher Button -->
+            <button onclick="toggleLanguage()" class="bg-amber-500/10 border border-amber-500/40 text-amber-300 px-3 py-1.5 rounded-xl text-xs font-bold hover:bg-amber-500/20 transition flex items-center space-x-1.5 rtl:space-x-reverse">
+                <i class="fa-solid fa-globe text-sm"></i>
+                <span id="langBtnText">العربية</span>
+            </button>
+            <a href="https://wa.me/96171967714?text=مرحباً، أهتم بالتسجيل والاستفسار عن دورات الطاقة الشمسية والتحكم الكلاسيكي" target="_blank" class="hidden md:flex bg-amber-500/10 border border-amber-500/40 text-amber-400 px-4 py-2 rounded-xl text-xs font-bold hover:bg-amber-500/20 transition items-center space-x-2 rtl:space-x-reverse">
+                <i class="fa-brands fa-whatsapp text-sm"></i>
+                <span data-ar="استفسار فوري" data-en="Instant Inquiry">Instant Inquiry</span>
             </a>
         </div>
-    </nav>
+    </header>
 
-    <!-- Header Section -->
-    <section class="min-h-[35vh] relative flex items-center justify-center pt-32 px-6 text-center">
-        <div class="max-w-4xl z-10">
-            <span class="text-xs font-bold gold-accent uppercase tracking-widest block mb-2">Part 03</span>
-            <h1 class="text-3xl md:text-5xl font-black mb-4 text-white">
-                Electrical Engineering <span class="gold-gradient-text">Courses</span>
-            </h1>
-            <p class="text-sm md:text-base text-gray-400 max-w-xl mx-auto font-light">
-                الدورات التدريبية المعتمدة في أنظمة الطاقة الشمسية والتحكم الكلاسيكي الصناعي.
+    <!-- ================= MAIN CONTENT ================= -->
+    <main class="flex-grow container mx-auto px-4 py-12 max-w-6xl">
+        <!-- Title Section -->
+        <div class="text-center mb-12">
+            <span class="text-xs gold-accent font-extrabold tracking-widest uppercase bg-amber-500/10 px-3 py-1 rounded-full border border-amber-500/20 inline-block mb-3" data-ar="برامج هندسية متخصصة ومكثفة" data-en="Specialized & Intensive Programs">Specialized & Intensive Programs</span>
+            <h2 class="text-3xl md:text-4xl font-black text-white mb-3" data-ar="احترف أنظمة الطاقة الشمسية والتحكم الكلاسيكي" data-en="Master Solar Systems & Classic Control">Master Solar Systems & Classic Control</h2>
+            <p class="text-gray-400 text-sm max-w-2xl mx-auto font-light" data-ar="دورات احترافية معتمدة تغطي التصميم، الحسابات، والتطبيق العملي الشامل." data-en="Certified professional courses covering design, calculations, and comprehensive practical applications.">
+                Certified professional courses covering design, calculations, and comprehensive practical applications.
             </p>
         </div>
-    </section>
 
-    <!-- Courses List Grid -->
-    <section class="py-12 px-6 max-w-7xl mx-auto">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+        <!-- Courses Grid -->
+        <div id="courses" class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
             
-            <!-- 1. Solar System (دورة مكثفة) -->
-            <div class="glass-card p-6 rounded-3xl flex flex-col justify-between border border-amber-500/20 relative">
+            <!-- 1. Solar System Card -->
+            <div class="glass-card rounded-2xl p-6 flex flex-col justify-between hover:border-amber-500/40 transition group">
                 <div>
-                    <!-- Logo / Icon Header -->
-                    <div class="flex items-center justify-between mb-5">
-                        <div class="w-14 h-14 rounded-2xl glass-card flex items-center justify-center p-2 border border-amber-500/30 shadow-lg">
-                            <i class="fa-solid fa-solar-panel text-2xl gold-accent"></i>
-                        </div>
-                        <span class="bg-red-500/10 text-red-400 border border-red-500/30 text-[10px] px-2.5 py-1 rounded-full font-extrabold">خصم 00%</span>
-                    </div>
-
-                    <div class="mb-2">
-                        <span class="gold-accent text-xs font-bold uppercase"><i class="fa-solid fa-certificate ml-1"></i> Certified Course</span>
-                    </div>
-                    <h3 class="text-xl font-black text-white mb-2">Solar System <span class="text-amber-400 text-sm font-bold">(دورة مكثفة)</span></h3>
-                    <p class="text-gray-400 text-xs font-light leading-relaxed mb-6">
-                        تصميم وحسابات أنظمة الطاقة الشمسية الكهروضوئية، اختيار الألواح والعاكسات (Inverters)، وتمديد وتنفيذ المشاريع باحترافية.
-                    </p>
+                   <div class="flex items-center justify-between mb-4">
+                       <div class="w-12 h-12 rounded-xl bg-black/40 border border-amber-500/20 flex items-center justify-center text-amber-400 text-xl">
+                           <i class="fa-solid fa-sun"></i>
+                       </div>
+                       <div class="text-left rtl:text-right">
+                           <div class="flex items-center gap-2">
+                                <span class="text-xs bg-amber-500/10 text-amber-400 px-2.5 py-1 rounded-lg border border-amber-500/20 font-bold block">99$</span>
+                                <span class="text-xs text-gray-500 line-through">135$</span>
+                           </div>
+                           <span class="text-[10px] text-emerald-400 block font-bold mt-1" data-ar="حسم 27% (السعر الأصلي: 135$)" data-en="27% Off (Original: 135$)">27% Off (Original: 135$)</span>
+                       </div>
+                   </div>
+                   <div class="flex items-center gap-2 mb-2">
+                       <span class="text-[10px] bg-amber-500/20 text-amber-300 px-2 py-0.5 rounded font-bold" data-ar="دورة مكثفة معتمدة" data-en="Intensive Certified Course">Intensive Certified Course</span>
+                   </div>
+                   <h3 class="text-lg font-bold text-white mb-2 group-hover:text-amber-400 transition" data-ar="أنظمة الطاقة الشمسية (Solar System)" data-en="Solar System">Solar System</h3>
+                   <p class="text-xs text-gray-400 font-light mb-4 line-clamp-3" data-ar="دورة مكثفة تغطي أساسيات الطاقة المتجددة، أنواع الأنظمة (On/Off/Hybrid)، وتصميم وحسابات الألواح، الإنفرتر، والبطاريات." data-en="Intensive course covering renewable energy basics, system types (On/Off/Hybrid), and sizing for PV, Inverters, and Batteries.">
+                       Intensive course covering renewable energy basics, system types (On/Off/Hybrid), and sizing for PV, Inverters, and Batteries.
+                   </p>
                 </div>
-                <div class="space-y-3">
-                    <a href="https://forms.gle/YOUR_GOOGLE_FORM_LINK" target="_blank" class="w-full bg-gold text-black py-2.5 rounded-xl font-extrabold text-xs uppercase tracking-wider flex items-center justify-center space-x-2 rtl:space-x-reverse hover:brightness-110 transition shadow-lg shadow-amber-500/15">
-                        <span>التسجيل (Google Form)</span>
-                        <i class="fa-solid fa-external-link-alt text-[10px]"></i>
-                    </a>
-                    <a href="https://wa.me/000000000000?text=مرحباً، أهتم بالاستفسار عن دورة Solar System (دورة مكثفة)" target="_blank" class="w-full glass-card text-emerald-400 border border-emerald-500/30 py-2.5 rounded-xl font-bold text-xs flex items-center justify-center space-x-2 rtl:space-x-reverse hover:bg-emerald-500/10 transition">
-                        <i class="fa-brands fa-whatsapp text-sm"></i>
-                        <span>استفسار واتساب</span>
-                    </a>
-                </div>
+                <button onclick="openModal('solarModal')" class="w-full bg-amber-500/10 border border-amber-500/30 text-amber-300 py-2.5 rounded-xl text-xs font-bold hover:bg-amber-500 hover:text-black transition flex items-center justify-center space-x-2 rtl:space-x-reverse">
+                    <span data-ar="عرض التفاصيل والمحاور" data-en="View Details & Syllabus">View Details & Syllabus</span>
+                    <i class="fa-solid fa-arrow-left rtl:rotate-180 text-[10px]"></i>
+                </button>
             </div>
 
-            <!-- 2. Classic Control -->
-            <div class="glass-card p-6 rounded-3xl flex flex-col justify-between border border-amber-500/20 relative">
+            <!-- 2. Classic Control Card -->
+            <div class="glass-card rounded-2xl p-6 flex flex-col justify-between hover:border-amber-500/40 transition group">
                 <div>
-                    <!-- Logo / Icon Header -->
-                    <div class="flex items-center justify-between mb-5">
-                        <div class="w-14 h-14 rounded-2xl glass-card flex items-center justify-center p-2 border border-amber-500/30 shadow-lg">
-                            <i class="fa-solid fa-microchip text-2xl gold-accent"></i>
-                        </div>
-                        <span class="bg-red-500/10 text-red-400 border border-red-500/30 text-[10px] px-2.5 py-1 rounded-full font-extrabold">خصم 00%</span>
-                    </div>
-
-                    <div class="mb-2">
-                        <span class="gold-accent text-xs font-bold uppercase"><i class="fa-solid fa-certificate ml-1"></i> Certified Course</span>
-                    </div>
-                    <h3 class="text-xl font-black text-white mb-2">Classic Control</h3>
-                    <p class="text-gray-400 text-xs font-light leading-relaxed mb-6">
-                        دراسة الدوائر الكهربائية الصناعية، الكونتاكتورات، الحمايات، وتصميم لوحات التحكم الكلاسيكية لتشغيل وحماية المحركات.
-                    </p>
+                   <div class="flex items-center justify-between mb-4">
+                       <div class="w-12 h-12 rounded-xl bg-black/40 border border-amber-500/20 flex items-center justify-center text-amber-400 text-xl">
+                           <i class="fa-solid fa-gears"></i>
+                       </div>
+                       <div class="text-left rtl:text-right">
+                           <div class="flex items-center gap-2">
+                                <span class="text-xs bg-amber-500/10 text-amber-400 px-2.5 py-1 rounded-lg border border-amber-500/20 font-bold block">225$</span>
+                                <span class="text-xs text-gray-500 line-through">300$</span>
+                           </div>
+                           <span class="text-[10px] text-emerald-400 block font-bold mt-1" data-ar="حسم 25% (السعر الأصلي: 300$)" data-en="25% Off (Original: 300$)">25% Off (Original: 300$)</span>
+                       </div>
+                   </div>
+                   <div class="flex items-center gap-2 mb-2">
+                       <span class="text-[10px] bg-amber-500/20 text-amber-300 px-2 py-0.5 rounded font-bold" data-ar="دورة معتمدة" data-en="Certified Course">Certified Course</span>
+                   </div>
+                   <h3 class="text-lg font-bold text-white mb-2 group-hover:text-amber-400 transition" data-ar="التحكم الكلاسيكي (Classic Control)" data-en="Classic Control">Classic Control</h3>
+                   <p class="text-xs text-gray-400 font-light mb-4 line-clamp-3" data-ar="تعلم هندسة وتصميم أنظمة التحكم الكلاسيكي، الدوائر الكهربائية، عناصر الحماية، وبرامج المحاكاة مثل EKTS و Simurelay." data-en="Learn engineering and design of classic control systems, electrical circuits, protection elements, and simulation software like EKTS & Simurelay.">
+                       Learn engineering and design of classic control systems, electrical circuits, protection elements, and simulation software like EKTS & Simurelay.
+                   </p>
                 </div>
-                <div class="space-y-3">
-                    <a href="https://forms.gle/YOUR_GOOGLE_FORM_LINK" target="_blank" class="w-full bg-gold text-black py-2.5 rounded-xl font-extrabold text-xs uppercase tracking-wider flex items-center justify-center space-x-2 rtl:space-x-reverse hover:brightness-110 transition shadow-lg shadow-amber-500/15">
-                        <span>التسجيل (Google Form)</span>
-                        <i class="fa-solid fa-external-link-alt text-[10px]"></i>
-                    </a>
-                    <a href="https://wa.me/000000000000?text=مرحباً، أهتم بالاستفسار عن دورة Classic Control" target="_blank" class="w-full glass-card text-emerald-400 border border-emerald-500/30 py-2.5 rounded-xl font-bold text-xs flex items-center justify-center space-x-2 rtl:space-x-reverse hover:bg-emerald-500/10 transition">
-                        <i class="fa-brands fa-whatsapp text-sm"></i>
-                        <span>استفسار واتساب</span>
-                    </a>
-                </div>
+                <button onclick="openModal('classicModal')" class="w-full bg-amber-500/10 border border-amber-500/30 text-amber-300 py-2.5 rounded-xl text-xs font-bold hover:bg-amber-500 hover:text-black transition flex items-center justify-center space-x-2 rtl:space-x-reverse">
+                    <span data-ar="عرض التفاصيل والمحاور" data-en="View Details & Syllabus">View Details & Syllabus</span>
+                    <i class="fa-solid fa-arrow-left rtl:rotate-180 text-[10px]"></i>
+                </button>
             </div>
 
         </div>
-    </section>
+    </main>
 
-    <!-- Footer -->
-    <footer class="py-12 text-center text-gray-500 text-xs border-t border-gray-900 mt-20">
-        <p>&copy; 2026 Sketchy Chapters Workshop Center. All rights reserved.</p>
+    <!-- ================= FOOTER ================= -->
+    <footer class="glass-card border-t border-amber-500/20 mt-16 py-8 px-6 text-center text-xs text-gray-400">
+        <div class="container mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+            <div class="flex items-center space-x-2 rtl:space-x-reverse">
+               <span class="font-bold text-white">Sketchy Chapters Workshop Center</span>
+               <span class="text-amber-500">•</span>
+               <span data-ar="جميع الحقوق محفوظة © 2026" data-en="All Rights Reserved © 2026">All Rights Reserved © 2026</span>
+            </div>
+            <div class="flex space-x-4 rtl:space-x-reverse">
+                <a href="https://wa.me/96171967714?text=مرحباً، أهتم بالتسجيل والاستفسار عن الدورات الهندسية" target="_blank" class="hover:text-amber-400 transition"><i class="fa-brands fa-whatsapp text-sm"></i> <span data-ar="واتساب" data-en="WhatsApp">WhatsApp</span></a>
+                <a href="https://forms.gle/ShVDMvXgE9sNeSxz8" target="_blank" class="hover:text-amber-400 transition"><i class="fa-solid fa-file-lines text-sm"></i> <span data-ar="استمارة التسجيل" data-en="Registration Form">Registration Form</span></a>
+            </div>
+        </div>
     </footer>
 
+    <!-- ================= MODALS ================= -->
+
+    <!-- 1. Solar System Modal -->
+    <div id="solarModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md hidden p-4">
+        <div class="glass-card bg-[#121216] border border-amber-500/40 rounded-3xl max-w-2xl w-full p-6 relative max-h-[90vh] overflow-y-auto text-left rtl:text-right">
+            <button onclick="closeModal('solarModal')" class="absolute top-4 right-4 rtl:left-4 ltr:right-4 text-gray-400 hover:text-white text-xl"><i class="fa-solid fa-xmark"></i></button>
+            
+            <div class="flex items-center space-x-3 rtl:space-x-reverse mb-4">
+               <div class="w-12 h-12 rounded-xl glass-card flex items-center justify-center border border-amber-500/30 text-amber-400 text-xl">
+                   <i class="fa-solid fa-sun"></i>
+               </div>
+               <div>
+                   <span class="text-[10px] gold-accent font-bold uppercase" data-ar="دورة مكثفة معتمدة" data-en="Intensive Certified Course">Intensive Certified Course</span>
+                   <h3 class="text-xl font-black text-white" data-ar="أنظمة الطاقة الشمسية (Solar System)" data-en="Solar System Course">Solar System Course</h3>
+               </div>
+            </div>
+
+            <div class="space-y-4 text-xs text-gray-300">
+               <div class="grid grid-cols-3 gap-2 bg-black/40 p-3 rounded-2xl border border-amber-500/10 text-center">
+                   <div>
+                       <span class="text-gray-500 block text-[10px]" data-ar="المدة والجلسات" data-en="Duration & Schedule">Duration & Schedule</span>
+                       <strong class="text-amber-400 text-sm" data-ar="أسبوع واحد (3 جلسات أسبوعياً - 3 ساعات/جلسة)" data-en="1 week (3 sessions/wk - 3h/session)">1 week (3 sessions/wk - 3h/session)</strong>
+                   </div>
+                   <div>
+                       <span class="text-gray-500 block text-[10px]" data-ar="التكلفة" data-en="Price">Price</span>
+                       <strong class="text-amber-400 text-sm">99$ <span class="text-[10px] text-emerald-400 font-bold block" data-ar="حسم 27% (الأصلي: 135$)" data-en="27% Off (Orig: 135$)">27% Off</span></strong>
+                   </div>
+                   <div>
+                       <span class="text-gray-500 block text-[10px]" data-ar="البدء" data-en="Start Date">Start Date</span>
+                       <strong class="text-amber-400 text-sm" data-ar="17/08 (يحدد لاحقا للجدول)" data-en="17/08 (Schedule TBD)">17/08</strong>
+                   </div>
+               </div>
+
+               <div>
+                   <h4 class="font-bold text-white mb-1.5 flex items-center"><i class="fa-solid fa-circle-info gold-accent mr-1.5 rtl:ml-1.5"></i> <span data-ar="نظرة عامة عن الطاقة المتجددة:" data-en="Overview - Renewable Energy:">Overview - Renewable Energy:</span></h4>
+                   <p class="text-gray-400 font-light leading-relaxed" data-ar="الطاقة المتجددة هي الطاقة المستمدة من مصادر طبيعية تتجدد بمعدل أسرع مما تُستهلك، مثل أشعة الشمس والرياح، وهي البديل النظيف للوقود الأحفوري الذي يسبب انبعاثات غازات الدفيئة. وتعد الطاقة الشمسية الأكثر وفرة عالمياً." data-en="Renewable energy is energy derived from natural sources that are replenished faster than consumed (sunlight, wind). Solar energy is the most abundant and vital resource to address the climate crisis.">
+                       Renewable energy is energy derived from natural sources that are replenished faster than consumed (sunlight, wind). Solar energy is the most abundant and vital resource to address the climate crisis.
+                   </p>
+               </div>
+
+               <div>
+                   <h4 class="font-bold text-white mb-1.5 flex items-center"><i class="fa-solid fa-bullseye gold-accent mr-1.5 rtl:ml-1.5"></i> <span data-ar="محاور ومواضيع الدورة:" data-en="Course Objectives & Syllabus:">Course Objectives & Syllabus:</span></h4>
+                   <ul class="list-grid grid grid-cols-1 md:grid-cols-2 gap-1.5 text-gray-400 font-light">
+                       <li class="flex items-center gap-2"><i class="fa-solid fa-check text-amber-400 text-[10px]"></i> <span data-ar="السلامة المهنية (Safety)" data-en="Safety Guidelines">Safety Guidelines</span></li>
+                       <li class="flex items-center gap-2"><i class="fa-solid fa-check text-amber-400 text-[10px]"></i> <span data-ar="آلية عمل الأنظمة الشمسية (How Solar Works)" data-en="How Solar Systems Work">How Solar Systems Work</span></li>
+                       <li class="flex items-center gap-2"><i class="fa-solid fa-check text-amber-400 text-[10px]"></i> <span data-ar="تعريف الخلايا الكهروضوئية (PV Definition)" data-en="Defined PV (Photovoltaics)">Defined PV (Photovoltaics)</span></li>
+                       <li class="flex items-center gap-2"><i class="fa-solid fa-check text-amber-400 text-[10px]"></i> <span data-ar="أنواع الأنظمة (On-Grid, Off-Grid, Hybrid)" data-en="System Types (On-Grid, Off-Grid, Hybrid)">System Types (On-Grid, Off-Grid, Hybrid)</span></li>
+                       <li class="flex items-center gap-2"><i class="fa-solid fa-check text-amber-400 text-[10px]"></i> <span data-ar="حسابات وحجم الإنفرتر (Size Inverter)" data-en="Size Inverter Calculations">Size Inverter Calculations</span></li>
+                       <li class="flex items-center gap-2"><i class="fa-solid fa-check text-amber-400 text-[10px]"></i> <span data-ar="حسابات وحجم الألواح (Size PV)" data-en="Size PV Calculations">Size PV Calculations</span></li>
+                       <li class="flex items-center gap-2"><i class="fa-solid fa-check text-amber-400 text-[10px]"></i> <span data-ar="حسابات وحجم البطاريات (Size Battery)" data-en="Size Battery Calculations">Size Battery Calculations</span></li>
+                       <li class="flex items-center gap-2"><i class="fa-solid fa-check text-amber-400 text-[10px]"></i> <span data-ar="الملحقات والتوصيل والحماية (Accessories, Connection, Protection)" data-en="Accessories, Connection & Protection">Accessories, Connection & Protection</span></li>
+                   </ul>
+               </div>
+            </div>
+
+            <div class="mt-6 flex gap-3">
+                <a href="https://forms.gle/ShVDMvXgE9sNeSxz8" target="_blank" class="flex-1 bg-gold text-black py-2.5 rounded-xl font-extrabold text-xs uppercase tracking-wider flex items-center justify-center space-x-2 rtl:space-x-reverse hover:brightness-110 transition shadow-lg shadow-amber-500/15">
+                    <span data-ar="التسجيل الآن" data-en="Register Now">Register Now</span>
+                    <i class="fa-solid fa-external-link-alt text-[10px]"></i>
+                </a>
+                <a href="https://wa.me/96171967714?text=مرحباً، أهتم بدورة Solar System" target="_blank" class="flex-1 glass-card text-emerald-400 border border-emerald-500/30 py-2.5 rounded-xl font-bold text-xs flex items-center justify-center space-x-2 rtl:space-x-reverse hover:bg-emerald-500/10 transition">
+                    <i class="fa-brands fa-whatsapp text-sm"></i>
+                    <span data-ar="استفسار واتساب" data-en="WhatsApp">WhatsApp</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- 2. Classic Control Modal -->
+    <div id="classicModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md hidden p-4">
+        <div class="glass-card bg-[#121216] border border-amber-500/40 rounded-3xl max-w-2xl w-full p-6 relative max-h-[90vh] overflow-y-auto text-left rtl:text-right">
+            <button onclick="closeModal('classicModal')" class="absolute top-4 right-4 rtl:left-4 ltr:right-4 text-gray-400 hover:text-white text-xl"><i class="fa-solid fa-xmark"></i></button>
+            
+            <div class="flex items-center space-x-3 rtl:space-x-reverse mb-4">
+               <div class="w-12 h-12 rounded-xl glass-card flex items-center justify-center border border-amber-500/30 text-amber-400 text-xl">
+                   <i class="fa-solid fa-gears"></i>
+               </div>
+               <div>
+                   <span class="text-[10px] gold-accent font-bold uppercase" data-ar="دورة معتمدة" data-en="Certified Course">Certified Course</span>
+                   <h3 class="text-xl font-black text-white" data-ar="التحكم الكلاسيكي (Classic Control)" data-en="Classic Control Course">Classic Control Course</h3>
+               </div>
+            </div>
+
+            <div class="space-y-4 text-xs text-gray-300">
+               <div class="grid grid-cols-3 gap-2 bg-black/40 p-3 rounded-2xl border border-amber-500/10 text-center">
+                   <div>
+                       <span class="text-gray-500 block text-[10px]" data-ar="المدة والجلسات" data-en="Duration & Schedule">Duration & Schedule</span>
+                       <strong class="text-amber-400 text-sm" data-ar="3 أسابيع (10 جلسات إجمالاً)" data-en="3 wks (10 Sessions total)">3 wks (10 Sessions)</strong>
+                   </div>
+                   <div>
+                       <span class="text-gray-500 block text-[10px]" data-ar="التكلفة" data-en="Price">Price</span>
+                       <strong class="text-amber-400 text-sm">225$ <span class="text-[10px] text-emerald-400 font-bold block" data-ar="حسم 25% (الأصلي: 300$)" data-en="25% Off (Orig: 300$)">25% Off</span></strong>
+                   </div>
+                   <div>
+                       <span class="text-gray-500 block text-[10px]" data-ar="البدء" data-en="Start Date">Start Date</span>
+                       <strong class="text-amber-400 text-sm" data-ar="17/08 (يحدد لاحقا للجدول)" data-en="17/08 (Schedule TBD)">17/08</strong>
+                   </div>
+               </div>
+
+               <div>
+                   <h4 class="font-bold text-white mb-1.5 flex items-center"><i class="fa-solid fa-circle-info gold-accent mr-1.5 rtl:ml-1.5"></i> <span data-ar="نظرة عامة عن التحكم الكلاسيكي:" data-en="Overview - Classic Control:">Overview - Classic Control:</span></h4>
+                   <p class="text-gray-400 font-light leading-relaxed" data-ar="يشير التحكم الكلاسيكي إلى التقنيات الرياضية والحسابية لتصميم وتحليل أنظمة التحكم في الهندسة الكهربائية، مستخدماً نظرية النظريات الخطية، تحويلات لابلاس، وتحليل استجابة التردد لتصميم متحكمات للمحركات وأنظمة الطاقة." data-en="Classic control refers to mathematical and computational techniques to design and analyze control systems in electrical engineering using linear systems theory, Laplace transforms, and frequency response analysis.">
+                       Classic control refers to mathematical and computational techniques to design and analyze control systems in electrical engineering using linear systems theory, Laplace transforms, and frequency response analysis.
+                   </p>
+               </div>
+
+               <div>
+                   <h4 class="font-bold text-white mb-1.5 flex items-center"><i class="fa-solid fa-bullseye gold-accent mr-1.5 rtl:ml-1.5"></i> <span data-ar="محاور ومواضيع الدورة:" data-en="Course Objectives & Syllabus:">Course Objectives & Syllabus:</span></h4>
+                   <ul class="list-grid grid grid-cols-1 md:grid-cols-2 gap-1.5 text-gray-400 font-light">
+                       <li class="flex items-center gap-2"><i class="fa-solid fa-check text-amber-400 text-[10px]"></i> <span data-ar="تعريف التحكم الكلاسيكي وأساسياته (Classic Control Basics)" data-en="Classic Control Basics">Classic Control Basics</span></li>
+                       <li class="flex items-center gap-2"><i class="fa-solid fa-check text-amber-400 text-[10px]"></i> <span data-ar="المفاتيح، الريليهات، والكونتاكتورات (Switches, Relays, Contactors)" data-en="Switches, Relays & Contactors">Switches, Relays & Contactors</span></li>
+                       <li class="flex items-center gap-2"><i class="fa-solid fa-check text-amber-400 text-[10px]"></i> <span data-ar="أجهزة الحماية (فيوزات وقواطع - Fuses & Circuit Breakers)" data-en="Protection Devices (Fuses, Breakers)">Protection Devices (Fuses, Breakers)</span></li>
+                       <li class="flex items-center gap-2"><i class="fa-solid fa-check text-amber-400 text-[10px]"></i> <span data-ar="ريليه الحمل الزائد والتايمر (Overload Relay & Timer Relay)" data-en="Overload & Timer Relays">Overload & Timer Relays</span></li>
+                       <li class="flex items-center gap-2"><i class="fa-solid fa-check text-amber-400 text-[10px]"></i> <span data-ar="فشل الطور و النقاط المساعدة (Phase Failure & Auxiliary Contacts)" data-en="Phase Failure & Aux Contacts">Phase Failure & Aux Contacts</span></li>
+                       <li class="flex items-center gap-2"><i class="fa-solid fa-check text-amber-400 text-[10px]"></i> <span data-ar="نظام التحويل التلقائي (ATS Program and Application)" data-en="ATS Program & Applications">ATS Program & Applications</span></li>
+                       <li class="flex items-center gap-2"><i class="fa-solid fa-check text-amber-400 text-[10px]"></i> <span data-ar="مخطط النجمة-دلتا (Schema Star-Delta)" data-en="Star-Delta Schematic">Star-Delta Schematic</span></li>
+                       <li class="flex items-center gap-2"><i class="fa-solid fa-check text-amber-400 text-[10px]"></i> <span data-ar="برامج المحاكاة (EKTS & Simurelay Programs)" data-en="EKTS & Simurelay Programs">EKTS & Simurelay Programs</span></li>
+                   </ul>
+               </div>
+            </div>
+
+            <div class="mt-6 flex gap-3">
+                <a href="https://forms.gle/ShVDMvXgE9sNeSxz8" target="_blank" class="flex-1 bg-gold text-black py-2.5 rounded-xl font-extrabold text-xs uppercase tracking-wider flex items-center justify-center space-x-2 rtl:space-x-reverse hover:brightness-110 transition shadow-lg shadow-amber-500/15">
+                    <span data-ar="التسجيل الآن" data-en="Register Now">Register Now</span>
+                    <i class="fa-solid fa-external-link-alt text-[10px]"></i>
+                </a>
+                <a href="https://wa.me/96171967714?text=مرحباً، أهتم بدورة Classic Control" target="_blank" class="flex-1 glass-card text-emerald-400 border border-emerald-500/30 py-2.5 rounded-xl font-bold text-xs flex items-center justify-center space-x-2 rtl:space-x-reverse hover:bg-emerald-500/10 transition">
+                    <i class="fa-brands fa-whatsapp text-sm"></i>
+                    <span data-ar="استفسار واتساب" data-en="WhatsApp">WhatsApp</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript for Modals & Language Switcher -->
+    <script>
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+
+        let currentLang = 'en';
+        function toggleLanguage() {
+            currentLang = currentLang === 'en' ? 'ar' : 'en';
+            const htmlRoot = document.getElementById('htmlRoot');
+            const bodyEl = document.getElementById('bodyEl');
+            const langBtnText = document.getElementById('langBtnText');
+
+            if (currentLang === 'ar') {
+                htmlRoot.setAttribute('dir', 'rtl');
+                htmlRoot.setAttribute('lang', 'ar');
+                bodyEl.classList.remove('en-lang');
+                bodyEl.classList.add('ar-lang');
+                langBtnText.innerText = 'English';
+            } else {
+                htmlRoot.setAttribute('dir', 'ltr');
+                htmlRoot.setAttribute('lang', 'en');
+                bodyEl.classList.remove('ar-lang');
+                bodyEl.classList.add('en-lang');
+                langBtnText.innerText = 'العربية';
+            }
+
+            // Translate elements with data-ar and data-en
+            document.querySelectorAll('[data-ar]').forEach(el => {
+                const arText = el.getAttribute('data-ar');
+                const enText = el.getAttribute('data-en');
+                if (arText && enText) {
+                    el.innerText = currentLang === 'ar' ? arText : enText;
+                }
+            });
+        }
+    </script>
 </body>
 </html>
