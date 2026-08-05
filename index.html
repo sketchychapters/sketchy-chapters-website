@@ -101,8 +101,8 @@
                <span id="lang-btn-text">العربية</span>
             </button>
             
-            <!-- Projects Quick Button (Desktop) -->
-            <a href="portfolio.html" target="_blank" class="bg-gold text-black px-5 py-2 rounded-full font-bold text-xs uppercase tracking-wider hover:brightness-110 transition shadow-lg shadow-amber-500/10">
+            <!-- Projects Quick Button (Desktop Only - Hidden on Mobile) -->
+            <a href="portfolio.html" target="_blank" class="hidden xl:inline-block bg-gold text-black px-5 py-2 rounded-full font-bold text-xs uppercase tracking-wider hover:brightness-110 transition shadow-lg shadow-amber-500/10">
                <span class="lang-en">View Projects</span>
                <span class="lang-ar">المشاريع</span>
             </a>
@@ -116,7 +116,7 @@
 
     <!-- ================= MOBILE DROPDOWN MENU ================= -->
     <div id="mobileMenu" class="fixed inset-x-0 top-[76px] z-40 bg-[#121216]/95 backdrop-blur-xl border-b border-amber-500/30 p-6 hidden flex-col space-y-4 xl:hidden shadow-2xl transition-all">
-        <!-- روابط القائمة للموبايل (الثلاث نقاط) -->
+        <!-- روابط القائمة للموبايل -->
         <a href="#about" onclick="toggleMobileMenu()" class="text-white text-sm font-bold py-2 border-b border-amber-500/10 flex items-center justify-between">
             <span class="lang-en">About Us</span>
             <span class="lang-ar">عن الشركة</span>
@@ -152,13 +152,10 @@
             <span class="lang-ar">تواصل معنا</span>
             <i class="fa-solid fa-arrow-left rtl:rotate-180 text-xs gold-accent"></i>
         </a>
-        
-        <!-- باقي روابط الواتساب القديمة -->
-        <a href="https://wa.me/96171967714?text=مرحباً، أهتم بالتسجيل والاستفسار عن دورات التصميم الجرافيكي" target="_blank" class="bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 p-3 rounded-xl text-xs font-bold flex items-center justify-center space-x-2 rtl:space-x-reverse">
-            <i class="fa-brands fa-whatsapp text-base"></i>
-            <span data-ar="تواصل واتساب (Contact Us)" data-en="Contact Us (WhatsApp)">Contact Us (WhatsApp)</span>
-        </a>
     </div>
+
+</body>
+</html>
     
     <!-- Hero Section with Architectural Blueprint/Rendering Dynamic Background -->
     <section class="min-h-screen relative flex items-center justify-center pt-20">
