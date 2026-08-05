@@ -61,7 +61,7 @@
 
         <div class="flex items-center space-x-3 rtl:space-x-reverse">
             <!-- Language Switcher Button -->
-            <button onclick="toggleLanguage()" class="bg-amber-500/10 border border-amber-500/40 text-amber-300 px-3 py-1.5 rounded-xl text-xs font-bold hover:bg-amber-500/20 transition flex items-center space-x-1.5 rtl:space-x-reverse">
+            <button onclick="toggleLanguage()" id="lang-btn" class="bg-amber-500/10 border border-amber-500/40 text-amber-300 px-3 py-1.5 rounded-xl text-xs font-bold hover:bg-amber-500/20 transition flex items-center space-x-1.5 rtl:space-x-reverse">
                 <i class="fa-solid fa-globe text-sm"></i>
                 <span id="langBtnText">العربية</span>
             </button>
@@ -222,27 +222,6 @@ function updateCountdown() {
 setInterval(updateCountdown, 1000);
 updateCountdown();
 </script>
-    <nav class="fixed w-full z-50 glass-card px-6 py-4 flex justify-between items-center top-0 border-b border-amber-500/15">
-        <a href="workshop.html" class="flex items-center">
-            <img src="workshop.png" alt="Workshop Centers Sketchy Chapters Logo" class="h-10 md:h-12 w-auto object-contain" onerror="this.style.display='none'; document.getElementById('logo-fallback').style.display='block';">
-            <span id="logo-fallback" class="hidden text-xl font-black tracking-wider text-white">SKETCHY <span class="gold-accent">CHAPTERS</span></span>
-        </a>
-        <div class="hidden md:flex space-x-6 rtl:space-x-reverse text-sm font-semibold">
-            <a href="index.html" class="hover:text-amber-400 transition" data-ar="الرئيسية" data-en="Home">Home</a>
-            <a href="workshop.html" class="hover:text-amber-400 transition" data-ar="ورش العمل" data-en="Workshops">Workshops</a>
-            <a href="offers.html" class="hover:text-amber-400 transition gold-accent font-bold" data-ar="الباقات الصيفية" data-en="Summer Packages">Summer Packages</a>
-        </div>
-        <div class="flex items-center space-x-4 rtl:space-x-reverse">
-            <!-- Language Switcher Button -->
-            <button onclick="toggleLanguage()" id="lang-btn" class="glass-card text-amber-400 border border-amber-500/30 px-3 py-2 rounded-full text-xs font-bold hover:bg-amber-500/10 transition">
-                العربية
-            </button>
-            <a href="offers.html" class="glass-card text-amber-400 border border-amber-500/30 px-4 py-2 rounded-full text-xs font-bold hover:bg-amber-500/10 transition flex items-center space-x-2 rtl:space-x-reverse">
-                <i class="fa-solid fa-gift text-amber-400"></i>
-                <span data-en="Offers" data-ar="عروض الباقات">Offers</span>
-            </a>
-        </div>
-    </nav>
 
     <!-- Hero Section -->
     <section class="min-h-[50vh] relative flex items-center justify-center pt-32 px-6 text-center">
@@ -453,7 +432,7 @@ updateCountdown();
                 currentLang = 'ar';
                 html.setAttribute('dir', 'rtl');
                 html.setAttribute('lang', 'ar');
-                langBtn.innerText = 'English';
+                langBtn.innerHTML = '<i class="fa-solid fa-globe text-sm"></i> English';
                 
                 document.querySelectorAll('[data-ar]').forEach(el => {
                     el.innerText = el.getAttribute('data-ar');
@@ -467,7 +446,7 @@ updateCountdown();
                 currentLang = 'en';
                 html.setAttribute('dir', 'ltr');
                 html.setAttribute('lang', 'en');
-                langBtn.innerText = 'العربية';
+                langBtn.innerHTML = '<i class="fa-solid fa-globe text-sm"></i> <span id="langBtnText">العربية</span>';
                 
                 document.querySelectorAll('[data-en]').forEach(el => {
                     el.innerText = el.getAttribute('data-en');
