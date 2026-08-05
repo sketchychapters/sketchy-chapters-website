@@ -21,17 +21,13 @@
             color: #e0e6ed;
             overflow-x: hidden;
         }
-        .gold-accent {
-            color: #d4af37;
-        }
+        .gold-accent { color: #d4af37; }
         .gold-gradient-text {
             background: linear-gradient(135deg, #bf953f, #fcf6ba, #b38728, #fbf5b7);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
-        .bg-gold {
-            background: linear-gradient(135deg, #d4af37 0%, #aa7c11 100%);
-        }
+        .bg-gold { background: linear-gradient(135deg, #d4af37 0%, #aa7c11 100%); }
         .glass-card {
             background: rgba(18, 18, 22, 0.6);
             backdrop-filter: blur(16px);
@@ -41,13 +37,8 @@
             border-color: rgba(212, 175, 55, 0.5);
             box-shadow: 0 10px 30px -10px rgba(212, 175, 55, 0.15);
         }
-        .swiper-pagination-bullet-active {
-            background: #d4af37 !important;
-        }
-        img {
-            user-select: none;
-            -webkit-user-drag: none;
-        }
+        .swiper-pagination-bullet-active { background: #d4af37 !important; }
+        img { user-select: none; -webkit-user-drag: none; }
         
         /* Language Display Controls */
         [lang="ar"] .lang-en { display: none !important; }
@@ -65,25 +56,44 @@
     
         <!-- Desktop Navigation Links -->
         <nav class="hidden md:flex items-center space-x-6 rtl:space-x-reverse text-xs font-bold">
-            <a href="#about" class="text-gray-300 hover:text-amber-400 transition" data-ar="عن الشركة" data-en="About Us">About Us</a>
-            <a href="#objectives" class="text-gray-300 hover:text-amber-400 transition" data-ar="الأهداف" data-en="Objectives">Objectives</a>
-            <a href="#services" class="text-gray-300 hover:text-amber-400 transition" data-ar="الخدمات" data-en="Services">Services</a> 
-            <a href="#sections" class="text-gray-300 hover:text-amber-400 transition" data-ar="الخدمات" data-en="Divisions">Divisions</a>
-            <a href="portfolio.html" class="text-gray-300 hover:text-amber-400 transition gold-accent font-bold" data-ar="معرض الأعمال" data-en="Portfolio Grid">Portfolio Grid</a>
-            <a href="#contact" class="text-gray-300 hover:text-amber-400 transition" data-ar="تواصل معنا" data-en="Contact">Contact</a>        
+            <a href="#about" class="text-gray-300 hover:text-amber-400 transition">
+                <span class="lang-en">About Us</span>
+                <span class="lang-ar">عن الشركة</span>
+            </a>
+            <a href="#objectives" class="text-gray-300 hover:text-amber-400 transition">
+                <span class="lang-en">Objectives</span>
+                <span class="lang-ar">الأهداف</span>
+            </a>
+            <a href="#services" class="text-gray-300 hover:text-amber-400 transition">
+                <span class="lang-en">Services</span>
+                <span class="lang-ar">الخدمات</span>
+            </a> 
+            <a href="#sections" class="text-gray-300 hover:text-amber-400 transition">
+                <span class="lang-en">Divisions</span>
+                <span class="lang-ar">الأقسام</span>
+            </a>
+            <a href="portfolio.html" class="text-gray-300 hover:text-amber-400 transition gold-accent font-bold">
+                <span class="lang-en">Portfolio Grid</span>
+                <span class="lang-ar">معرض الأعمال</span>
+            </a>
+            <a href="#contact" class="text-gray-300 hover:text-amber-400 transition">
+                <span class="lang-en">Contact</span>
+                <span class="lang-ar">تواصل معنا</span>
+            </a>        
         </nav>
 
         <div class="flex items-center space-x-3 rtl:space-x-reverse">
-            <!-- Language Switcher Button -->
-            <button onclick="toggleLanguage()" id="lang-btn" class="glass-card text-amber-400 border border-amber-500/30 px-3 py-2 rounded-xl text-xs font-bold hover:bg-amber-500/10 transition flex items-center space-x-1.5 rtl:space-x-reverse">
+            <!-- Language Switcher Button (Corrected ID matching JS) -->
+            <button onclick="toggleLanguage()" class="glass-card text-amber-400 border border-amber-500/30 px-3 py-2 rounded-xl text-xs font-bold hover:bg-amber-500/10 transition flex items-center space-x-1.5 rtl:space-x-reverse">
                 <i class="fa-solid fa-globe text-sm"></i>
-                <span id="langBtnText">العربية</span>
+                <span id="lang-btn-text">العربية</span>
             </button>
 
-            <!-- Workshops Button (Desktop) -->
+            <!-- Workshops Button (Desktop) - Fixed Icon -->
             <a href="workshop.html" target="_blank" class="hidden md:flex bg-amber-500/10 border border-amber-500/40 text-amber-400 px-4 py-2 rounded-xl text-xs font-bold hover:bg-amber-500/20 transition items-center space-x-2 rtl:space-x-reverse">
-                <i class="fa-solid fa-course text-sm"></i>
-                <span data-ar="الدورات التدريبية" data-en="Workshop Center">Workshop Center</span>
+                <i class="fa-solid fa-graduation-cap text-sm"></i>
+                <span class="lang-en">Workshop Center</span>
+                <span class="lang-ar">الدورات التدريبية</span>
             </a>
 
             <!-- Mobile Menu Toggle Button -->
@@ -96,24 +106,39 @@
     <!-- ================= MOBILE DROPDOWN MENU ================= -->
     <div id="mobileMenu" class="fixed inset-x-0 top-[76px] z-40 bg-[#121216]/95 backdrop-blur-xl border-b border-amber-500/30 p-6 hidden flex-col space-y-4 md:hidden shadow-2xl transition-all">
         <a href="index.html" onclick="toggleMobileMenu()" class="text-white text-sm font-bold py-2 border-b border-amber-500/10 flex items-center justify-between">
-            <span data-ar="🏠 الرئيسية" data-en="🏠 Home">Home</span>
+            <span>
+                <span class="lang-en">🏠 Home</span>
+                <span class="lang-ar">🏠 الرئيسية</span>
+            </span>
             <i class="fa-solid fa-arrow-left rtl:rotate-180 text-xs gold-accent"></i>
         </a>
         <a href="workshop.html" onclick="toggleMobileMenu()" class="text-white text-sm font-bold py-2 border-b border-amber-500/10 flex items-center justify-between">
-            <span data-ar="🛠️ ورش العمل" data-en="🛠️ Workshops">Workshops</span>
+            <span>
+                <span class="lang-en">🛠️ Workshops</span>
+                <span class="lang-ar">🛠️ ورش العمل</span>
+            </span>
             <i class="fa-solid fa-arrow-left rtl:rotate-180 text-xs gold-accent"></i>
         </a>
         <a href="offers.html" onclick="toggleMobileMenu()" class="text-white text-sm font-bold py-2 border-b border-amber-500/10 flex items-center justify-between">
-            <span data-ar="🔥 الباقات الصيفية" data-en="🔥 Summer Packages">Summer Packages</span>
+            <span>
+                <span class="lang-en">🔥 Summer Packages</span>
+                <span class="lang-ar">🔥 الباقات الصيفية</span>
+            </span>
             <i class="fa-solid fa-arrow-left rtl:rotate-180 text-xs gold-accent"></i>
         </a>
-        <a href="oea-courses.html" class="text-white text-sm font-bold py-2 border-b border-amber-500/10 flex items-center justify-between">
-            <span data-ar="🏛️ دورات نقابة المهندسين" data-en="🏛️ OEA Courses">OEA Courses</span>
+        <a href="oea-courses.html" onclick="toggleMobileMenu()" class="text-white text-sm font-bold py-2 border-b border-amber-500/10 flex items-center justify-between">
+            <span>
+                <span class="lang-en">🏛️ OEA Courses</span>
+                <span class="lang-ar">🏛️ دورات نقابة المهندسين</span>
+            </span>
             <i class="fa-solid fa-arrow-left rtl:rotate-180 text-xs gold-accent"></i>
         </a>
         <a href="https://wa.me/96171967714?text=مرحباً، أهتم بالتسجيل والاستفسار عن دورات التصميم الجرافيكي" target="_blank" class="bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 p-3 rounded-xl text-xs font-bold flex items-center justify-center space-x-2 rtl:space-x-reverse">
             <i class="fa-brands fa-whatsapp text-base"></i>
-            <span data-ar="تواصل واتساب (Contact Us)" data-en="Contact Us (WhatsApp)">Contact Us (WhatsApp)</span>
+            <span>
+                <span class="lang-en">Contact Us (WhatsApp)</span>
+                <span class="lang-ar">تواصل واتساب (Contact Us)</span>
+            </span>
         </a>
     </div>
     
