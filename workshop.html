@@ -49,7 +49,7 @@
             <div class="absolute -right-10 -bottom-10 w-32 h-32 bg-amber-500/10 rounded-full blur-xl"></div>
             <div class="mb-4 sm:mb-0 text-center sm:text-start rtl:sm:text-right">
                 <div class="flex items-center justify-center sm:justify-start rtl:sm:justify-end gap-2 mb-1">
-                    <span class="bg-gold text-black text-[10px] font-black px-2 py-0.5 rounded uppercase animate-pulse" data-ar="عرض محدود" data-en="Limited Offer">Limited Offer</span>
+                    <span class="bg-amber-500 text-black text-[10px] font-black px-2 py-0.5 rounded uppercase animate-pulse" data-ar="عرض محدود" data-en="Limited Offer">Limited Offer</span>
                     <span class="gold-accent text-xs font-bold uppercase" data-ar="انتهاء الباقات الصيفية" data-en="Summer Packages Ending">Summer Packages Ending</span>
                 </div>
                 <h4 class="text-white font-black text-lg md:text-xl" data-ar="سارع بحجز باقتك قبل تغيير الأسعار!" data-en="Hurry & Book Before Prices Change!">Hurry & Book Before Prices Change!</h4>
@@ -79,17 +79,21 @@
             </div>
         </a>
 
-        <!-- 2. Scrolling Marquee Banner (OEA Joint Courses) -->
+        <!-- 2. Scrolling Marquee Banner (OEA Joint Courses with Logos) -->
         <a href="oea-courses.html" class="glass-card rounded-3xl p-5 md:p-6 border border-amber-500/40 bg-gradient-to-r from-black/90 via-amber-950/20 to-black/90 flex items-center justify-between group hover:border-amber-500 transition duration-300 overflow-hidden relative">
             <div class="flex items-center space-x-3 rtl:space-x-reverse w-full overflow-hidden">
-                <div class="w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-500/30 flex-shrink-0 flex items-center justify-center">
-                    <i class="fa-solid fa-handshake gold-accent text-lg"></i>
+                
+                <!-- Logos Box (Workshop & OEA) -->
+                <div class="flex items-center gap-2 flex-shrink-0 bg-black/40 border border-amber-500/30 p-1.5 rounded-xl">
+                    <img src="workshop.png" alt="Workshop Logo" class="w-8 h-8 object-contain rounded-lg">
+                    <span class="text-amber-500 font-bold">+</span>
+                    <img src="oea.png" alt="OEA Logo" class="w-8 h-8 object-contain rounded-lg">
                 </div>
                 
                 <!-- Moving Text Container -->
                 <div class="relative w-full overflow-hidden whitespace-nowrap" dir="auto">
-                    <div class="inline-block animate-[marquee_12s_linear_infinite] text-xs md:text-sm font-bold text-white group-hover:text-amber-300 transition" dir="ltr">
-                        <span>✨ Joint Courses with the Order of Engineers - Tripoli - Click here to explore ✨ / ✨ دورات مشتركة مع نقابة المهندسين في طرابلس - اضغط هنا للاستعراض والتسجيل ✨</span>
+                    <div class="inline-block animate-[marquee_14s_linear_infinite] text-xs md:text-sm font-bold text-white group-hover:text-amber-300 transition" dir="ltr">
+                        <span>✨ Joint Courses with the Order of Engineers - Tripoli - Click here to explore ✨ &nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp; ✨ دورات مشتركة مع نقابة المهندسين في طرابلس - اضغط هنا للاستعراض والتسجيل ✨</span>
                     </div>
                 </div>
             </div>
@@ -117,7 +121,6 @@
 <!-- JavaScript for Countdown Timer to August 18 -->
 <script>
 function updateCountdown() {
-    // تحديد تاريخ الانتهاء: 18 آب 2026 الساعة 23:59:59
     const targetDate = new Date('August 18, 2026 23:59:59').getTime();
     const now = new Date().getTime();
     const gap = targetDate - now;
