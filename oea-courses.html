@@ -66,7 +66,7 @@
 
             <!-- Mobile Menu Toggle Button -->
             <button onclick="toggleMobileMenu()" class="md:hidden w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-500/40 text-amber-300 flex items-center justify-center text-lg hover:bg-amber-500/20 transition">
-                <i class="fa-solid fa-ellipsis-vertical"></i>
+                <i class="fa-solid fa-ellipsis-vertical" id="mobileMenuIcon"></i>
             </button>
         </div>
     </header>
@@ -89,14 +89,14 @@
             <span data-ar="🏛️ دورات نقابة المهندسين" data-en="🏛️ OEA Courses">OEA Courses</span>
             <i class="fa-solid fa-arrow-left rtl:rotate-180 text-xs gold-accent"></i>
         </a>
-        <a href="https://wa.me/96171967714?text=مرحباً، أهتم بالتسجيل والاستفسار عن دورات مايكروسوفت" target="_blank" class="bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 p-3 rounded-xl text-xs font-bold flex items-center justify-center space-x-2 rtl:space-x-reverse">
+        <a href="https://wa.me/96171967714?text=مرحباً، أهتم بالتسجيل والاستفسار عن الدورات" target="_blank" class="bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 p-3 rounded-xl text-xs font-bold flex items-center justify-center space-x-2 rtl:space-x-reverse">
             <i class="fa-brands fa-whatsapp text-base"></i>
             <span data-ar="تواصل واتساب (Contact Us)" data-en="Contact Us (WhatsApp)">Contact Us (WhatsApp)</span>
         </a>
     </div>
     
     <!-- ================= MAIN CONTENT ================= -->
-    <main class="flex-grow container mx-auto px-4 py-12 max-w-6xl">
+    <main class="flex-grow container mx-auto px-4 py-32 max-w-6xl">
         <!-- Title Section -->
         <div class="text-center mb-12">
             <span class="text-xs gold-accent font-extrabold tracking-widest uppercase bg-amber-500/10 px-3 py-1 rounded-full border border-amber-500/20 inline-block mb-3" data-ar="دورات نقابة المهندسين المعتمدة (OEA)" data-en="OEA Certified Training Programs">OEA Certified Training Programs</span>
@@ -165,7 +165,7 @@
             
             <div class="flex items-center space-x-3 rtl:space-x-reverse mb-4">
                <div class="w-12 h-12 rounded-xl glass-card flex items-center justify-center p-2 border border-amber-500/30 overflow-hidden">
-                   <img src="lumion.png" alt="Lumion" class="w-full h-full object-contain">
+                    <img src="lumion.png" alt="Lumion" class="w-full h-full object-contain">
                </div>
                <div>
                    <span class="text-[10px] gold-accent font-bold uppercase" data-ar="دورات معتمدة من نقابة المهندسين" data-en="OEA Certified Training">OEA Certified Training</span>
@@ -197,7 +197,7 @@
                    <div class="bg-amber-500/10 border border-amber-500/20 p-3 rounded-xl text-amber-300">
                        <span class="font-bold block mb-1" data-ar="طرق التسجيل والاستعلام:" data-en="Registration & Inquiry Methods:">Registration & Inquiry Methods:</span>
                        <ul class="list-disc list-inside space-y-1 text-gray-300 font-light">
-                           <li data-ar="عبر واتساب أو الاتصال بالمهندسة لينا دبوسي: 70017117 961+" data-en="Via WhatsApp or call Eng. Lina Dabboussy: +961 70017117">+961 70017117</li>
+                           <li data-ar="عبر واتساب أو الاتصال بالمهندسة لينا دبوسي: 96170017117+" data-en="Via WhatsApp or call Eng. Lina Dabboussy: +961 70017117">+961 70017117</li>
                            <li data-ar="عبر موقع نقابة المهندسين: oea.tripoli.org.lb/trainings" data-en="Via OEA website: oea.tripoli.org.lb/trainings">oea.tripoli.org.lb/trainings</li>
                            <li data-ar="أو زيارة مركز التدريب في مبنى النقابة (الجميزات) والتسجيل مباشرة." data-en="Or visit the training center at the OEA building in Gemmayzeh to register in person.">Visit the Training Center at the OEA building (Gemmayzeh).</li>
                        </ul>
@@ -229,50 +229,68 @@
 
     <!-- ================= JAVASCRIPT ================= -->
     <script>
-        let currentLang = 'en';
-
         function toggleLanguage() {
             const htmlRoot = document.getElementById('htmlRoot');
             const bodyEl = document.getElementById('bodyEl');
             const langBtnText = document.getElementById('langBtnText');
-
-            if (currentLang === 'en') {
-                currentLang = 'ar';
+            
+            if (htmlRoot.getAttribute('dir') === 'ltr') {
                 htmlRoot.setAttribute('dir', 'rtl');
                 htmlRoot.setAttribute('lang', 'ar');
                 bodyEl.classList.remove('en-lang');
                 bodyEl.classList.add('ar-lang');
                 langBtnText.innerText = 'English';
+                
+                document.querySelectorAll('[data-ar]').forEach(el => {
+                    if (el.hasAttribute('data-ar')) {
+                        el.innerText = el.getAttribute('data-ar');
+                    }
+                });
             } else {
-                currentLang = 'en';
                 htmlRoot.setAttribute('dir', 'ltr');
                 htmlRoot.setAttribute('lang', 'en');
                 bodyEl.classList.remove('ar-lang');
                 bodyEl.classList.add('en-lang');
                 langBtnText.innerText = 'العربية';
+                
+                document.querySelectorAll('[data-en]').forEach(el => {
+                    if (el.hasAttribute('data-en')) {
+                        el.innerText = el.getAttribute('data-en');
+                    }
+                });
             }
+        }
 
-            // Swap all elements with data-ar and data-en
-            const translatableElements = document.querySelectorAll('[data-ar][data-en]');
-            translatableElements.forEach(el => {
-                const arText = el.getAttribute('data-ar');
-                const enText = el.getAttribute('data-en');
-                if (currentLang === 'ar') {
-                    el.innerText = arText;
-                } else {
-                    el.innerText = enText;
-                }
-            });
+        function toggleMobileMenu() {
+            const mobileMenu = document.getElementById('mobileMenu');
+            const menuIcon = document.getElementById('mobileMenuIcon');
+            if (mobileMenu.classList.contains('hidden')) {
+                mobileMenu.classList.remove('hidden');
+                mobileMenu.classList.add('flex');
+                menuIcon.classList.remove('fa-ellipsis-vertical');
+                menuIcon.classList.add('fa-xmark');
+            } else {
+                mobileMenu.classList.remove('flex');
+                mobileMenu.classList.add('hidden');
+                menuIcon.classList.remove('fa-xmark');
+                menuIcon.classList.add('fa-ellipsis-vertical');
+            }
         }
 
         function openModal(modalId) {
-            document.getElementById(modalId).classList.remove('hidden');
-            document.body.style.overflow = 'hidden';
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+            }
         }
 
         function closeModal(modalId) {
-            document.getElementById(modalId).classList.add('hidden');
-            document.body.style.overflow = 'auto';
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.classList.add('hidden');
+                document.body.style.overflow = 'auto';
+            }
         }
 
         // Close modal when clicking outside content
