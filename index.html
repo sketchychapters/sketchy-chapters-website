@@ -56,104 +56,63 @@
 </head>
 <body class="selection:bg-amber-500 selection:text-black">
 
-    <!-- Header Navigation -->
-    <nav class="fixed w-full z-50 glass-card px-6 py-4 flex justify-between items-center top-0 border-b border-amber-500/15">
-        <a href="index.html" class="flex items-center space-x-3 rtl:space-x-reverse">
-            <img src="logo.png" alt="SCDC Logo" class="h-10 md:h-12 w-auto object-contain" onerror="this.style.display='none'; document.getElementById('logo-fallback').style.display='block';">
+    <!-- ================= HEADER / NAVIGATION ================= -->
+    <header class="glass-card fixed top-0 w-full z-50 border-b border-amber-500/15 py-4 px-6 md:px-12 flex items-center justify-between">
+        <a href="workshop.html" class="flex items-center space-x-3 rtl:space-x-reverse">
+            <img src="workshop.png" alt="Workshop Logo" class="h-10 md:h-12 w-auto object-contain" onerror="this.style.display='none'; document.getElementById('logo-fallback').style.display='block';">
             <span id="logo-fallback" class="hidden text-xl font-black tracking-wider text-white">SKETCHY <span class="gold-accent">CHAPTERS</span></span>
         </a>
+    
+        <!-- Desktop Navigation Links -->
+        <nav class="hidden md:flex items-center space-x-6 rtl:space-x-reverse text-xs font-bold">
+            <a href="index.html" class="text-gray-300 hover:text-amber-400 transition" data-ar="الرئيسية" data-en="Home">Home</a>
+            <a href="workshop.html" class="text-gray-300 hover:text-amber-400 transition" data-ar="ورش العمل" data-en="Workshops">Workshops</a>
+            <a href="offers.html" class="text-gray-300 hover:text-amber-400 transition gold-accent font-bold" data-ar="الباقات الصيفية" data-en="Summer Packages">Summer Packages</a>
+        </nav>
 
-        <div class="hidden xl:flex space-x-6 rtl:space-x-reverse text-sm font-semibold tracking-wide">
-            <a href="#about" class="hover:text-amber-400 transition">
-               <span class="lang-en">About Us</span>
-               <span class="lang-ar">عن الشركة</span>
-            </a>
-            <a href="#objectives" class="hover:text-amber-400 transition">
-               <span class="lang-en">Objectives</span>
-               <span class="lang-ar">الأهداف</span>
-            </a>
-            <a href="#services" class="hover:text-amber-400 transition">
-               <span class="lang-en">Services</span>
-               <span class="lang-ar">الخدمات</span>
-            </a>
-            <a href="#sections" class="hover:text-amber-400 transition">
-               <span class="lang-en">Divisions</span>
-               <span class="lang-ar">الأقسام</span>
-            </a>
-            <a href="portfolio.html" target="_blank" class="gold-accent hover:underline font-bold transition">
-               <span class="lang-en">Portfolio Grid</span>
-               <span class="lang-ar">معرض الأعمال</span>
-            </a>
-            <a href="workshop.html" target="_blank" class="hover:underline font-bold transition">
-               <span class="lang-en">Workshop Center</span>
-               <span class="lang-ar">الدورات التدريبية</span>
-            </a>
-            <a href="#contact" class="hover:text-amber-400 transition">
-               <span class="lang-en">Contact</span>
-               <span class="lang-ar">تواصل معنا</span>
-            </a>
-        </div>
-
-        <div class="flex items-center space-x-4 rtl:space-x-reverse">
+        <div class="flex items-center space-x-3 rtl:space-x-reverse">
             <!-- Language Switcher Button -->
-            <button onclick="toggleLanguage()" class="glass-card px-3.5 py-1.5 rounded-full text-xs font-bold text-amber-400 border border-amber-500/30 hover:bg-amber-500/20 transition flex items-center gap-1.5">
-                <i class="fa-solid fa-globe"></i>
-               <span id="lang-btn-text">العربية</span>
+            <button onclick="toggleLanguage()" id="lang-btn" class="glass-card text-amber-400 border border-amber-500/30 px-3 py-2 rounded-xl text-xs font-bold hover:bg-amber-500/10 transition flex items-center space-x-1.5 rtl:space-x-reverse">
+                <i class="fa-solid fa-globe text-sm"></i>
+                <span id="langBtnText">العربية</span>
             </button>
-            
-            <!-- Projects Quick Button (Desktop Only - Hidden on Mobile) -->
-            <a href="portfolio.html" target="_blank" class="hidden xl:inline-block bg-gold text-black px-5 py-2 rounded-full font-bold text-xs uppercase tracking-wider hover:brightness-110 transition shadow-lg shadow-amber-500/10">
-               <span class="lang-en">View Projects</span>
-               <span class="lang-ar">المشاريع</span>
+
+            <!-- WhatsApp Quick Button (Desktop) -->
+            <a href="https://wa.me/96171967714?text=مرحباً، أهتم بالتسجيل والاستفسار عن الدورات" target="_blank" class="hidden md:flex bg-amber-500/10 border border-amber-500/40 text-amber-400 px-4 py-2 rounded-xl text-xs font-bold hover:bg-amber-500/20 transition items-center space-x-2 rtl:space-x-reverse">
+                <i class="fa-brands fa-whatsapp text-sm"></i>
+                <span data-ar="استفسار فوري" data-en="Instant Inquiry">Instant Inquiry</span>
             </a>
 
             <!-- Mobile Menu Toggle Button -->
-            <button onclick="toggleMobileMenu()" class="xl:hidden w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-500/40 text-amber-300 flex items-center justify-center text-lg hover:bg-amber-500/20 transition">
+            <button onclick="toggleMobileMenu()" class="md:hidden w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-500/40 text-amber-300 flex items-center justify-center text-lg hover:bg-amber-500/20 transition">
                 <i class="fa-solid fa-ellipsis-vertical"></i>
             </button>
         </div>
-    </nav>
+    </header>
 
     <!-- ================= MOBILE DROPDOWN MENU ================= -->
-    <div id="mobileMenu" class="fixed inset-x-0 top-[76px] z-40 bg-[#121216]/95 backdrop-blur-xl border-b border-amber-500/30 p-6 hidden flex-col space-y-4 xl:hidden shadow-2xl transition-all">
-        <!-- روابط القائمة للموبايل -->
-        <a href="#about" onclick="toggleMobileMenu()" class="text-white text-sm font-bold py-2 border-b border-amber-500/10 flex items-center justify-between">
-            <span class="lang-en">About Us</span>
-            <span class="lang-ar">عن الشركة</span>
+    <div id="mobileMenu" class="fixed inset-x-0 top-[76px] z-40 bg-[#121216]/95 backdrop-blur-xl border-b border-amber-500/30 p-6 hidden flex-col space-y-4 md:hidden shadow-2xl transition-all">
+        <a href="index.html" onclick="toggleMobileMenu()" class="text-white text-sm font-bold py-2 border-b border-amber-500/10 flex items-center justify-between">
+            <span data-ar="🏠 الرئيسية" data-en="🏠 Home">Home</span>
             <i class="fa-solid fa-arrow-left rtl:rotate-180 text-xs gold-accent"></i>
         </a>
-        <a href="#objectives" onclick="toggleMobileMenu()" class="text-white text-sm font-bold py-2 border-b border-amber-500/10 flex items-center justify-between">
-            <span class="lang-en">Objectives</span>
-            <span class="lang-ar">الأهداف</span>
+        <a href="workshop.html" onclick="toggleMobileMenu()" class="text-white text-sm font-bold py-2 border-b border-amber-500/10 flex items-center justify-between">
+            <span data-ar="🛠️ ورش العمل" data-en="🛠️ Workshops">Workshops</span>
             <i class="fa-solid fa-arrow-left rtl:rotate-180 text-xs gold-accent"></i>
         </a>
-        <a href="#services" onclick="toggleMobileMenu()" class="text-white text-sm font-bold py-2 border-b border-amber-500/10 flex items-center justify-between">
-            <span class="lang-en">Services</span>
-            <span class="lang-ar">الخدمات</span>
+        <a href="offers.html" onclick="toggleMobileMenu()" class="text-white text-sm font-bold py-2 border-b border-amber-500/10 flex items-center justify-between">
+            <span data-ar="🔥 الباقات الصيفية" data-en="🔥 Summer Packages">Summer Packages</span>
             <i class="fa-solid fa-arrow-left rtl:rotate-180 text-xs gold-accent"></i>
         </a>
-        <a href="#sections" onclick="toggleMobileMenu()" class="text-white text-sm font-bold py-2 border-b border-amber-500/10 flex items-center justify-between">
-            <span class="lang-en">Divisions</span>
-            <span class="lang-ar">الأقسام</span>
+        <a href="oea-courses.html" class="text-white text-sm font-bold py-2 border-b border-amber-500/10 flex items-center justify-between">
+            <span data-ar="🏛️ دورات نقابة المهندسين" data-en="🏛️ OEA Courses">OEA Courses</span>
             <i class="fa-solid fa-arrow-left rtl:rotate-180 text-xs gold-accent"></i>
         </a>
-        <a href="portfolio.html" target="_blank" class="gold-accent text-sm font-bold py-2 border-b border-amber-500/10 flex items-center justify-between">
-            <span class="lang-en">Portfolio Grid</span>
-            <span class="lang-ar">معرض الأعمال</span>
-            <i class="fa-solid fa-arrow-left rtl:rotate-180 text-xs gold-accent"></i>
-        </a>
-        <a href="workshop.html" target="_blank" class="text-white text-sm font-bold py-2 border-b border-amber-500/10 flex items-center justify-between">
-            <span class="lang-en">Workshop Center</span>
-            <span class="lang-ar">الدورات التدريبية</span>
-            <i class="fa-solid fa-arrow-left rtl:rotate-180 text-xs gold-accent"></i>
-        </a>
-        <a href="#contact" onclick="toggleMobileMenu()" class="text-white text-sm font-bold py-2 border-b border-amber-500/10 flex items-center justify-between">
-            <span class="lang-en">Contact</span>
-            <span class="lang-ar">تواصل معنا</span>
-            <i class="fa-solid fa-arrow-left rtl:rotate-180 text-xs gold-accent"></i>
+        <a href="https://wa.me/96171967714?text=مرحباً، أهتم بالتسجيل والاستفسار عن دورات مايكروسوفت" target="_blank" class="bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 p-3 rounded-xl text-xs font-bold flex items-center justify-center space-x-2 rtl:space-x-reverse">
+            <i class="fa-brands fa-whatsapp text-base"></i>
+            <span data-ar="تواصل واتساب (Contact Us)" data-en="Contact Us (WhatsApp)">Contact Us (WhatsApp)</span>
         </a>
     </div>
-    </header>
 
     <!-- Hero Section with Architectural Blueprint/Rendering Dynamic Background -->
     <section class="min-h-screen relative flex items-center justify-center pt-20">
