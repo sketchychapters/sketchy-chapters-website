@@ -1,464 +1,70 @@
-<!DOCTYPE html>
-<html lang="en" dir="ltr" class="scroll-smooth">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Training Departments | Sketchy Chapters Workshop Center</title>
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;500;700;900&display=swap" rel="stylesheet">
-    <!-- Font Awesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        body {
-            font-family: 'Tajawal', sans-serif;
-            background-color: #08080a;
-            color: #e0e6ed;
-            overflow-x: hidden;
-        }
-        .gold-accent { color: #d4af37; }
-        .gold-gradient-text {
-            background: linear-gradient(135deg, #bf953f, #fcf6ba, #b38728, #fbf5b7);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        .bg-gold { background: linear-gradient(135deg, #d4af37 0%, #aa7c11 100%); }
-        .glass-card {
-            background: rgba(18, 18, 22, 0.6);
-            backdrop-filter: blur(16px);
-            border: 1px solid rgba(212, 175, 55, 0.15);
-            transition: all 0.3s ease;
-        }
-        .glass-card:hover {
-            border-color: rgba(212, 175, 55, 0.5);
-            box-shadow: 0 10px 30px -10px rgba(212, 175, 55, 0.2);
-            transform: translateY(-5px);
-        }
-    </style>
-</head>
-<body class="selection:bg-amber-500 selection:text-black">
-
-    <!-- Navigation Bar -->
-    <!-- ================= HEADER ================= -->
-    <header class="glass-card sticky top-0 z-50 border-b border-amber-500/20 py-4 px-6 md:px-12 flex items-center justify-between">
-        <div class="flex items-center space-x-3 rtl:space-x-reverse">
-            <div class="w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center">
-                <i class="fa-solid fa-compass-drafting gold-accent text-lg"></i>
-            </div>
-            <div>
-               <span class="text-xs text-amber-400 font-bold tracking-widest block uppercase">Sketchy Chapters</span>
-                <h1 class="text-sm font-black text-white" data-ar="مركز التدريب الهندسي" data-en="Engineering Training Center">Engineering Training Center</h1>
-            </div>
+<!-- ================= HEADER ================= -->
+<header class="glass-card sticky top-0 z-50 border-b border-amber-500/20 py-4 px-6 md:px-12 flex items-center justify-between">
+    <div class="flex items-center space-x-3 rtl:space-x-reverse">
+        <div class="w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center">
+            <i class="fa-solid fa-compass-drafting gold-accent text-lg"></i>
         </div>
-    
-        <!-- Desktop Navigation Links (تظهر على شاشات الكبيوتر فقط) -->
-        <nav class="hidden md:flex items-center space-x-6 rtl:space-x-reverse text-xs font-bold">
-            <a href="#courses" class="text-gray-300 hover:text-amber-400 transition" data-ar="الدورات" data-en="Courses">Courses</a>
-            <a href="oea-courses.html" class="text-gray-300 hover:text-amber-400 transition" data-ar="دورات النقابة" data-en="OEA Courses">OEA Courses</a>
-            <a href="offers.html" class="text-gray-300 hover:text-amber-400 transition" data-ar="العروض الصيفية" data-en="Offers">Offers</a>
-        </nav>
-
-        <div class="flex items-center space-x-3 rtl:space-x-reverse">
-            <!-- Language Switcher Button -->
-            <button onclick="toggleLanguage()" id="lang-btn" class="bg-amber-500/10 border border-amber-500/40 text-amber-300 px-3 py-1.5 rounded-xl text-xs font-bold hover:bg-amber-500/20 transition flex items-center space-x-1.5 rtl:space-x-reverse">
-                <i class="fa-solid fa-globe text-sm"></i>
-                <span id="langBtnText">العربية</span>
-            </button>
-
-            <!-- WhatsApp Quick Button (Desktop) -->
-            <a href="https://wa.me/96171967714?text=مرحباً، أهتم بالتسجيل والاستفسار عن دورات العمارة" target="_blank" class="hidden md:flex bg-amber-500/10 border border-amber-500/40 text-amber-400 px-4 py-2 rounded-xl text-xs font-bold hover:bg-amber-500/20 transition items-center space-x-2 rtl:space-x-reverse">
-                <i class="fa-brands fa-whatsapp text-sm"></i>
-                <span data-ar="استفسار فوري" data-en="Instant Inquiry">Instant Inquiry</span>
-            </a>
-
-            <!-- Mobile Menu Toggle Button -->
-            <button onclick="toggleMobileMenu()" class="md:hidden w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-500/40 text-amber-300 flex items-center justify-center text-lg hover:bg-amber-500/20 transition">
-                <i class="fa-solid fa-ellipsis-vertical"></i>
-            </button>
+        <div>
+           <span class="text-xs text-amber-400 font-bold tracking-widest block uppercase">Sketchy Chapters</span>
+            <h1 class="text-sm font-black text-white" data-ar="مركز التدريب الهندسي" data-en="Engineering Training Center">Engineering Training Center</h1>
         </div>
-    </header>
-
-    <!-- ================= MOBILE DROPDOWN MENU ================= -->
-    <div id="mobileMenu" class="fixed inset-x-0 top-[76px] z-40 bg-[#121216]/95 backdrop-blur-xl border-b border-amber-500/30 p-6 hidden flex-col space-y-4 md:hidden shadow-2xl transition-all">
-        <a href="index.html" onclick="toggleMobileMenu()" class="text-white text-sm font-bold py-2 border-b border-amber-500/10 flex items-center justify-between">
-            <span data-ar="🏠 الرئيسية" data-en="🏠 Home">Home</span>
-            <i class="fa-solid fa-arrow-left rtl:rotate-180 text-xs gold-accent"></i>
-        </a>
-        <a href="workshop.html" onclick="toggleMobileMenu()" class="text-white text-sm font-bold py-2 border-b border-amber-500/10 flex items-center justify-between">
-            <span data-ar="🛠️ ورش العمل" data-en="🛠️ Workshops">Workshops</span>
-            <i class="fa-solid fa-arrow-left rtl:rotate-180 text-xs gold-accent"></i>
-        </a>
-        <a href="offers.html" onclick="toggleMobileMenu()" class="text-white text-sm font-bold py-2 border-b border-amber-500/10 flex items-center justify-between">
-            <span data-ar="🔥 الباقات الصيفية" data-en="🔥 Summer Packages">Summer Packages</span>
-            <i class="fa-solid fa-arrow-left rtl:rotate-180 text-xs gold-accent"></i>
-        </a>
-        <a href="oea-courses.html" class="text-white text-sm font-bold py-2 border-b border-amber-500/10 flex items-center justify-between">
-            <span data-ar="🏛️ دورات نقابة المهندسين" data-en="🏛️ OEA Courses">OEA Courses</span>
-            <i class="fa-solid fa-arrow-left rtl:rotate-180 text-xs gold-accent"></i>
-        </a>
-        <a href="https://wa.me/96171967714?text=مرحباً، أهتم بالتسجيل والاستفسار عن الدورات" target="_blank" class="bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 p-3 rounded-xl text-xs font-bold flex items-center justify-center space-x-2 rtl:space-x-reverse">
-            <i class="fa-brands fa-whatsapp text-base"></i>
-            <span data-ar="تواصل واتساب (Contact Us)" data-en="Contact Us (WhatsApp)">Contact Us (WhatsApp)</span>
-        </a>
     </div>
-
-    <script>
-    function toggleMobileMenu() {
-        const menu = document.getElementById('mobileMenu');
-        menu.classList.toggle('hidden');
-        menu.classList.toggle('flex');
-    }
-    </script>
     
-    <!-- ================= DYNAMIC PROMO SECTION ================= -->
-<section class="max-w-7xl mx-auto px-6 pt-24 pb-6">
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
-        
-        <!-- 1. Countdown Banner (Summer Packages Offer) -->
-        <a href="offers.html" class="glass-card rounded-3xl p-5 md:p-6 border border-amber-500/40 bg-gradient-to-r from-amber-500/10 via-black/60 to-black/90 flex flex-col sm:flex-row items-center justify-between group hover:border-amber-500 transition duration-300 relative overflow-hidden">
-            <div class="absolute -right-10 -bottom-10 w-32 h-32 bg-amber-500/10 rounded-full blur-xl"></div>
-            <div class="mb-4 sm:mb-0 text-center sm:text-start rtl:sm:text-right">
-                <div class="flex items-center justify-center sm:justify-start rtl:sm:justify-end gap-2 mb-1">
-                    <span class="bg-amber-500 text-black text-[10px] font-black px-2 py-0.5 rounded uppercase animate-pulse" data-ar="عرض محدود" data-en="Limited Offer">Limited Offer</span>
-                    <span class="gold-accent text-xs font-bold uppercase" data-ar="انتهاء الباقات الصيفية" data-en="Summer Packages Ending">Summer Packages Ending</span>
-                </div>
-                <h4 class="text-white font-black text-lg md:text-xl" data-ar="سارع بحجز باقتك !" data-en="Hurry & Book!">Hurry & Book!</h4>
-            </div>
-            
-            <!-- Countdown Timer Container -->
-            <div id="countdown" class="flex items-center gap-2 text-center">
-                <div class="bg-black/60 border border-amber-500/30 rounded-xl px-2.5 py-1.5 min-w-[45px]">
-                    <span id="days" class="text-amber-400 font-black text-base block">00</span>
-                    <span class="text-[9px] text-gray-400 uppercase" data-ar="يوم" data-en="Days">Days</span>
-                </div>
-                <span class="gold-accent font-bold">:</span>
-                <div class="bg-black/60 border border-amber-500/30 rounded-xl px-2.5 py-1.5 min-w-[45px]">
-                    <span id="hours" class="text-amber-400 font-black text-base block">00</span>
-                    <span class="text-[9px] text-gray-400 uppercase" data-ar="ساعة" data-en="Hrs">Hrs</span>
-                </div>
-                <span class="gold-accent font-bold">:</span>
-                <div class="bg-black/60 border border-amber-500/30 rounded-xl px-2.5 py-1.5 min-w-[45px]">
-                    <span id="minutes" class="text-amber-400 font-black text-base block">00</span>
-                    <span class="text-[9px] text-gray-400 uppercase" data-ar="دقيقة" data-en="Min">Min</span>
-                </div>
-                <span class="gold-accent font-bold">:</span>
-                <div class="bg-black/60 border border-amber-500/30 rounded-xl px-2.5 py-1.5 min-w-[45px]">
-                    <span id="seconds" class="text-amber-400 font-black text-base block">00</span>
-                    <span class="text-[9px] text-gray-400 uppercase" data-ar="ثانية" data-en="Sec">Sec</span>
-                </div>
-            </div>
+    <!-- Desktop Navigation Links (تظهر على شاشات الكبيوتر فقط) -->
+    <nav class="hidden md:flex items-center space-x-6 rtl:space-x-reverse text-xs font-bold">
+        <a href="#courses" class="text-gray-300 hover:text-amber-400 transition" data-ar="الدورات" data-en="Courses">Courses</a>
+        <a href="oea-courses.html" class="text-gray-300 hover:text-amber-400 transition" data-ar="دورات النقابة" data-en="OEA Courses">OEA Courses</a>
+        <a href="offers.html" class="text-gray-300 hover:text-amber-400 transition" data-ar="العروض الصيفية" data-en="Offers">Offers</a>
+    </nav>
+
+    <div class="flex items-center space-x-3 rtl:space-x-reverse">
+        <!-- Language Switcher Button -->
+        <button onclick="toggleLanguage()" class="bg-amber-500/10 border border-amber-500/40 text-amber-300 px-3 py-1.5 rounded-xl text-xs font-bold hover:bg-amber-500/20 transition flex items-center space-x-1.5 rtl:space-x-reverse">
+            <i class="fa-solid fa-globe text-sm"></i>
+            <span id="langBtnText">العربية</span>
+        </button>
+
+        <!-- WhatsApp Quick Button (Desktop) -->
+        <a href="https://wa.me/96171967714?text=مرحباً، أهتم بالتسجيل والاستفسار عن دورات العمارة" target="_blank" class="hidden md:flex bg-amber-500/10 border border-amber-500/40 text-amber-400 px-4 py-2 rounded-xl text-xs font-bold hover:bg-amber-500/20 transition items-center space-x-2 rtl:space-x-reverse">
+            <i class="fa-brands fa-whatsapp text-sm"></i>
+            <span data-ar="استفسار فوري" data-en="Instant Inquiry">Instant Inquiry</span>
         </a>
 
-        <!-- 2. Scrolling Marquee Banner (OEA Joint Courses with Logos) -->
-        <a href="oea-courses.html" class="glass-card rounded-3xl p-5 md:p-6 border border-amber-500/40 bg-gradient-to-r from-black/90 via-amber-950/20 to-black/90 flex items-center justify-between group hover:border-amber-500 transition duration-300 overflow-hidden relative">
-            <div class="flex items-center space-x-3 rtl:space-x-reverse w-full overflow-hidden">
-                
-                <!-- Logos Box (Workshop & OEA) -->
-                <div class="flex items-center gap-2 flex-shrink-0 bg-black/40 border border-amber-500/30 p-1.5 rounded-xl">
-                    <img src="workshop logo.png" alt="Workshop Logo" class="w-8 h-8 object-contain rounded-lg">
-                    <span class="text-amber-500 font-bold">+</span>
-                    <img src="oea.png" alt="OEA Logo" class="w-8 h-8 object-contain rounded-lg">
-                </div>
-                
-                <!-- Moving Text Container -->
-                <div class="relative w-full overflow-hidden whitespace-nowrap" dir="auto">
-                    <div class="inline-block animate-[marquee_14s_linear_infinite] text-xs md:text-sm font-bold text-white group-hover:text-amber-300 transition" dir="ltr">
-                        <span>✨ Joint Courses with the Order of Engineers - Tripoli - Click here to explore ✨ &nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp; ✨ دورات مشتركة مع نقابة المهندسين في طرابلس - اضغط هنا للاستعراض والتسجيل ✨</span>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="flex-shrink-0 ms-3">
-                <i class="fa-solid fa-arrow-left rtl:rotate-180 gold-accent text-sm transform group-hover:-translate-x-1 transition"></i>
-            </div>
-        </a>
-
+        <!-- Mobile Menu Toggle Button (زر الـ 3 نقاط أو القائمة للجوال) -->
+        <button onclick="toggleMobileMenu()" class="md:hidden w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-500/40 text-amber-300 flex items-center justify-center text-lg hover:bg-amber-500/20 transition">
+            <i class="fa-solid fa-ellipsis-vertical"></i>
+        </button>
     </div>
-</section>
+</header>
 
-<!-- CSS Animation for the Marquee Text -->
-<style>
-@keyframes marquee {
-    0% { transform: translateX(100%); }
-    100% { transform: translateX(-100%); }
-}
-[dir="rtl"] @keyframes marquee {
-    0% { transform: translateX(-100%); }
-    100% { transform: translateX(100%); }
-}
-</style>
+<!-- ================= MOBILE DROPDOWN MENU ================= -->
+<div id="mobileMenu" class="fixed inset-x-0 top-[76px] z-40 bg-[#121216]/95 backdrop-blur-xl border-b border-amber-500/30 p-6 hidden flex flex-col space-y-4 md:hidden shadow-2xl transition-all">
+    <a href="#courses" onclick="toggleMobileMenu()" class="text-white text-sm font-bold py-2 border-b border-amber-500/10 flex items-center justify-between" data-ar="📚 الدورات التدريبية" data-en="📚 Training Courses">
+        <span data-ar="الدورات التدريبية" data-en="Training Courses">Training Courses</span>
+        <i class="fa-solid fa-arrow-left rtl:rotate-180 text-xs gold-accent"></i>
+    </a>
+    <a href="oea-courses.html" class="text-white text-sm font-bold py-2 border-b border-amber-500/10 flex items-center justify-between">
+        <span data-ar="🏛️ دورات نقابة المهندسين" data-en="🏛️ OEA Courses">OEA Courses</span>
+        <i class="fa-solid fa-arrow-left rtl:rotate-180 text-xs gold-accent"></i>
+    </a>
+    <a href="offers.html" class="text-white text-sm font-bold py-2 border-b border-amber-500/10 flex items-center justify-between">
+        <span data-ar="🔥 العروض والباقات الصيفية" data-en="🔥 Summer Offers">Summer Offers</span>
+        <i class="fa-solid fa-arrow-left rtl:rotate-180 text-xs gold-accent"></i>
+    </a>
+    <a href="https://forms.gle/ShVDMvXgE9sNeSxz8" target="_blank" class="text-white text-sm font-bold py-2 border-b border-amber-500/10 flex items-center justify-between">
+        <span data-ar="📝 استمارة التسجيل" data-en="📝 Registration Form">Registration Form</span>
+        <i class="fa-solid fa-external-link-alt text-xs gold-accent"></i>
+    </a>
+    <a href="https://wa.me/96171967714?text=مرحباً، أهتم بالتسجيل والاستفسار عن الدورات" target="_blank" class="bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 p-3 rounded-xl text-xs font-bold flex items-center justify-center space-x-2 rtl:space-x-reverse">
+        <i class="fa-brands fa-whatsapp text-base"></i>
+        <span data-ar="تواصل واتساب (Contact Us)" data-en="Contact Us (WhatsApp)">Contact Us (WhatsApp)</span>
+    </a>
+</div>
 
-<!-- JavaScript for Countdown Timer to August 18 -->
+<!-- JavaScript to control Mobile Menu -->
 <script>
-function updateCountdown() {
-    const targetDate = new Date('August 18, 2026 23:59:59').getTime();
-    const now = new Date().getTime();
-    const gap = targetDate - now;
-
-    const second = 1000;
-    const minute = second * 60;
-    const hour = minute * 60;
-    const day = hour * 24;
-
-    const d = Math.floor(gap / day);
-    const h = Math.floor((gap % day) / hour);
-    const m = Math.floor((gap % hour) / minute);
-    const s = Math.floor((gap % minute) / second);
-
-    if (gap > 0) {
-        document.getElementById('days').innerText = d < 10 ? '0' + d : d;
-        document.getElementById('hours').innerText = h < 10 ? '0' + h : h;
-        document.getElementById('minutes').innerText = m < 10 ? '0' + m : m;
-        document.getElementById('seconds').innerText = s < 10 ? '0' + s : s;
-    } else {
-        document.getElementById('days').innerText = '00';
-        document.getElementById('hours').innerText = '00';
-        document.getElementById('minutes').innerText = '00';
-        document.getElementById('seconds').innerText = '00';
-    }
+function toggleMobileMenu() {
+    const menu = document.getElementById('mobileMenu');
+    menu.classList.toggle('hidden');
 }
-
-setInterval(updateCountdown, 1000);
-updateCountdown();
 </script>
-
-    <!-- Hero Section -->
-    <section class="min-h-[50vh] relative flex items-center justify-center pt-32 px-6 text-center">
-        <div class="max-w-4xl z-10">
-            <div class="inline-block px-4 py-1.5 rounded-full glass-card text-xs font-bold gold-accent mb-6 uppercase tracking-widest border border-amber-500/30" data-en="Engineering & Professional Training Center" data-ar="مركز التدريب الهندسي والمهني">
-                Engineering & Professional Training Center
-            </div>
-            <h1 class="text-4xl md:text-6xl font-black mb-6 leading-tight text-white">
-                <span data-en="Training Departments" data-ar="أقسام الدورات والتخصصات">Training Departments</span> <br>
-                <span class="gold-gradient-text" data-en="& Specialties" data-ar="& Specialties">& Specialties</span>
-            </h1>
-            <p class="text-base md:text-lg text-gray-400 mb-8 max-w-2xl mx-auto font-light leading-relaxed" data-en="Choose your required training department to explore available courses and complete program details." data-ar="اختر القسم التدريبي المطلوب لاستعراض الدورات المتاحة والتفاصيل الكاملة لكل برنامج.">
-                Choose your required training department to explore available courses and complete program details.
-            </p>
-        </div>
-    </section>
-
-    <!-- STATS SECTION -->
-    <section id="stats" class="py-16 px-6 max-w-7xl mx-auto">
-        <div class="glass-card rounded-3xl p-8 md:p-12 border border-amber-500/30 grid grid-cols-2 lg:grid-cols-4 gap-8 text-center">
-            
-            <div class="space-y-2">
-               <div class="text-3xl md:text-5xl font-black gold-gradient-text">
-                   <span class="counter" data-target="10">0</span>+
-               </div>
-                <p class="text-gray-400 text-xs md:text-sm font-medium" data-en="Countries Worldwide" data-ar="دول حول العالم">Countries Worldwide</p>
-           </div>
-
-            <div class="space-y-2">
-               <div class="text-3xl md:text-5xl font-black gold-gradient-text">
-                   <span class="counter" data-target="12000">0</span>+
-               </div>
-                <p class="text-gray-400 text-xs md:text-sm font-medium" data-en="Training Hours" data-ar="ساعة تدريبية">Training Hours</p>
-           </div>
-
-            <div class="space-y-2">
-               <div class="text-3xl md:text-5xl font-black gold-gradient-text">
-                   <span class="counter" data-target="100">0</span>+
-               </div>
-                <p class="text-gray-400 text-xs md:text-sm font-medium" data-en="Courses (Online & Offline)" data-ar="دورة تدريبية (حضوري وأونلاين)">Courses (Online & Offline)</p>
-           </div>
-
-            <div class="space-y-2">
-               <div class="text-3xl md:text-5xl font-black gold-gradient-text">
-                   <span class="counter" data-target="6200">0</span>+
-               </div>
-                <p class="text-gray-400 text-xs md:text-sm font-medium" data-en="Students Worldwide" data-ar="طالب حول العالم">Students Worldwide</p>
-           </div>
-
-        </div>
-    </section>
-
-    <!-- Categories Grid Section -->
-    <section id="categories" class="py-16 px-6 max-w-7xl mx-auto">
-        <div class="text-center mb-12">
-            <span class="text-xs font-bold gold-accent uppercase tracking-widest block mb-2" data-en="Certified Categories" data-ar="التصنيفات المعتمدة">Certified Categories</span>
-            <h2 class="text-3xl md:text-4xl font-black text-white" data-en="Browse Training Departments" data-ar="تصفح الأقسام التدريبية">Browse Training Departments</h2>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            
-            <!-- 0. Summer Packages -->
-            <a href="offers.html" class="glass-card p-6 rounded-3xl flex flex-col justify-between group border-amber-500/60 bg-gradient-to-b from-amber-500/10 via-black/40 to-black/80 relative overflow-hidden shadow-[0_0_30px_rgba(212,175,55,0.15)]">
-                <div class="absolute -top-12 -left-12 w-32 h-32 bg-amber-500/20 rounded-full blur-2xl group-hover:bg-amber-500/30 transition"></div>
-                <div>
-                    <div class="h-48 rounded-2xl bg-cover bg-center mb-6 border border-amber-500/40 group-hover:scale-[1.02] transition duration-300" style="background-image: url('https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=600');"></div>
-                    <div class="flex items-center space-x-2 rtl:space-x-reverse mb-1">
-                        <span class="bg-gold text-black text-[10px] font-extrabold px-2.5 py-0.5 rounded uppercase">Special Offer</span>
-                        <span class="gold-accent text-xs font-bold uppercase" data-en="Exclusive Offers" data-ar="عروض حصرية">Exclusive Offers</span>
-                    </div>
-                    <h3 class="text-2xl font-black text-white mb-2" data-en="Summer Packages" data-ar="الباقات الصيفية">Summer Packages</h3>
-                    <p class="text-gray-300 text-xs font-light leading-relaxed mb-4" data-en="Comprehensive summer bundle offers for engineering and graphic courses with exceptional discounts." data-ar="باقات التوفير الصيفية المتكاملة للدورات الهندسية والجرافيك بخصومات استثنائية.">Comprehensive summer bundle offers for engineering and graphic courses with exceptional discounts.</p>
-                </div>
-                <div class="flex items-center justify-between pt-4 border-t border-amber-500/30 text-xs font-bold gold-accent">
-                    <span data-en="Explore Bundles & Offers" data-ar="استعراض الباقات والعروض">Explore Bundles & Offers</span>
-                    <i class="fa-solid fa-arrow-right transition transform group-hover:translate-x-1 icon-arrow"></i>
-                </div>
-            </a>
-
-            <!-- 1. Architecture & Interior -->
-            <a href="arch-courses.html" class="glass-card p-6 rounded-3xl flex flex-col justify-between group">
-                <div>
-                    <div class="h-48 rounded-2xl bg-cover bg-center mb-6 border border-amber-500/20 group-hover:scale-[1.02] transition duration-300" style="background-image: url('https://images.unsplash.com/photo-1503387762-592deb58ef4e?q=80&w=600');"></div>
-                    <span class="gold-accent text-xs font-bold uppercase tracking-wider">Part 01</span>
-                    <h3 class="text-2xl font-black text-white mt-1 mb-3">Architecture & Interior</h3>
-                    <p class="text-gray-400 text-xs font-light leading-relaxed mb-4" data-en="AutoCAD and Revit courses, executive engineering blueprints, and interior design." data-ar="دورات AutoCAD, Revit، المخططات الهندسية التنفيذية، والتصميم الداخلي.">AutoCAD and Revit courses, executive engineering blueprints, and interior design.</p>
-                </div>
-                <div class="flex items-center justify-between pt-4 border-t border-gray-800 text-xs font-bold gold-accent">
-                    <span data-en="Explore Courses" data-ar="استعراض الدورات">Explore Courses</span>
-                    <i class="fa-solid fa-arrow-right transition transform group-hover:translate-x-1 icon-arrow"></i>
-                </div>
-            </a>
-
-            <!-- 2. Graphic Design & Editing -->
-            <a href="graphic-courses.html" class="glass-card p-6 rounded-3xl flex flex-col justify-between group">
-                <div>
-                    <div class="h-48 rounded-2xl bg-cover bg-center mb-6 border border-amber-500/20 group-hover:scale-[1.02] transition duration-300" style="background-image: url('https://images.unsplash.com/photo-1626785774573-4b799315345d?q=80&w=600');"></div>
-                    <span class="gold-accent text-xs font-bold uppercase tracking-wider">Part 02</span>
-                    <h3 class="text-2xl font-black text-white mt-1 mb-3">Graphic Design & Editing</h3>
-                    <p class="text-gray-400 text-xs font-light leading-relaxed mb-4" data-en="Adobe suite (Photoshop, Illustrator, Premiere) and visual editing." data-ar="حزمة Adobe (Photoshop, Illustrator, Premiere) والمونتاج البصري.">Adobe suite (Photoshop, Illustrator, Premiere) and visual editing.</p>
-                </div>
-                <div class="flex items-center justify-between pt-4 border-t border-gray-800 text-xs font-bold gold-accent">
-                    <span data-en="Explore Courses" data-ar="استعراض الدورات">Explore Courses</span>
-                    <i class="fa-solid fa-arrow-right transition transform group-hover:translate-x-1 icon-arrow"></i>
-                </div>
-            </a>
-
-            <!-- 3. Electrical Engineering -->
-            <a href="electrical-courses.html" class="glass-card p-6 rounded-3xl flex flex-col justify-between group">
-                <div>
-                    <div class="h-48 rounded-2xl bg-cover bg-center mb-6 border border-amber-500/20 group-hover:scale-[1.02] transition duration-300" style="background-image: url('https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?q=80&w=600');"></div>
-                    <span class="gold-accent text-xs font-bold uppercase tracking-wider">Part 03</span>
-                    <h3 class="text-2xl font-black text-white mt-1 mb-3">Electrical Engineering</h3>
-                    <p class="text-gray-400 text-xs font-light leading-relaxed mb-4" data-en="Electrical engineering courses, lighting blueprints, and industrial installations." data-ar="دورات الهندسة الكهربائية، مخططات الإنارة، والتمديدات الصناعية.">Electrical engineering courses, lighting blueprints, and industrial installations.</p>
-                </div>
-                <div class="flex items-center justify-between pt-4 border-t border-gray-800 text-xs font-bold gold-accent">
-                    <span data-en="Explore Courses" data-ar="استعراض الدورات">Explore Courses</span>
-                    <i class="fa-solid fa-arrow-right transition transform group-hover:translate-x-1 icon-arrow"></i>
-                </div>
-            </a>
-
-            <!-- 4. Microsoft Office -->
-            <a href="office-courses.html" class="glass-card p-6 rounded-3xl flex flex-col justify-between group">
-                <div>
-                    <div class="h-48 rounded-2xl bg-cover bg-center mb-6 border border-amber-500/20 group-hover:scale-[1.02] transition duration-300" style="background-image: url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=600');"></div>
-                    <span class="gold-accent text-xs font-bold uppercase tracking-wider">Part 04</span>
-                    <h3 class="text-2xl font-black text-white mt-1 mb-3">Microsoft Office</h3>
-                    <p class="text-gray-400 text-xs font-light leading-relaxed mb-4" data-en="Mastering advanced Excel, Word, and PowerPoint for data management and reporting." data-ar="إتقان برامج Excel المتقدم، Word، و PowerPoint لإدارة البيانات والتقارير.">Mastering advanced Excel, Word, and PowerPoint for data management and reporting.</p>
-                </div>
-                <div class="flex items-center justify-between pt-4 border-t border-gray-800 text-xs font-bold gold-accent">
-                    <span data-en="Explore Courses" data-ar="استعراض الدورات">Explore Courses</span>
-                    <i class="fa-solid fa-arrow-right transition transform group-hover:translate-x-1 icon-arrow"></i>
-                </div>
-            </a>
-
-            <!-- 5. Training Center - OEA Tripoli -->
-            <a href="oea-courses.html" class="glass-card p-6 rounded-3xl flex flex-col justify-between group border-amber-500/40 bg-gradient-to-b from-amber-950/20 to-black/60 lg:col-span-2">
-                <div>
-                    <div class="w-full h-48 rounded-xl bg-black/40 border border-amber-500/30 overflow-hidden mb-4 flex items-center justify-center p-2">
-                        <img src="workshopxoea.png" alt="Training Center - OEA Tripoli" class="w-full h-full object-cover rounded-lg group-hover:scale-[1.02] transition duration-300">
-                    </div>
-                    <div>
-                        <div class="flex items-center space-x-2 rtl:space-x-reverse mb-1">
-                            <span class="bg-amber-500 text-black text-[10px] font-extrabold px-2 py-0.5 rounded uppercase">Part 05</span>
-                            <span class="gold-accent text-xs font-bold uppercase" data-en="Official & Certified Accreditation" data-ar="اعتماد رسمي ومعتمد">Official & Certified Accreditation</span>
-                        </div>
-                        <h3 class="text-2xl font-black text-white mb-2">Training Center - OEA Tripoli</h3>
-                        <p class="text-gray-300 text-xs font-light leading-relaxed mb-4" data-en="Specialized training courses in joint cooperation with the Order of Engineers and Architects in Tripoli with certified certificates." data-ar="الدورات التدريبية التخصصية بالتعاون المشترك مع نقابة المهندسين في طرابلس بشهادات معتمدة.">Specialized training courses in joint cooperation with the Order of Engineers and Architects in Tripoli with certified certificates.</p>
-                    </div>
-                </div>
-                <div class="flex items-center justify-between pt-4 border-t border-amber-500/20 text-xs font-bold gold-accent">
-                    <span data-en="Explore OEA Courses" data-ar="استعراض دورات النقابة">Explore OEA Courses</span>
-                    <i class="fa-solid fa-arrow-right rtl:rotate-180 transition transform group-hover:translate-x-1 icon-arrow"></i>
-                </div>
-            </a>
-
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="py-12 text-center text-gray-500 text-xs border-t border-gray-900 mt-20">
-        <p data-en="&copy; 2026 Sketchy Chapters Workshop Center. All rights reserved." data-ar="&copy; 2026 مركز ورش عمل سكتشي تشابترز. جميع الحقوق محفوظة.">&copy; 2026 Sketchy Chapters Workshop Center. All rights reserved.</p>
-    </footer>
-
-    <!-- Scripts -->
-    <script>
-        const counters = document.querySelectorAll('.counter');
-        let animated = false;
-
-        function runCounters() {
-            counters.forEach(counter => {
-                const target = +counter.getAttribute('data-target');
-                let count = 0;
-                const speed = target / 50; 
-
-                function updateCount() {
-                    count += speed;
-                    if (count < target) {
-                        counter.innerText = Math.ceil(count);
-                        setTimeout(updateCount, 30);
-                    } else {
-                        counter.innerText = target;
-                    }
-                }
-                updateCount();
-            });
-        }
-
-        window.addEventListener('scroll', () => {
-            const statsSection = document.getElementById('stats');
-            const sectionPos = statsSection.getBoundingClientRect().top;
-            const screenHeight = window.innerHeight;
-
-            if (sectionPos < screenHeight && !animated) {
-                runCounters();
-                animated = true;
-            }
-        });
-
-        // Fixed Language Toggle Function
-        let currentLang = 'en';
-
-        function toggleLanguage() {
-            const html = document.documentElement;
-            const langBtn = document.getElementById('lang-btn');
-            
-            if (currentLang === 'en') {
-                currentLang = 'ar';
-                html.setAttribute('dir', 'rtl');
-                html.setAttribute('lang', 'ar');
-                langBtn.innerHTML = '<i class="fa-solid fa-globe text-sm"></i> English';
-                
-                document.querySelectorAll('[data-ar]').forEach(el => {
-                    el.innerText = el.getAttribute('data-ar');
-                });
-
-                document.querySelectorAll('.icon-arrow').forEach(icon => {
-                    icon.classList.remove('fa-arrow-right', 'group-hover:translate-x-1');
-                    icon.classList.add('fa-arrow-left', 'group-hover:-translate-x-1');
-                });
-            } else {
-                currentLang = 'en';
-                html.setAttribute('dir', 'ltr');
-                html.setAttribute('lang', 'en');
-                langBtn.innerHTML = '<i class="fa-solid fa-globe text-sm"></i> <span id="langBtnText">العربية</span>';
-                
-                document.querySelectorAll('[data-en]').forEach(el => {
-                    el.innerText = el.getAttribute('data-en');
-                });
-
-                document.querySelectorAll('.icon-arrow').forEach(icon => {
-                    icon.classList.remove('fa-arrow-left', 'group-hover:-translate-x-1');
-                    icon.classList.add('fa-arrow-right', 'group-hover:translate-x-1');
-                });
-            }
-        }
-    </script>
-
-</body>
-</html>
