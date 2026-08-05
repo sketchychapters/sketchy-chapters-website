@@ -706,5 +706,14 @@
             }
         });
     </script>
+    // التأكد من عمل دالة القائمة بشكل مباشر
+    function toggleMobileMenu() {
+        const menu = document.getElementById('mobileMenu');
+        if (menu) {
+            menu.classList.toggle('hidden');
+            menu.classList.toggle('flex');
+        }
+    }
+</script>
 </body>
 </html>
