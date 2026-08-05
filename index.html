@@ -48,10 +48,10 @@
 <body class="selection:bg-amber-500 selection:text-black">
 
     <!-- ================= HEADER / NAVIGATION ================= -->
-    <header class="glass-card fixed top-0 w-full z-50 border-b border-amber-500/15 py-4 px-6 md:px-12 flex items-center justify-between">
-        <a href="index.html" class="flex items-center space-x-3 rtl:space-x-reverse">
-            <img src="logo.png" alt="SCDC Logo" class="h-10 md:h-12 w-auto object-contain" onerror="this.style.display='none'; document.getElementById('logo-fallback').style.display='block';">
-            <span id="logo-fallback" class="hidden text-xl font-black tracking-wider text-white">SKETCHY <span class="gold-accent">CHAPTERS</span></span>
+    <header class="glass-card fixed top-0 w-full z-50 border-b border-amber-500/15 py-4 px-6 md:px-12 flex items-center justify-between gap-3">
+        <a href="index.html" class="flex items-center space-x-3 rtl:space-x-reverse min-w-0 shrink overflow-hidden">
+            <img src="logo.png" alt="SCDC Logo" class="h-10 md:h-12 w-auto object-contain shrink-0" onerror="this.style.display='none'; document.getElementById('logo-fallback-header').style.display='block';">
+            <span id="logo-fallback-header" class="hidden text-xl font-black tracking-wider text-white whitespace-nowrap truncate">SKETCHY <span class="gold-accent">CHAPTERS</span></span>
         </a>
     
         <!-- Desktop Navigation Links -->
@@ -82,23 +82,23 @@
             </a>        
         </nav>
 
-        <div class="flex items-center space-x-3 rtl:space-x-reverse">
+        <div class="flex items-center space-x-3 rtl:space-x-reverse shrink-0">
             <!-- Language Switcher Button (Corrected ID matching JS) -->
-            <button onclick="toggleLanguage()" class="glass-card text-amber-400 border border-amber-500/30 px-3 py-2 rounded-xl text-xs font-bold hover:bg-amber-500/10 transition flex items-center space-x-1.5 rtl:space-x-reverse">
+            <button onclick="toggleLanguage()" class="glass-card text-amber-400 border border-amber-500/30 px-3 py-2 rounded-xl text-xs font-bold hover:bg-amber-500/10 transition flex items-center space-x-1.5 rtl:space-x-reverse shrink-0">
                 <i class="fa-solid fa-globe text-sm"></i>
                 <span id="lang-btn-text">العربية</span>
             </button>
 
             <!-- Workshops Button (Desktop) - Fixed Icon -->
-            <a href="workshop.html" target="_blank" class="hidden md:flex bg-amber-500/10 border border-amber-500/40 text-amber-400 px-4 py-2 rounded-xl text-xs font-bold hover:bg-amber-500/20 transition items-center space-x-2 rtl:space-x-reverse">
+            <a href="workshop.html" target="_blank" class="hidden md:flex bg-amber-500/10 border border-amber-500/40 text-amber-400 px-4 py-2 rounded-xl text-xs font-bold hover:bg-amber-500/20 transition items-center space-x-2 rtl:space-x-reverse shrink-0">
                 <i class="fa-solid fa-graduation-cap text-sm"></i>
                 <span class="lang-en">Workshop Center</span>
                 <span class="lang-ar">الدورات التدريبية</span>
             </a>
 
             <!-- Mobile Menu Toggle Button -->
-            <button onclick="toggleMobileMenu()" class="md:hidden w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-500/40 text-amber-300 flex items-center justify-center text-lg hover:bg-amber-500/20 transition">
-                <i class="fa-solid fa-ellipsis-vertical"></i>
+            <button type="button" onclick="toggleMobileMenu()" class="md:hidden w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-500/40 text-amber-300 flex items-center justify-center text-lg hover:bg-amber-500/20 transition shrink-0">
+                <i class="fa-solid fa-ellipsis-vertical pointer-events-none"></i>
             </button>
         </div>
     </header>
@@ -582,8 +582,8 @@
             <!-- Column 1: Company Info & Branding -->
             <div class="space-y-4">
                 <div class="flex items-center space-x-3 rtl:space-x-reverse">
-                    <img src="logo.png" alt="SCDC Logo" class="h-10 md:h-12 w-auto object-contain" onerror="this.style.display='none'; document.getElementById('logo-fallback').style.display='block';">
-                    <span id="logo-fallback" class="hidden text-xl font-black tracking-wider text-white">SKETCHY <span class="gold-accent">CHAPTERS</span></span>
+                    <img src="logo.png" alt="SCDC Logo" class="h-10 md:h-12 w-auto object-contain" onerror="this.style.display='none'; document.getElementById('logo-fallback-footer').style.display='block';">
+                    <span id="logo-fallback-footer" class="hidden text-xl font-black tracking-wider text-white">SKETCHY <span class="gold-accent">CHAPTERS</span></span>
                 </div>
                 <p class="text-gray-400 text-sm font-light leading-relaxed">
                     <span class="lang-en">Sketchy Chapters Design & Construction (SCDC) - Professional design, construction, interior design studio, and advanced workshop training center.</span>
@@ -663,7 +663,7 @@
 
         <!-- Copyright Bottom Bar -->
         <div class="max-w-7xl mx-auto border-t border-amber-500/10 pt-6 text-center text-gray-500 text-xs">
-            <p>© <script>document.write(new Date().getFullYear())</script> Sketchy Chapters Design & Construction (SCDC). All Rights Reserved.</p>
+            <p>© <span id="current-year"></span> Sketchy Chapters Design & Construction (SCDC). All Rights Reserved.</p>
         </div>
     </footer>
     
@@ -677,6 +677,10 @@
             duration: 1000,
             offset: 100
         });
+
+        // Footer copyright year (avoids document.write, which some mobile browsers block after load)
+        const yearEl = document.getElementById('current-year');
+        if (yearEl) yearEl.textContent = new Date().getFullYear();
 
         // Toggle Mobile Menu Function (Fixed 3 dots button)
         function toggleMobileMenu() {
