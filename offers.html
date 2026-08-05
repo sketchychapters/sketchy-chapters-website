@@ -118,14 +118,6 @@
             <span data-ar="تواصل واتساب (Contact Us)" data-en="Contact Us (WhatsApp)">Contact Us (WhatsApp)</span>
         </a>
     </div>
-
-    <script>
-    function toggleMobileMenu() {
-        const menu = document.getElementById('mobileMenu');
-        menu.classList.toggle('hidden');
-        menu.classList.toggle('flex');
-    }
-    </script>
  
     <!-- Hero Section -->
     <section class="min-h-[45vh] relative flex items-center justify-center pt-36 px-6 text-center">
@@ -386,8 +378,9 @@
         }
 
         function toggleMobileMenu() {
-            const menu = document.getElementById('mobile-menu');
+            const menu = document.getElementById('mobileMenu');
             menu.classList.toggle('hidden');
+            menu.classList.toggle('flex');
         }
  
         window.onclick = function(event) {
@@ -399,21 +392,18 @@
  
         function toggleLanguage() {
             const html = document.documentElement;
-            const langBtn = document.getElementById('lang-btn');
-            const langBtnMobile = document.getElementById('lang-btn-mobile');
+            const langBtnText = document.getElementById('langBtnText');
             
             if (currentLang === 'en') {
                 currentLang = 'ar';
                 html.setAttribute('dir', 'rtl');
                 html.setAttribute('lang', 'ar');
-                langBtn.innerText = 'English';
-                langBtnMobile.innerText = 'English';
+                langBtnText.innerText = 'English';
             } else {
                 currentLang = 'en';
                 html.setAttribute('dir', 'ltr');
                 html.setAttribute('lang', 'en');
-                langBtn.innerText = 'العربية';
-                langBtnMobile.innerText = 'العربية';
+                langBtnText.innerText = 'العربية';
             }
  
             document.querySelectorAll('[data-ar]').forEach(el => {
