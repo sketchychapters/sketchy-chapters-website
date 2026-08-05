@@ -96,7 +96,7 @@
     </div>
 
     <!-- ================= MAIN CONTENT ================= -->
-    <main class="flex-grow container mx-auto px-4 py-12 max-w-6xl">
+    <main class="flex-grow container mx-auto px-4 py-12 max-w-6xl mt-16">
         <!-- Title Section -->
         <div class="text-center mb-12">
             <span class="text-xs gold-accent font-extrabold tracking-widest uppercase bg-amber-500/10 px-3 py-1 rounded-full border border-amber-500/20 inline-block mb-3" data-ar="برامج هندسية متخصصة ومكثفة" data-en="Specialized & Intensive Programs">Specialized & Intensive Programs</span>
@@ -194,7 +194,7 @@
             
             <div class="flex items-center space-x-3 rtl:space-x-reverse mb-4">
                <div class="w-12 h-12 rounded-xl glass-card flex items-center justify-center border border-amber-500/30 text-amber-400 text-xl">
-                   <i class="fa-solid fa-sun"></i>
+                    <i class="fa-solid fa-sun"></i>
                </div>
                <div>
                    <span class="text-[10px] gold-accent font-bold uppercase" data-ar="دورة مكثفة معتمدة" data-en="Intensive Certified Course">Intensive Certified Course</span>
@@ -260,7 +260,7 @@
             
             <div class="flex items-center space-x-3 rtl:space-x-reverse mb-4">
                <div class="w-12 h-12 rounded-xl glass-card flex items-center justify-center border border-amber-500/30 text-amber-400 text-xl">
-                   <i class="fa-solid fa-gears"></i>
+                    <i class="fa-solid fa-gears"></i>
                </div>
                <div>
                    <span class="text-[10px] gold-accent font-bold uppercase" data-ar="دورة معتمدة" data-en="Certified Course">Certified Course</span>
@@ -319,7 +319,7 @@
         </div>
     </div>
 
-    <!-- JavaScript for Modals & Language Switcher -->
+    <!-- JavaScript for Modals, Mobile Menu & Language Switcher -->
     <script>
         function openModal(modalId) {
             document.getElementById(modalId).classList.remove('hidden');
@@ -328,6 +328,20 @@
         function closeModal(modalId) {
             document.getElementById(modalId).classList.add('hidden');
             document.body.style.overflow = 'auto';
+        }
+
+        // Toggle Mobile Menu Function Added
+        function toggleMobileMenu() {
+            const mobileMenu = document.getElementById('mobileMenu');
+            const mobileMenuIcon = document.getElementById('mobileMenuIcon');
+            mobileMenu.classList.toggle('hidden');
+            if (mobileMenu.classList.contains('hidden')) {
+                mobileMenuIcon.classList.remove('fa-xmark');
+                mobileMenuIcon.classList.add('fa-ellipsis-vertical');
+            } else {
+                mobileMenuIcon.classList.remove('fa-ellipsis-vertical');
+                mobileMenuIcon.classList.add('fa-xmark');
+            }
         }
 
         let currentLang = 'en';
