@@ -66,8 +66,9 @@
         <!-- Desktop Navigation Links -->
         <nav class="hidden md:flex items-center space-x-6 rtl:space-x-reverse text-xs font-bold">
             <a href="index.html" class="text-gray-300 hover:text-amber-400 transition" data-ar="الرئيسية" data-en="Home">Home</a>
-            <a href="workshop.html" class="text-gray-300 hover:text-amber-400 transition" data-ar="ورش العمل" data-en="Workshops">Workshops</a>
-            <a href="offers.html" class="text-gray-300 hover:text-amber-400 transition gold-accent font-bold" data-ar="الباقات الصيفية" data-en="Summer Packages">Summer Packages</a>
+            <a href="#about" class="text-gray-300 hover:text-amber-400 transition" data-ar="من نحن" data-en="About Us">About Us</a>
+            <a href="portfolio.html" target="_blank" class="text-gray-300 hover:text-amber-400 transition" data-ar="المشاريع" data-en="Projects">Projects</a>
+            <a href="workshop.html" class="text-gray-300 hover:text-amber-400 transition" data-ar="مركز ورش العمل" data-en="Workshop Center">Workshop Center</a>
         </nav>
 
         <div class="flex items-center space-x-3 rtl:space-x-reverse">
@@ -78,7 +79,7 @@
             </button>
 
             <!-- WhatsApp Quick Button (Desktop) -->
-            <a href="https://wa.me/96171967714?text=مرحباً، أهتم بالتسجيل والاستفسار عن الدورات" target="_blank" class="hidden md:flex bg-amber-500/10 border border-amber-500/40 text-amber-400 px-4 py-2 rounded-xl text-xs font-bold hover:bg-amber-500/20 transition items-center space-x-2 rtl:space-x-reverse">
+            <a href="https://wa.me/96171967714?text=مرحباً، أهتم بالتسجيل والاستفسار" target="_blank" class="hidden md:flex bg-amber-500/10 border border-amber-500/40 text-amber-400 px-4 py-2 rounded-xl text-xs font-bold hover:bg-amber-500/20 transition items-center space-x-2 rtl:space-x-reverse">
                 <i class="fa-brands fa-whatsapp text-sm"></i>
                 <span data-ar="استفسار فوري" data-en="Instant Inquiry">Instant Inquiry</span>
             </a>
@@ -90,32 +91,27 @@
         </div>
     </header>
 
-    <!-- ================= MOBILE DROPDOWN MENU ================= -->
+    <!-- ================= MOBILE DROPDOWN MENU (3 Dots) ================= -->
     <div id="mobileMenu" class="fixed inset-x-0 top-[76px] z-40 bg-[#121216]/95 backdrop-blur-xl border-b border-amber-500/30 p-6 hidden flex-col space-y-4 md:hidden shadow-2xl transition-all">
         <a href="index.html" onclick="toggleMobileMenu()" class="text-white text-sm font-bold py-2 border-b border-amber-500/10 flex items-center justify-between">
             <span data-ar="🏠 الرئيسية" data-en="🏠 Home">Home</span>
             <i class="fa-solid fa-arrow-left rtl:rotate-180 text-xs gold-accent"></i>
         </a>
+        <a href="#about" onclick="toggleMobileMenu()" class="text-white text-sm font-bold py-2 border-b border-amber-500/10 flex items-center justify-between">
+            <span data-ar="ℹ️ من نحن" data-en="ℹ️ About Us">About Us</span>
+            <i class="fa-solid fa-arrow-left rtl:rotate-180 text-xs gold-accent"></i>
+        </a>
+        <a href="portfolio.html" target="_blank" onclick="toggleMobileMenu()" class="text-white text-sm font-bold py-2 border-b border-amber-500/10 flex items-center justify-between">
+            <span data-ar="📂 المشاريع" data-en="📂 Projects">Projects</span>
+            <i class="fa-solid fa-arrow-left rtl:rotate-180 text-xs gold-accent"></i>
+        </a>
         <a href="workshop.html" onclick="toggleMobileMenu()" class="text-white text-sm font-bold py-2 border-b border-amber-500/10 flex items-center justify-between">
-            <span data-ar="🛠️ ورش العمل" data-en="🛠️ Workshops">Workshops</span>
+            <span data-ar="🛠️ مركز ورش العمل" data-en="🛠️ Workshop Center">Workshop Center</span>
             <i class="fa-solid fa-arrow-left rtl:rotate-180 text-xs gold-accent"></i>
         </a>
-        <a href="offers.html" onclick="toggleMobileMenu()" class="text-white text-sm font-bold py-2 border-b border-amber-500/10 flex items-center justify-between">
-            <span data-ar="🔥 الباقات الصيفية" data-en="🔥 Summer Packages">Summer Packages</span>
-            <i class="fa-solid fa-arrow-left rtl:rotate-180 text-xs gold-accent"></i>
-        </a>
-        <!-- Added View Projects Link for Mobile Header Navigation -->
-        <a href="portfolio.html" target="_blank" onclick="toggleMobileMenu()" class="text-white text-sm font-bold py-2 border-b border-amber-500/10 flex items-center justify-between gold-accent">
-            <span data-ar="📂 معرض المشاريع" data-en="📂 View Projects">View Projects</span>
-            <i class="fa-solid fa-arrow-left rtl:rotate-180 text-xs gold-accent"></i>
-        </a>
-        <a href="oea-courses.html" class="text-white text-sm font-bold py-2 border-b border-amber-500/10 flex items-center justify-between">
-            <span data-ar="🏛️ دورات نقابة المهندسين" data-en="🏛️ OEA Courses">OEA Courses</span>
-            <i class="fa-solid fa-arrow-left rtl:rotate-180 text-xs gold-accent"></i>
-        </a>
-        <a href="https://wa.me/96171967714?text=مرحباً، أهتم بالتسجيل والاستفسار عن دورات مايكروسوفت" target="_blank" class="bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 p-3 rounded-xl text-xs font-bold flex items-center justify-center space-x-2 rtl:space-x-reverse">
+        <a href="https://wa.me/96171967714?text=مرحباً، أهتم بالتسجيل والاستفسار" target="_blank" class="bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 p-3 rounded-xl text-xs font-bold flex items-center justify-center space-x-2 rtl:space-x-reverse">
             <i class="fa-brands fa-whatsapp text-base"></i>
-            <span data-ar="تواصل واتساب (Contact Us)" data-en="Contact Us (WhatsApp)">Contact Us (WhatsApp)</span>
+            <span data-ar="تواصل واتساب" data-en="Contact Us (WhatsApp)">Contact Us (WhatsApp)</span>
         </a>
     </div>
 
