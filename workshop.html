@@ -72,7 +72,7 @@
                 <span data-ar="استفسار فوري" data-en="Instant Inquiry">Instant Inquiry</span>
             </a>
 
-            <!-- Mobile Menu Toggle Button (زر الـ 3 نقاط أو القائمة للجوال) -->
+            <!-- Mobile Menu Toggle Button -->
             <button onclick="toggleMobileMenu()" class="md:hidden w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-500/40 text-amber-300 flex items-center justify-center text-lg hover:bg-amber-500/20 transition">
                 <i class="fa-solid fa-ellipsis-vertical"></i>
             </button>
@@ -80,22 +80,22 @@
     </header>
 
     <!-- ================= MOBILE DROPDOWN MENU ================= -->
-    <div id="mobileMenu" class="fixed inset-x-0 top-[76px] z-40 bg-[#121216]/95 backdrop-blur-xl border-b border-amber-500/30 p-6 hidden flex flex-col space-y-4 md:hidden shadow-2xl transition-all">
-        <a href="#courses" onclick="toggleMobileMenu()" class="text-white text-sm font-bold py-2 border-b border-amber-500/10 flex items-center justify-between" data-ar="📚 الدورات التدريبية" data-en="📚 Training Courses">
-            <span data-ar="الدورات التدريبية" data-en="Training Courses">Training Courses</span>
+    <div id="mobileMenu" class="fixed inset-x-0 top-[76px] z-40 bg-[#121216]/95 backdrop-blur-xl border-b border-amber-500/30 p-6 hidden flex-col space-y-4 md:hidden shadow-2xl transition-all">
+        <a href="index.html" onclick="toggleMobileMenu()" class="text-white text-sm font-bold py-2 border-b border-amber-500/10 flex items-center justify-between">
+            <span data-ar="🏠 الرئيسية" data-en="🏠 Home">Home</span>
+            <i class="fa-solid fa-arrow-left rtl:rotate-180 text-xs gold-accent"></i>
+        </a>
+        <a href="workshop.html" onclick="toggleMobileMenu()" class="text-white text-sm font-bold py-2 border-b border-amber-500/10 flex items-center justify-between">
+            <span data-ar="🛠️ ورش العمل" data-en="🛠️ Workshops">Workshops</span>
+            <i class="fa-solid fa-arrow-left rtl:rotate-180 text-xs gold-accent"></i>
+        </a>
+        <a href="offers.html" onclick="toggleMobileMenu()" class="text-white text-sm font-bold py-2 border-b border-amber-500/10 flex items-center justify-between">
+            <span data-ar="🔥 الباقات الصيفية" data-en="🔥 Summer Packages">Summer Packages</span>
             <i class="fa-solid fa-arrow-left rtl:rotate-180 text-xs gold-accent"></i>
         </a>
         <a href="oea-courses.html" class="text-white text-sm font-bold py-2 border-b border-amber-500/10 flex items-center justify-between">
             <span data-ar="🏛️ دورات نقابة المهندسين" data-en="🏛️ OEA Courses">OEA Courses</span>
             <i class="fa-solid fa-arrow-left rtl:rotate-180 text-xs gold-accent"></i>
-        </a>
-        <a href="offers.html" class="text-white text-sm font-bold py-2 border-b border-amber-500/10 flex items-center justify-between">
-            <span data-ar="🔥 العروض والباقات الصيفية" data-en="🔥 Summer Offers">Summer Offers</span>
-            <i class="fa-solid fa-arrow-left rtl:rotate-180 text-xs gold-accent"></i>
-        </a>
-        <a href="https://forms.gle/ShVDMvXgE9sNeSxz8" target="_blank" class="text-white text-sm font-bold py-2 border-b border-amber-500/10 flex items-center justify-between">
-            <span data-ar="📝 استمارة التسجيل" data-en="📝 Registration Form">Registration Form</span>
-            <i class="fa-solid fa-external-link-alt text-xs gold-accent"></i>
         </a>
         <a href="https://wa.me/96171967714?text=مرحباً، أهتم بالتسجيل والاستفسار عن الدورات" target="_blank" class="bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 p-3 rounded-xl text-xs font-bold flex items-center justify-center space-x-2 rtl:space-x-reverse">
             <i class="fa-brands fa-whatsapp text-base"></i>
@@ -103,13 +103,14 @@
         </a>
     </div>
 
-    <!-- JavaScript to control Mobile Menu -->
     <script>
     function toggleMobileMenu() {
         const menu = document.getElementById('mobileMenu');
         menu.classList.toggle('hidden');
+        menu.classList.toggle('flex');
     }
     </script>
+    
     <!-- ================= DYNAMIC PROMO SECTION ================= -->
 <section class="max-w-7xl mx-auto px-6 pt-24 pb-6">
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
