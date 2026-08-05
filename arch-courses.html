@@ -96,16 +96,24 @@
     </div>
     </header>
     
-    <!-- ================= MAIN CONTENT ================= -->
-    <main class="flex-grow container mx-auto px-4 py-12 max-w-6xl">
-        <!-- Title Section -->
-        <div class="text-center mb-12">
-            <span class="text-xs gold-accent font-extrabold tracking-widest uppercase bg-amber-500/10 px-3 py-1 rounded-full border border-amber-500/20 inline-block mb-3" data-ar="برامج الهندسة المعمارية المعتمدة (Certified)" data-en="Certified Architecture Programs">Certified Architecture Programs</span>
-            <h2 class="text-3xl md:text-4xl font-black text-white mb-3" data-ar="طوّر مهاراتك التصميمية والهندسية" data-en="Elevate Your Design & Engineering Skills">Elevate Your Design & Engineering Skills</h2>
-            <p class="text-gray-400 text-sm max-w-2xl mx-auto font-light" data-ar="مجموعة متكاملة من الدورات المعمارية المعتمدة مع حسومات خاصة. اختر دورتك واكتشف التفاصيل الكاملة." data-en="A comprehensive suite of certified architecture courses with special discounts. Choose your course and explore full details.">
-                A comprehensive suite of certified architecture courses with special discounts. Choose your course and explore full details.
-            </p>
+    <!-- ================= HERO / HEADER SECTION ================= -->
+    <header class="container mx-auto px-6 py-10">
+        <div class="flex flex-col md:flex-row items-center justify-between gap-6 glass-card p-8 rounded-3xl border border-amber-500/20">
+            <div>
+                <span class="text-xs uppercase tracking-widest gold-accent font-bold block mb-2" data-ar="مركز ورشات الفصول السريعة" data-en="Sketchy Chapters Workshop Center">Sketchy Chapters Workshop Center</span>
+                <h1 class="text-3xl md:text-5xl font-black text-white tracking-tight mb-2">Elevate your Design</h1>
+                <p class="text-sm text-gray-400 font-light" data-ar="دورات هندسية ومعمارية احترافية معتمدة تبني مستقبلك المهني." data-en="Professional certified engineering and architectural courses to build your career.">
+                    Professional certified engineering and architectural courses to build your career.
+                </p>
+            </div>
+            <div class="flex items-center gap-3">
+                <button onclick="toggleLanguage()" class="glass-card px-4 py-2.5 rounded-xl border border-amber-500/30 text-amber-300 text-xs font-bold hover:bg-amber-500/10 transition flex items-center space-x-2 rtl:space-x-reverse">
+                    <i class="fa-solid fa-globe"></i>
+                    <span id="langBtnText">العربية</span>
+                </button>
+            </div>
         </div>
+    </header>
 
         <!-- Courses Grid -->
         <div id="courses" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
