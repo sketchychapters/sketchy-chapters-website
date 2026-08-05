@@ -66,7 +66,7 @@
 
             <!-- Mobile Menu Toggle Button -->
             <button onclick="toggleMobileMenu()" class="md:hidden w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-500/40 text-amber-300 flex items-center justify-center text-lg hover:bg-amber-500/20 transition">
-                <i class="fa-solid fa-ellipsis-vertical"></i>
+                <i class="fa-solid fa-ellipsis-vertical" id="mobileMenuIcon"></i>
             </button>
         </div>
     </header>
@@ -89,14 +89,14 @@
             <span data-ar="🏛️ دورات نقابة المهندسين" data-en="🏛️ OEA Courses">OEA Courses</span>
             <i class="fa-solid fa-arrow-left rtl:rotate-180 text-xs gold-accent"></i>
         </a>
-        <a href="https://wa.me/96171967714?text=مرحباً، أهتم بالتسجيل والاستفسار عن دورات مايكروسوفت" target="_blank" class="bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 p-3 rounded-xl text-xs font-bold flex items-center justify-center space-x-2 rtl:space-x-reverse">
+        <a href="https://wa.me/96171967714?text=مرحباً، أهتم بالتسجيل والاستفسار عن الدورات" target="_blank" class="bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 p-3 rounded-xl text-xs font-bold flex items-center justify-center space-x-2 rtl:space-x-reverse">
             <i class="fa-brands fa-whatsapp text-base"></i>
             <span data-ar="تواصل واتساب (Contact Us)" data-en="Contact Us (WhatsApp)">Contact Us (WhatsApp)</span>
         </a>
     </div>
 
     <!-- ================= MAIN CONTENT ================= -->
-    <main class="flex-grow container mx-auto px-4 py-12 max-w-6xl">
+    <main class="flex-grow container mx-auto px-4 py-32 max-w-6xl">
         <!-- Title Section -->
         <div class="text-center mb-12">
             <span class="text-xs gold-accent font-extrabold tracking-widest uppercase bg-amber-500/10 px-3 py-1 rounded-full border border-amber-500/20 inline-block mb-3" data-ar="برامج الهندسة المعمارية المعتمدة (Certified)" data-en="Certified Architecture Programs">Certified Architecture Programs</span>
@@ -114,7 +114,7 @@
                 <div>
                    <div class="flex items-center justify-between mb-4">
                        <div class="w-12 h-12 rounded-xl bg-black/40 border border-amber-500/20 flex items-center justify-center p-2">
-                           <img src="autocad.png" alt="AutoCAD" class="w-full h-full object-contain">
+                           <img src="autocad.png" alt="AutoCAD" class="w-full h-full object-contain" onerror="this.src='https://placehold.co/48x48/121216/d4af37?text=CAD'">
                        </div>
                        <div class="text-left rtl:text-right">
                            <div class="flex items-center gap-2">
@@ -143,7 +143,7 @@
                 <div>
                    <div class="flex items-center justify-between mb-4">
                        <div class="w-12 h-12 rounded-xl bg-black/40 border border-amber-500/20 flex items-center justify-center p-2">
-                           <img src="revit.png" alt="Revit" class="w-full h-full object-contain">
+                           <img src="revit.png" alt="Revit" class="w-full h-full object-contain" onerror="this.src='https://placehold.co/48x48/121216/d4af37?text=REV'">
                        </div>
                        <div class="text-left rtl:text-right">
                            <div class="flex items-center gap-2">
@@ -172,7 +172,7 @@
                 <div>
                    <div class="flex items-center justify-between mb-4">
                        <div class="w-12 h-12 rounded-xl bg-black/40 border border-amber-500/20 flex items-center justify-center p-2">
-                           <img src="revit.png" alt="Revit + Vray" class="w-full h-full object-contain">
+                           <img src="revit.png" alt="Revit + Vray" class="w-full h-full object-contain" onerror="this.src='https://placehold.co/48x48/121216/d4af37?text=VRZ'">
                        </div>
                        <div class="text-left rtl:text-right">
                            <div class="flex items-center gap-2">
@@ -201,7 +201,7 @@
                 <div>
                    <div class="flex items-center justify-between mb-4">
                        <div class="w-12 h-12 rounded-xl bg-black/40 border border-amber-500/20 flex items-center justify-center p-2">
-                           <img src="photoshop.png" alt="Photoshop" class="w-full h-full object-contain">
+                           <img src="photoshop.png" alt="Photoshop" class="w-full h-full object-contain" onerror="this.src='https://placehold.co/48x48/121216/d4af37?text=PS'">
                        </div>
                        <div class="text-left rtl:text-right">
                            <div class="flex items-center gap-2">
@@ -230,7 +230,7 @@
                 <div>
                    <div class="flex items-center justify-between mb-4">
                        <div class="w-12 h-12 rounded-xl bg-black/40 border border-amber-500/20 flex items-center justify-center p-2">
-                           <img src="lumion.png" alt="Lumion" class="w-full h-full object-contain">
+                           <img src="lumion.png" alt="Lumion" class="w-full h-full object-contain" onerror="this.src='https://placehold.co/48x48/121216/d4af37?text=LUM'">
                        </div>
                        <div class="text-left rtl:text-right">
                            <div class="flex items-center gap-2">
@@ -258,7 +258,7 @@
     </main>
 
     <!-- ================= FOOTER ================= -->
-    <footer class="glass-card border-t border-amber-500/20 mt-16 py-8 px-6 text-center text-xs text-gray-400">
+    <footer class="glass-card border-t border-amber-500/25 mt-16 py-8 px-6 text-center text-xs text-gray-400">
         <div class="container mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
             <div class="flex items-center space-x-2 rtl:space-x-reverse">
                <span class="font-bold text-white">Sketchy Chapters Workshop Center</span>
@@ -266,7 +266,7 @@
                <span data-ar="جميع الحقوق محفوظة © 2026" data-en="All Rights Reserved © 2026">All Rights Reserved © 2026</span>
             </div>
             <div class="flex space-x-4 rtl:space-x-reverse">
-                <a href="https://wa.me/96171967714?text=%Dمرحباً، أهتم بالتسجيل والاستفسار عن دورات العمارة" target="_blank" class="hover:text-amber-400 transition"><i class="fa-brands fa-whatsapp text-sm"></i> <span data-ar="واتساب" data-en="WhatsApp">WhatsApp</span></a>
+                <a href="https://wa.me/96171967714?text=مرحباً، أهتم بالتسجيل والاستفسار عن الدورات" target="_blank" class="hover:text-amber-400 transition"><i class="fa-brands fa-whatsapp text-sm"></i> <span data-ar="واتساب" data-en="WhatsApp">WhatsApp</span></a>
                 <a href="https://forms.gle/ShVDMvXgE9sNeSxz8" target="_blank" class="hover:text-amber-400 transition"><i class="fa-solid fa-file-lines text-sm"></i> <span data-ar="استمارة التسجيل" data-en="Registration Form">Registration Form</span></a>
             </div>
         </div>
@@ -282,7 +282,7 @@
             
             <div class="flex items-center space-x-3 rtl:space-x-reverse mb-4">
                <div class="w-12 h-12 rounded-xl glass-card flex items-center justify-center p-2 border border-amber-500/30">
-                    <img src="autocad.png" alt="AutoCAD" class="w-full h-full object-contain">
+                    <img src="autocad.png" alt="AutoCAD" class="w-full h-full object-contain" onerror="this.src='https://placehold.co/48x48/121216/d4af37?text=CAD'">
                </div>
                <div>
                    <span class="text-[10px] gold-accent font-bold uppercase" data-ar="برنامج تدريبي معتمد" data-en="Certified Training Program">Certified Training Program</span>
@@ -350,7 +350,7 @@
             
             <div class="flex items-center space-x-3 rtl:space-x-reverse mb-4">
                <div class="w-12 h-12 rounded-xl glass-card flex items-center justify-center p-2 border border-amber-500/30">
-                    <img src="revit.png" alt="Revit" class="w-full h-full object-contain">
+                    <img src="revit.png" alt="Revit" class="w-full h-full object-contain" onerror="this.src='https://placehold.co/48x48/121216/d4af37?text=REV'">
                </div>
                <div>
                    <span class="text-[10px] gold-accent font-bold uppercase" data-ar="برنامج تدريبي معتمد" data-en="Certified Training Program">Certified Training Program</span>
@@ -373,8 +373,181 @@
                        <strong class="text-amber-400 text-sm">17/08</strong>
                    </div>
                </div>
+
+               <div>
+                   <h4 class="font-bold text-white mb-1.5 flex items-center"><i class="fa-solid fa-circle-info gold-accent mr-1.5 rtl:ml-1.5 ltr:mr-1.5"></i> <span data-ar="نظرة عامة عن البرنامج:" data-en="Program Overview:">Program Overview:</span></h4>
+                   <p class="text-gray-400 font-light leading-relaxed" data-ar="دورة ريبيت الجزء الأول تضعك على أول طريق نمذجة معلومات البناء (BIM). تعلم كيفية إنشاء العناصر المعمارية الأساسية مثل الجدران، الأبواب، الشبابيك، والسلالم، بالإضافة إلى استخراج المساقط، الواجهات، والقطاعات بشكل مترابط واحترافي." data-en="Revit Part 1 puts you on the path of Building Information Modeling (BIM). Learn how to create basic architectural elements like walls, doors, windows, and stairs, as well as extracting floor plans, elevations, and sections coherently and professionally.">
+                       Revit Part 1 puts you on the path of Building Information Modeling (BIM). Learn how to create basic architectural elements like walls, doors, windows, and stairs, as well as extracting floor plans, elevations, and sections coherently and professionally.
+                   </p>
+               </div>
             </div>
-            <!-- (Note: The user's code snippet ended abruptly right here, but the rest of the file layout structure needs proper closing tags if fully rendered, though we kept exact code per instruction) -->
+
+            <div class="mt-6 flex gap-3">
+                <a href="https://forms.gle/ShVDMvXgE9sNeSxz8" target="_blank" class="flex-1 bg-gold text-black py-2.5 rounded-xl font-extrabold text-xs uppercase tracking-wider flex items-center justify-center space-x-2 rtl:space-x-reverse hover:brightness-110 transition shadow-lg shadow-amber-500/15">
+                    <span data-ar="التسجيل الآن" data-en="Register Now">Register Now</span>
+                    <i class="fa-solid fa-external-link-alt text-[10px]"></i>
+                </a>
+                <a href="https://wa.me/96171967714?text=مرحباً، أهتم بالتسجيل والاستفسار عن دورة Revit Part 1" target="_blank" class="flex-1 glass-card text-emerald-400 border border-emerald-500/30 py-2.5 rounded-xl font-bold text-xs flex items-center justify-center space-x-2 rtl:space-x-reverse hover:bg-emerald-500/10 transition">
+                    <i class="fa-brands fa-whatsapp text-sm"></i>
+                    <span data-ar="استفسار واتساب" data-en="WhatsApp Inquiry">WhatsApp Inquiry</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- 3. Revit Part 2 + Vray Modal -->
+    <div id="revit2Modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md hidden p-4">
+        <div class="glass-card bg-[#121216] border border-amber-500/40 rounded-3xl max-w-lg w-full p-6 relative max-h-[90vh] overflow-y-auto text-left rtl:text-right ltr:text-left">
+            <button onclick="closeModal('revit2Modal')" class="absolute top-4 right-4 rtl:left-4 ltr:right-4 text-gray-400 hover:text-white text-xl"><i class="fa-solid fa-xmark"></i></button>
+            
+            <div class="flex items-center space-x-3 rtl:space-x-reverse mb-4">
+               <div class="w-12 h-12 rounded-xl glass-card flex items-center justify-center p-2 border border-amber-500/30">
+                    <img src="revit.png" alt="Revit + Vray" class="w-full h-full object-contain" onerror="this.src='https://placehold.co/48x48/121216/d4af37?text=VRZ'">
+               </div>
+               <div>
+                   <span class="text-[10px] gold-accent font-bold uppercase" data-ar="برنامج تدريبي معتمد" data-en="Certified Training Program">Certified Training Program</span>
+                   <h3 class="text-xl font-black text-white">Revit Part 2 + Vray</h3>
+               </div>
+            </div>
+
+            <div class="space-y-4 text-xs text-gray-300">
+               <div class="grid grid-cols-3 gap-2 bg-black/40 p-3 rounded-2xl border border-amber-500/10 text-center">
+                   <div>
+                       <span class="text-gray-500 block text-[10px]" data-ar="عدد الجلسات" data-en="Sessions">Sessions</span>
+                       <strong class="text-amber-400 text-sm" data-ar="9 جلسات (3 أسابيع)" data-en="9 Sessions (3 Wks)">9 Sessions (3 Wks)</strong>
+                   </div>
+                   <div>
+                       <span class="text-gray-500 block text-[10px]" data-ar="التكلفة" data-en="Price">Price</span>
+                       <strong class="text-amber-400 text-sm">149$ <span class="text-[10px] text-emerald-400 font-bold block" data-ar="حسم 45% (السعر الأصلي: 270$)" data-en="45% Off (Original: 270$)">45% Off (Original: 270$)</span></strong>
+                   </div>
+                   <div>
+                       <span class="text-gray-500 block text-[10px]" data-ar="تاريخ البدء" data-en="Start Date">Start Date</span>
+                       <strong class="text-amber-400 text-sm">17/08</strong>
+                   </div>
+               </div>
+
+               <div>
+                   <h4 class="font-bold text-white mb-1.5 flex items-center"><i class="fa-solid fa-circle-info gold-accent mr-1.5 rtl:ml-1.5 ltr:mr-1.5"></i> <span data-ar="نظرة عامة عن البرنامج:" data-en="Program Overview:">Program Overview:</span></h4>
+                   <p class="text-gray-400 font-light leading-relaxed" data-ar="المستوى المتقدم من ريبت يغطي التصميم الباراميتري، تشكيل الكتل المعقدة، إضافة مواد ورندر واقعي باستخدام فيراي (V-Ray)، وإعداد جداول الكميات الشاملة للمشاريع (BOQ)." data-en="The advanced level of Revit covers parametric design, complex massing, applying materials and realistic rendering using V-Ray, and preparing comprehensive project schedules and BOQ.">
+                       The advanced level of Revit covers parametric design, complex massing, applying materials and realistic rendering using V-Ray, and preparing comprehensive project schedules and BOQ.
+                   </p>
+               </div>
+            </div>
+
+            <div class="mt-6 flex gap-3">
+                <a href="https://forms.gle/ShVDMvXgE9sNeSxz8" target="_blank" class="flex-1 bg-gold text-black py-2.5 rounded-xl font-extrabold text-xs uppercase tracking-wider flex items-center justify-center space-x-2 rtl:space-x-reverse hover:brightness-110 transition shadow-lg shadow-amber-500/15">
+                    <span data-ar="التسجيل الآن" data-en="Register Now">Register Now</span>
+                    <i class="fa-solid fa-external-link-alt text-[10px]"></i>
+                </a>
+                <a href="https://wa.me/96171967714?text=مرحباً، أهتم بالتسجيل والاستفسار عن دورة Revit Part 2" target="_blank" class="flex-1 glass-card text-emerald-400 border border-emerald-500/30 py-2.5 rounded-xl font-bold text-xs flex items-center justify-center space-x-2 rtl:space-x-reverse hover:bg-emerald-500/10 transition">
+                    <i class="fa-brands fa-whatsapp text-sm"></i>
+                    <span data-ar="استفسار واتساب" data-en="WhatsApp Inquiry">WhatsApp Inquiry</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- 4. Photoshop Rendering Modal -->
+    <div id="psModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md hidden p-4">
+        <div class="glass-card bg-[#121216] border border-amber-500/40 rounded-3xl max-w-lg w-full p-6 relative max-h-[90vh] overflow-y-auto text-left rtl:text-right ltr:text-left">
+            <button onclick="closeModal('psModal')" class="absolute top-4 right-4 rtl:left-4 ltr:right-4 text-gray-400 hover:text-white text-xl"><i class="fa-solid fa-xmark"></i></button>
+            
+            <div class="flex items-center space-x-3 rtl:space-x-reverse mb-4">
+               <div class="w-12 h-12 rounded-xl glass-card flex items-center justify-center p-2 border border-amber-500/30">
+                    <img src="photoshop.png" alt="Photoshop" class="w-full h-full object-contain" onerror="this.src='https://placehold.co/48x48/121216/d4af37?text=PS'">
+               </div>
+               <div>
+                   <span class="text-[10px] gold-accent font-bold uppercase" data-ar="برنامج تدريبي معتمد" data-en="Certified Training Program">Certified Training Program</span>
+                   <h3 class="text-xl font-black text-white">Photoshop Rendering</h3>
+               </div>
+            </div>
+
+            <div class="space-y-4 text-xs text-gray-300">
+               <div class="grid grid-cols-3 gap-2 bg-black/40 p-3 rounded-2xl border border-amber-500/10 text-center">
+                   <div>
+                       <span class="text-gray-500 block text-[10px]" data-ar="عدد الجلسات" data-en="Sessions">Sessions</span>
+                       <strong class="text-amber-400 text-sm" data-ar="6 جلسات (أسبوعان)" data-en="6 Sessions (2 Wks)">6 Sessions (2 Wks)</strong>
+                   </div>
+                   <div>
+                       <span class="text-gray-500 block text-[10px]" data-ar="التكلفة" data-en="Price">Price</span>
+                       <strong class="text-amber-400 text-sm">99$ <span class="text-[10px] text-emerald-400 font-bold block" data-ar="حسم 17.5% (السعر الأصلي: 120$)" data-en="17.5% Off (Original: 120$)">17.5% Off (Original: 120$)</span></strong>
+                   </div>
+                   <div>
+                       <span class="text-gray-500 block text-[10px]" data-ar="تاريخ البدء" data-en="Start Date">Start Date</span>
+                       <strong class="text-amber-400 text-sm">17/08</strong>
+                   </div>
+               </div>
+
+               <div>
+                   <h4 class="font-bold text-white mb-1.5 flex items-center"><i class="fa-solid fa-circle-info gold-accent mr-1.5 rtl:ml-1.5 ltr:mr-1.5"></i> <span data-ar="نظرة عامة عن البرنامج:" data-en="Program Overview:">Program Overview:</span></h4>
+                   <p class="text-gray-400 font-light leading-relaxed" data-ar="تعلم كيفية تحويل المخططات والمساقط الهندسية إلى لوحات إخراج معماري ساحرة باستخدام فوتوشوب، وتصميم لوحات العرض وربط العناصر البصرية باحترافية." data-en="Learn how to turn blueprints and architectural floor plans into charming rendering boards using Photoshop, design presentation boards, and integrate visual elements professionally.">
+                       Learn how to turn blueprints and architectural floor plans into charming rendering boards using Photoshop, design presentation boards, and integrate visual elements professionally.
+                   </p>
+               </div>
+            </div>
+
+            <div class="mt-6 flex gap-3">
+                <a href="https://forms.gle/ShVDMvXgE9sNeSxz8" target="_blank" class="flex-1 bg-gold text-black py-2.5 rounded-xl font-extrabold text-xs uppercase tracking-wider flex items-center justify-center space-x-2 rtl:space-x-reverse hover:brightness-110 transition shadow-lg shadow-amber-500/15">
+                    <span data-ar="التسجيل الآن" data-en="Register Now">Register Now</span>
+                    <i class="fa-solid fa-external-link-alt text-[10px]"></i>
+                </a>
+                <a href="https://wa.me/96171967714?text=مرحباً، أهتم بالتسجيل والاستفسار عن دورة Photoshop Rendering" target="_blank" class="flex-1 glass-card text-emerald-400 border border-emerald-500/30 py-2.5 rounded-xl font-bold text-xs flex items-center justify-center space-x-2 rtl:space-x-reverse hover:bg-emerald-500/10 transition">
+                    <i class="fa-brands fa-whatsapp text-sm"></i>
+                    <span data-ar="استفسار واتساب" data-en="WhatsApp Inquiry">WhatsApp Inquiry</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- 5. Lumion Modal -->
+    <div id="lumionModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md hidden p-4">
+        <div class="glass-card bg-[#121216] border border-amber-500/40 rounded-3xl max-w-lg w-full p-6 relative max-h-[90vh] overflow-y-auto text-left rtl:text-right ltr:text-left">
+            <button onclick="closeModal('lumionModal')" class="absolute top-4 right-4 rtl:left-4 ltr:right-4 text-gray-400 hover:text-white text-xl"><i class="fa-solid fa-xmark"></i></button>
+            
+            <div class="flex items-center space-x-3 rtl:space-x-reverse mb-4">
+               <div class="w-12 h-12 rounded-xl glass-card flex items-center justify-center p-2 border border-amber-500/30">
+                    <img src="lumion.png" alt="Lumion" class="w-full h-full object-contain" onerror="this.src='https://placehold.co/48x48/121216/d4af37?text=LUM'">
+               </div>
+               <div>
+                   <span class="text-[10px] gold-accent font-bold uppercase" data-ar="برنامج تدريبي معتمد" data-en="Certified Training Program">Certified Training Program</span>
+                   <h3 class="text-xl font-black text-white">Lumion</h3>
+               </div>
+            </div>
+
+            <div class="space-y-4 text-xs text-gray-300">
+               <div class="grid grid-cols-3 gap-2 bg-black/40 p-3 rounded-2xl border border-amber-500/10 text-center">
+                   <div>
+                       <span class="text-gray-500 block text-[10px]" data-ar="عدد الجلسات" data-en="Sessions">Sessions</span>
+                       <strong class="text-amber-400 text-sm" data-ar="6 جلسات (أسبوعان)" data-en="6 Sessions (2 Wks)">6 Sessions (2 Wks)</strong>
+                   </div>
+                   <div>
+                       <span class="text-gray-500 block text-[10px]" data-ar="التكلفة" data-en="Price">Price</span>
+                       <strong class="text-amber-400 text-sm">89$ <span class="text-[10px] text-emerald-400 font-bold block" data-ar="حسم 25.5% (السعر الأصلي: 120$)" data-en="25.5% Off (Original: 120$)">25.5% Off (Original: 120$)</span></strong>
+                   </div>
+                   <div>
+                       <span class="text-gray-500 block text-[10px]" data-ar="تاريخ البدء" data-en="Start Date">Start Date</span>
+                       <strong class="text-amber-400 text-sm">17/08</strong>
+                   </div>
+               </div>
+
+               <div>
+                   <h4 class="font-bold text-white mb-1.5 flex items-center"><i class="fa-solid fa-circle-info gold-accent mr-1.5 rtl:ml-1.5 ltr:mr-1.5"></i> <span data-ar="نظرة عامة عن البرنامج:" data-en="Program Overview:">Program Overview:</span></h4>
+                   <p class="text-gray-400 font-light leading-relaxed" data-ar="دورة لوميون تأخذك لعالم الإخراج السينمائي والتصوير الواقعي السريع، مع إضافة النباتات، الأشجار، الإضاءة الطبيعية المتقدمة، وإنتاج جولات فيديو مبهرة للمشاريع." data-en="The Lumion course takes you into the world of cinematic rendering and rapid realistic visualization, adding plants, trees, advanced natural lighting, and producing stunning video walkthroughs.">
+                       The Lumion course takes you into the world of cinematic rendering and rapid realistic visualization, adding plants, trees, advanced natural lighting, and producing stunning video walkthroughs.
+                   </p>
+               </div>
+            </div>
+
+            <div class="mt-6 flex gap-3">
+                <a href="https://forms.gle/ShVDMvXgE9sNeSxz8" target="_blank" class="flex-1 bg-gold text-black py-2.5 rounded-xl font-extrabold text-xs uppercase tracking-wider flex items-center justify-center space-x-2 rtl:space-x-reverse hover:brightness-110 transition shadow-lg shadow-amber-500/15">
+                    <span data-ar="التسجيل الآن" data-en="Register Now">Register Now</span>
+                    <i class="fa-solid fa-external-link-alt text-[10px]"></i>
+                </a>
+                <a href="https://wa.me/96171967714?text=مرحباً، أهتم بالتسجيل والاستفسار عن دورة Lumion" target="_blank" class="flex-1 glass-card text-emerald-400 border border-emerald-500/30 py-2.5 rounded-xl font-bold text-xs flex items-center justify-center space-x-2 rtl:space-x-reverse hover:bg-emerald-500/10 transition">
+                    <i class="fa-brands fa-whatsapp text-sm"></i>
+                    <span data-ar="استفسار واتساب" data-en="WhatsApp Inquiry">WhatsApp Inquiry</span>
+                </a>
+            </div>
         </div>
     </div>
 
@@ -413,12 +586,17 @@
 
         function toggleMobileMenu() {
             const mobileMenu = document.getElementById('mobileMenu');
+            const menuIcon = document.getElementById('mobileMenuIcon');
             if (mobileMenu.classList.contains('hidden')) {
                 mobileMenu.classList.remove('hidden');
                 mobileMenu.classList.add('flex');
+                menuIcon.classList.remove('fa-ellipsis-vertical');
+                menuIcon.classList.add('fa-xmark');
             } else {
                 mobileMenu.classList.remove('flex');
                 mobileMenu.classList.add('hidden');
+                menuIcon.classList.remove('fa-xmark');
+                menuIcon.classList.add('fa-ellipsis-vertical');
             }
         }
 
