@@ -702,19 +702,9 @@
                 const htmlTag = document.getElementById('main-html');
                 htmlTag.setAttribute('lang', 'ar');
                 htmlTag.setAttribute('dir', 'rtl');
-                const btnText = document.getElementById('lang-btn-text');
-                if (btnText) btnText.textContent = 'English';
+                document.getElementById('lang-btn-text').textContent = 'English';
             }
         });
-
-        // Toggle Mobile Menu Function
-        function toggleMobileMenu() {
-            const menu = document.getElementById('mobileMenu');
-            if (menu) {
-                menu.classList.toggle('hidden');
-                menu.classList.toggle('flex');
-            }
-        }
     </script>
 </body>
 </html>
