@@ -677,6 +677,7 @@
             },
         });
 
+<script>
         // Language Switcher Functionality
         function toggleLanguage() {
             const htmlTag = document.getElementById('main-html');
@@ -702,11 +703,12 @@
                 const htmlTag = document.getElementById('main-html');
                 htmlTag.setAttribute('lang', 'ar');
                 htmlTag.setAttribute('dir', 'rtl');
-                document.getElementById('lang-btn-text').textContent = 'English';
+                const btnText = document.getElementById('lang-btn-text');
+                if (btnText) btnText.textContent = 'English';
             }
         });
-    </script>
-        // التأكد من عمل دالة القائمة بشكل مباشر
+
+        // Toggle Mobile Menu Function
         function toggleMobileMenu() {
             const menu = document.getElementById('mobileMenu');
             if (menu) {
