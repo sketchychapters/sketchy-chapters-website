@@ -74,19 +74,19 @@
     <!-- ================= MOBILE DROPDOWN MENU ================= -->
     <div id="mobileMenu" class="fixed inset-x-0 top-[76px] z-40 bg-[#121216]/95 backdrop-blur-xl border-b border-amber-500/30 p-6 hidden flex-col space-y-4 md:hidden shadow-2xl transition-all">
         <a href="index.html" onclick="toggleMobileMenu()" class="text-white text-sm font-bold py-2 border-b border-amber-500/10 flex items-center justify-between">
-            <span data-ar="🏠 الرئيسية" data-en="🏠 Home">Home</span>
+            <span data-ar=" الرئيسية" data-en=" Home">Home</span>
             <i class="fa-solid fa-arrow-left rtl:rotate-180 text-xs gold-accent"></i>
         </a>
         <a href="workshop.html" onclick="toggleMobileMenu()" class="text-white text-sm font-bold py-2 border-b border-amber-500/10 flex items-center justify-between">
-            <span data-ar="🛠️ ورش العمل" data-en="🛠️ Workshops">Workshops</span>
+            <span data-ar=" ورش العمل" data-en=" Workshops">Workshops</span>
             <i class="fa-solid fa-arrow-left rtl:rotate-180 text-xs gold-accent"></i>
         </a>
         <a href="offers.html" onclick="toggleMobileMenu()" class="text-white text-sm font-bold py-2 border-b border-amber-500/10 flex items-center justify-between">
-            <span data-ar="🔥 الباقات الصيفية" data-en="🔥 Summer Packages">Summer Packages</span>
+            <span data-ar=" الباقات الصيفية" data-en=" Summer Packages">Summer Packages</span>
             <i class="fa-solid fa-arrow-left rtl:rotate-180 text-xs gold-accent"></i>
         </a>
         <a href="oea-courses.html" class="text-white text-sm font-bold py-2 border-b border-amber-500/10 flex items-center justify-between">
-            <span data-ar="🏛️ دورات نقابة المهندسين" data-en="🏛️ OEA Courses">OEA Courses</span>
+            <span data-ar=" دورات نقابة المهندسين" data-en=" OEA Courses">OEA Courses</span>
             <i class="fa-solid fa-arrow-left rtl:rotate-180 text-xs gold-accent"></i>
         </a>
         <a href="https://wa.me/96171967714?text=مرحباً، أهتم بالتسجيل والاستفسار عن دورات مايكروسوفت" target="_blank" class="bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 p-3 rounded-xl text-xs font-bold flex items-center justify-center space-x-2 rtl:space-x-reverse">
@@ -109,27 +109,32 @@
         <!-- Courses Grid -->
         <div id="courses" class="grid grid-cols-1 md:grid-cols-3 gap-6">
             
-            <!-- 1. Microsoft Word Card -->
+<!-- 1. Microsoft Word Card -->
             <div class="glass-card rounded-2xl p-6 pt-7 flex flex-col justify-between hover:border-amber-500/40 transition group">
                 <div>
                    <div class="flex items-center gap-2 mb-4">
-                       <span class="text-[10px] bg-amber-500/20 text-amber-300 px-2.5 py-1 rounded-lg border border-amber-500/30 font-bold uppercase tracking-wider" data-ar="دورة معتمدة" data-en="Certified Course">Certified Course</span>
+                        <span class="text-[10px] bg-amber-500/20 text-amber-300 px-2.5 py-1 rounded-lg border border-amber-500/30 font-bold uppercase tracking-wider" data-ar="دورة معتمدة" data-en="Certified Course">Certified Course</span>
+                        <span class="text-[9px] bg-blue-500/20 text-blue-300 px-2 py-0.5 rounded font-bold flex items-center gap-1">
+                            <i class="fa-solid fa-video text-[8px]"></i> Online via Zoom
+                        </span>
                    </div>
                    <div class="flex items-center justify-between mb-4">
-                       <div class="w-12 h-12 rounded-xl bg-black/40 border border-amber-500/20 flex items-center justify-center text-blue-400 text-xl">
-                           <i class="fa-solid fa-file-word"></i>
-                       </div>
-                       <div class="text-left rtl:text-right">
-                           <div class="flex items-center gap-2">
-                                <span class="text-xs bg-amber-500/10 text-amber-400 px-2.5 py-1 rounded-lg border border-amber-500/20 font-bold block">29$</span>
-                                <span class="text-xs text-gray-500 line-through">45$</span>
-                           </div>
-                           <span class="text-[10px] text-emerald-400 block font-bold mt-1" data-ar="حسم 35% (السعر الأصلي: 45$)" data-en="35% Off (Original: 45$)">35% Off (Original: 45$)</span>
-                       </div>
+                        <div class="w-12 h-12 rounded-xl bg-black/40 border border-amber-500/20 flex items-center justify-center text-blue-400 text-xl">
+                            <i class="fa-solid fa-file-word"></i>
+                        </div>
+                        <div class="text-left rtl:text-right">
+                            <div class="flex items-center gap-2">
+                                 <span class="text-xs bg-amber-500/10 text-amber-400 px-2.5 py-1 rounded-lg border border-amber-500/20 font-bold block"><span id="word-card-price">29</span>$</span>
+                                 <span class="text-xs text-gray-500 line-through">45$</span>
+                            </div>
+                            <span class="text-[10px] text-emerald-400 block font-bold mt-1">
+                                <span id="word-card-discount">35</span>% Off
+                            </span>
+                        </div>
                    </div>
                    <h3 class="text-lg font-bold text-white mb-2 group-hover:text-amber-400 transition" data-ar="مايكروسوفت وورد (Microsoft Word)" data-en="Microsoft Word">Microsoft Word</h3>
                    <p class="text-xs text-gray-400 font-light mb-6 line-clamp-3" data-ar="احتراف إنشاء وتنسيق المستندات، الجداول، وأدوات المراجعة والتدقيق المتقدمة في برنامج Word." data-en="Master document creation, formatting, tables, and advanced proofing tools in Microsoft Word.">
-                       Master document creation, formatting, tables, and advanced proofing tools in Microsoft Word.
+                        Master document creation, formatting, tables, and advanced proofing tools in Microsoft Word.
                    </p>
                 </div>
                 <button onclick="openModal('wordModal')" class="w-full bg-amber-500/10 border border-amber-500/30 text-amber-300 py-2.5 rounded-xl text-xs font-bold hover:bg-amber-500 hover:text-black transition flex items-center justify-center space-x-2 rtl:space-x-reverse">
@@ -138,27 +143,47 @@
                 </button>
             </div>
 
-            <!-- 2. Microsoft PowerPoint Card -->
+<!-- سكربت حساب نسبة الخصم تلقائياً كارت Microsoft Word -->
+<script>
+  function updateWordCardDiscount() {
+    let originalPrice = 45;
+    let curP = parseFloat(document.getElementById('word-card-price')?.innerText);
+    let discEl = document.getElementById('word-card-discount');
+
+    if (originalPrice > 0 && curP > 0 && originalPrice > curP && discEl) {
+        let discount = Math.round(((originalPrice - curP) / originalPrice) * 100);
+        discEl.innerText = discount;
+    }
+  }
+  updateWordCardDiscount();
+</script>
+
+<!-- 2. Microsoft PowerPoint Card -->
             <div class="glass-card rounded-2xl p-6 pt-7 flex flex-col justify-between hover:border-amber-500/40 transition group">
                 <div>
-                   <div class="flex items-center gap-2 mb-4">
-                       <span class="text-[10px] bg-amber-500/20 text-amber-300 px-2.5 py-1 rounded-lg border border-amber-500/30 font-bold uppercase tracking-wider" data-ar="دورة معتمدة" data-en="Certified Course">Certified Course</span>
+                   <div class="flex items-center gap-2 mb-4 flex-wrap">
+                        <span class="text-[10px] bg-amber-500/20 text-amber-300 px-2.5 py-1 rounded-lg border border-amber-500/30 font-bold uppercase tracking-wider" data-ar="دورة معتمدة" data-en="Certified Course">Certified Course</span>
+                        <span class="text-[9px] bg-blue-500/20 text-blue-300 px-2 py-0.5 rounded font-bold flex items-center gap-1">
+                            <i class="fa-solid fa-video text-[8px]"></i> Online via Zoom
+                        </span>
                    </div>
                    <div class="flex items-center justify-between mb-4">
-                       <div class="w-12 h-12 rounded-xl bg-black/40 border border-amber-500/20 flex items-center justify-center text-orange-400 text-xl">
-                           <i class="fa-solid fa-file-powerpoint"></i>
-                       </div>
-                       <div class="text-left rtl:text-right">
-                           <div class="flex items-center gap-2">
-                                <span class="text-xs bg-amber-500/10 text-amber-400 px-2.5 py-1 rounded-lg border border-amber-500/20 font-bold block">29$</span>
-                                <span class="text-xs text-gray-500 line-through">45$</span>
-                           </div>
-                           <span class="text-[10px] text-emerald-400 block font-bold mt-1" data-ar="حسم 35% (السعر الأصلي: 45$)" data-en="35% Off (Original: 45$)">35% Off (Original: 45$)</span>
-                       </div>
+                        <div class="w-12 h-12 rounded-xl bg-black/40 border border-amber-500/20 flex items-center justify-center text-orange-400 text-xl">
+                            <i class="fa-solid fa-file-powerpoint"></i>
+                        </div>
+                        <div class="text-left rtl:text-right">
+                            <div class="flex items-center gap-2">
+                                 <span class="text-xs bg-amber-500/10 text-amber-400 px-2.5 py-1 rounded-lg border border-amber-500/20 font-bold block"><span id="powerpoint-card-price">29</span>$</span>
+                                 <span class="text-xs text-gray-500 line-through">45$</span>
+                            </div>
+                            <span class="text-[10px] text-emerald-400 block font-bold mt-1">
+                                <span id="powerpoint-card-discount">35</span>% Off
+                            </span>
+                        </div>
                    </div>
                    <h3 class="text-lg font-bold text-white mb-2 group-hover:text-amber-400 transition" data-ar="مايكروسوفت باوربوينت (PowerPoint)" data-en="Microsoft PowerPoint">Microsoft PowerPoint</h3>
                    <p class="text-xs text-gray-400 font-light mb-6 line-clamp-3" data-ar="تصميم عروض تقديمية تفاعلية جذابة باستخدام شرائح الـ Master، الحركات الانتقالية، والوسائط المتعددة." data-en="Design engaging interactive presentations using Slide Masters, transitions, animations, and multimedia.">
-                       Design engaging interactive presentations using Slide Masters, transitions, animations, and multimedia.
+                        Design engaging interactive presentations using Slide Masters, transitions, animations, and multimedia.
                    </p>
                 </div>
                 <button onclick="openModal('powerpointModal')" class="w-full bg-amber-500/10 border border-amber-500/30 text-amber-300 py-2.5 rounded-xl text-xs font-bold hover:bg-amber-500 hover:text-black transition flex items-center justify-center space-x-2 rtl:space-x-reverse">
@@ -167,27 +192,47 @@
                 </button>
             </div>
 
-            <!-- 3. Microsoft Excel Card -->
+<!-- سكربت حساب نسبة الخصم تلقائياً كارت Microsoft PowerPoint -->
+<script>
+  function updatePowerpointCardDiscount() {
+    let originalPrice = 45;
+    let curP = parseFloat(document.getElementById('powerpoint-card-price')?.innerText);
+    let discEl = document.getElementById('powerpoint-card-discount');
+
+    if (originalPrice > 0 && curP > 0 && originalPrice > curP && discEl) {
+        let discount = Math.round(((originalPrice - curP) / originalPrice) * 100);
+        discEl.innerText = discount;
+    }
+  }
+  updatePowerpointCardDiscount();
+</script>
+
+<!-- 3. Microsoft Excel Card -->
             <div class="glass-card rounded-2xl p-6 pt-7 flex flex-col justify-between hover:border-amber-500/40 transition group">
                 <div>
-                   <div class="flex items-center gap-2 mb-4">
-                       <span class="text-[10px] bg-amber-500/20 text-amber-300 px-2.5 py-1 rounded-lg border border-amber-500/30 font-bold uppercase tracking-wider" data-ar="دورة معتمدة" data-en="Certified Course">Certified Course</span>
+                   <div class="flex items-center gap-2 mb-4 flex-wrap">
+                        <span class="text-[10px] bg-amber-500/20 text-amber-300 px-2.5 py-1 rounded-lg border border-amber-500/30 font-bold uppercase tracking-wider" data-ar="دورة معتمدة" data-en="Certified Course">Certified Course</span>
+                        <span class="text-[9px] bg-blue-500/20 text-blue-300 px-2 py-0.5 rounded font-bold flex items-center gap-1">
+                            <i class="fa-solid fa-video text-[8px]"></i> Online via Zoom
+                        </span>
                    </div>
                    <div class="flex items-center justify-between mb-4">
-                       <div class="w-12 h-12 rounded-xl bg-black/40 border border-amber-500/20 flex items-center justify-center text-emerald-400 text-xl">
-                           <i class="fa-solid fa-file-excel"></i>
-                       </div>
-                       <div class="text-left rtl:text-right">
-                           <div class="flex items-center gap-2">
-                                <span class="text-xs bg-amber-500/10 text-amber-400 px-2.5 py-1 rounded-lg border border-amber-500/20 font-bold block">29$</span>
-                                <span class="text-xs text-gray-500 line-through">45$</span>
-                           </div>
-                           <span class="text-[10px] text-emerald-400 block font-bold mt-1" data-ar="حسم 35% (السعر الأصلي: 45$)" data-en="35% Off (Original: 45$)">35% Off (Original: 45$)</span>
-                       </div>
+                        <div class="w-12 h-12 rounded-xl bg-black/40 border border-amber-500/20 flex items-center justify-center text-emerald-400 text-xl">
+                            <i class="fa-solid fa-file-excel"></i>
+                        </div>
+                        <div class="text-left rtl:text-right">
+                            <div class="flex items-center gap-2">
+                                 <span class="text-xs bg-amber-500/10 text-amber-400 px-2.5 py-1 rounded-lg border border-amber-500/20 font-bold block"><span id="excel-card-price">29</span>$</span>
+                                 <span class="text-xs text-gray-500 line-through">45$</span>
+                            </div>
+                            <span class="text-[10px] text-emerald-400 block font-bold mt-1">
+                                <span id="excel-card-discount">35</span>% Off
+                            </span>
+                        </div>
                    </div>
                    <h3 class="text-lg font-bold text-white mb-2 group-hover:text-amber-400 transition" data-ar="مايكروسوفت إكسل (Microsoft Excel)" data-en="Microsoft Excel">Microsoft Excel</h3>
                    <p class="text-xs text-gray-400 font-light mb-6 line-clamp-3" data-ar="احتراف الجداول الإحصائية، الدوال المتقدمة، الفلاتر، الرسوم البيانية وتحليل البيانات الرقمية." data-en="Master statistical spreadsheets, advanced functions, filters, charts, and numerical data analysis.">
-                       Master statistical spreadsheets, advanced functions, filters, charts, and numerical data analysis.
+                        Master statistical spreadsheets, advanced functions, filters, charts, and numerical data analysis.
                    </p>
                 </div>
                 <button onclick="openModal('excelModal')" class="w-full bg-amber-500/10 border border-amber-500/30 text-amber-300 py-2.5 rounded-xl text-xs font-bold hover:bg-amber-500 hover:text-black transition flex items-center justify-center space-x-2 rtl:space-x-reverse">
@@ -195,6 +240,21 @@
                     <i class="fa-solid fa-arrow-left rtl:rotate-180 text-[10px]"></i>
                 </button>
             </div>
+
+<!-- سكربت حساب نسبة الخصم تلقائياً كارت Microsoft Excel -->
+<script>
+  function updateExcelCardDiscount() {
+    let originalPrice = 45;
+    let curP = parseFloat(document.getElementById('excel-card-price')?.innerText);
+    let discEl = document.getElementById('excel-card-discount');
+
+    if (originalPrice > 0 && curP > 0 && originalPrice > curP && discEl) {
+        let discount = Math.round(((originalPrice - curP) / originalPrice) * 100);
+        discEl.innerText = discount;
+    }
+  }
+  updateExcelCardDiscount();
+</script>
 
         </div>
     </main>
