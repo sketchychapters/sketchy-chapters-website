@@ -570,15 +570,15 @@
         </div>
     </section>
 
-    <!-- Footer Section -->
-    <footer class="bg-[#08080a] border-t border-amber-500/20 pt-16 pb-12 px-6">
+<!-- ================= FOOTER SECTION ================= -->
+    <footer class="bg-[#08080a] border-t border-amber-500/25 pt-16 pb-12 px-6 md:px-12">
         <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-10 mb-12">
             
-            <!-- Company Info & Branding -->
+            <!-- Column 1: Company Info & Branding -->
             <div class="space-y-4">
                 <div class="flex items-center space-x-3 rtl:space-x-reverse">
-            <img src="logo.png" alt="SCDC Logo" class="h-10 md:h-12 w-auto object-contain" onerror="this.style.display='none'; document.getElementById('logo-fallback').style.display='block';">
-            <span id="logo-fallback" class="hidden text-xl font-black tracking-wider text-white">SKETCHY <span class="gold-accent">CHAPTERS</span></span>
+                    <img src="logo.png" alt="SCDC Logo" class="h-10 md:h-12 w-auto object-contain" onerror="this.style.display='none'; document.getElementById('logo-fallback').style.display='block';">
+                    <span id="logo-fallback" class="hidden text-xl font-black tracking-wider text-white">SKETCHY <span class="gold-accent">CHAPTERS</span></span>
                 </div>
                 <p class="text-gray-400 text-sm font-light leading-relaxed">
                     <span class="lang-en">Sketchy Chapters Design & Construction (SCDC) - Professional design, construction, interior design studio, and advanced workshop training center.</span>
@@ -589,13 +589,13 @@
                 </div>
             </div>
 
-            <!-- Global Offices -->
+            <!-- Column 2: Global Offices -->
             <div class="space-y-4">
                 <h4 class="text-white font-bold text-sm uppercase tracking-wider">
                     <span class="lang-en">Our Offices</span>
                     <span class="lang-ar">فروعنا</span>
                 </h4>
-                <ul class="text-gray-400 text-xs space-y-2 font-light">
+                <ul class="text-gray-400 text-xs space-y-2.5 font-light">
                     <li class="flex items-center space-x-2 rtl:space-x-reverse">
                         <i class="fa-solid fa-location-dot text-amber-400"></i>
                         <span>Tripoli, Lebanon / طرابلس، لبنان</span>
@@ -611,7 +611,7 @@
                 </ul>
             </div>
 
-            <!-- Social Media & Quick Links -->
+            <!-- Column 3: Social Media & Quick Links -->
             <div class="space-y-4">
                 <h4 class="text-white font-bold text-sm uppercase tracking-wider">
                     <span class="lang-en">Connect With Us</span>
@@ -622,7 +622,7 @@
                     <span class="lang-ar">تابع أحدث مشاريعنا، ورشات العمل، والتحديثات الهندسية.</span>
                 </p>
                 <!-- Social Media Icons -->
-                <div class="flex items-center space-x-3 rtl:space-x-reverse pt-2">
+                <div class="flex flex-wrap items-center gap-2 pt-2">
                     <a href="https://www.facebook.com/sketchy.chapters/" target="_blank" class="w-10 h-10 rounded-xl glass-card flex items-center justify-center text-gray-300 hover:text-amber-400 hover:border-amber-500/50 transition">
                         <i class="fa-brands fa-facebook-f text-sm"></i>
                     </a>
@@ -633,7 +633,7 @@
                         <i class="fa-brands fa-linkedin-in text-sm"></i>
                     </a>
                     <a href="https://x.com/sketchychapters" target="_blank" class="w-10 h-10 rounded-xl glass-card flex items-center justify-center text-gray-300 hover:text-amber-400 hover:border-amber-500/50 transition">
-                        <i class="fa-brands fa-x text-sm"></i>
+                        <i class="fa-brands fa-x-twitter text-sm"></i>
                     </a>
                     <a href="https://tiktok.com/@sketchy.chapters" target="_blank" class="w-10 h-10 rounded-xl glass-card flex items-center justify-center text-gray-300 hover:text-amber-400 hover:border-amber-500/50 transition">
                         <i class="fa-brands fa-tiktok text-sm"></i>
@@ -657,12 +657,12 @@
         </div>
 
         <!-- Copyright Bottom Bar -->
-        <div class="max-w-7xl mx-auto border-t border-gray-900 pt-6 text-center text-gray-500 text-xs">
+        <div class="max-w-7xl mx-auto border-t border-amber-500/10 pt-6 text-center text-gray-500 text-xs">
             <p>© <script>document.write(new Date().getFullYear())</script> Sketchy Chapters Design & Construction (SCDC). All Rights Reserved.</p>
         </div>
     </footer>
     
-    <!-- Scripts: Swiper, AOS & Language Switcher -->
+    <!-- Scripts: Swiper, AOS & Functionalities -->
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
@@ -673,36 +673,16 @@
             offset: 100
         });
 
-        // Initialize Hero Swiper (Dynamic Architectural Render Background Slider)
-        const heroSwiper = new Swiper('.heroSwiper', {
-            loop: true,
-            effect: 'fade',
-            autoplay: {
-                delay: 5000,
-                disableOnInteraction: false,
-            },
-            pagination: {
-                el: '.heroSwiper .swiper-pagination',
-                clickable: true,
-            },
-        });
+        // Toggle Mobile Menu Function (Fixed 3 dots button)
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            if (menu) {
+                menu.classList.toggle('hidden');
+                menu.classList.toggle('flex');
+            }
+        }
 
-        // Initialize Showcase Swiper
-        const showcaseSwiper = new Swiper('.ShowcaseSwiper', {
-            loop: true,
-            slidesPerView: 1,
-            spaceBetween: 30,
-            autoplay: {
-                delay: 4000,
-                disableOnInteraction: false,
-            },
-            pagination: {
-                el: '.ShowcaseSwiper .swiper-pagination',
-                clickable: true,
-            },
-        });
-
-        // Language Switcher Functionality
+        // Language Switcher Function
         function toggleLanguage() {
             const htmlTag = document.getElementById('main-html');
             const btnText = document.getElementById('lang-btn-text');
@@ -710,12 +690,12 @@
             if (htmlTag.getAttribute('lang') === 'en') {
                 htmlTag.setAttribute('lang', 'ar');
                 htmlTag.setAttribute('dir', 'rtl');
-                btnText.textContent = 'English';
+                if(btnText) btnText.textContent = 'English';
                 localStorage.setItem('scdc_lang', 'ar');
             } else {
                 htmlTag.setAttribute('lang', 'en');
                 htmlTag.setAttribute('dir', 'ltr');
-                btnText.textContent = 'العربية';
+                if(btnText) btnText.textContent = 'العربية';
                 localStorage.setItem('scdc_lang', 'en');
             }
         }
@@ -727,7 +707,8 @@
                 const htmlTag = document.getElementById('main-html');
                 htmlTag.setAttribute('lang', 'ar');
                 htmlTag.setAttribute('dir', 'rtl');
-                document.getElementById('lang-btn-text').textContent = 'English';
+                const btnText = document.getElementById('lang-btn-text');
+                if (btnText) btnText.textContent = 'English';
             }
         });
     </script>
