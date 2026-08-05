@@ -115,23 +115,45 @@
     </header>
 
     <!-- ================= MOBILE DROPDOWN MENU ================= -->
-    <div id="mobileMenu" class="fixed inset-x-0 top-[76px] z-40 bg-[#121216]/95 backdrop-blur-xl border-b border-amber-500/30 p-6 hidden flex-col space-y-4 md:hidden shadow-2xl transition-all">
-        <a href="index.html" onclick="toggleMobileMenu()" class="text-white text-sm font-bold py-2 border-b border-amber-500/10 flex items-center justify-between">
-            <span data-ar="🏠 الرئيسية" data-en="🏠 Home">Home</span>
+    <div id="mobileMenu" class="fixed inset-x-0 top-[76px] z-40 bg-[#121216]/95 backdrop-blur-xl border-b border-amber-500/30 p-6 hidden flex-col space-y-4 xl:hidden shadow-2xl transition-all">
+        <!-- روابط القائمة للموبايل (الثلاث نقاط) -->
+        <a href="#about" onclick="toggleMobileMenu()" class="text-white text-sm font-bold py-2 border-b border-amber-500/10 flex items-center justify-between">
+            <span class="lang-en">About Us</span>
+            <span class="lang-ar">عن الشركة</span>
             <i class="fa-solid fa-arrow-left rtl:rotate-180 text-xs gold-accent"></i>
         </a>
-        <a href="workshop.html" onclick="toggleMobileMenu()" class="text-white text-sm font-bold py-2 border-b border-amber-500/10 flex items-center justify-between">
-            <span data-ar="🛠️ ورش العمل" data-en="🛠️ Workshops">Workshops</span>
+        <a href="#objectives" onclick="toggleMobileMenu()" class="text-white text-sm font-bold py-2 border-b border-amber-500/10 flex items-center justify-between">
+            <span class="lang-en">Objectives</span>
+            <span class="lang-ar">الأهداف</span>
             <i class="fa-solid fa-arrow-left rtl:rotate-180 text-xs gold-accent"></i>
         </a>
-        <a href="offers.html" onclick="toggleMobileMenu()" class="text-white text-sm font-bold py-2 border-b border-amber-500/10 flex items-center justify-between">
-            <span data-ar="🔥 الباقات الصيفية" data-en="🔥 Summer Packages">Summer Packages</span>
+        <a href="#services" onclick="toggleMobileMenu()" class="text-white text-sm font-bold py-2 border-b border-amber-500/10 flex items-center justify-between">
+            <span class="lang-en">Services</span>
+            <span class="lang-ar">الخدمات</span>
             <i class="fa-solid fa-arrow-left rtl:rotate-180 text-xs gold-accent"></i>
         </a>
-        <a href="oea-courses.html" class="text-white text-sm font-bold py-2 border-b border-amber-500/10 flex items-center justify-between">
-            <span data-ar="🏛️ دورات نقابة المهندسين" data-en="🏛️ OEA Courses">OEA Courses</span>
+        <a href="#sections" onclick="toggleMobileMenu()" class="text-white text-sm font-bold py-2 border-b border-amber-500/10 flex items-center justify-between">
+            <span class="lang-en">Divisions</span>
+            <span class="lang-ar">الأقسام</span>
             <i class="fa-solid fa-arrow-left rtl:rotate-180 text-xs gold-accent"></i>
         </a>
+        <a href="portfolio.html" target="_blank" class="gold-accent text-sm font-bold py-2 border-b border-amber-500/10 flex items-center justify-between">
+            <span class="lang-en">Portfolio Grid</span>
+            <span class="lang-ar">معرض الأعمال</span>
+            <i class="fa-solid fa-arrow-left rtl:rotate-180 text-xs gold-accent"></i>
+        </a>
+        <a href="workshop.html" target="_blank" class="text-white text-sm font-bold py-2 border-b border-amber-500/10 flex items-center justify-between">
+            <span class="lang-en">Workshop Center</span>
+            <span class="lang-ar">الدورات التدريبية</span>
+            <i class="fa-solid fa-arrow-left rtl:rotate-180 text-xs gold-accent"></i>
+        </a>
+        <a href="#contact" onclick="toggleMobileMenu()" class="text-white text-sm font-bold py-2 border-b border-amber-500/10 flex items-center justify-between">
+            <span class="lang-en">Contact</span>
+            <span class="lang-ar">تواصل معنا</span>
+            <i class="fa-solid fa-arrow-left rtl:rotate-180 text-xs gold-accent"></i>
+        </a>
+        
+        <!-- باقي روابط الواتساب القديمة -->
         <a href="https://wa.me/96171967714?text=مرحباً، أهتم بالتسجيل والاستفسار عن دورات التصميم الجرافيكي" target="_blank" class="bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 p-3 rounded-xl text-xs font-bold flex items-center justify-center space-x-2 rtl:space-x-reverse">
             <i class="fa-brands fa-whatsapp text-base"></i>
             <span data-ar="تواصل واتساب (Contact Us)" data-en="Contact Us (WhatsApp)">Contact Us (WhatsApp)</span>
