@@ -4,8 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sketchy Chapters | Design & Construction (SCDC)</title>
-    <!-- Favicon -->
-    <link rel="icon" type="image/png" href="favicon.png">
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Swiper CSS Slider -->
@@ -502,23 +500,28 @@
            </div>
 
             <!-- Division 4: Workshop Center (WC.png) -->
-            <div class="glass-card p-8 rounded-3xl border-t-4 border-amber-500" data-aos="fade-up" data-aos-delay="400">
-               <div class="flex items-center space-x-4 rtl:space-x-reverse mb-4">
-                   <div class="w-14 h-14 rounded-2xl bg-gold/10 p-2.5 flex items-center justify-center border border-amber-500/30 overflow-hidden shrink-0">
-                       <img src="WC.png" alt="Workshop Center Logo" class="w-full h-full object-contain" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
-                       <i class="fa-solid fa-chalkboard-user text-gold text-2xl hidden"></i>
-                   </div>
-                   <h3 class="text-xl font-bold text-white">Workshop Center</h3>
-               </div>
+            <a href="workshop.html" class="glass-card p-8 rounded-3xl border-t-4 border-amber-500 block hover:border-amber-400 hover:scale-[1.02] transition-all duration-300 group" data-aos="fade-up" data-aos-delay="400">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="flex items-center space-x-4 rtl:space-x-reverse">
+                        <div class="w-14 h-14 rounded-2xl bg-gold/10 p-2.5 flex items-center justify-center border border-amber-500/30 overflow-hidden shrink-0">
+                            <img src="WC.png" alt="Workshop Center Logo" class="w-full h-full object-contain" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                            <i class="fa-solid fa-chalkboard-user text-gold text-2xl hidden"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white group-hover:text-amber-400 transition-colors">Workshop Center</h3>
+                    </div>
+                    <div class="w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400 opacity-0 group-hover:opacity-100 transition-opacity">
+                        <i class="fa-solid fa-arrow-left rtl:rotate-180 text-sm"></i>
+                    </div>
+                </div>
                 <p class="text-gray-400 text-sm font-light leading-relaxed">
-                   <span class="lang-en">A hands-on training hub delivering specialized technical engineering software courses (Revit, 3D Rendering) and comprehensive prep modules for engineering entrance exams.</span>
-                   <span class="lang-ar">مركز تدريبي متخصص يقدم دورات احترافية في البرامج الهندسية (Revit, 3D Rendering) ودورات التحضير للامتحانات الهندسية.</span>
+                    <span class="lang-en">A hands-on training hub delivering specialized technical engineering software courses (Revit, 3D Rendering) and comprehensive prep modules for engineering entrance exams.</span>
+                    <span class="lang-ar">مركز تدريبي متخصص يقدم دورات احترافية في البرامج الهندسية (Revit, 3D Rendering) ودورات التحضير للامتحانات الهندسية.</span>
                 </p>
-           </div>
+            </a>
         </div>
     </section>
 
-    <!-- CONTACT NUMBERS WITH REGIONAL LINES -->
+<!-- CONTACT NUMBERS WITH REGIONAL LINES -->
     <section id="contact" class="py-24 px-6 max-w-7xl mx-auto bg-black/60 rounded-3xl border border-amber-500/10 mb-20">
         <div class="text-center mb-16" data-aos="fade-up">
             <span class="text-xs font-bold gold-accent uppercase tracking-widest block mb-2">
@@ -536,44 +539,44 @@
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <!-- Lebanon Line -->
+            <!-- Lebanon Line (Main HQ) -->
             <div class="glass-card p-8 rounded-3xl text-center" data-aos="fade-up" data-aos-delay="100">
                <div class="w-12 h-12 rounded-full bg-gold/10 text-gold mx-auto flex items-center justify-center text-xl mb-4 border border-amber-500/20">
                    <i class="fa-solid fa-location-dot"></i>
                </div>
-                <h3 class="text-xl font-bold text-white mb-1">Lebanon Line</h3>
-                <p class="text-gray-400 text-xs font-light mb-6">Tripoli Studio</p>
-                <a href="https://wa.me/96181427589" class="bg-gold text-black px-6 py-3 rounded-full font-bold text-xs uppercase tracking-wider inline-flex items-center space-x-2 rtl:space-x-reverse hover:brightness-110 transition">
+               <h3 class="text-xl font-bold text-white mb-1">Lebanon HQ</h3>
+               <p class="text-gray-400 text-xs font-light mb-6">Tripoli Studio (Main Office)</p>
+               <a href="https://wa.me/96181427589" class="bg-gold text-black px-6 py-3 rounded-full font-bold text-xs uppercase tracking-wider inline-flex items-center space-x-2 rtl:space-x-reverse hover:brightness-110 transition">
                    <i class="fa-solid fa-phone"></i>
                    <span>+961 81 427 589</span>
-                </a>
-           </div>
+               </a>
+            </div>
 
             <!-- Saudi Arabia Line -->
             <div class="glass-card p-8 rounded-3xl text-center" data-aos="fade-up" data-aos-delay="200">
                <div class="w-12 h-12 rounded-full bg-gold/10 text-gold mx-auto flex items-center justify-center text-xl mb-4 border border-amber-500/20">
-                   <i class="fa-solid fa-location-dot"></i>
+                   <i class="fa-solid fa-globe"></i>
                </div>
-                <h3 class="text-xl font-bold text-white mb-1">Saudi Arabia Line</h3>
-                <p class="text-gray-400 text-xs font-light mb-6">Riyadh Branch</p>
-                <a href="https://wa.me/966540585295" class="bg-gold text-black px-6 py-3 rounded-full font-bold text-xs uppercase tracking-wider inline-flex items-center space-x-2 rtl:space-x-reverse hover:brightness-110 transition">
+               <h3 class="text-xl font-bold text-white mb-1">Saudi Arabia Line</h3>
+               <p class="text-gray-400 text-xs font-light mb-6">Riyadh Region Services</p>
+               <a href="https://wa.me/966540585295" class="bg-gold text-black px-6 py-3 rounded-full font-bold text-xs uppercase tracking-wider inline-flex items-center space-x-2 rtl:space-x-reverse hover:brightness-110 transition">
                    <i class="fa-solid fa-phone"></i>
                    <span>+966 54 058 5295</span>
-                </a>
-           </div>
+               </a>
+            </div>
 
             <!-- Qatar Line -->
             <div class="glass-card p-8 rounded-3xl text-center" data-aos="fade-up" data-aos-delay="300">
                <div class="w-12 h-12 rounded-full bg-gold/10 text-gold mx-auto flex items-center justify-center text-xl mb-4 border border-amber-500/20">
-                   <i class="fa-solid fa-location-dot"></i>
+                   <i class="fa-solid fa-globe"></i>
                </div>
-                <h3 class="text-xl font-bold text-white mb-1">Qatar Line</h3>
-                <p class="text-gray-400 text-xs font-light mb-6">Doha Branch</p>
-                <a href="https://wa.me/97471679639" class="bg-gold text-black px-6 py-3 rounded-full font-bold text-xs uppercase tracking-wider inline-flex items-center space-x-2 rtl:space-x-reverse hover:brightness-110 transition">
+               <h3 class="text-xl font-bold text-white mb-1">Qatar Line</h3>
+               <p class="text-gray-400 text-xs font-light mb-6">Doha Region Services</p>
+               <a href="https://wa.me/97471679639" class="bg-gold text-black px-6 py-3 rounded-full font-bold text-xs uppercase tracking-wider inline-flex items-center space-x-2 rtl:space-x-reverse hover:brightness-110 transition">
                    <i class="fa-solid fa-phone"></i>
                    <span>+974 7167 9639</span>
-                </a>
-           </div>
+               </a>
+            </div>
         </div>
     </section>
 
@@ -596,24 +599,24 @@
                 </div>
             </div>
 
-            <!-- Column 2: Global Offices -->
+            <!-- Column 2: Global Presence / Coverage -->
             <div class="space-y-4">
                 <h4 class="text-white font-bold text-sm uppercase tracking-wider">
-                    <span class="lang-en">Our Offices</span>
-                    <span class="lang-ar">فروعنا</span>
+                    <span class="lang-en">Global Coverage & HQ</span>
+                    <span class="lang-ar">مقرنا وخدماتنا الإقليمية</span>
                 </h4>
                 <ul class="text-gray-400 text-xs space-y-2.5 font-light">
                     <li class="flex items-center space-x-2 rtl:space-x-reverse">
                         <i class="fa-solid fa-location-dot text-amber-400"></i>
-                        <span>Tripoli, Lebanon / طرابلس، لبنان</span>
+                        <span>Tripoli, Lebanon (Main HQ) / طرابلس، لبنان (المقر الرئيسي)</span>
                     </li>
                     <li class="flex items-center space-x-2 rtl:space-x-reverse">
-                        <i class="fa-solid fa-location-dot text-amber-400"></i>
-                        <span>Riyadh, Saudi Arabia / الرياض، المملكة العربية السعودية</span>
+                        <i class="fa-solid fa-globe text-amber-400"></i>
+                        <span>Riyadh, Saudi Arabia (Services & Projects) / الرياض، السعودية (خدمات ومشاريع)</span>
                     </li>
                     <li class="flex items-center space-x-2 rtl:space-x-reverse">
-                        <i class="fa-solid fa-location-dot text-amber-400"></i>
-                        <span>Doha, Qatar / الدوحة، قطر</span>
+                        <i class="fa-solid fa-globe text-amber-400"></i>
+                        <span>Doha, Qatar (Services & Projects) / الدوحة، قطر (خدمات ومشاريع)</span>
                     </li>
                 </ul>
             </div>
