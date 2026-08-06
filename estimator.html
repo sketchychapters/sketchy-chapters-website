@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" id="htmlRoot">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interior Cost Estimator | Sketchy Chapters</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts (Cairo) -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Cairo', sans-serif; background-color: #0b0b0e; color: #f3f4f6; }
+        .glass-card { background: rgba(18, 18, 22, 0.75); backdrop-filter: blur(12px); border: 1px solid rgba(212, 175, 55, 0.2); }
+        .gold-accent { color: #d4af37; }
+        .bg-gold { background-color: #d4af37; }
+        input[type="radio"]:checked + div { border-color: #d4af37; background-color: rgba(212, 175, 55, 0.1); }
+        input[type="checkbox"]:checked + div { border-color: #d4af37; background-color: rgba(212, 175, 55, 0.1); }
+        /* Modal Animation & Styles */
+        #resultModal { backdrop-filter: blur(8px); background-color: rgba(0, 0, 0, 0.8); }
+        /* Loading Overlay */
+        #loadingOverlay { background-color: rgba(11, 11, 14, 0.95); backdrop-filter: blur(16px); }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between">
+
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="fixed inset-0 z-50 flex flex-col items-center justify-center space-y-6 transition-opacity duration-500 hidden">
+        <img src="logo.png" alt="Sketchy Chapters" class="h-16 w-auto object-contain animate-pulse">
+        <div class="text-center space-y-2">
+            <h3 class="text-white font-black text-xl tracking-wider" data-en="Calculating Quotation..." data-ar="جاري حساب التكلفة...">Calculating Quotation...</h3>
+            <p class="gold-accent text-sm font-bold" id="progressStepText">5 / 5</p>
+        </div>
+        <!-- Progress Bar -->
+        <div class="w-48 h-1.5 bg-white/10 rounded-full overflow-hidden">
+            <div id="progressBarFill" class="h-full bg-amber-400 w-0 transition-all duration-700"></div>
+        </div>
+    </div>
+
+    <!-- Popup Window (Modal) for Final Result -->
+    <div id="resultModal" class="fixed inset-0 z-40 flex items-center justify-center p-4 hidden">
+        <div class="glass-card max-w-lg w-full rounded-3xl p-6 md:p-8 space-y-6 text-left rtl:text-right relative border border-amber-500/50 shadow-2xl">
+            <!-- Close Modal Button -->
+            <button onclick="closeResultModal()" class="absolute top-4 right-4 rtl:right-auto rtl:left-4 text-gray-400 hover:text-white transition">
+                <i class="fa-solid fa-xmark text-xl"></i>
+            </button>
+
+            <div class="text-center space-y-2">
+                <span class="text-xs gold-accent font-bold uppercase tracking-wider block" data-en="Estimated Project Quotation (~)" data-ar="~ التكلفة التقديرية الإجمالية للمشروع">Estimated Project Quotation (~)</span>
+                <div class="text-4xl md:text-5xl font-black text-amber-400" id="totalPriceOutput">~ 0 $</div>
+                <p class="text-[11px] text-amber-300/80 italic mt-1" data-en="* Note: All prices are approximate only and may vary depending on the actual project conditions, details, and site requirements." data-ar="* ملاحظة: كافة الأسعار هي أسعار تقريبية فقط وقد تختلف حسب وضع المشروع، التفاصيل الفعليّة، ومتطلبات الموقع.">* Note: All prices are approximate only and may vary depending on the actual project conditions, details, and site requirements.</p>
+            </div>
+
+            <div class="bg-black/40 rounded-2xl p-4 border border-white/10 space-y-2 text-xs text-gray-300">
+                <p id="detailsOutput"></p>
+            </div>
+
+            <div class="pt-2 flex flex-col gap-3">
+                <a id="whatsappBtn" href="#" target="_blank" class="bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold px-6 py-3.5 rounded-2xl text-xs uppercase tracking-wider flex items-center justify-center space-x-2 rtl:space-x-reverse transition shadow-lg">
+                    <i class="fa-brands fa-whatsapp text-lg"></i>
+                    <span data-en="Send Complete Details via WhatsApp" data-ar="إرسال كافة التفاصيل عبر واتساب">Send Complete Details via WhatsApp</span>
+                </a>
+                <button onclick="closeResultModal()" class="w-full py-3 rounded-2xl border border-white/10 text-gray-400 hover:text-white text-xs font-bold transition" data-en="Back / Modify" data-ar="رجوع / تعديل">Back / Modify</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="w-full py-5 px-8 border-b border-white/10 flex justify-between items-center glass-card sticky top-0 z-30">
+        <a href="index.html" class="flex items-center space-x-3 rtl:space-x-reverse">
+            <img src="logo.png" alt="Sketchy Chapters Logo" class="h-9 w-auto object-contain">
+        </a>
+        <div class="flex items-center space-x-4 rtl:space-x-reverse">
+            <!-- Language Switcher Button -->
+            <button onclick="toggleLanguage()" class="px-3 py-1.5 rounded-xl border border-amber-500/30 text-amber-400 font-bold text-xs hover:bg-amber-500/10 transition flex items-center gap-1.5">
+                <i class="fa-solid fa-globe"></i>
+                <span id="langBtnText">العربية</span>
+            </button>
+            <a href="index.html" class="flex items-center space-x-2 rtl:space-x-reverse text-white font-bold text-sm hover:text-amber-400 transition">
+                <i class="fa-solid fa-arrow-left rtl:rotate-180 gold-accent"></i>
+                <span data-en="Back to Home" data-ar="العودة للرئيسية">Back to Home</span>
+            </a>
+        </div>
+    </header>
+
+    <!-- Main Estimator Container -->
+    <main class="max-w-3xl w-full mx-auto px-4 py-12 flex-grow">
+        <div class="text-center mb-10">
+            <span class="text-xs gold-accent font-bold uppercase tracking-widest block mb-2" data-en="Interior Cost Estimator" data-ar="حاسبة تكاليف التصميم الداخلي">Interior Cost Estimator</span>
+            <h1 class="text-3xl md:text-4xl font-black text-white" data-en="Estimate Your Interior Project Cost" data-ar="احسب التكلفة التقديرية لتصميمك الداخلي">Estimate Your Interior Project Cost</h1>
+            <p class="text-gray-400 text-sm mt-2" data-en="Select your project type and details for an approximate calculation" data-ar="اختر نوع المشروع وتفاصيله للحصول على حساب تقريبي">Select your project type and details for an approximate calculation</p>
+            <!-- Notice Banner -->
+            <div class="inline-block mt-3 px-4 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-300 text-xs font-bold" data-en="* Note: All displayed prices are approximate only." data-ar="* ملاحظة: كافة الأسعار المعروضة هي أسعار تقريبية فقط.">
+                * Note: All displayed prices are approximate only.
+            </div>
+        </div>
+
+        <div class="glass-card rounded-3xl p-6 md:p-8 space-y-8 shadow-2xl text-left rtl:text-right">
+            
+            <!-- Step 1: Sector -->
+            <div>
+                <label class="block text-white font-bold mb-3 text-sm flex items-center gap-2">
+                    <span class="w-6 h-6 rounded-full bg-gold text-black flex items-center justify-center text-xs font-black">1</span>
+                    <span data-en="Select Project Sector:" data-ar="اختر قطاع المشروع:">Select Project Sector:</span>
+                </label>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                    <label class="cursor-pointer">
+                        <input type="radio" name="projectSector" value="residential" class="hidden peer" onchange="loadProjectTypes('residential')">
+                        <div class="p-4 rounded-2xl border border-white/10 transition text-center hover:border-amber-500/50">
+                            <i class="fa-solid fa-house text-2xl gold-accent mb-2"></i>
+                            <div class="font-bold text-sm text-white" data-en="Residential" data-ar="سكني">Residential</div>
+                        </div>
+                    </label>
+                    <label class="cursor-pointer">
+                        <input type="radio" name="projectSector" value="commercial" class="hidden peer" onchange="loadProjectTypes('commercial')">
+                        <div class="p-4 rounded-2xl border border-white/10 transition text-center hover:border-amber-500/50">
+                            <i class="fa-solid fa-store text-2xl gold-accent mb-2"></i>
+                            <div class="font-bold text-sm text-white" data-en="Commercial" data-ar="تجاري">Commercial</div>
+                        </div>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Step 2: Specific Type -->
+            <div id="projectTypeContainer" class="hidden">
+                <label class="block text-white font-bold mb-3 text-sm flex items-center gap-2">
+                    <span class="w-6 h-6 rounded-full bg-gold text-black flex items-center justify-center text-xs font-black">2</span>
+                    <span data-en="Select Property Type:" data-ar="اختر نوع العقار أو المشروع:">Select Property Type:</span>
+                </label>
+                <div id="projectTypeList" class="grid grid-cols-2 md:grid-cols-3 gap-3"></div>
+            </div>
+
+            <!-- Step 3: Functions Selection -->
+            <div id="functionsContainer" class="hidden">
+                <label class="block text-white font-bold mb-3 text-sm flex items-center gap-2">
+                    <span class="w-6 h-6 rounded-full bg-gold text-black flex items-center justify-center text-xs font-black">3</span>
+                    <span data-en="Select Required Spaces / Functions:" data-ar="اختر الفراغات والوظائف المطلوبة:">Select Required Spaces / Functions:</span>
+                </label>
+                <div id="functionsList" class="grid grid-cols-2 md:grid-cols-3 gap-3"></div>
+            </div>
+
+            <!-- Step 4: Areas Input -->
+            <div id="areaContainer" class="hidden space-y-6">
+                <!-- General Area Input (Required if non-kitchen functions are selected) -->
+                <div id="generalAreaWrapper" class="hidden">
+                    <label class="block text-white font-bold mb-3 text-sm flex items-center gap-2">
+                        <span class="w-6 h-6 rounded-full bg-gold text-black flex items-center justify-center text-xs font-black">4</span>
+                        <span id="areaLabelText" data-en="Total Project Area (m²) (Min 9 m²):" data-ar="المساحة الإجمالية للمشروع (متر مربع) (الحد الأدنى 9 م²):">Total Project Area (m²) (Min 9 m²):</span>
+                    </label>
+                    <div class="relative">
+                        <input type="number" id="projectArea" min="1" placeholder="e.g., 120" class="w-full bg-black/50 border border-white/25 rounded-2xl px-4 py-3.5 text-white focus:outline-none focus:border-amber-500 text-lg">
+                        <span class="absolute right-4 rtl:right-auto rtl:left-4 top-3.5 text-gray-400 font-bold">m²</span>
+                    </div>
+                </div>
+
+                <!-- Kitchen Specific Area Input (Required if kitchen is selected) -->
+                <div id="kitchenAreaWrapper" class="hidden bg-black/30 p-4 rounded-2xl border border-amber-500/20 space-y-2">
+                    <label class="block text-white font-bold text-xs" data-en="Specific Kitchen Area (m²) (Min 9 m²):" data-ar="مساحة المطبخ المخصصة (متر مربع) (الحد الأدنى 9 م²):">Specific Kitchen Area (m²) (Min 9 m²):</label>
+                    <div class="relative">
+                        <input type="number" id="kitchenArea" min="9" placeholder="e.g., 15" class="w-full bg-black/50 border border-white/25 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:border-amber-500 text-sm">
+                        <span class="absolute right-4 rtl:right-auto rtl:left-4 top-2.5 text-gray-400 font-bold text-xs">m²</span>
+                    </div>
+                </div>
+
+                <!-- Trigger Calculation Button -->
+                <button onclick="triggerCalculationWithLoading()" class="w-full bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-black font-black py-4 rounded-2xl text-sm uppercase tracking-wider transition shadow-lg flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-calculator"></i>
+                    <span data-en="Calculate Approximate Quotation" data-ar="احسب التكلفة التقريبية">Calculate Approximate Quotation</span>
+                </button>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="text-center py-6 border-t border-white/10 text-xs text-gray-500 space-y-1">
+        <p>All Rights Reserved &copy; Sketchy Chapters 2026</p>
+        <p class="text-amber-400/80 text-[11px]" data-en="* Note: All prices shown are approximate only and subject to change based on project conditions." data-ar="* ملاحظة: كافة الأسعار المعروضة هي أسعار تقريبية فقط وقابلة للتغيير حسب ظروف المشروع.">* Note: All prices shown are approximate only and subject to change based on project conditions.</p>
+    </footer>
+
+    <!-- JavaScript Logic & Database -->
+    <script>
+        let currentLang = 'en';
+
+        function toggleLanguage() {
+            currentLang = currentLang === 'en' ? 'ar' : 'en';
+            const htmlRoot = document.getElementById('htmlRoot');
+            const langBtnText = document.getElementById('langBtnText');
+            
+            if (currentLang === 'ar') {
+                htmlRoot.setAttribute('lang', 'ar');
+                htmlRoot.setAttribute('dir', 'rtl');
+                langBtnText.innerText = 'English';
+            } else {
+                htmlRoot.setAttribute('lang', 'en');
+                htmlRoot.setAttribute('dir', 'ltr');
+                langBtnText.innerText = 'العربية';
+            }
+
+            document.querySelectorAll('[data-en]').forEach(el => {
+                el.innerText = el.getAttribute(`data-${currentLang}`);
+            });
+
+            const sectorEl = document.querySelector('input[name="projectSector"]:checked');
+            if(sectorEl) {
+                loadProjectTypes(sectorEl.value);
+            }
+            
+            updateAreaLabel();
+        }
+
+        const database = {
+            residential: {
+                types: [
+                    { 
+                        id: "apartment", 
+                        name: { en: "Apartment", ar: "شقة سكنية" }, 
+                        rate: 20, 
+                        hasKitchenSeparate: true, 
+                        kitchenRate: 25,
+                        functions: [
+                            { en: "Living Room & Salon", ar: "صالون ومعيشة", isKitchen: false },
+                            { en: "Bedrooms", ar: "غرف النوم", isKitchen: false },
+                            { en: "Kitchen", ar: "مطبخ", isKitchen: true },
+                            { en: "Bathrooms", ar: "الحمامات", isKitchen: false },
+                            { en: "Coffee Corner", ar: "ركن قهوة", isKitchen: false },
+                            { en: "Balcony / Outdoor Seating", ar: "بلكون / جلسة خارجية", isKitchen: false }
+                        ]
+                    },
+                    { 
+                        id: "villa", 
+                        name: { en: "Luxury Villa", ar: "فيلا فاخرة" }, 
+                        rate: 25, 
+                        hasKitchenSeparate: true, 
+                        kitchenRate: 30,
+                        functions: [
+                            { en: "Master Suite & Bedrooms", ar: "جناح رئيسي وغرف نوم", isKitchen: false },
+                            { en: "Formal Majlis & Salon", ar: "مجلس وصالون استقبال", isKitchen: false },
+                            { en: "Family Living Room", ar: "غرفة معيشة عائلية", isKitchen: false },
+                            { en: "Kitchen", ar: "مطبخ رئيسي", isKitchen: true },
+                            { en: "Coffee Corner", ar: "ركن قهوة", isKitchen: false },
+                            { en: "Outdoor Seating / Terrace", ar: "جلسة خارجية", isKitchen: false },
+                            { en: "Swimming Pool Area", ar: "منطقة المسبح وتوابعه", isKitchen: false },
+                            { en: "Bathrooms", ar: "الحمامات", isKitchen: false }
+                        ]
+                    },
+                    { 
+                        id: "studio", 
+                        name: { en: "Studio", ar: "استوديو" }, 
+                        rate: 20, 
+                        hasKitchenSeparate: false,
+                        functions: [
+                            { en: "Living & Sleeping Area", ar: "منطقة النوم والمعيشة", isKitchen: false },
+                            { en: "Kitchenette / Prep Area", ar: "مطبخ تحضيري مصغر", isKitchen: false },
+                            { en: "Bathroom", ar: "حمام", isKitchen: false }
+                        ]
+                    },
+                    { 
+                        id: "chalet", 
+                        name: { en: "Chalet", ar: "شاليه" }, 
+                        rate: 25, 
+                        hasKitchenSeparate: false,
+                        functions: [
+                            { en: "Main Living & Fireplace Area", ar: "المعيشة والمدفأة", isKitchen: false },
+                            { en: "Bedrooms", ar: "غرف النوم", isKitchen: false },
+                            { en: "Kitchenette", ar: "مطبخ صغير", isKitchen: false },
+                            { en: "Outdoor Deck / Terrace", ar: "تراس خارجي للشاليه", isKitchen: false },
+                            { en: "Bathroom", ar: "حمام", isKitchen: false }
+                        ]
+                    }
+                ]
+            },
+            commercial: {
+                types: [
+                    { 
+                        id: "hotel", 
+                        name: { en: "Hotel", ar: "فندق" }, 
+                        rate: 25, 
+                        hasKitchenSeparate: false,
+                        functions: [
+                            { en: "Hotel Lobby & Reception", ar: "لوبي الاستقبال الفندقي", isKitchen: false },
+                            { en: "Standard & Suite Rooms", ar: "الغرف والأجنحة الفندقية", isKitchen: false },
+                            { en: "Hotel Restaurant & Bar", ar: "مطعم وبار الفندق", isKitchen: false },
+                            { en: "Corridors & Public Areas", ar: "الممرات والمساحات العامة", isKitchen: false }
+                        ]
+                    },
+                    { 
+                        id: "showroom", 
+                        name: { en: "Showroom / Exhibition", ar: "معرض تجاري" }, 
+                        rate: 25, 
+                        hasKitchenSeparate: false,
+                        functions: [
+                            { en: "Main Reception Counter", ar: "كاونتر الاستقبال", isKitchen: false },
+                            { en: "Product Display Units", ar: "وحدات عرض المنتجات", isKitchen: false },
+                            { en: "Customer Waiting Area", ar: "منطقة انتظار الزبائن", isKitchen: false },
+                            { en: "Lighting & Wall Cladding", ar: "الإضاءة وتلبيس الجدران", isKitchen: false }
+                        ]
+                    },
+                    { 
+                        id: "restaurant", 
+                        name: { en: "Restaurant / Cafe", ar: "مطعم / مقهى" }, 
+                        rate: 25, 
+                        hasKitchenSeparate: false,
+                        functions: [
+                            { en: "Indoor Seating & Dining", ar: "جلسات داخلية ومطعم", isKitchen: false },
+                            { en: "Outdoor Seating (Terrace)", ar: "جلسات خارجية", isKitchen: false },
+                            { en: "Kitchen & Food Prep Area", ar: "المطبخ ومنطقة التجهيز", isKitchen: false },
+                            { en: "Coffee Bar / Counter", ar: "بار المشروبات والقهوة", isKitchen: false },
+                            { en: "Reception & Cashier", ar: "الاستقبال والكاشير", isKitchen: false }
+                        ]
+                    },
+                    { 
+                        id: "offices", 
+                        name: { en: "Offices", ar: "مكاتب" }, 
+                        rate: 20, 
+                        hasKitchenSeparate: false,
+                        functions: [
+                            { en: "Reception & Waiting Area", ar: "الاستقبال والانتظار", isKitchen: false },
+                            { en: "Executive Offices", ar: "المكاتب الإدارية", isKitchen: false },
+                            { en: "Meeting & Conference Room", ar: "غرفة الاجتماعات", isKitchen: false },
+                            { en: "Workstations Area", ar: "مساحات العمل المفتوحة", isKitchen: false },
+                            { en: "Pantry / Coffee Station", ar: "ركن الخدمة والقهوة", isKitchen: false }
+                        ]
+                    },
+                    { 
+                        id: "retail", 
+                        name: { en: "Retail Store", ar: "محل تجاري" }, 
+                        rate: 20, 
+                        hasKitchenSeparate: false,
+                        functions: [
+                            { en: "Cashier Counter", ar: "كاونتر المحاسبة", isKitchen: false },
+                            { en: "Display Shelves & Racks", ar: "رفوف ووحدات العرض", isKitchen: false },
+                            { en: "Fitting Rooms", ar: "غرف القياس", isKitchen: false },
+                            { en: "Storage / Backroom", ar: "مستودع داخلي", isKitchen: false }
+                        ]
+                    },
+                    { 
+                        id: "stand", 
+                        name: { en: "Custom Stand / Booth", ar: "ستاند أو بوث" }, 
+                        rate: 50, 
+                        hasKitchenSeparate: false,
+                        functions: [
+                            { en: "Exhibition Booth Layout", ar: "تصميم هيكل البوث والمنصة", isKitchen: false },
+                            { en: "Display Shelves & Backlights", ar: "رفوف عرض وإضاءة مخفية", isKitchen: false },
+                            { en: "Branding & Reception Counter", ar: "الهوية البصرية وكاونتر الاستقبال", isKitchen: false }
+                        ]
+                    }
+                ]
+            }
+        };
+
+        let selectedTypeObj = {};
+
+        function loadProjectTypes(sector) {
+            const typeContainer = document.getElementById('projectTypeContainer');
+            const typeList = document.getElementById('projectTypeList');
+            typeList.innerHTML = "";
+            typeContainer.classList.remove('hidden');
+            document.getElementById('functionsContainer').classList.add('hidden');
+            document.getElementById('areaContainer').classList.add('hidden');
+
+            database[sector].types.forEach((typeItem) => {
+                typeList.innerHTML += `
+                    <label class="cursor-pointer">
+                        <input type="radio" name="projectType" value="${typeItem.id}" data-sector="${sector}" class="hidden peer" onchange="loadFunctions(this)">
+                        <div class="p-3 rounded-xl border border-white/10 transition text-center hover:border-amber-500/50 text-xs font-bold text-white">
+                            ${typeItem.name[currentLang]}
+                        </div>
+                    </label>
+                `;
+            });
+        }
+
+        function loadFunctions(el) {
+            const sector = el.getAttribute('data-sector');
+            const typeId = el.value;
+            selectedTypeObj = database[sector].types.find(t => t.id === typeId);
+
+            const funcContainer = document.getElementById('functionsContainer');
+            const funcList = document.getElementById('functionsList');
+            funcList.innerHTML = "";
+            funcContainer.classList.remove('hidden');
+            document.getElementById('areaContainer').classList.remove('hidden');
+
+            const kitchenWrapper = document.getElementById('kitchenAreaWrapper');
+            const generalAreaWrapper = document.getElementById('generalAreaWrapper');
+            kitchenWrapper.classList.add('hidden');
+            generalAreaWrapper.classList.add('hidden');
+            document.getElementById('kitchenArea').value = "";
+            document.getElementById('projectArea').value = "";
+
+            selectedTypeObj.functions.forEach((funcItem) => {
+                let kitchenAttr = funcItem.isKitchen ? 'id="kitchenCheckbox" data-is-kitchen="true"' : '';
+                funcList.innerHTML += `
+                    <label class="cursor-pointer">
+                        <input type="checkbox" name="funcItem" value="${funcItem.en}" data-func-en="${funcItem.en}" data-func-ar="${funcItem.ar}" ${kitchenAttr} class="hidden peer" onchange="handleAreaFieldsVisibility()">
+                        <div class="p-3 rounded-xl border border-white/10 transition text-center hover:border-amber-500/50 text-xs font-bold text-gray-300">
+                            ${funcItem[currentLang]}
+                        </div>
+                    </label>
+                `;
+            });
+            updateAreaLabel();
+            handleAreaFieldsVisibility();
+        }
+
+        function updateAreaLabel() {
+            const areaLabelText = document.getElementById('areaLabelText');
+            const projectAreaInput = document.getElementById('projectArea');
+            if (!areaLabelText) return;
+
+            if (selectedTypeObj.id === 'stand') {
+                if (currentLang === 'ar') {
+                    areaLabelText.innerText = 'مساحة البوث الإجمالية (متر مربع):';
+                } else {
+                    areaLabelText.innerText = 'Total Booth Area (m²):';
+                }
+                if (projectAreaInput) projectAreaInput.removeAttribute('min');
+            } else {
+                if (currentLang === 'ar') {
+                    areaLabelText.innerText = 'المساحة الإجمالية للمشروع (متر مربع) (الحد الأدنى 9 م²):';
+                } else {
+                    areaLabelText.innerText = 'Total Project Area (m²) (Min 9 m²):';
+                }
+                if (projectAreaInput) projectAreaInput.setAttribute('min', '9');
+            }
+        }
+
+        function handleAreaFieldsVisibility() {
+            const kitchenCheckbox = document.getElementById('kitchenCheckbox');
+            const kitchenWrapper = document.getElementById('kitchenAreaWrapper');
+            const generalAreaWrapper = document.getElementById('generalAreaWrapper');
+            
+            const selectedFuncEls = document.querySelectorAll('input[name="funcItem"]:checked');
+            
+            let hasNonKitchen = false;
+            let hasKitchen = false;
+
+            selectedFuncEls.forEach(cb => {
+                if (cb.getAttribute('data-is-kitchen') === 'true') {
+                    hasKitchen = true;
+                } else {
+                    hasNonKitchen = true;
+                }
+            });
+
+            if (hasNonKitchen) {
+                generalAreaWrapper.classList.remove('hidden');
+            } else {
+                generalAreaWrapper.classList.add('hidden');
+                document.getElementById('projectArea').value = "";
+            }
+
+            if (selectedTypeObj.hasKitchenSeparate && hasKitchen) {
+                kitchenWrapper.classList.remove('hidden');
+            } else {
+                kitchenWrapper.classList.add('hidden');
+                document.getElementById('kitchenArea').value = "";
+            }
+        }
+
+        function triggerCalculationWithLoading() {
+            const areaInput = document.getElementById('projectArea').value;
+            const selectedFuncEls = document.querySelectorAll('input[name="funcItem"]:checked');
+
+            let totalArea = areaInput ? parseFloat(areaInput) : 0;
+            const kitchenCheckbox = document.getElementById('kitchenCheckbox');
+            let hasKitchenChecked = kitchenCheckbox && kitchenCheckbox.checked && selectedTypeObj.hasKitchenSeparate;
+            let kitchenArea = hasKitchenChecked ? parseFloat(document.getElementById('kitchenArea').value || 0) : 0;
+
+            if (selectedFuncEls.length === 0) {
+                alert(currentLang === 'ar' ? 'الرجاء اختيار فراغ واحد على الأقل.' : 'Please select at least one space.');
+                return;
+            }
+
+            let hasNonKitchen = Array.from(selectedFuncEls).some(cb => cb.getAttribute('data-is-kitchen') !== 'true');
+
+            if (hasNonKitchen && (!areaInput || totalArea <= 0)) {
+                alert(currentLang === 'ar' ? 'الرجاء إدخال المساحة الإجمالية.' : 'Please enter the total area.');
+                return;
+            }
+
+            if (hasKitchenChecked && (!document.getElementById('kitchenArea').value || kitchenArea <= 0)) {
+                alert(currentLang === 'ar' ? 'الرجاء إدخال مساحة المطبخ المخصصة.' : 'Please enter the specific kitchen area.');
+                return;
+            }
+
+            if (selectedTypeObj.id !== 'stand' && totalArea > 0 && totalArea < 9) {
+                alert(currentLang === 'ar' ? 'الحد الأدنى لمساحة المشروع هو 9 متر مربع.' : 'Minimum project area is 9 m².');
+                return;
+            }
+
+            if (hasKitchenChecked && kitchenArea > 0 && kitchenArea < 9) {
+                alert(currentLang === 'ar' ? 'الحد الأدنى لمساحة المطبخ هو 9 متر مربع.' : 'Minimum kitchen area is 9 m².');
+                return;
+            }
+
+            const overlay = document.getElementById('loadingOverlay');
+            const progressFill = document.getElementById('progressBarFill');
+            const progressStepText = document.getElementById('progressStepText');
+            
+            overlay.classList.remove('hidden');
+            progressFill.style.width = '0%';
+            progressStepText.innerText = '1 / 5';
+
+            setTimeout(() => { progressFill.style.width = '40%'; progressStepText.innerText = '3 / 5'; }, 1400);
+            setTimeout(() => { progressFill.style.width = '80%'; progressStepText.innerText = '4 / 5'; }, 4200);
+            setTimeout(() => { 
+                progressFill.style.width = '100%'; 
+                progressStepText.innerText = '5 / 5'; 
+            }, 5600);
+
+            setTimeout(() => {
+                overlay.classList.add('hidden');
+                calculateAndShowModal(totalArea, kitchenArea, hasKitchenChecked, selectedFuncEls);
+            }, 7000);
+        }
+
+        function calculateAndShowModal(totalArea, kitchenArea, hasKitchenChecked, selectedFuncEls) {
+            let selectedFuncsNames = Array.from(selectedFuncEls).map(cb => cb.getAttribute(`data-func-${currentLang}`));
+
+            let baseCost = totalArea > 0 ? (totalArea * selectedTypeObj.rate) : 0;
+            let kitchenCost = hasKitchenChecked ? (kitchenArea * selectedTypeObj.kitchenRate) : 0;
+            let totalCost = Math.round(baseCost + kitchenCost);
+
+            let typeNameStr = selectedTypeObj.name[currentLang];
+            
+            let detailsText = currentLang === 'ar' 
+                ? `نوع المشروع: ${typeNameStr}` 
+                : `Project Type: ${typeNameStr}`;
+
+            if(totalArea > 0) {
+                let areaLabelTitle = selectedTypeObj.id === 'stand' 
+                    ? (currentLang === 'ar' ? 'مساحة البوث' : 'Booth Area') 
+                    : (currentLang === 'ar' ? 'المساحة العامة' : 'Total Area');
+                detailsText += ` | ${areaLabelTitle}: ${totalArea} م²`;
+            }
+
+            detailsText += currentLang === 'ar' ? ` | الفراغات: ${selectedFuncsNames.join(', ')}` : ` | Spaces: ${selectedFuncsNames.join(', ')}`;
+            
+            if(hasKitchenChecked && kitchenArea > 0) {
+                detailsText += currentLang === 'ar' ? ` | مساحة المطبخ: ${kitchenArea} م²` : ` | Kitchen Area: ${kitchenArea} m²`;
+            }
+
+            document.getElementById('totalPriceOutput').innerText = "~ " + totalCost.toLocaleString() + " $";
+            document.getElementById('detailsOutput').innerText = detailsText;
+
+            sendEmailNotification(typeNameStr, totalCost, totalArea, kitchenArea, selectedFuncsNames);
+
+            let waMsg = currentLang === 'ar'
+                ? `مرحباً، أود الاستفسار عن التكلفة التقريبية لتصميمي الداخلي:%0a- النوع: ${typeNameStr}%0a`
+                : `Hello, I would like to inquire about my approximate interior design estimate (approximate price):%0a- Type: ${typeNameStr}%0a`;
+
+            if(totalArea > 0) {
+                let waAreaTitle = selectedTypeObj.id === 'stand' ? 'مساحة البوث' : 'المساحة الإجمالية';
+                waMsg += currentLang === 'ar' ? `- ${waAreaTitle}: ${totalArea} م²%0a` : `- Area: ${totalArea} m²%0a`;
+            }
+
+            if(hasKitchenChecked && kitchenArea > 0) {
+                waMsg += currentLang === 'ar' ? `- مساحة المطبخ: ${kitchenArea} م²%0a` : `- Kitchen Area: ${kitchenArea} m²%0a`;
+            }
+
+            waMsg += _waMsgFormat(selectedFuncsNames, totalCost, currentLang);
+
+            document.getElementById('whatsappBtn').href = `https://wa.me/96181427589?text=${waMsg}`;
+
+            document.getElementById('resultModal').classList.remove('hidden');
+        }
+
+        function _waMsgFormat(spaces, cost, lang) {
+            if (lang === 'ar') {
+                return `- الفراغات: ${spaces.join(', ')}%0a- التكلفة التقريبية: ~ ${cost}$ (كافة الأسعار تقريبية فقط وقابلة للتغيير حسب وضع المشروع)%0aأرغب بمتابعة التفاصيل.`;
+            } else {
+                return `- Spaces: ${spaces.join(', ')}%0a- Approximate Price: ~ ${cost}$ (All prices are approximate only and subject to change based on project conditions)%0aI'd like to discuss further.`;
+            }
+        }
+
+        function closeResultModal() {
+            document.querySelectorAll('input[type="radio"], input[type="checkbox"]').forEach(el => el.checked = false);
+            document.getElementById('projectTypeContainer').classList.add('hidden');
+            document.getElementById('functionsContainer').classList.add('hidden');
+            document.getElementById('areaContainer').classList.add('hidden');
+            document.getElementById('projectArea').value = '';
+            document.getElementById('kitchenArea').value = '';
+            
+            document.getElementById('resultModal').classList.add('hidden');
+        }
+
+        function sendEmailNotification(typeName, cost, area, kArea, spaces) {
+            console.log(`[Email Sent to info@sketchychapters.com]: New approximate quotation generated. Type: ${typeName}, Approx Cost: ~${cost}$, Area: ${area > 0 ? area + 'm²' : 'N/A'}, Kitchen Area: ${kArea > 0 ? kArea + 'm²' : 'N/A'}, Spaces: ${spaces.join(', ')}`);
+        }
+    </script>
+</body>
+</html>
