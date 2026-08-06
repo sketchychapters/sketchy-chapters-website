@@ -17,9 +17,7 @@
         .bg-gold { background-color: #d4af37; }
         input[type="radio"]:checked + div { border-color: #d4af37; background-color: rgba(212, 175, 55, 0.1); }
         input[type="checkbox"]:checked + div { border-color: #d4af37; background-color: rgba(212, 175, 55, 0.1); }
-        /* Modal Animation & Styles */
-        #resultModal { backdrop-filter: blur(8px); background-color: rgba(0, 0, 0, 0.8); }
-        /* Loading Overlay */
+        #resultModal, #errorModal { backdrop-filter: blur(8px); background-color: rgba(0, 0, 0, 0.8); }
         #loadingOverlay { background-color: rgba(11, 11, 14, 0.95); backdrop-filter: blur(16px); }
     </style>
 </head>
@@ -32,16 +30,35 @@
             <h3 class="text-white font-black text-xl tracking-wider" data-en="Calculating Quotation..." data-ar="جاري حساب التكلفة...">Calculating Quotation...</h3>
             <p class="gold-accent text-sm font-bold" id="progressStepText">5 / 5</p>
         </div>
-        <!-- Progress Bar -->
         <div class="w-48 h-1.5 bg-white/10 rounded-full overflow-hidden">
             <div id="progressBarFill" class="h-full bg-amber-400 w-0 transition-all duration-700"></div>
+        </div>
+    </div>
+
+    <!-- Error / Warning Modal (Sketchy Robot Style) -->
+    <div id="errorModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 hidden">
+        <div class="glass-card max-w-sm w-full rounded-3xl p-6 text-center relative border border-amber-500/50 shadow-2xl space-y-4">
+            <button onclick="closeErrorModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white transition">
+                <i class="fa-solid fa-xmark text-xl"></i>
+            </button>
+            <div class="w-20 h-20 mx-auto rounded-2xl bg-gradient-to-br from-amber-500/20 to-black border border-amber-500 flex items-center justify-center relative shadow-lg animate-bounce">
+                <div class="absolute -top-3 w-3 h-3 bg-amber-400 rounded-full animate-ping"></div>
+                <i class="fa-solid fa-robot text-3xl gold-accent"></i>
+                <div class="absolute bottom-2 text-[9px] font-black uppercase text-amber-300 tracking-tighter">Sketchy Bot</div>
+            </div>
+            <div class="space-y-1">
+                <h3 class="text-white font-black text-lg" data-en="Input Notice" data-ar="تنبيه في الإدخال">Input Notice</h3>
+                <p id="errorMessageOutput" class="text-xs text-amber-300 font-semibold" data-en="Minimum area must be greater than 9 m²." data-ar="يجب أن تكون المساحة أكبر من 9 متر مربع.">Minimum area must be greater than 9 m².</p>
+            </div>
+            <button onclick="closeErrorModal()" class="w-full bg-amber-500 hover:bg-amber-400 text-black font-black py-2.5 rounded-xl text-xs uppercase tracking-wider transition">
+                <span data-en="Got it" data-ar="حسناً">Got it</span>
+            </button>
         </div>
     </div>
 
     <!-- Popup Window (Modal) for Final Result -->
     <div id="resultModal" class="fixed inset-0 z-40 flex items-center justify-center p-4 hidden">
         <div class="glass-card max-w-lg w-full rounded-3xl p-6 md:p-8 space-y-6 text-left rtl:text-right relative border border-amber-500/50 shadow-2xl">
-            <!-- Close Modal Button -->
             <button onclick="closeResultModal()" class="absolute top-4 right-4 rtl:right-auto rtl:left-4 text-gray-400 hover:text-white transition">
                 <i class="fa-solid fa-xmark text-xl"></i>
             </button>
@@ -72,7 +89,6 @@
             <img src="logo.png" alt="Sketchy Chapters Logo" class="h-9 w-auto object-contain">
         </a>
         <div class="flex items-center space-x-4 rtl:space-x-reverse">
-            <!-- Language Switcher Button -->
             <button onclick="toggleLanguage()" class="px-3 py-1.5 rounded-xl border border-amber-500/30 text-amber-400 font-bold text-xs hover:bg-amber-500/10 transition flex items-center gap-1.5">
                 <i class="fa-solid fa-globe"></i>
                 <span id="langBtnText">العربية</span>
@@ -90,7 +106,6 @@
             <span class="text-xs gold-accent font-bold uppercase tracking-widest block mb-2" data-en="Interior Cost Estimator" data-ar="حاسبة تكاليف التصميم الداخلي">Interior Cost Estimator</span>
             <h1 class="text-3xl md:text-4xl font-black text-white" data-en="Estimate Your Interior Project Cost" data-ar="احسب التكلفة التقديرية لتصميمك الداخلي">Estimate Your Interior Project Cost</h1>
             <p class="text-gray-400 text-sm mt-2" data-en="Select your project type and details for an approximate calculation" data-ar="اختر نوع المشروع وتفاصيله للحصول على حساب تقريبي">Select your project type and details for an approximate calculation</p>
-            <!-- Notice Banner -->
             <div class="inline-block mt-3 px-4 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-300 text-xs font-bold" data-en="* Note: All displayed prices are approximate only." data-ar="* ملاحظة: كافة الأسعار المعروضة هي أسعار تقريبية فقط.">
                 * Note: All displayed prices are approximate only.
             </div>
@@ -142,7 +157,6 @@
 
             <!-- Step 4: Areas Input -->
             <div id="areaContainer" class="hidden space-y-6">
-                <!-- General Area Input (Required if non-kitchen functions are selected) -->
                 <div id="generalAreaWrapper" class="hidden">
                     <label class="block text-white font-bold mb-3 text-sm flex items-center gap-2">
                         <span class="w-6 h-6 rounded-full bg-gold text-black flex items-center justify-center text-xs font-black">4</span>
@@ -154,7 +168,6 @@
                     </div>
                 </div>
 
-                <!-- Kitchen Specific Area Input (Required if kitchen is selected) -->
                 <div id="kitchenAreaWrapper" class="hidden bg-black/30 p-4 rounded-2xl border border-amber-500/20 space-y-2">
                     <label class="block text-white font-bold text-xs" data-en="Specific Kitchen Area (m²) (Min 9 m²):" data-ar="مساحة المطبخ المخصصة (متر مربع) (الحد الأدنى 9 م²):">Specific Kitchen Area (m²) (Min 9 m²):</label>
                     <div class="relative">
@@ -163,7 +176,6 @@
                     </div>
                 </div>
 
-                <!-- Trigger Calculation Button -->
                 <button onclick="triggerCalculationWithLoading()" class="w-full bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-black font-black py-4 rounded-2xl text-sm uppercase tracking-wider transition shadow-lg flex items-center justify-center gap-2">
                     <i class="fa-solid fa-calculator"></i>
                     <span data-en="Calculate Approximate Quotation" data-ar="احسب التكلفة التقريبية">Calculate Approximate Quotation</span>
@@ -460,6 +472,17 @@
             }
         }
 
+        function showSketchyError(messageEn, messageAr) {
+            const errorModal = document.getElementById('errorModal');
+            const errorMessageOutput = document.getElementById('errorMessageOutput');
+            errorMessageOutput.innerText = currentLang === 'ar' ? messageAr : messageEn;
+            errorModal.classList.remove('hidden');
+        }
+
+        function closeErrorModal() {
+            document.getElementById('errorModal').classList.add('hidden');
+        }
+
         function triggerCalculationWithLoading() {
             const areaInput = document.getElementById('projectArea').value;
             const selectedFuncEls = document.querySelectorAll('input[name="funcItem"]:checked');
@@ -470,29 +493,29 @@
             let kitchenArea = hasKitchenChecked ? parseFloat(document.getElementById('kitchenArea').value || 0) : 0;
 
             if (selectedFuncEls.length === 0) {
-                alert(currentLang === 'ar' ? 'الرجاء اختيار فراغ واحد على الأقل.' : 'Please select at least one space.');
+                showSketchyError('Please select at least one space.', 'الرجاء اختيار فراغ واحد على الأقل.');
                 return;
             }
 
             let hasNonKitchen = Array.from(selectedFuncEls).some(cb => cb.getAttribute('data-is-kitchen') !== 'true');
 
             if (hasNonKitchen && (!areaInput || totalArea <= 0)) {
-                alert(currentLang === 'ar' ? 'الرجاء إدخال المساحة الإجمالية.' : 'Please enter the total area.');
+                showSketchyError('Please enter the total area.', 'الرجاء إدخال المساحة الإجمالية.');
                 return;
             }
 
             if (hasKitchenChecked && (!document.getElementById('kitchenArea').value || kitchenArea <= 0)) {
-                alert(currentLang === 'ar' ? 'الرجاء إدخال مساحة المطبخ المخصصة.' : 'Please enter the specific kitchen area.');
+                showSketchyError('Please enter the specific kitchen area.', 'الرجاء إدخال مساحة المطبخ المخصصة.');
                 return;
             }
 
             if (selectedTypeObj.id !== 'stand' && totalArea > 0 && totalArea < 9) {
-                alert(currentLang === 'ar' ? 'الحد الأدنى لمساحة المشروع هو 9 متر مربع.' : 'Minimum project area is 9 m².');
+                showSketchyError('Minimum project area must be greater than or equal to 9 m².', 'الحد الأدنى لمساحة المشروع يجب ألا يقل عن 9 متر مربع.');
                 return;
             }
 
             if (hasKitchenChecked && kitchenArea > 0 && kitchenArea < 9) {
-                alert(currentLang === 'ar' ? 'الحد الأدنى لمساحة المطبخ هو 9 متر مربع.' : 'Minimum kitchen area is 9 m².');
+                showSketchyError('Minimum kitchen area must be greater than or equal to 9 m².', 'الحد الأدنى لمساحة المطبخ يجب ألا يقل عن 9 متر مربع.');
                 return;
             }
 
@@ -537,58 +560,27 @@
                 detailsText += ` | ${areaLabelTitle}: ${totalArea} م²`;
             }
 
-            detailsText += currentLang === 'ar' ? ` | الفراغات: ${selectedFuncsNames.join(', ')}` : ` | Spaces: ${selectedFuncsNames.join(', ')}`;
-            
-            if(hasKitchenChecked && kitchenArea > 0) {
-                detailsText += currentLang === 'ar' ? ` | مساحة المطبخ: ${kitchenArea} م²` : ` | Kitchen Area: ${kitchenArea} m²`;
+            if(hasKitchenChecked) {
+                let kitchenTitleStr = currentLang === 'ar' ? 'مساحة المطبخ' : 'Kitchen Area';
+                detailsText += ` | ${kitchenTitleStr}: ${kitchenArea} م²`;
             }
 
-            document.getElementById('totalPriceOutput').innerText = "~ " + totalCost.toLocaleString() + " $";
-            document.getElementById('detailsOutput').innerText = detailsText;
+            detailsText += `<br><strong>${currentLang === 'ar' ? 'الفراغات المختارة' : 'Selected Spaces'}:</strong> ${selectedFuncsNames.join(', ')}`;
 
-            sendEmailNotification(typeNameStr, totalCost, totalArea, kitchenArea, selectedFuncsNames);
+            document.getElementById('totalPriceOutput').innerText = `~ ${totalCost} $`;
+            document.getElementById('detailsOutput').innerHTML = detailsText;
 
             let waMsg = currentLang === 'ar'
-                ? `مرحباً، أود الاستفسار عن التكلفة التقريبية لتصميمي الداخلي:%0a- النوع: ${typeNameStr}%0a`
-                : `Hello, I would like to inquire about my approximate interior design estimate (approximate price):%0a- Type: ${typeNameStr}%0a`;
-
-            if(totalArea > 0) {
-                let waAreaTitle = selectedTypeObj.id === 'stand' ? 'مساحة البوث' : 'المساحة الإجمالية';
-                waMsg += currentLang === 'ar' ? `- ${waAreaTitle}: ${totalArea} م²%0a` : `- Area: ${totalArea} m²%0a`;
-            }
-
-            if(hasKitchenChecked && kitchenArea > 0) {
-                waMsg += currentLang === 'ar' ? `- مساحة المطبخ: ${kitchenArea} م²%0a` : `- Kitchen Area: ${kitchenArea} m²%0a`;
-            }
-
-            waMsg += _waMsgFormat(selectedFuncsNames, totalCost, currentLang);
-
-            document.getElementById('whatsappBtn').href = `https://wa.me/96181427589?text=${waMsg}`;
+                ? `مرحباً Sketchy Chapters، أود الاستفسار عن تكلفة تصميم مشروع: ${typeNameStr} (${totalArea} م²). التكلفة التقديرية: ${totalCost}$`
+                : `Hello Sketchy Chapters, I would like to inquire about an interior design quotation for a ${typeNameStr} (${totalArea} m²). Estimated Quotation: ~$${totalCost}`;
+            
+            document.getElementById('whatsappBtn').setAttribute('href', `https://wa.me/96170000000?text=${encodeURIComponent(waMsg)}`);
 
             document.getElementById('resultModal').classList.remove('hidden');
         }
 
-        function _waMsgFormat(spaces, cost, lang) {
-            if (lang === 'ar') {
-                return `- الفراغات: ${spaces.join(', ')}%0a- التكلفة التقريبية: ~ ${cost}$ (كافة الأسعار تقريبية فقط وقابلة للتغيير حسب وضع المشروع)%0aأرغب بمتابعة التفاصيل.`;
-            } else {
-                return `- Spaces: ${spaces.join(', ')}%0a- Approximate Price: ~ ${cost}$ (All prices are approximate only and subject to change based on project conditions)%0aI'd like to discuss further.`;
-            }
-        }
-
         function closeResultModal() {
-            document.querySelectorAll('input[type="radio"], input[type="checkbox"]').forEach(el => el.checked = false);
-            document.getElementById('projectTypeContainer').classList.add('hidden');
-            document.getElementById('functionsContainer').classList.add('hidden');
-            document.getElementById('areaContainer').classList.add('hidden');
-            document.getElementById('projectArea').value = '';
-            document.getElementById('kitchenArea').value = '';
-            
             document.getElementById('resultModal').classList.add('hidden');
-        }
-
-        function sendEmailNotification(typeName, cost, area, kArea, spaces) {
-            console.log(`[Email Sent to info@sketchychapters.com]: New approximate quotation generated. Type: ${typeName}, Approx Cost: ~${cost}$, Area: ${area > 0 ? area + 'm²' : 'N/A'}, Kitchen Area: ${kArea > 0 ? kArea + 'm²' : 'N/A'}, Spaces: ${spaces.join(', ')}`);
         }
     </script>
 </body>
