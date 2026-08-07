@@ -78,19 +78,19 @@
     <!-- ================= MOBILE DROPDOWN MENU ================= -->
     <div id="mobileMenu" class="fixed inset-x-0 top-[76px] z-40 bg-[#121216]/95 backdrop-blur-xl border-b border-amber-500/30 p-6 hidden flex-col space-y-4 md:hidden shadow-2xl transition-all">
         <a href="index.html" onclick="toggleMobileMenu()" class="text-white text-sm font-bold py-2 border-b border-amber-500/10 flex items-center justify-between">
-            <span data-ar=" الرئيسية" data-en=" Home">Home</span>
+            <span data-ar="🏠 الرئيسية" data-en="🏠 Home">Home</span>
             <i class="fa-solid fa-arrow-left rtl:rotate-180 text-xs gold-accent"></i>
         </a>
         <a href="workshop.html" onclick="toggleMobileMenu()" class="text-white text-sm font-bold py-2 border-b border-amber-500/10 flex items-center justify-between">
-            <span data-ar=" ورش العمل" data-en=" Workshops">Workshops</span>
+            <span data-ar="🛠️ ورش العمل" data-en="🛠️ Workshops">Workshops</span>
             <i class="fa-solid fa-arrow-left rtl:rotate-180 text-xs gold-accent"></i>
         </a>
         <a href="offers.html" onclick="toggleMobileMenu()" class="text-white text-sm font-bold py-2 border-b border-amber-500/10 flex items-center justify-between">
-            <span data-ar=" الباقات الصيفية" data-en=" Summer Packages">Summer Packages</span>
+            <span data-ar="🔥 الباقات الصيفية" data-en="🔥 Summer Packages">Summer Packages</span>
             <i class="fa-solid fa-arrow-left rtl:rotate-180 text-xs gold-accent"></i>
         </a>
         <a href="oea-courses.html" class="text-white text-sm font-bold py-2 border-b border-amber-500/10 flex items-center justify-between">
-            <span data-ar=" دورات نقابة المهندسين" data-en=" OEA Courses">OEA Courses</span>
+            <span data-ar="🏛️ دورات نقابة المهندسين" data-en="🏛️ OEA Courses">OEA Courses</span>
             <i class="fa-solid fa-arrow-left rtl:rotate-180 text-xs gold-accent"></i>
         </a>
         <a href="https://wa.me/96171967714?text=مرحباً، أهتم بالتسجيل والاستفسار عن الدورات" target="_blank" class="bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 p-3 rounded-xl text-xs font-bold flex items-center justify-center space-x-2 rtl:space-x-reverse">
@@ -367,6 +367,184 @@
         </div>
     </section>
 
+       <!-- SINGLE SLIDE TESTIMONIALS SECTION (15 REVIEWS) -->
+        <div class="space-y-8 pt-8 border-t border-white/10">
+            <div class="text-center space-y-2">
+                <span class="text-xs gold-accent font-bold uppercase tracking-wider block" data-en="Student Testimonials" data-ar="آراء وتجارب الطلاب">Student Testimonials</span>
+                <h2 class="text-2xl md:text-3xl font-black text-white" data-en="What Our Students Say" data-ar="ماذا يقول طلابنا عنا">What Our Students Say</h2>
+                <p class="text-gray-400 text-xs md:text-sm" data-en="Real feedback and experiences shared by our workshop participants." data-ar="آراء وتجارب حقيقية شاركها معنا طلاب ورش العمل والدورات التدريبية.">Real feedback and experiences shared by our workshop participants.</p>
+            </div>
+
+            <!-- Single Slide Carousel Container -->
+            <div class="relative w-full max-w-2xl mx-auto">
+                <div id="singleReviewSlider" class="overflow-hidden">
+                    
+                    <!-- Review 1 -->
+                    <div class="review-slide glass-card rounded-3xl p-8 space-y-6 border border-white/10 flex flex-col justify-between">
+                        <div class="flex items-center justify-between">
+                            <div class="flex text-amber-400 text-sm space-x-1 rtl:space-x-reverse"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                            <span class="text-xs text-amber-300 bg-amber-500/10 px-3 py-1 rounded-full font-bold" data-en="AutoCAD Workshop" data-ar="ورشة أوتوكاد">AutoCAD Workshop</span>
+                        </div>
+                        <p class="text-sm md:text-base text-gray-200 italic leading-relaxed text-center" data-en="&ldquo;I attended an AutoCAD workshop and it was an amazing experience! The instructor explained everything clearly, and the online sessions were well-organized, interactive, and very informative. I highly recommend this workshop to anyone who wants to learn AutoCAD or enhance their skills!&rdquo;" data-ar="&ldquo;حضرت ورشة عمل الأوتوكاد وكانت تجربة مذهلة! الشرح كان واضحاً جداً، والجلسات عبر الإنترنت منظمة بشكل ممتاز، تفاعلية وغنية بالمعلومات. أنصح بشدة بهذه الورشة لكل من يريد تعلم الأوتوكاد أو تطوير مهاراته!&rdquo;">&ldquo;I attended an AutoCAD workshop and it was an amazing experience! The instructor explained everything clearly, and the online sessions were well-organized, interactive, and very informative. I highly recommend this workshop to anyone who wants to learn AutoCAD or enhance their skills!&rdquo;</p>
+                        <div class="text-center font-black text-white text-base">Manal A.</div>
+                    </div>
+
+                    <!-- Review 2 -->
+                    <div class="review-slide glass-card rounded-3xl p-8 space-y-6 border border-white/10 flex flex-col justify-between hidden">
+                        <div class="flex items-center justify-between">
+                            <div class="flex text-amber-400 text-sm space-x-1 rtl:space-x-reverse"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                            <span class="text-xs text-amber-300 bg-amber-500/10 px-3 py-1 rounded-full font-bold" data-en="Illustrator Course" data-ar="دورة إليستريتور">Illustrator Course</span>
+                        </div>
+                        <p class="text-sm md:text-base text-gray-200 italic leading-relaxed text-center" data-en="&ldquo;I took an Illustrator course about three years ago and practiced it daily for around just 2-3 months. Even now, whenever I open Illustrator from time to time, I still remember almost everything. The course built a very strong foundation and made the learning stick long-term. Highly recommended.&rdquo;" data-ar="&ldquo;أخذت كورس إليستريتور قبل حوالي ثلاث سنوات وتدربت عليه يومياً لمدة 2-3 أشهر فقط. وحتى الآن، كلما فتحت البرنامج من وقت لآخر، ما زلت أتذكر كل شيء تقريبا! الكورس بنى أساساً قوياً جداً وجعل التعلم راسخاً على المدى الطويل. أنصح به بشدة.&rdquo;">&ldquo;I took an Illustrator course about three years ago and practiced it daily for around just 2-3 months. Even now, whenever I open Illustrator from time to time, I still remember almost everything. The course built a very strong foundation and made the learning stick long-term. Highly recommended.&rdquo;</p>
+                        <div class="text-center font-black text-white text-base">Sirine D.</div>
+                    </div>
+
+                    <!-- Review 3 -->
+                    <div class="review-slide glass-card rounded-3xl p-8 space-y-6 border border-white/10 flex flex-col justify-between hidden">
+                        <div class="flex items-center justify-between">
+                            <div class="flex text-amber-400 text-sm space-x-1 rtl:space-x-reverse"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                            <span class="text-xs text-amber-300 bg-amber-500/10 px-3 py-1 rounded-full font-bold" data-en="Engineering Courses" data-ar="دورات هندسية">Engineering Courses</span>
+                        </div>
+                        <p class="text-sm md:text-base text-gray-200 italic leading-relaxed text-center" data-en="&ldquo;An outstanding platform with excellent courses! The content is clear, well-structured, and very easy to follow. I learned a lot, and the instructors explain everything in a simple and professional way. Highly recommended for anyone who wants to improve their engineering knowledge!&rdquo;" data-ar="&ldquo;منصة متميزة مع دورات رائعة! المحتوى واضح، منظم بشكل جيد، وسهل جداً للمتابعة. تعلمت الكثير، والمدربون يشرحون كل شيء بطريقة بسيطة واحترافية. أنصح بها بشدة لكل من يريد تطوير معرفته الهندسية!&rdquo;">&ldquo;An outstanding platform with excellent courses! The content is clear, well-structured, and very easy to follow. I learned a lot, and the instructors explain everything in a simple and professional way. Highly recommended for anyone who wants to improve their engineering knowledge!&rdquo;</p>
+                        <div class="text-center font-black text-white text-base">Ahmad C.</div>
+                    </div>
+
+                    <!-- Review 4 -->
+                    <div class="review-slide glass-card rounded-3xl p-8 space-y-6 border border-white/10 flex flex-col justify-between hidden">
+                        <div class="flex items-center justify-between">
+                            <div class="flex text-amber-400 text-sm space-x-1 rtl:space-x-reverse"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                            <span class="text-xs text-amber-300 bg-amber-500/10 px-3 py-1 rounded-full font-bold" data-en="LU Exam Prep" data-ar="تحضير امتحانات الجامعة اللبنانية">LU Exam Prep</span>
+                        </div>
+                        <p class="text-sm md:text-base text-gray-200 italic leading-relaxed text-center" data-en="&ldquo;I’m really grateful for my experience with Sketchy Chapters Workshop Center. Their online course helped me a lot during my Lebanese University exam journey. I honestly didn’t expect an online course to be this helpful, but it exceeded my expectations. The instructor is very kind, supportive, and helped me improve my skills!&rdquo;" data-ar="&ldquo;ممتنة جداً لتجربتي مع مركز ورش عمل سكتشي تشابترز. الكورس أونلاين ساعدني كثيراً خلال رحلة امتحاناتي في الجامعة اللبنانية. بصراحة لم أكن أتوقع أن يكون كورس أونلاين بهذه الفائدة، لكنه تجاوز توقعاتي بكثير. المدرب لطيف جداً وداعم وساعدني على تطوير مهاراتي وبناء ثقتي!&rdquo;">&ldquo;I’m really grateful for my experience with Sketchy Chapters Workshop Center. Their online course helped me a lot during my Lebanese University exam journey. I honestly didn’t expect an online course to be this helpful, but it exceeded my expectations. The instructor is very kind, supportive, and helped me improve my skills!&rdquo;</p>
+                        <div class="text-center font-black text-white text-base">Melissa H.</div>
+                    </div>
+
+                    <!-- Review 5 -->
+                    <div class="review-slide glass-card rounded-3xl p-8 space-y-6 border border-white/10 flex flex-col justify-between hidden">
+                        <div class="flex items-center justify-between">
+                            <div class="flex text-amber-400 text-sm space-x-1 rtl:space-x-reverse"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                            <span class="text-xs text-amber-300 bg-amber-500/10 px-3 py-1 rounded-full font-bold" data-en="Revit Course" data-ar="دورة ريفيت">Revit Course</span>
+                        </div>
+                        <p class="text-sm md:text-base text-gray-200 italic leading-relaxed text-center" data-en="&ldquo;Just finished the Revit course with Workshop Center, and honestly it was much easier than I expected thanks to the instructor. He simplified information in a way that made everything easy to understand! We did so much practice throughout the course.. it helped us discover and fix our mistakes along the way. This wasn't my first course with them, and as always, they were amazing.&rdquo;" data-ar="&ldquo;للتو أنهيت كورس الريفيت مع مركز الورش، وبصراحة كان أسهل بكثير مما توقعت بفضل الأستاذ. بسّط المعلومات بطريقة جعلت كل شيء سهل الفهم! حبينا كثرة التطبيق العملي خلال الكورس.. ساعدنا نكتشف ونصلح أخطاءنا أول بأول. وهذه لم تكن دورتي الأولى معهم، وكالعادة كانوا رائعين.&rdquo;">&ldquo;Just finished the Revit course with Workshop Center, and honestly it was much easier than I expected thanks to the instructor. He simplified information in a way that made everything easy to understand! We did so much practice throughout the course.. it helped us discover and fix our mistakes along the way. This wasn't my first course with them, and as always, they were amazing.&rdquo;</p>
+                        <div class="text-center font-black text-white text-base">Lama K.</div>
+                    </div>
+
+                    <!-- Review 6 -->
+                    <div class="review-slide glass-card rounded-3xl p-8 space-y-6 border border-white/10 flex flex-col justify-between hidden">
+                        <div class="flex items-center justify-between">
+                            <div class="flex text-amber-400 text-sm space-x-1 rtl:space-x-reverse"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                            <span class="text-xs text-amber-300 bg-amber-500/10 px-3 py-1 rounded-full font-bold" data-en="Revit Workshop" data-ar="ورشة ريفيت">Revit Workshop</span>
+                        </div>
+                        <p class="text-sm md:text-base text-gray-200 italic leading-relaxed text-center" data-en="&ldquo;اخدت معهم كورس الريفيت كثير استفدت و كانت تجربة غنية بالمعرفه و حسن المعاملة وبنصح تجربو توخدوا معهم كورسات رح تستمعتو كثير‎&rdquo;" data-ar="&ldquo;اخدت معهم كورس الريفيت كثير استفدت و كانت تجربة غنية بالمعرفه و حسن المعاملة وبنصح تجربو توخدوا معهم كورسات رح تستمعتو كثير‎&rdquo;">&ldquo;اخدت معهم كورس الريفيت كثير استفدت و كانت تجربة غنية بالمعرفه و حسن المعاملة وبنصح تجربو توخدوا معهم كورسات رح تستمعتو كثير‎&rdquo;</p>
+                        <div class="text-center font-black text-white text-base">Saja Z.</div>
+                    </div>
+
+                    <!-- Review 7 -->
+                    <div class="review-slide glass-card rounded-3xl p-8 space-y-6 border border-white/10 flex flex-col justify-between hidden">
+                        <div class="flex items-center justify-between">
+                            <div class="flex text-amber-400 text-sm space-x-1 rtl:space-x-reverse"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                            <span class="text-xs text-amber-300 bg-amber-500/10 px-3 py-1 rounded-full font-bold" data-en="Workshop Center" data-ar="مركز الورش">Workshop Center</span>
+                        </div>
+                        <p class="text-sm md:text-base text-gray-200 italic leading-relaxed text-center" data-en="&ldquo;I had a wonderful experience with Workshop Center. The courses were well organized, professional, and truly valuable. The instructors were knowledgeable, supportive, and always willing to help. I'm really happy I chose Workshop Center, and I genuinely learned a lot. Congratulations on your 5th anniversary! Wishing you continued success.&rdquo;" data-ar="&ldquo;تجربة رائعة جداً مع مركز الورش. الدورات كانت منظمة، احترافية، وذات قيمة حقيقية. المدربون كانوا على علم واسع وداعمين دائماً. سعيدة جداً لاختياري مركز الورش وتعلّمت الكثير. مبروك الذكرى السنوية الخامسة! مع تمنياتي بدوام النجاح والتألق.&rdquo;">&ldquo;I had a wonderful experience with Workshop Center. The courses were well organized, professional, and truly valuable. The instructors were knowledgeable, supportive, and always willing to help. I'm really happy I chose Workshop Center, and I genuinely learned a lot. Congratulations on your 5th anniversary! Wishing you continued success.&rdquo;</p>
+                        <div class="text-center font-black text-white text-base">Clara J.</div>
+                    </div>
+
+                    <!-- Review 8 -->
+                    <div class="review-slide glass-card rounded-3xl p-8 space-y-6 border border-white/10 flex flex-col justify-between hidden">
+                        <div class="flex items-center justify-between">
+                            <div class="flex text-amber-400 text-sm space-x-1 rtl:space-x-reverse"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                            <span class="text-xs text-amber-300 bg-amber-500/10 px-3 py-1 rounded-full font-bold" data-en="Architectural Training" data-ar="تدريب معماري">Architectural Training</span>
+                        </div>
+                        <p class="text-sm md:text-base text-gray-200 italic leading-relaxed text-center" data-en="&ldquo;The level of detail and practical engineering focus in these workshops is unmatched. It gave me the exact tools needed to handle real execution drawings at work with absolute confidence.&rdquo;" data-ar="&ldquo;مستوى التفاصيل والتركيز الهندسي العملي في هذه الورش لا يعلى عليه. أعطتني الأدوات الدقيقة اللازمة للتعامل مع المخططات التنفيذية الواقعية في العمل بكل ثقة.&rdquo;">&ldquo;The level of detail and practical engineering focus in these workshops is unmatched. It gave me the exact tools needed to handle real execution drawings at work with absolute confidence.&rdquo;</p>
+                        <div class="text-center font-black text-white text-base">Jad R.</div>
+                    </div>
+
+                    <!-- Review 9 -->
+                    <div class="review-slide glass-card rounded-3xl p-8 space-y-6 border border-white/10 flex flex-col justify-between hidden">
+                        <div class="flex items-center justify-between">
+                            <div class="flex text-amber-400 text-sm space-x-1 rtl:space-x-reverse"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                            <span class="text-xs text-amber-300 bg-amber-500/10 px-3 py-1 rounded-full font-bold" data-en="Interior Design Course" data-ar="دورة تصميم داخلي">Interior Design Course</span>
+                        </div>
+                        <p class="text-sm md:text-base text-gray-200 italic leading-relaxed text-center" data-en="&ldquo;An amazing learning journey! The instructor breaks down complex design concepts into clear, actionable steps. Truly one of the best investments I've made in my professional development.&rdquo;" data-ar="&ldquo;رحلة تعلم مذهلة! المدرب يفكك مفاهيم التصميم المعقدة إلى خطوات واضحة وقابلة للتطبيق. حقاً واحدة من أفضل الاستثمارات التي قمت بها لتطوير مسيرتي المهنية.&rdquo;">&ldquo;An amazing learning journey! The instructor breaks down complex design concepts into clear, actionable steps. Truly one of the best investments I've made in my professional development.&rdquo;</p>
+                        <div class="text-center font-black text-white text-base">Raneem B.</div>
+                    </div>
+
+                    <!-- Review 10 -->
+                    <div class="review-slide glass-card rounded-3xl p-8 space-y-6 border border-white/10 flex flex-col justify-between hidden">
+                        <div class="flex items-center justify-between">
+                            <div class="flex text-amber-400 text-sm space-x-1 rtl:space-x-reverse"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                            <span class="text-xs text-amber-300 bg-amber-500/10 px-3 py-1 rounded-full font-bold" data-en="Advanced Drafting" data-ar="رسم متقدم">Advanced Drafting</span>
+                        </div>
+                        <p class="text-sm md:text-base text-gray-200 italic leading-relaxed text-center" data-en="&ldquo;Clear instructions, instant feedback on assignments, and continuous encouragement. Even through online sessions, the interaction was better than many physical classrooms!&rdquo;" data-ar="&ldquo;تعليمات واضحة، ملاحظات فورية على التمارين، وتشجيع مستمر. حتى عبر الجلسات أونلاين، كان التفاعل أفضل بكثير من العديد من القاعات الحضورية!&rdquo;">&ldquo;Clear instructions, instant feedback on assignments, and continuous encouragement. Even through online sessions, the interaction was better than many physical classrooms!&rdquo;</p>
+                        <div class="text-center font-black text-white text-base">Hadi N.</div>
+                    </div>
+
+                    <!-- Review 11 -->
+                    <div class="review-slide glass-card rounded-3xl p-8 space-y-6 border border-white/10 flex flex-col justify-between hidden">
+                        <div class="flex items-center justify-between">
+                            <div class="flex text-amber-400 text-sm space-x-1 rtl:space-x-reverse"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                            <span class="text-xs text-amber-300 bg-amber-500/10 px-3 py-1 rounded-full font-bold" data-en="BIM Workflow" data-ar="نظام BIM">BIM Workflow</span>
+                        </div>
+                        <p class="text-sm md:text-base text-gray-200 italic leading-relaxed text-center" data-en="&ldquo;The Revit sessions completely opened my eyes to professional BIM workflows. Everything from coordination to final sheet generation was taught with incredible clarity.&rdquo;" data-ar="&ldquo;جلسات الريفيت فتحت عيني تماماً على مسار عمل الBIM الاحترافي. كل شيء من التنسيق وحتى إخراج اللوحات النهائية تم شرحه بوضوح لا يصدق.&rdquo;">&ldquo;The Revit sessions completely opened my eyes to professional BIM workflows. Everything from coordination to final sheet generation was taught with incredible clarity.&rdquo;</p>
+                        <div class="text-center font-black text-white text-base">Maya S.</div>
+                    </div>
+
+                    <!-- Review 12 -->
+                    <div class="review-slide glass-card rounded-3xl p-8 space-y-6 border border-white/10 flex flex-col justify-between hidden">
+                        <div class="flex items-center justify-between">
+                            <div class="flex text-amber-400 text-sm space-x-1 rtl:space-x-reverse"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                            <span class="text-xs text-amber-300 bg-amber-500/10 px-3 py-1 rounded-full font-bold" data-en="Design Studio" data-ar="ستوديو التصميم">Design Studio</span>
+                        </div>
+                        <p class="text-sm md:text-base text-gray-200 italic leading-relaxed text-center" data-en="&ldquo;A fantastic environment for learning design and architecture. The support and professional insights shared during the course are things you won't easily find elsewhere.&rdquo;" data-ar="&ldquo;بيئة رائعة جداً لتعلم التصميم والعمارة. الدعم والرؤى المهنية التي يتم مشاركتها خلال الدورة لا تجدها بسهولة في أي مكان آخر.&rdquo;">&ldquo;A fantastic environment for learning design and architecture. The support and professional insights shared during the course are things you won't easily find elsewhere.&rdquo;</p>
+                        <div class="text-center font-black text-white text-base">Karim M.</div>
+                    </div>
+
+                    <!-- Review 13 -->
+                    <div class="review-slide glass-card rounded-3xl p-8 space-y-6 border border-white/10 flex flex-col justify-between hidden">
+                        <div class="flex items-center justify-between">
+                            <div class="flex text-amber-400 text-sm space-x-1 rtl:space-x-reverse"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                            <span class="text-xs text-amber-300 bg-amber-500/10 px-3 py-1 rounded-full font-bold" data-en="Graphics Course" data-ar="دورة جرافيكس">Graphics Course</span>
+                        </div>
+                        <p class="text-sm md:text-base text-gray-200 italic leading-relaxed text-center" data-en="&ldquo;The Illustrator training gave me all the confidence I needed to handle vector graphics and architectural diagrams effortlessly. Great instructor and superb content!&rdquo;" data-ar="&ldquo;تدريب الإليستريتور أعطاني كل الثقة التي أحتاجها للتعامل مع رسومات الفكتور والديجرامز المعمارية بكل سهولة. مدرب رائع ومحتوى ممتاز!&rdquo;">&ldquo;The Illustrator training gave me all the confidence I needed to handle vector graphics and architectural diagrams effortlessly. Great instructor and superb content!&rdquo;</p>
+                        <div class="text-center font-black text-white text-base">Zeina K.</div>
+                    </div>
+
+                    <!-- Review 14 -->
+                    <div class="review-slide glass-card rounded-3xl p-8 space-y-6 border border-white/10 flex flex-col justify-between hidden">
+                        <div class="flex items-center justify-between">
+                            <div class="flex text-amber-400 text-sm space-x-1 rtl:space-x-reverse"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                            <span class="text-xs text-amber-300 bg-amber-500/10 px-3 py-1 rounded-full font-bold" data-en="AutoCAD Masterclass" data-ar="ماستركلاس أوتوكاد">AutoCAD Masterclass</span>
+                        </div>
+                        <p class="text-sm md:text-base text-gray-200 italic leading-relaxed text-center" data-en="&ldquo;From zero knowledge in drafting to creating full professional floor plans and details. The step-by-step guidance made all the difference.&rdquo;" data-ar="&ldquo;من الصفر في الرسم الهندسي إلى إنشاء مساقط أفقية وتفاصيل احترافية كاملة. التوجيه خطوة بخطوة صنع الفارق الكبير.&rdquo;">&ldquo;From zero knowledge in drafting to creating full professional floor plans and details. The step-by-step guidance made all the difference.&rdquo;</p>
+                        <div class="text-center font-black text-white text-base">Omar T.</div>
+                    </div>
+
+                    <!-- Review 15 -->
+                    <div class="review-slide glass-card rounded-3xl p-8 space-y-6 border border-white/10 flex flex-col justify-between hidden">
+                        <div class="flex items-center justify-between">
+                            <div class="flex text-amber-400 text-sm space-x-1 rtl:space-x-reverse"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                            <span class="text-xs text-amber-300 bg-amber-500/10 px-3 py-1 rounded-full font-bold" data-en="Engineering Workshop" data-ar="ورشة هندسية">Engineering Workshop</span>
+                        </div>
+                        <p class="text-sm md:text-base text-gray-200 italic leading-relaxed text-center" data-en="&ldquo;Very professional approach to teaching. The practical approach ensured that we understood the real application of every tool we used.&rdquo;" data-ar="&ldquo;أسلوب تعليمي احترافي للغاية. النهج العملي أكد أننا فهمنا التطبيق الحقيقي لكل أداة استخدمناها.&rdquo;">&ldquo;Very professional approach to teaching. The practical approach ensured that we understood the real application of every tool we used.&rdquo;</p>
+                        <div class="text-center font-black text-white text-base">Farah E.</div>
+                    </div>
+
+                </div>
+
+                <!-- Slider Controls Buttons -->
+                <div class="flex justify-center items-center gap-4 mt-6">
+                    <button onclick="changeSlide(-1)" class="w-10 h-10 rounded-full border border-amber-500/40 text-amber-400 hover:bg-amber-500 hover:text-black transition flex items-center justify-center">
+                        <i class="fa-solid fa-chevron-left rtl:rotate-180"></i>
+                    </button>
+                    <button onclick="changeSlide(1)" class="w-10 h-10 rounded-full border border-amber-500/40 text-amber-400 hover:bg-amber-500 hover:text-black transition flex items-center justify-center">
+                        <i class="fa-solid fa-chevron-right rtl:rotate-180"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
     <!-- Footer -->
     <footer class="py-12 text-center text-gray-500 text-xs border-t border-gray-900 mt-20">
         <p data-en="&copy; 2026 Sketchy Chapters Workshop Center. All rights reserved." data-ar="&copy; 2026 مركز ورش عمل سكتشي تشابترز. جميع الحقوق محفوظة.">&copy; 2026 Sketchy Chapters Workshop Center. All rights reserved.</p>
@@ -444,7 +622,36 @@
                 });
             }
         }
-    </script>
 
+        // Single Slide Carousel Logic
+        let currentSlideIndex = 0;
+        const slides = document.querySelectorAll('.review-slide');
+
+        function showSlide(index) {
+            slides.forEach((slide, i) => {
+                if (i === index) {
+                    slide.classList.remove('hidden');
+                } else {
+                    slide.classList.add('hidden');
+                }
+            });
+        }
+
+        function changeSlide(direction) {
+            currentSlideIndex += direction;
+            if (currentSlideIndex >= slides.length) {
+                currentSlideIndex = 0;
+            } else if (currentSlideIndex < 0) {
+                currentSlideIndex = slides.length - 1;
+            }
+            showSlide(currentSlideIndex);
+        }
+
+        // Auto-Slide every 4 seconds
+        setInterval(() => {
+            currentSlideIndex = (currentSlideIndex + 1) % slides.length;
+            showSlide(currentSlideIndex);
+        }, 4000);
+    </script>
 </body>
 </html>
