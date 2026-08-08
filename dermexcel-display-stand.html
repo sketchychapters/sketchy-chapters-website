@@ -15,7 +15,18 @@
     <!-- AOS Animation Library -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <style>
-        body { font-family: 'Plus Jakarta Sans', 'Tajawal', sans-serif; background-color: #08080a; color: #e0e6ed; overflow-x: hidden; }
+        html {
+            overflow-x: hidden;
+            width: 100%;
+        }
+        body {
+            font-family: 'Plus Jakarta Sans', 'Tajawal', sans-serif;
+            background-color: #08080a;
+            color: #e0e6ed;
+            overflow-x: hidden;
+            width: 100%;
+            position: relative;
+        }
         .gold-accent { color: #d4af37; }
         .gold-gradient-text { background: linear-gradient(135deg, #bf953f, #fcf6ba, #b38728, #fbf5b7); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .bg-gold { background: linear-gradient(135deg, #d4af37 0%, #aa7c11 100%); }
@@ -204,13 +215,17 @@
     </div>
 
     <footer class="py-12 text-center text-gray-500 text-xs border-t border-gray-900">
-        <p>© <script>document.write(new Date().getFullYear())</script> Sketchy Chapters Design & Construction (SCDC). All Rights Reserved.</p>
+        <p>© <span id="current-year"></span> Sketchy Chapters Design & Construction (SCDC). All Rights Reserved.</p>
     </footer>
 
     <!-- AOS Script -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         AOS.init({ duration: 1000, once: true });
+
+        // Footer copyright year (avoids document.write, which some mobile browsers block after load)
+        const yearEl = document.getElementById('current-year');
+        if (yearEl) yearEl.textContent = new Date().getFullYear();
 
         function toggleLanguage() {
             const htmlTag = document.getElementById('main-html');
