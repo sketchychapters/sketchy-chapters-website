@@ -25,19 +25,57 @@ async function openBookingModal(courseName, basePrice) {
   currentBooking = { courseName, basePrice };
   document.getElementById('modalCourseName').innerText = courseName;
 
-  // زر الكورس المجاني للبلاتيني (إذا موجود بالصفحة ولسا ما استخدمه هالسنة)
-  const freeBtn = document.getElementById('redeemFreeCourseBtn');
-  if (freeBtn) {
-    getCurrentStudentData().then(data => {
-      const level = computeLevel(data.points);
+  // نجيب بيانات الطالب مرة وحدة، ومنستخدمها لعرض السعر الفعلي (بعد خصم مستواه/عيد ميلاده) وزر الكورس المجاني
+  getCurrentStudentData().then(data => {
+    if (!data) return;
+    const level = computeLevel(data.points);
+
+    // زر الكورس المجاني للبلاتيني (إذا موجود بالصفحة ولسا ما استخدمه هالسنة)
+    const freeBtn = document.getElementById('redeemFreeCourseBtn');
+    if (freeBtn) {
       const thisYear = new Date().getFullYear();
       const canRedeem = level.freeCourseYearly && data.freeCourseUsedYear !== thisYear;
       freeBtn.classList.toggle('hidden', !canRedeem);
-    });
-  }
+    }
+
+    // نعرض السعر الفعلي (بعد الخصم) بدل السعر الأساسي، عشان الطالب يشوف صح قبل ما يأكد
+    let bestDiscount = level.courseDiscount;
+    if (window.DISABLE_BIRTHDAY_DISCOUNT !== true && isBirthdayWeek(data.birthDate)) {
+      bestDiscount = Math.max(bestDiscount, level.birthdayDiscount);
+    }
+    renderBookingPriceHint(basePrice, bestDiscount);
+  });
 
   document.getElementById('bookingModal').classList.remove('hidden');
   document.getElementById('bookingModal').classList.add('flex');
+}
+
+// شريط صغير بمودال الحجز يبيّن السعر الفعلي بعد أي خصم مستحق (مستوى الطالب أو أسبوع عيد ميلاده)
+function renderBookingPriceHint(basePrice, discountPercent) {
+  const modalBox = document.querySelector('#bookingModal > div');
+  if (!modalBox) return;
+
+  let hint = document.getElementById('bookingPriceHint');
+  if (!hint) {
+    hint = document.createElement('div');
+    hint.id = 'bookingPriceHint';
+    hint.className = 'rounded-xl p-3 mb-4 text-xs text-center border';
+    const titleEl = document.getElementById('modalCourseName');
+    if (titleEl && titleEl.parentElement) {
+      titleEl.insertAdjacentElement('afterend', hint);
+    } else {
+      modalBox.insertBefore(hint, modalBox.firstChild);
+    }
+  }
+
+  if (discountPercent > 0) {
+    const finalPrice = Math.round((basePrice - (basePrice * discountPercent / 100)) * 100) / 100;
+    hint.className = 'rounded-xl p-3 mb-4 text-xs text-center border border-amber-500/30 bg-amber-500/10 text-amber-300';
+    hint.innerHTML = `💰 Your price: <strong>$${finalPrice}</strong> <span class="text-emerald-400">(${discountPercent}% off $${basePrice})</span>`;
+    hint.classList.remove('hidden');
+  } else {
+    hint.classList.add('hidden');
+  }
 }
 
 function closeBookingModal() {
@@ -46,7 +84,7 @@ function closeBookingModal() {
 }
 
 // دوس Group/Private/Free بمودال الكورس -> منضيف للسلة، ما منسجل فوراً وما منبعت إيميل هلق
-// إضافة باقة صيفية (Package) للسلة - بتنقسم لكورسات منفصلة بالاسم، بس السعر الإجمالي بيضل نفس سعر الباقة
+// إضافة باقة صيفية (Package) للسلة - يا الباقة كاملة يا ولا شي، ممنوع تنضاف ناقصة
 async function addPackageToCart(courseNames, totalPrice, event) {
   const user = await authReadyPromise;
   if (!user || !auth.currentUser) {
@@ -59,40 +97,35 @@ async function addPackageToCart(courseNames, totalPrice, event) {
   if (event && event.clientX) { originX = event.clientX; originY = event.clientY; }
   if (btn) btn.classList.add('tilt-throw');
 
-  const perCoursePrice = Math.round((totalPrice / courseNames.length) * 100) / 100;
-  const skippedNames = [];
-  let addedCount = 0;
-
   try {
     const data = await getCurrentStudentData();
-    const existingEnrollments = data ? data.enrollments : [];
+    const existingEnrollments = (data && data.enrollments) || [];
 
-    for (const courseName of courseNames) {
-      const alreadyInCart = cart.some(item => item.courseName === courseName);
-      const alreadyActive = (existingEnrollments || []).some(en => en.courseName === courseName && en.status !== 'completed' && en.status !== 'cancelled');
-      if (alreadyInCart || alreadyActive) {
-        skippedNames.push(courseName);
-        continue;
-      }
-      cart.push({ courseName, basePrice: perCoursePrice, type: 'group', redeemFreeCourse: false });
-      addedCount++;
+    // نفحص كل دورات الباقة قبل ما نضيف أي شي - لو في تعارض بأي وحدة منهم، الباقة كلها بترفض
+    const conflicts = courseNames.filter(courseName =>
+      cart.some(item => item.courseName === courseName) ||
+      existingEnrollments.some(en => en.courseName === courseName && en.status !== 'cancelled')
+    );
+
+    if (conflicts.length > 0) {
+      showBookingToast(`⚠️ You already have "${conflicts.join('", "')}" registered. This package can't be split — please register the remaining courses individually, or wait until your existing course is done before taking the full package.`);
+      return;
     }
+
+    const perCoursePrice = Math.round((totalPrice / courseNames.length) * 100) / 100;
+    for (const courseName of courseNames) {
+      cart.push({ courseName, basePrice: perCoursePrice, type: 'group', redeemFreeCourse: false });
+    }
+
+    localStorage.setItem('sketchy_cart', JSON.stringify(cart));
+    renderCartBadge();
+    renderCartItems();
+    flyGraduationCapFrom(originX, originY, null, '#cartToggleBtn');
+    showBookingToast(`🎓 Package added to your selections (${courseNames.length} courses). Open your cart to review and submit.`);
   } catch (err) {
     console.error('addPackageToCart failed:', err);
+    showBookingToast('⚠️ Something went wrong. Please try again.');
   }
-
-  localStorage.setItem('sketchy_cart', JSON.stringify(cart));
-  renderCartBadge();
-  renderCartItems();
-  flyGraduationCapFrom(originX, originY, null, '#cartToggleBtn');
-
-  let msg = addedCount > 0
-    ? `🎓 Package added to your selections (${addedCount} course${addedCount > 1 ? 's' : ''}). Open your cart to review and submit.`
-    : `⚠️ You're already registered for all courses in this package.`;
-  if (skippedNames.length > 0 && addedCount > 0) {
-    msg += ` (Already have: ${skippedNames.join(', ')})`;
-  }
-  showBookingToast(msg);
 }
 
 async function confirmBooking(type, event) {
