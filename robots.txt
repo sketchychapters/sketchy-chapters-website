@@ -1,0 +1,3 @@
+User-agent: *
+Disallow: /sc-team-login.html
+Disallow: /sc-team-dashboard.html
