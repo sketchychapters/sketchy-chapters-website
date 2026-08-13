@@ -12,6 +12,17 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Google Fonts Cairo -->
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+
+    <!-- Firebase SDK (accounts, login, students data) -->
+    <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore-compat.js"></script>
+    <!-- EmailJS (instant admin notifications) -->
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
+    <!-- OEA courses are jointly priced with the Order of Engineers - no birthday stacking -->
+    <script>window.DISABLE_BIRTHDAY_DISCOUNT = true;</script>
+
     <script>
         tailwind.config = {
             theme: {
@@ -60,6 +71,14 @@
                 <span id="langBtnText">العربية</span>
             </button>
 
+            <!-- Login / My Account Button (state-aware) -->
+            <div id="authArea" class="hidden md:block">
+                <a href="login.html" class="glass-card text-amber-400 border border-amber-500/30 px-4 py-2 rounded-xl text-xs font-bold hover:bg-amber-500/10 transition flex items-center gap-2">
+                    <i class="fa-solid fa-user text-sm"></i>
+                    <span data-ar="تسجيل الدخول" data-en="Log In">Log In</span>
+                </a>
+            </div>
+
             <!-- WhatsApp Quick Button (Desktop) -->
             <a href="https://wa.me/96171967714?text=مرحباً، أهتم بالتسجيل والاستفسار عن الدورات" target="_blank" class="hidden md:flex bg-amber-500/10 border border-amber-500/40 text-amber-400 px-4 py-2 rounded-xl text-xs font-bold hover:bg-amber-500/20 transition items-center space-x-2 rtl:space-x-reverse">
                 <i class="fa-brands fa-whatsapp text-sm"></i>
@@ -76,21 +95,28 @@
     <!-- ================= MOBILE DROPDOWN MENU ================= -->
     <div id="mobileMenu" class="fixed inset-x-0 top-[76px] z-40 bg-[#121216]/95 backdrop-blur-xl border-b border-amber-500/30 p-6 hidden flex-col space-y-4 md:hidden shadow-2xl transition-all">
         <a href="index.html" onclick="toggleMobileMenu()" class="text-white text-sm font-bold py-2 border-b border-amber-500/10 flex items-center justify-between">
-            <span data-ar="🏠 الرئيسية" data-en="🏠 Home">Home</span>
+            <span data-ar=" الرئيسية" data-en=" Home">Home</span>
             <i class="fa-solid fa-arrow-left rtl:rotate-180 text-xs gold-accent"></i>
         </a>
         <a href="workshop.html" onclick="toggleMobileMenu()" class="text-white text-sm font-bold py-2 border-b border-amber-500/10 flex items-center justify-between">
-            <span data-ar="🛠️ ورش العمل" data-en="🛠️ Workshops">Workshops</span>
+            <span data-ar=" ورش العمل" data-en=" Workshops">Workshops</span>
             <i class="fa-solid fa-arrow-left rtl:rotate-180 text-xs gold-accent"></i>
         </a>
         <a href="offers.html" onclick="toggleMobileMenu()" class="text-white text-sm font-bold py-2 border-b border-amber-500/10 flex items-center justify-between">
-            <span data-ar="🔥 الباقات الصيفية" data-en="🔥 Summer Packages">Summer Packages</span>
+            <span data-ar=" الباقات الصيفية" data-en=" Summer Packages">Summer Packages</span>
             <i class="fa-solid fa-arrow-left rtl:rotate-180 text-xs gold-accent"></i>
         </a>
         <a href="oea-courses.html" class="text-white text-sm font-bold py-2 border-b border-amber-500/10 flex items-center justify-between">
-            <span data-ar="🏛️ دورات نقابة المهندسين" data-en="🏛️ OEA Courses">OEA Courses</span>
+            <span data-ar=" دورات نقابة المهندسين" data-en=" OEA Courses">OEA Courses</span>
             <i class="fa-solid fa-arrow-left rtl:rotate-180 text-xs gold-accent"></i>
         </a>
+
+        <!-- Login / My Account (Mobile) -->
+        <a href="login.html" id="mobileAuthLink" onclick="toggleMobileMenu()" class="bg-amber-500/10 border border-amber-500/30 text-amber-400 p-3 rounded-xl text-xs font-bold flex items-center justify-center space-x-2 rtl:space-x-reverse">
+            <i class="fa-solid fa-user text-base"></i>
+            <span data-ar="تسجيل الدخول" data-en="Log In">Log In</span>
+        </a>
+
         <a href="https://wa.me/96171967714?text=مرحباً، أهتم بالتسجيل والاستفسار عن الدورات" target="_blank" class="bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 p-3 rounded-xl text-xs font-bold flex items-center justify-center space-x-2 rtl:space-x-reverse">
             <i class="fa-brands fa-whatsapp text-base"></i>
             <span data-ar="تواصل واتساب (Contact Us)" data-en="Contact Us (WhatsApp)">Contact Us (WhatsApp)</span>
@@ -199,7 +225,7 @@
                    <div class="bg-amber-500/10 border border-amber-500/20 p-3 rounded-xl text-amber-300">
                        <span class="font-bold block mb-1" data-ar="طرق التسجيل والاستعلام:" data-en="Registration & Inquiry Methods:">Registration & Inquiry Methods:</span>
                        <ul class="list-disc list-inside space-y-1 text-gray-300 font-light">
-                           <li data-ar="عبر واتساب أو الاتصال بالمهندسة لينا دبوسي: 96170017117+" data-en="Via WhatsApp or call Eng. Lina Dabboussy: +961 70017117">+961 70017117</li>
+                           <li data-ar="سجل مباشرة من هون وبتوصلنا بياناتك وبتنبعت للمهندسة لينا دبوسي، أو تواصل معها مباشرة: 96170017117+" data-en="Register directly below, or contact Eng. Lina Dabboussy: +961 70017117">+961 70017117</li>
                            <li data-ar="عبر موقع نقابة المهندسين: oea.tripoli.org.lb/trainings" data-en="Via OEA website: oea.tripoli.org.lb/trainings">oea.tripoli.org.lb/trainings</li>
                            <li data-ar="أو زيارة مركز التدريب في مبنى النقابة (الجميزات) والتسجيل مباشرة." data-en="Or visit the training center at the OEA building in Gemmayzeh to register in person.">Visit the Training Center at the OEA building (Gemmayzeh).</li>
                        </ul>
@@ -217,16 +243,47 @@
             </div>
 
             <div class="mt-6 flex gap-3">
-                <a href="https://wa.me/96171967714?text=مرحباً، أهتم بالتسجيل والاستفسار عن دورة Lumion في نقابة المهندسين" target="_blank" class="flex-1 bg-gold text-black py-2.5 rounded-xl font-extrabold text-xs uppercase tracking-wider flex items-center justify-center space-x-2 rtl:space-x-reverse hover:brightness-110 transition shadow-lg shadow-amber-500/15">
-                    <span data-ar="التسجيل عبر واتساب" data-en="Register via WhatsApp">Register via WhatsApp</span>
+                <button onclick="openBookingModal('Lumion (OEA Certified)', 50)"
+                  class="flex-1 bg-gold text-black py-2.5 rounded-xl font-extrabold text-xs uppercase tracking-wider">
+                  <span data-ar="سجل الآن" data-en="Register Now">Register Now</span>
+                </button>
+                <a href="https://wa.me/96171967714?text=مرحباً، أهتم بالتسجيل والاستفسار عن دورة Lumion في نقابة المهندسين" target="_blank" class="flex-1 glass-card text-amber-300 border border-amber-500/30 py-2.5 rounded-xl font-bold text-xs flex items-center justify-center space-x-2 rtl:space-x-reverse hover:bg-amber-500/10 transition">
                     <i class="fa-brands fa-whatsapp text-sm"></i>
-                </a>
-                <a href="https://oea.tripoli.org.lb/trainings" target="_blank" class="flex-1 glass-card text-amber-300 border border-amber-500/30 py-2.5 rounded-xl font-bold text-xs flex items-center justify-center space-x-2 rtl:space-x-reverse hover:bg-amber-500/10 transition">
-                    <span data-ar="موقع النقابة" data-en="OEA Website">OEA Website</span>
-                    <i class="fa-solid fa-external-link-alt text-[10px]"></i>
+                    <span data-ar="واتساب" data-en="WhatsApp">WhatsApp</span>
                 </a>
             </div>
         </div>
+    </div>
+
+    <!-- ================= BOOKING MODAL (Group only - OEA has no Private option) ================= -->
+    <div id="bookingModal" class="hidden fixed inset-0 bg-black/80 z-[60] flex items-center justify-center px-6">
+      <div class="glass-card bg-[#121216] border border-amber-500/40 rounded-3xl p-8 max-w-sm w-full text-center">
+        <h3 id="modalCourseName" class="text-white font-black text-lg mb-2"></h3>
+        <p class="text-gray-400 text-xs mb-6" data-ar="تأكيد التسجيل بالدورة:" data-en="Confirm your registration:">Confirm your registration:</p>
+
+        <div class="space-y-3">
+          <button id="redeemFreeCourseBtn" onclick="confirmBooking('free', event)"
+            class="hidden w-full bg-gradient-to-r from-amber-300 to-yellow-500 text-black font-black py-3 rounded-xl text-sm">
+            <svg class="mini-cap" width="16" height="16" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" style="display:inline-block;vertical-align:-3px;margin-inline-end:5px;">
+              <polygon points="32,10 60,24 32,38 4,24" fill="currentColor"/>
+              <path d="M14 28 V42 C14 46 22 50 32 50 C42 50 50 46 50 42 V28 L32 38 Z" fill="currentColor" opacity="0.65"/>
+              <circle cx="55" cy="45" r="3" fill="currentColor"/>
+              <line x1="55" y1="26" x2="55" y2="42" stroke="currentColor" stroke-width="1.5"/>
+            </svg> <span data-ar="استخدم الكورس المجاني السنوي (بلاتيني)" data-en="Redeem Yearly Free Course (Platinum)">Redeem Yearly Free Course (Platinum)</span>
+          </button>
+          <button onclick="confirmBooking('group', event)"
+            class="w-full bg-gold text-black font-bold py-3 rounded-xl text-sm">
+            <svg class="mini-cap" width="16" height="16" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" style="display:inline-block;vertical-align:-3px;margin-inline-end:5px;">
+              <polygon points="32,10 60,24 32,38 4,24" fill="currentColor"/>
+              <path d="M14 28 V42 C14 46 22 50 32 50 C42 50 50 46 50 42 V28 L32 38 Z" fill="currentColor" opacity="0.65"/>
+              <circle cx="55" cy="45" r="3" fill="currentColor"/>
+              <line x1="55" y1="26" x2="55" y2="42" stroke="currentColor" stroke-width="1.5"/>
+            </svg> <span data-ar="تأكيد التسجيل" data-en="Confirm Registration">Confirm Registration</span>
+          </button>
+        </div>
+
+        <button onclick="closeBookingModal()" class="text-gray-500 text-xs mt-6" data-ar="إلغاء" data-en="Cancel">Cancel</button>
+      </div>
     </div>
 
     <!-- ================= JAVASCRIPT ================= -->
@@ -307,37 +364,10 @@
         }
     </script>
 
-<script>
-    // 1. منع زر الفأرة الأيمن (Right Click)
-    document.addEventListener('contextmenu', function(e) {
-        e.preventDefault();
-    });
+    <!-- Firebase account logic + email notifications + booking UI -->
+    <script src="firebase-init.js"></script>
+    <script src="course-booking.js"></script>
+    <script src="booking-ui.js"></script>
 
-    // 2. منع أختصارات الكيبورد لفتح الـ Inspect أو عرض مصدر الصفحة
-    document.addEventListener('keydown', function(e) {
-        // منع F12
-        if (e.key === 'F12') {
-            e.preventDefault();
-        }
-        // منع Ctrl+Shift+I أو Ctrl+Shift+J أو Ctrl+Shift+C
-        if (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'i' || e.key === 'J' || e.key === 'j' || e.key === 'C' || e.key === 'c')) {
-            e.preventDefault();
-        }
-        // منع Ctrl+U (عرض مصدر الصفحة View Source)
-        if (e.ctrlKey && (e.key === 'U' || e.key === 'u')) {
-            e.preventDefault();
-        }
-    });
-
-    // 3. طريقة إضافية لكشف الوقف المباشر وإنذار المتصفح
-    setInterval(function() {
-        const before = new Date().getTime();
-        debugger;
-        const after = new Date().getTime();
-        if (after - before > 100) {
-            document.body.innerHTML = "<h1>Access Denied</h1>";
-        }
-    }, 1000);
-</script>
 </body>
 </html>
