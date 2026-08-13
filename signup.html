@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" id="htmlRoot">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title data-ar="إنشاء حساب | Sketchy Chapters" data-en="Create Account | Sketchy Chapters">Create Account | Sketchy Chapters</title>
+<link rel="icon" type="image/png" href="favicon w.png">
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore-compat.js"></script>
+
+<style>
+  body{font-family:'Tajawal',sans-serif;background:#08080a;color:#e0e6ed;overflow-x:hidden;min-height:100vh;}
+  .gold-accent{color:#d4af37;}
+  .bg-gold{background:linear-gradient(135deg,#d4af37 0%,#aa7c11 100%);}
+  .glass-card{background:rgba(18,18,22,.65);backdrop-filter:blur(16px);border:1px solid rgba(212,175,55,.15);}
+  input{background:rgba(0,0,0,.4);border:1px solid rgba(212,175,55,.25);}
+  input:focus{outline:none;border-color:#d4af37;}
+
+  /* ===== Lamp & cord ===== */
+  #lampRig{position:relative;height:170px;display:flex;flex-direction:column;align-items:center;pointer-events:none;}
+  #lampWire{width:1px;height:38px;background:rgba(212,175,55,.4);}
+  #lampFixture{width:64px;height:26px;border-radius:0 0 32px 32px;background:linear-gradient(180deg,#1c1c22,#0b0b0e);border:1px solid rgba(212,175,55,.4);border-top:none;box-shadow:0 4px 18px rgba(0,0,0,.6);}
+  #bulb{width:14px;height:14px;border-radius:50%;background:#3a3a2f;margin-top:-4px;transition:background .6s ease, box-shadow .6s ease;}
+  #bulb.lit{background:#fff6d9;box-shadow:0 0 25px 10px rgba(255,221,120,.85), 0 0 70px 35px rgba(212,175,55,.5);}
+  #cordWrap{pointer-events:auto;cursor:pointer;display:flex;flex-direction:column;align-items:center;margin-top:6px;}
+  #cordString{width:1.5px;height:56px;background:linear-gradient(180deg, rgba(212,175,55,.7), rgba(212,175,55,.3));}
+  #cordRing{width:16px;height:16px;border-radius:50%;border:2px solid #d4af37;margin-top:-2px;background:rgba(212,175,55,.15);animation:ringPulse 1.8s ease-in-out infinite;}
+  #cordWrap.pulled #cordString, #cordWrap.pulled #cordRing{animation:none;}
+  #cordWrap.pulled{animation:pullSwing .9s ease;}
+  #cordWrap.done{cursor:default;}
+  #cordWrap.done #cordRing{animation:none;opacity:.35;}
+
+  @keyframes ringPulse{0%,100%{transform:scale(1);opacity:1;}50%{transform:scale(1.15);opacity:.7;}}
+  @keyframes pullSwing{
+    0%{transform:translateY(0) rotate(0deg);}
+    20%{transform:translateY(22px) rotate(4deg);}
+    45%{transform:translateY(4px) rotate(-3deg);}
+    65%{transform:translateY(12px) rotate(2deg);}
+    100%{transform:translateY(0) rotate(0deg);}
+  }
+
+  #lampGlow{position:absolute;top:0;left:50%;transform:translateX(-50%);width:640px;height:640px;
+    background:radial-gradient(circle at top, rgba(212,175,55,.32), transparent 70%);
+    opacity:0;transition:opacity 1.1s ease;pointer-events:none;}
+  #lampGlow.lit{opacity:1;}
+
+  #brandWrap{opacity:.18;filter:blur(2px);transition:all 1s ease;}
+  #brandWrap.lit{opacity:1;filter:none;}
+
+  #authCard{opacity:0;transform:translateY(14px);filter:blur(4px);transition:all .9s ease;pointer-events:none;}
+  #authCard.revealed{opacity:1;transform:translateY(0);filter:none;pointer-events:auto;}
+
+  #hint{transition:opacity .5s ease;}
+  #hint.hide{opacity:0;}
+</style>
+</head>
+<body class="min-h-screen flex flex-col items-center px-6 py-10">
+
+<!-- Language switcher -->
+<button onclick="toggleLanguage()" id="lang-btn" class="fixed top-5 right-5 rtl:right-auto rtl:left-5 glass-card text-amber-400 border border-amber-500/30 px-3 py-2 rounded-xl text-xs font-bold hover:bg-amber-500/10 transition flex items-center gap-1.5 z-20">
+  <i class="fa-solid fa-globe text-sm"></i>
+  <span id="langBtnText">العربية</span>
+</button>
+
+<!-- Lamp -->
+<div class="relative w-full flex justify-center">
+  <div id="lampGlow"></div>
+  <div id="lampRig">
+    <div id="lampWire"></div>
+    <div id="lampFixture" class="flex justify-center"><div id="bulb"></div></div>
+    <div id="cordWrap" onclick="pullCord(this)">
+      <div id="cordString"></div>
+      <div id="cordRing"></div>
+    </div>
+  </div>
+</div>
+
+<p id="hint" class="text-center text-[11px] text-amber-400/70 font-bold uppercase tracking-widest mt-1 mb-6" data-ar="اسحب الخيط لإضاءة التسجيل" data-en="Pull the cord to light your way in">Pull the cord to light your way in</p>
+
+<!-- Brand -->
+<div id="brandWrap" class="text-center mb-8">
+  <img src="workshop.png" alt="Workshop Logo" class="h-12 w-auto object-contain mx-auto mb-2" onerror="this.style.display='none'; document.getElementById('logo-fallback').style.display='block';">
+  <span id="logo-fallback" class="hidden text-xl font-black tracking-wider text-white">SKETCHY <span class="gold-accent">CHAPTERS</span></span>
+</div>
+
+<!-- Auth Card -->
+<div id="authCard" class="glass-card w-full max-w-md rounded-3xl p-8 md:p-10">
+  <div class="text-center mb-8">
+    <h1 class="text-2xl font-black text-white mb-1" data-ar="أنشئ حسابك" data-en="Create Your Account">Create Your Account</h1>
+    <p class="text-gray-400 text-xs" data-ar="أنشئ حساباً لحجز الدورات ومتابعة تقدمك الدراسي" data-en="Sign up to book courses and track your progress">Sign up to book courses and track your progress</p>
+  </div>
+
+  <form id="signupForm" class="space-y-4">
+    <div class="grid grid-cols-2 gap-3">
+      <input id="firstName" type="text" placeholder="First Name" required
+        class="w-full rounded-xl px-4 py-3 text-sm text-white">
+      <input id="lastName" type="text" placeholder="Last Name" required
+        class="w-full rounded-xl px-4 py-3 text-sm text-white">
+    </div>
+    <input id="email" type="email" placeholder="Email" required
+      class="w-full rounded-xl px-4 py-3 text-sm text-white">
+    <input id="phone" type="tel" placeholder="Phone (WhatsApp)" required
+      class="w-full rounded-xl px-4 py-3 text-sm text-white">
+    <div>
+      <label class="text-xs text-gray-400 block mb-1" data-ar="الجنس" data-en="Gender">Gender</label>
+      <div class="grid grid-cols-2 gap-3">
+        <label class="flex items-center justify-center gap-2 rounded-xl px-4 py-3 text-sm text-white cursor-pointer" style="background:rgba(0,0,0,.4);border:1px solid rgba(212,175,55,.25);">
+          <input type="radio" name="gender" value="male" required class="accent-amber-500">
+          <span data-ar="ذكر" data-en="Male">Male</span>
+        </label>
+        <label class="flex items-center justify-center gap-2 rounded-xl px-4 py-3 text-sm text-white cursor-pointer" style="background:rgba(0,0,0,.4);border:1px solid rgba(212,175,55,.25);">
+          <input type="radio" name="gender" value="female" required class="accent-amber-500">
+          <span data-ar="أنثى" data-en="Female">Female</span>
+        </label>
+      </div>
+    </div>
+    <div>
+      <label class="text-xs text-gray-400 block mb-1" data-ar="تاريخ الميلاد" data-en="Date of Birth">Date of Birth</label>
+      <input id="birthDate" type="date" required
+        class="w-full rounded-xl px-4 py-3 text-sm text-white">
+    </div>
+    <input id="password" type="password" placeholder="Password (min 6 characters)" required minlength="6"
+      class="w-full rounded-xl px-4 py-3 text-sm text-white">
+
+    <p id="errorMsg" class="text-red-400 text-xs hidden"></p>
+
+    <button type="submit" class="w-full bg-gold text-black font-black py-3 rounded-xl text-sm hover:opacity-90 transition" data-ar="إنشاء الحساب" data-en="Create Account">Create Account</button>
+  </form>
+
+  <p class="text-center text-gray-400 text-xs mt-6">
+    <span data-ar="هل لديك حساب بالفعل؟" data-en="Already have an account?">Already have an account?</span>
+    <a href="login.html" class="gold-accent font-bold" data-ar="تسجيل الدخول" data-en="Log in">Log in</a>
+  </p>
+</div>
+
+<script src="firebase-init.js"></script>
+<script>
+// ===== Lamp pull interaction (بتنطلب كل مرة يدخل فيها حدا الصفحة) =====
+function pullCord(el){
+  if (el.classList.contains('done')) return;
+  el.classList.add('pulled');
+  litLampNow();
+
+  setTimeout(() => {
+    document.getElementById('authCard').classList.add('revealed');
+    el.classList.remove('pulled');
+    el.classList.add('done');
+  }, 550);
+}
+
+function litLampNow(){
+  document.getElementById('bulb').classList.add('lit');
+  document.getElementById('lampGlow').classList.add('lit');
+  document.getElementById('brandWrap').classList.add('lit');
+  document.getElementById('hint').classList.add('hide');
+}
+
+// ===== Language toggle (matches rest of the site) =====
+let currentLang = 'en';
+function toggleLanguage(){
+  currentLang = currentLang === 'en' ? 'ar' : 'en';
+  const htmlRoot = document.getElementById('htmlRoot');
+  const langBtnText = document.getElementById('langBtnText');
+  htmlRoot.setAttribute('dir', currentLang === 'ar' ? 'rtl' : 'ltr');
+  htmlRoot.setAttribute('lang', currentLang);
+  langBtnText.innerText = currentLang === 'ar' ? 'English' : 'العربية';
+  document.querySelectorAll('[data-ar]').forEach(el => {
+    const t = currentLang === 'ar' ? el.getAttribute('data-ar') : el.getAttribute('data-en');
+    if (t) el.innerText = t;
+  });
+}
+
+// ===== Signup logic =====
+document.getElementById('signupForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const errorEl = document.getElementById('errorMsg');
+  errorEl.classList.add('hidden');
+
+  try {
+    const firstName = document.getElementById('firstName').value.trim();
+    const lastName = document.getElementById('lastName').value.trim();
+    await signUpStudent({
+      name: firstName + ' ' + lastName,
+      email: document.getElementById('email').value,
+      password: document.getElementById('password').value,
+      birthDate: document.getElementById('birthDate').value,
+      phone: document.getElementById('phone').value,
+      gender: document.querySelector('input[name="gender"]:checked')?.value || ''
+    });
+
+    const params = new URLSearchParams(window.location.search);
+    window.location.href = params.get('redirect') || 'account.html';
+  } catch (err) {
+    errorEl.textContent = err.message;
+    errorEl.classList.remove('hidden');
+  }
+});
+</script>
+</body>
+</html>
