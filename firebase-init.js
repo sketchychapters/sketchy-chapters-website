@@ -95,7 +95,7 @@ async function generateStudentId() {
 // ==========================================================
 // تسجيل حساب جديد
 // ==========================================================
-async function signUpStudent({ name, email, password, birthDate, phone, gender, referredBy }) {
+async function signUpStudent({ name, email, password, birthDate, phone, gender, referredBy, country, specialization }) {
   const cred = await auth.createUserWithEmailAndPassword(email, password);
   const uid = cred.user.uid;
   const studentId = await generateStudentId();
@@ -107,6 +107,8 @@ async function signUpStudent({ name, email, password, birthDate, phone, gender, 
     phone: phone || "",
     gender: gender || "",           // "male" | "female"
     birthDate: birthDate,
+    country: country || "",
+    specialization: specialization || "",
     referredBy: referredBy || "",   // studentId تبع اللي حولّه (اختياري)
     points: 0,
     freeCourseUsedYear: null,       // آخر سنة استخدم فيها الكورس المجاني (Platinum)
@@ -136,6 +138,8 @@ async function loginStudent(identifier, password) {
 }
 
 function logoutStudent() {
+  // نصفّر أي كورسات مضافة للسلة وما تثبتت - ما بدنا نخليها معلقة لجلسة تانية
+  try { localStorage.removeItem('sketchy_cart'); } catch (e) {}
   return auth.signOut();
 }
 
@@ -394,7 +398,7 @@ async function loginAdmin(email, password) {
 function requireAdmin() {
   auth.onAuthStateChanged(user => {
     if (!user || user.email !== ADMIN_EMAIL) {
-      window.location.href = "admin-login.html";
+      window.location.href = "sc-team-login.html";
     }
   });
 }
