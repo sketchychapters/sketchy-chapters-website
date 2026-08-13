@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" id="htmlRoot">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title data-ar="حسابي | Sketchy Chapters" data-en="My Account | Sketchy Chapters">My Account | Sketchy Chapters</title>
+<link rel="icon" type="image/png" href="favicon w.png">
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore-compat.js"></script>
+
+<style>
+  body{font-family:'Tajawal',sans-serif;background:#08080a;color:#e0e6ed;overflow-x:hidden;}
+  .gold-accent{color:#d4af37;}
+  .gold-gradient-text{background:linear-gradient(135deg,#bf953f,#fcf6ba,#b38728,#fbf5b7);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+  .bg-gold{background:linear-gradient(135deg,#d4af37 0%,#aa7c11 100%);}
+  .glass-card{background:rgba(18,18,22,.65);backdrop-filter:blur(16px);border:1px solid rgba(212,175,55,.15);transition:all .3s ease;}
+  .glass-card:hover{border-color:rgba(212,175,55,.35);}
+  #avatarRing{background:conic-gradient(from 0deg, #d4af37, #fcf6ba, #d4af37);}
+  input{background:rgba(0,0,0,.4);border:1px solid rgba(212,175,55,.25);color:#fff;}
+  input:focus{outline:none;border-color:#d4af37;}
+  .level-badge{background:linear-gradient(135deg,#d4af37,#aa7c11);}
+  .progress-bar-bg{background:rgba(255,255,255,.08);}
+  .progress-bar-fill{background:linear-gradient(90deg,#d4af37,#fcf6ba);}
+</style>
+</head>
+<body class="min-h-screen">
+
+<!-- ================= HEADER ================= -->
+<header class="glass-card border-b border-amber-500/15 py-4 px-6 md:px-12 flex items-center justify-between">
+  <a href="workshop.html" class="flex items-center space-x-3 rtl:space-x-reverse">
+    <img src="workshop.png" alt="Workshop Logo" class="h-10 w-auto object-contain" onerror="this.style.display='none'; document.getElementById('logo-fallback').style.display='block';">
+    <span id="logo-fallback" class="hidden text-lg font-black tracking-wider text-white">SKETCHY <span class="gold-accent">CHAPTERS</span></span>
+  </a>
+  <a href="workshop.html" class="glass-card text-amber-400 border border-amber-500/30 px-4 py-2 rounded-xl text-xs font-bold hover:bg-amber-500/10 transition flex items-center gap-2">
+    <i class="fa-solid fa-arrow-left rtl:rotate-180 text-sm"></i>
+    <span data-ar="تصفّح الدورات" data-en="Browse Courses">Browse Courses</span>
+  </a>
+  <button onclick="toggleLanguage()" id="lang-btn" class="glass-card text-amber-400 border border-amber-500/30 px-3 py-2 rounded-xl text-xs font-bold hover:bg-amber-500/10 transition flex items-center gap-1.5">
+    <i class="fa-solid fa-globe text-sm"></i>
+    <span id="langBtnText">العربية</span>
+  </button>
+</header>
+
+<main class="max-w-4xl mx-auto px-6 py-12">
+
+  <!-- Profile Card -->
+  <div class="glass-card rounded-3xl p-8 mb-6 flex flex-col md:flex-row items-center md:items-start gap-6 text-center md:text-left rtl:md:text-right">
+    <div id="avatarRing" class="w-20 h-20 rounded-full p-[3px] shrink-0">
+      <div class="w-full h-full rounded-full bg-[#121216] flex items-center justify-center text-xl font-black gold-accent" id="avatarInitial">–</div>
+    </div>
+    <div class="flex-1">
+      <div class="flex items-center gap-2 justify-center md:justify-start flex-wrap mb-1">
+        <p id="profileName" class="text-white font-black text-xl">Loading...</p>
+        <span id="levelBadge" class="level-badge text-black text-[10px] font-black uppercase px-2.5 py-1 rounded-full"></span>
+      </div>
+      <p id="profileEmail" class="text-gray-400 text-xs"></p>
+      <p id="profilePhone" class="text-gray-400 text-xs"></p>
+      <p class="text-gray-500 text-[11px] mt-1 font-mono" id="profileStudentId"></p>
+    </div>
+    <div class="flex flex-col gap-2 shrink-0">
+      <button onclick="openChangePasswordModal()"
+        class="text-xs font-bold text-blue-300 border border-blue-500/30 px-4 py-2 rounded-xl hover:bg-blue-500/10 transition" data-ar="تغيير كلمة السر" data-en="Change Password">
+        Change Password
+      </button>
+      <button onclick="logoutStudent().then(()=>location.href='login.html')"
+        class="text-xs font-bold gold-accent border border-amber-500/30 px-4 py-2 rounded-xl hover:bg-amber-500/10 transition" data-ar="تسجيل خروج" data-en="Log Out">
+        Log Out
+      </button>
+    </div>
+  </div>
+
+  <!-- Change Password Modal -->
+  <div id="changePasswordModal" class="hidden fixed inset-0 bg-black/80 z-[70] flex items-center justify-center px-6">
+    <div class="glass-card bg-[#121216] border border-amber-500/40 rounded-3xl p-8 max-w-sm w-full">
+      <h3 class="text-white font-black text-lg mb-1" data-ar="تغيير كلمة السر" data-en="Change Password">Change Password</h3>
+      <p class="text-gray-500 text-[11px] mb-5" data-ar="لأمانك، لازم تكتب كلمة سرك الحالية أول." data-en="For your security, enter your current password first.">For your security, enter your current password first.</p>
+
+      <input id="cpCurrentPassword" type="password" placeholder="Current password" class="w-full rounded-xl px-4 py-2.5 text-sm text-white mb-3">
+      <input id="cpNewPassword" type="password" placeholder="New password (min 6 characters)" minlength="6" class="w-full rounded-xl px-4 py-2.5 text-sm text-white mb-3">
+      <input id="cpConfirmPassword" type="password" placeholder="Confirm new password" minlength="6" class="w-full rounded-xl px-4 py-2.5 text-sm text-white mb-4">
+
+      <p id="cpErrorMsg" class="text-red-400 text-xs hidden mb-3"></p>
+
+      <div class="flex gap-3">
+        <button onclick="submitChangePassword()" class="flex-1 bg-gold text-black font-bold py-2.5 rounded-xl text-xs" data-ar="حفظ" data-en="Save">Save</button>
+        <button onclick="closeChangePasswordModal()" class="flex-1 glass-card text-gray-400 border border-gray-700 py-2.5 rounded-xl text-xs" data-ar="إلغاء" data-en="Cancel">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Points & Level Progress -->
+  <div class="glass-card rounded-3xl p-6 mb-6">
+    <div class="flex items-center justify-between mb-2">
+      <p class="text-white font-bold text-sm">
+        <i class="fa-solid fa-star gold-accent"></i>
+        <span id="pointsCount">0</span> <span data-ar="نقطة" data-en="Points">Points</span>
+      </p>
+      <p id="nextLevelText" class="text-gray-400 text-[11px]"></p>
+    </div>
+    <div class="progress-bar-bg rounded-full h-2.5 overflow-hidden">
+      <div id="progressBarFill" class="progress-bar-fill h-full rounded-full transition-all" style="width:0%"></div>
+    </div>
+    <div class="grid grid-cols-3 gap-3 mt-4 text-center">
+      <div>
+        <p id="perkCourseDiscount" class="text-white font-black text-sm">0%</p>
+        <p class="text-gray-500 text-[10px] uppercase" data-ar="خصم الدورات" data-en="Course Discount">Course Discount</p>
+      </div>
+      <div>
+        <p id="perkBirthdayDiscount" class="text-white font-black text-sm">20%</p>
+        <p class="text-gray-500 text-[10px] uppercase" data-ar="خصم عيد الميلاد" data-en="Birthday Discount">Birthday Discount</p>
+      </div>
+      <div>
+        <p id="perkReferralDiscount" class="text-white font-black text-sm">0%</p>
+        <p class="text-gray-500 text-[10px] uppercase" data-ar="خصم الإحالة" data-en="Referral Discount">Referral Discount</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Birthday discount banner -->
+  <div id="discountBanner" class="hidden glass-card rounded-3xl p-5 mb-6 border-amber-500/50 bg-gradient-to-r from-amber-500/10 via-transparent to-amber-500/10 text-center">
+    <p class="text-amber-300 font-black" data-ar="🎂 عيد ميلاد سعيد! يحق لك الحصول على خصم خاص هذا الأسبوع على أي دورة." data-en="🎂 It's your birthday week! You get a special discount on any course.">🎂 It's your birthday week! You get a special discount on any course.</p>
+  </div>
+
+  <!-- Current Courses -->
+  <div class="flex items-center justify-between mb-4">
+    <h2 class="text-lg font-black text-white" data-ar="دوراتي الحالية" data-en="Current Courses">Current Courses</h2>
+  </div>
+  <div id="currentEnrollmentsList" class="space-y-3 mb-10">
+    <p class="text-gray-500 text-sm">Loading...</p>
+  </div>
+
+  <!-- Past Courses -->
+  <div class="flex items-center justify-between mb-4">
+    <h2 class="text-lg font-black text-white" data-ar="دورات قديمة" data-en="Past Courses">Past Courses</h2>
+    <i class="fa-solid fa-clock-rotate-left gold-accent"></i>
+  </div>
+  <div id="pastEnrollmentsList" class="space-y-3 mb-12">
+    <p class="text-gray-500 text-sm" data-ar="لا توجد دورات مكتملة بعد." data-en="No completed courses yet.">No completed courses yet.</p>
+  </div>
+
+  <!-- Certificates -->
+  <div class="flex items-center justify-between mb-4">
+    <h2 class="text-lg font-black text-white" data-ar="شهاداتي" data-en="My Certificates">My Certificates</h2>
+    <i class="fa-solid fa-award gold-accent"></i>
+  </div>
+  <div id="certificatesList" class="space-y-3">
+    <div class="glass-card rounded-2xl p-6 text-center">
+      <p class="text-gray-500 text-sm" data-ar="لا توجد شهادات بعد. ستظهر هنا فور استلامها من الإدارة." data-en="No certificates yet. They'll appear here once you complete a course.">No certificates yet. They'll appear here once you complete a course.</p>
+    </div>
+  </div>
+
+</main>
+
+<footer class="py-10 text-center text-gray-600 text-[11px] border-t border-gray-900 mt-10">
+  <span data-ar="© 2026 مركز ورش عمل سكتشي تشابترز" data-en="© 2026 Sketchy Chapters Workshop Center">© 2026 Sketchy Chapters Workshop Center</span>
+</footer>
+
+<script src="firebase-init.js"></script>
+<script src="booking-ui.js"></script>
+<script>
+requireLogin();
+
+let currentLang = 'en';
+function toggleLanguage(){
+  currentLang = currentLang === 'en' ? 'ar' : 'en';
+  const htmlRoot = document.getElementById('htmlRoot');
+  const langBtnText = document.getElementById('langBtnText');
+  htmlRoot.setAttribute('dir', currentLang === 'ar' ? 'rtl' : 'ltr');
+  htmlRoot.setAttribute('lang', currentLang);
+  langBtnText.innerText = currentLang === 'ar' ? 'English' : 'العربية';
+  document.querySelectorAll('[data-ar]').forEach(el => {
+    const t = currentLang === 'ar' ? el.getAttribute('data-ar') : el.getAttribute('data-en');
+    if (t) el.innerText = t;
+  });
+}
+
+function openChangePasswordModal() {
+  document.getElementById('cpCurrentPassword').value = '';
+  document.getElementById('cpNewPassword').value = '';
+  document.getElementById('cpConfirmPassword').value = '';
+  document.getElementById('cpErrorMsg').classList.add('hidden');
+  document.getElementById('changePasswordModal').classList.remove('hidden');
+  document.getElementById('changePasswordModal').classList.add('flex');
+}
+
+function closeChangePasswordModal() {
+  document.getElementById('changePasswordModal').classList.add('hidden');
+  document.getElementById('changePasswordModal').classList.remove('flex');
+}
+
+async function submitChangePassword() {
+  const errorEl = document.getElementById('cpErrorMsg');
+  errorEl.classList.add('hidden');
+
+  const current = document.getElementById('cpCurrentPassword').value;
+  const next = document.getElementById('cpNewPassword').value;
+  const confirm = document.getElementById('cpConfirmPassword').value;
+
+  if (!current || !next || !confirm) {
+    errorEl.textContent = currentLang === 'ar' ? 'يرجى تعبئة جميع الحقول.' : 'Please fill in all fields.';
+    errorEl.classList.remove('hidden');
+    return;
+  }
+  if (next.length < 6) {
+    errorEl.textContent = currentLang === 'ar' ? 'يجب أن تتكون كلمة السر الجديدة من ٦ أحرف على الأقل.' : 'New password must be at least 6 characters.';
+    errorEl.classList.remove('hidden');
+    return;
+  }
+  if (next !== confirm) {
+    errorEl.textContent = currentLang === 'ar' ? 'كلمتا السر الجديدتان غير متطابقتين.' : 'New passwords do not match.';
+    errorEl.classList.remove('hidden');
+    return;
+  }
+
+  try {
+    await changeMyPassword(current, next);
+    closeChangePasswordModal();
+    if (window.showBookingToast) {
+      showBookingToast(currentLang === 'ar' ? '✅ تم تغيير كلمة السر بنجاح.' : '✅ Password changed successfully.');
+    } else {
+      alert(currentLang === 'ar' ? '✅ تم تغيير كلمة السر بنجاح.' : '✅ Password changed successfully.');
+    }
+  } catch (err) {
+    if (err.code === 'auth/wrong-password' || err.code === 'auth/invalid-credential') {
+      errorEl.textContent = currentLang === 'ar' ? 'كلمة السر الحالية غير صحيحة.' : 'Current password is incorrect.';
+    } else {
+      errorEl.textContent = currentLang === 'ar' ? 'حدث خطأ. حاول مرة أخرى.' : 'Something went wrong. Please try again.';
+    }
+    errorEl.classList.remove('hidden');
+  }
+}
+
+function enrollmentCardHtml(en) {
+  const statusLabel = en.status === 'pending'
+    ? '<span class="text-amber-300">⏳ Pending Approval</span>'
+    : en.status === 'upcoming'
+      ? '<span class="text-emerald-400">✓ Confirmed</span>'
+      : '';
+  // السعر بيبين بس لما تكون الدورة لسا "قيد الموافقة" - بعد ما توافق عليها، بيختفي
+  const priceHtml = en.status === 'pending'
+    ? `<span class="gold-accent font-bold">$${en.finalPrice}</span>${en.discountApplied ? ` <span class="text-emerald-400">(${en.discountApplied}% off)</span>` : ''} · `
+    : '';
+  const noteHtml = en.adminNote
+    ? `<p class="text-blue-300 text-[11px] mt-1.5 flex items-start gap-1"><span>📝</span><span>${en.adminNote}</span></p>`
+    : '';
+  return `
+    <div class="glass-card rounded-2xl p-4 flex items-center justify-between gap-2">
+      <div>
+        <p class="text-white font-bold text-sm">${en.courseName}</p>
+        <p class="text-gray-400 text-xs mt-0.5">${en.type === 'private' ? '👤 Private' : '👥 Group'} · ${priceHtml}${statusLabel}</p>
+        ${noteHtml}
+      </div>
+      <span class="text-[10px] text-gray-500 shrink-0">${new Date(en.date).toLocaleDateString()}</span>
+    </div>
+  `;
+}
+
+auth.onAuthStateChanged(async (user) => {
+  if (!user) return;
+  const data = await getCurrentStudentData();
+  if (!data) {
+    document.getElementById('profileName').innerText = '⚠️ Account data not found';
+    document.getElementById('profileEmail').innerText = user.email || '';
+    document.getElementById('profileStudentId').innerHTML =
+      '<span style="color:#f87171;">Your login exists, but no profile was saved for it. ' +
+      'Please log out and create a brand-new account from signup.html.</span>';
+    console.error('account.html: no Firestore document found for uid', user.uid);
+    return;
+  }
+
+  document.getElementById('profileName').innerText = data.name || '';
+  document.getElementById('profileEmail').innerText = data.email || '';
+  document.getElementById('profilePhone').innerText = data.phone || '';
+  document.getElementById('profileStudentId').innerText = data.studentId || '';
+  document.getElementById('avatarInitial').innerText = getInitials(data.name);
+
+  const points = data.points || 0;
+  const level = computeLevel(points);
+  const next = nextLevel(points);
+
+  document.getElementById('levelBadge').innerText = level.name;
+  document.getElementById('pointsCount').innerText = points;
+  document.getElementById('perkCourseDiscount').innerText = level.courseDiscount + '%';
+  document.getElementById('perkBirthdayDiscount').innerText = level.birthdayDiscount + '%';
+  document.getElementById('perkReferralDiscount').innerText = level.referralDiscount + '%';
+
+  if (next) {
+    const remaining = next.min - points;
+    document.getElementById('nextLevelText').innerText = `${remaining} pts to ${next.name}`;
+    const span = next.min - level.min;
+    const progressed = points - level.min;
+    document.getElementById('progressBarFill').style.width = Math.min(100, Math.round((progressed / span) * 100)) + '%';
+  } else {
+    document.getElementById('nextLevelText').innerText = 'Top Level 🎉';
+    document.getElementById('progressBarFill').style.width = '100%';
+  }
+
+  const isBday = (() => {
+    if (!data.birthDate) return false;
+    const today = new Date();
+    const bd = new Date(data.birthDate);
+    const birthdayThisYear = new Date(today.getFullYear(), bd.getMonth(), bd.getDate());
+    return Math.abs((birthdayThisYear - today) / (1000 * 60 * 60 * 24)) <= 7;
+  })();
+  if (isBday) document.getElementById('discountBanner').classList.remove('hidden');
+
+  // إشعار عيد ميلاد تلقائي (مرة وحدة بالسنة) + تحديث جرس الإشعارات بالهيدر
+  checkAndNotifyBirthday().then(() => {
+    if (window.refreshNotifBadge) window.refreshNotifBadge();
+  });
+
+  const enrollments = data.enrollments || [];
+  const current = enrollments.filter(e => e.status !== 'completed').slice().reverse();
+  const past = enrollments.filter(e => e.status === 'completed').slice().reverse();
+
+  const currentList = document.getElementById('currentEnrollmentsList');
+  if (current.length === 0) {
+    currentList.innerHTML = `<div class="glass-card rounded-2xl p-6 text-center">
+      <p class="text-gray-500 text-sm mb-3">You haven't booked any courses yet.</p>
+      <a href="workshop.html" class="inline-block bg-gold text-black font-bold text-xs px-5 py-2.5 rounded-xl">Browse Courses</a>
+    </div>`;
+  } else {
+    currentList.innerHTML = current.map(enrollmentCardHtml).join('');
+  }
+
+  const pastList = document.getElementById('pastEnrollmentsList');
+  if (past.length > 0) {
+    pastList.innerHTML = past.map(enrollmentCardHtml).join('');
+  }
+
+  const certificates = data.certificates || [];
+  if (certificates.length > 0) {
+    document.getElementById('certificatesList').innerHTML = certificates.slice().reverse().map(cert => `
+      <div class="glass-card rounded-2xl p-4 flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <i class="fa-solid fa-certificate gold-accent text-lg"></i>
+          <div>
+            <p class="text-white font-bold text-sm">${cert.courseName}</p>
+            <p class="text-gray-500 text-[11px]">${new Date(cert.dateIssued).toLocaleDateString()}</p>
+          </div>
+        </div>
+        <a href="${cert.url}" target="_blank" class="bg-gold text-black text-xs font-bold px-4 py-2 rounded-xl shrink-0">
+          <i class="fa-solid fa-download"></i> <span data-ar="تحميل" data-en="Download">Download</span>
+        </a>
+      </div>
+    `).join('');
+  }
+});
+</script>
+</body>
+</html>
