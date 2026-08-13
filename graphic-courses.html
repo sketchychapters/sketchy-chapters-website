@@ -12,6 +12,14 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Google Fonts Cairo -->
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+
+    <!-- Firebase SDK (accounts, login, students data) -->
+    <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore-compat.js"></script>
+    <!-- EmailJS (instant admin notifications) -->
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
     <script>
         tailwind.config = {
             theme: {
@@ -60,6 +68,14 @@
                 <span id="langBtnText">العربية</span>
             </button>
 
+            <!-- Login / My Account Button (state-aware) -->
+            <div id="authArea" class="hidden md:block">
+                <a href="login.html" class="glass-card text-amber-400 border border-amber-500/30 px-4 py-2 rounded-xl text-xs font-bold hover:bg-amber-500/10 transition flex items-center gap-2">
+                    <i class="fa-solid fa-user text-sm"></i>
+                    <span data-ar="تسجيل الدخول" data-en="Log In">Log In</span>
+                </a>
+            </div>
+
             <!-- WhatsApp Quick Button (Desktop) -->
             <a href="https://wa.me/96171967714?text=مرحباً، أهتم بالتسجيل والاستفسار عن دورات التصميم الجرافيكي" target="_blank" class="hidden md:flex bg-amber-500/10 border border-amber-500/40 text-amber-400 px-4 py-2 rounded-xl text-xs font-bold hover:bg-amber-500/20 transition items-center space-x-2 rtl:space-x-reverse">
                 <i class="fa-brands fa-whatsapp text-sm"></i>
@@ -91,6 +107,13 @@
             <span data-ar=" دورات نقابة المهندسين" data-en=" OEA Courses">OEA Courses</span>
             <i class="fa-solid fa-arrow-left rtl:rotate-180 text-xs gold-accent"></i>
         </a>
+
+        <!-- Login / My Account (Mobile) -->
+        <a href="login.html" id="mobileAuthLink" onclick="toggleMobileMenu()" class="bg-amber-500/10 border border-amber-500/30 text-amber-400 p-3 rounded-xl text-xs font-bold flex items-center justify-center space-x-2 rtl:space-x-reverse">
+            <i class="fa-solid fa-user text-base"></i>
+            <span data-ar="تسجيل الدخول" data-en="Log In">Log In</span>
+        </a>
+
         <a href="https://wa.me/96171967714?text=مرحباً، أهتم بالتسجيل والاستفسار عن دورات التصميم الجرافيكي" target="_blank" class="bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 p-3 rounded-xl text-xs font-bold flex items-center justify-center space-x-2 rtl:space-x-reverse">
             <i class="fa-brands fa-whatsapp text-base"></i>
             <span data-ar="تواصل واتساب (Contact Us)" data-en="Contact Us (WhatsApp)">Contact Us (WhatsApp)</span>
@@ -439,10 +462,10 @@
             </div>
 
             <div class="mt-6 flex gap-3">
-                <a href="https://forms.gle/ShVDMvXgE9sNeSxz8" target="_blank" class="flex-1 bg-gold text-black py-2.5 rounded-xl font-extrabold text-xs uppercase tracking-wider flex items-center justify-center space-x-2 rtl:space-x-reverse hover:brightness-110 transition shadow-lg shadow-amber-500/15">
-                    <span data-ar="التسجيل الآن" data-en="Register Now">Register Now</span>
-                    <i class="fa-solid fa-external-link-alt text-[10px]"></i>
-                </a>
+                <button onclick="openBookingModal('Adobe Illustrator', 99)"
+                  class="flex-1 bg-gold text-black py-2.5 rounded-xl font-extrabold text-xs uppercase tracking-wider">
+                  <span data-ar="التسجيل الآن" data-en="Register Now">Register Now</span>
+                </button>
                 <a href="https://wa.me/96171967714?text=مرحباً، أهتم بالتسجيل والاستفسار عن دورة Illustrator" target="_blank" class="flex-1 glass-card text-emerald-400 border border-emerald-500/30 py-2.5 rounded-xl font-bold text-xs flex items-center justify-center space-x-2 rtl:space-x-reverse hover:bg-emerald-500/10 transition">
                     <i class="fa-brands fa-whatsapp text-sm"></i>
                     <span data-ar="استفسار واتساب" data-en="WhatsApp Inquiry">WhatsApp Inquiry</span>
@@ -454,7 +477,6 @@
 <!-- سكربت حساب تاريخ البدء (أول ثلاثاء بالشهر) ونسبة الحسم تلقائياً كارت Illustrator Modal -->
 <script>
   function updateAiModalInfo() {
-    // حساب تاريخ أول ثلاثاء بالشهر (يوم الثلاثاء = 2)
     let today = new Date();
     let year = today.getFullYear();
     let month = today.getMonth();
@@ -481,7 +503,6 @@
         dateEl.innerText = `${dayNum}/${monthNum}`;
     }
 
-    // حساب نسبة الحسم تلقائياً
     let curP = parseFloat(document.getElementById('ai-price')?.innerText);
     let orgP = parseFloat(document.getElementById('ai-original')?.innerText);
     let discEl = document.getElementById('ai-discount');
@@ -556,10 +577,10 @@
             </div>
 
             <div class="mt-6 flex gap-3">
-                <a href="https://forms.gle/ShVDMvXgE9sNeSxz8" target="_blank" class="flex-1 bg-gold text-black py-2.5 rounded-xl font-extrabold text-xs uppercase tracking-wider flex items-center justify-center space-x-2 rtl:space-x-reverse hover:brightness-110 transition shadow-lg shadow-amber-500/15">
-                    <span data-ar="التسجيل الآن" data-en="Register Now">Register Now</span>
-                    <i class="fa-solid fa-external-link-alt text-[10px]"></i>
-                </a>
+                <button onclick="openBookingModal('Adobe Photoshop', 99)"
+                  class="flex-1 bg-gold text-black py-2.5 rounded-xl font-extrabold text-xs uppercase tracking-wider">
+                  <span data-ar="التسجيل الآن" data-en="Register Now">Register Now</span>
+                </button>
                 <a href="https://wa.me/96171967714?text=مرحباً، أهتم بالتسجيل والاستفسار عن دورة Photoshop" target="_blank" class="flex-1 glass-card text-emerald-400 border border-emerald-500/30 py-2.5 rounded-xl font-bold text-xs flex items-center justify-center space-x-2 rtl:space-x-reverse hover:bg-emerald-500/10 transition">
                     <i class="fa-brands fa-whatsapp text-sm"></i>
                     <span data-ar="استفسار واتساب" data-en="WhatsApp Inquiry">WhatsApp Inquiry</span>
@@ -571,7 +592,6 @@
 <!-- سكربت حساب تاريخ البدء (أول ثلاثاء بالشهر) ونسبة الحسم تلقائياً كارت Photoshop Modal -->
 <script>
   function updatePsModalInfo() {
-    // حساب تاريخ أول ثلاثاء بالشهر (يوم الثلاثاء = 2)
     let today = new Date();
     let year = today.getFullYear();
     let month = today.getMonth();
@@ -598,7 +618,6 @@
         dateEl.innerText = `${dayNum}/${monthNum}`;
     }
 
-    // حساب نسبة الحسم تلقائياً
     let curP = parseFloat(document.getElementById('ps-price')?.innerText);
     let orgP = parseFloat(document.getElementById('ps-original')?.innerText);
     let discEl = document.getElementById('ps-discount');
@@ -672,10 +691,10 @@
             </div>
 
             <div class="mt-6 flex gap-3">
-                <a href="https://forms.gle/ShVDMvXgE9sNeSxz8" target="_blank" class="flex-1 bg-gold text-black py-2.5 rounded-xl font-extrabold text-xs uppercase tracking-wider flex items-center justify-center space-x-2 rtl:space-x-reverse hover:brightness-110 transition shadow-lg shadow-amber-500/15">
-                    <span data-ar="التسجيل الآن" data-en="Register Now">Register Now</span>
-                    <i class="fa-solid fa-external-link-alt text-[10px]"></i>
-                </a>
+                <button onclick="openBookingModal('Adobe Lightroom', 69)"
+                  class="flex-1 bg-gold text-black py-2.5 rounded-xl font-extrabold text-xs uppercase tracking-wider">
+                  <span data-ar="التسجيل الآن" data-en="Register Now">Register Now</span>
+                </button>
                 <a href="https://wa.me/96171967714?text=مرحباً، أهتم بالتسجيل والاستفسار عن دورة Lightroom" target="_blank" class="flex-1 glass-card text-emerald-400 border border-emerald-500/30 py-2.5 rounded-xl font-bold text-xs flex items-center justify-center space-x-2 rtl:space-x-reverse hover:bg-emerald-500/10 transition">
                     <i class="fa-brands fa-whatsapp text-sm"></i>
                     <span data-ar="استفسار واتساب" data-en="WhatsApp Inquiry">WhatsApp Inquiry</span>
@@ -687,7 +706,6 @@
 <!-- سكربت حساب تاريخ البدء (أول ثلاثاء بالشهر) ونسبة الحسم تلقائياً كارت Lightroom Modal -->
 <script>
   function updateLrModalInfo() {
-    // حساب تاريخ أول ثلاثاء بالشهر (يوم الثلاثاء = 2)
     let today = new Date();
     let year = today.getFullYear();
     let month = today.getMonth();
@@ -714,7 +732,6 @@
         dateEl.innerText = `${dayNum}/${monthNum}`;
     }
 
-    // حساب نسبة الحسم تلقائياً
     let curP = parseFloat(document.getElementById('lr-price')?.innerText);
     let orgP = parseFloat(document.getElementById('lr-original')?.innerText);
     let discEl = document.getElementById('lr-discount');
@@ -788,10 +805,10 @@
             </div>
 
             <div class="mt-6 flex gap-3">
-                <a href="https://forms.gle/ShVDMvXgE9sNeSxz8" target="_blank" class="flex-1 bg-gold text-black py-2.5 rounded-xl font-extrabold text-xs uppercase tracking-wider flex items-center justify-center space-x-2 rtl:space-x-reverse hover:brightness-110 transition shadow-lg shadow-amber-500/15">
-                    <span data-ar="التسجيل الآن" data-en="Register Now">Register Now</span>
-                    <i class="fa-solid fa-external-link-alt text-[10px]"></i>
-                </a>
+                <button onclick="openBookingModal('Adobe Premiere Pro', 99)"
+                  class="flex-1 bg-gold text-black py-2.5 rounded-xl font-extrabold text-xs uppercase tracking-wider">
+                  <span data-ar="التسجيل الآن" data-en="Register Now">Register Now</span>
+                </button>
                 <a href="https://wa.me/96171967714?text=مرحباً، أهتم بالتسجيل والاستفسار عن دورة Premiere Pro" target="_blank" class="flex-1 glass-card text-emerald-400 border border-emerald-500/30 py-2.5 rounded-xl font-bold text-xs flex items-center justify-center space-x-2 rtl:space-x-reverse hover:bg-emerald-500/10 transition">
                     <i class="fa-brands fa-whatsapp text-sm"></i>
                     <span data-ar="استفسار واتساب" data-en="WhatsApp Inquiry">WhatsApp Inquiry</span>
@@ -803,7 +820,6 @@
 <!-- سكربت حساب تاريخ البدء (أول ثلاثاء بالشهر) ونسبة الحسم تلقائياً كارت Premiere Pro Modal -->
 <script>
   function updatePrModalInfo() {
-    // حساب تاريخ أول ثلاثاء بالشهر (يوم الثلاثاء = 2)
     let today = new Date();
     let year = today.getFullYear();
     let month = today.getMonth();
@@ -830,7 +846,6 @@
         dateEl.innerText = `${dayNum}/${monthNum}`;
     }
 
-    // حساب نسبة الحسم تلقائياً
     let curP = parseFloat(document.getElementById('pr-price')?.innerText);
     let orgP = parseFloat(document.getElementById('pr-original')?.innerText);
     let discEl = document.getElementById('pr-discount');
@@ -904,10 +919,10 @@
             </div>
 
             <div class="mt-6 flex gap-3">
-                <a href="https://forms.gle/ShVDMvXgE9sNeSxz8" target="_blank" class="flex-1 bg-gold text-black py-2.5 rounded-xl font-extrabold text-xs uppercase tracking-wider flex items-center justify-center space-x-2 rtl:space-x-reverse hover:brightness-110 transition shadow-lg shadow-amber-500/15">
-                    <span data-ar="التسجيل الآن" data-en="Register Now">Register Now</span>
-                    <i class="fa-solid fa-external-link-alt text-[10px]"></i>
-                </a>
+                <button onclick="openBookingModal('Scriptwriting', 199)"
+                  class="flex-1 bg-gold text-black py-2.5 rounded-xl font-extrabold text-xs uppercase tracking-wider">
+                  <span data-ar="التسجيل الآن" data-en="Register Now">Register Now</span>
+                </button>
                 <a href="https://wa.me/96171967714?text=مرحباً، أهتم بالتسجيل والاستفسار عن دورة Scriptwriting" target="_blank" class="flex-1 glass-card text-emerald-400 border border-emerald-500/30 py-2.5 rounded-xl font-bold text-xs flex items-center justify-center space-x-2 rtl:space-x-reverse hover:bg-emerald-500/10 transition">
                     <i class="fa-brands fa-whatsapp text-sm"></i>
                     <span data-ar="استفسار واتساب" data-en="WhatsApp Inquiry">WhatsApp Inquiry</span>
@@ -958,6 +973,45 @@
   updateScModalInfo();
 </script>
 
+    <!-- ================= BOOKING MODAL (Group / Private) ================= -->
+    <div id="bookingModal" class="hidden fixed inset-0 bg-black/80 z-[60] flex items-center justify-center px-6">
+      <div class="glass-card bg-[#121216] border border-amber-500/40 rounded-3xl p-8 max-w-sm w-full text-center">
+        <h3 id="modalCourseName" class="text-white font-black text-lg mb-2"></h3>
+        <p class="text-gray-400 text-xs mb-6" data-ar="اختر طريقة حضورك:" data-en="Choose how you'd like to attend:">Choose how you'd like to attend:</p>
+
+        <div class="space-y-3">
+          <button id="redeemFreeCourseBtn" onclick="confirmBooking('free', event)"
+            class="hidden w-full bg-gradient-to-r from-amber-300 to-yellow-500 text-black font-black py-3 rounded-xl text-sm">
+            <svg class="mini-cap" width="16" height="16" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" style="display:inline-block;vertical-align:-3px;margin-inline-end:5px;">
+              <polygon points="32,10 60,24 32,38 4,24" fill="currentColor"/>
+              <path d="M14 28 V42 C14 46 22 50 32 50 C42 50 50 46 50 42 V28 L32 38 Z" fill="currentColor" opacity="0.65"/>
+              <circle cx="55" cy="45" r="3" fill="currentColor"/>
+              <line x1="55" y1="26" x2="55" y2="42" stroke="currentColor" stroke-width="1.5"/>
+            </svg> <span data-ar="استخدم الكورس المجاني السنوي (بلاتيني)" data-en="Redeem Yearly Free Course (Platinum)">Redeem Yearly Free Course (Platinum)</span>
+          </button>
+          <button onclick="confirmBooking('group', event)"
+            class="w-full border border-amber-500/40 text-amber-300 font-bold py-3 rounded-xl text-sm hover:bg-amber-500/10">
+            <svg class="mini-cap" width="16" height="16" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" style="display:inline-block;vertical-align:-3px;margin-inline-end:5px;">
+              <polygon points="32,10 60,24 32,38 4,24" fill="currentColor"/>
+              <path d="M14 28 V42 C14 46 22 50 32 50 C42 50 50 46 50 42 V28 L32 38 Z" fill="currentColor" opacity="0.65"/>
+              <circle cx="55" cy="45" r="3" fill="currentColor"/>
+              <line x1="55" y1="26" x2="55" y2="42" stroke="currentColor" stroke-width="1.5"/>
+            </svg> <span data-ar="دورة جماعية — السعر العادي" data-en="Group Course — Standard Price">Group Course — Standard Price</span>
+          </button>
+          <button onclick="confirmBooking('private', event)"
+            class="w-full bg-gold text-black font-bold py-3 rounded-xl text-sm">
+            <svg class="mini-cap" width="16" height="16" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" style="display:inline-block;vertical-align:-3px;margin-inline-end:5px;">
+              <polygon points="32,10 60,24 32,38 4,24" fill="currentColor"/>
+              <path d="M14 28 V42 C14 46 22 50 32 50 C42 50 50 46 50 42 V28 L32 38 Z" fill="currentColor" opacity="0.65"/>
+              <circle cx="55" cy="45" r="3" fill="currentColor"/>
+              <line x1="55" y1="26" x2="55" y2="42" stroke="currentColor" stroke-width="1.5"/>
+            </svg> <span data-ar="دورة خاصة — السعر ×2" data-en="Private Course — Price ×2">Private Course — Price ×2</span>
+          </button>
+        </div>
+
+        <button onclick="closeBookingModal()" class="text-gray-500 text-xs mt-6" data-ar="إلغاء" data-en="Cancel">Cancel</button>
+      </div>
+    </div>
 
     <!-- ================= JAVASCRIPT ================= -->
     <script>
@@ -983,7 +1037,6 @@
                 langBtnText.textContent = 'العربية';
             }
 
-            // Swap all data-ar and data-en text elements
             document.querySelectorAll('[data-ar]').forEach(el => {
                 const arText = el.getAttribute('data-ar');
                 const enText = el.getAttribute('data-en');
@@ -1020,37 +1073,10 @@
         }
     </script>
 
-<script>
-    // 1. منع زر الفأرة الأيمن (Right Click)
-    document.addEventListener('contextmenu', function(e) {
-        e.preventDefault();
-    });
+    <!-- Firebase account logic + email notifications + booking UI -->
+    <script src="firebase-init.js"></script>
+    <script src="course-booking.js"></script>
+    <script src="booking-ui.js"></script>
 
-    // 2. منع أختصارات الكيبورد لفتح الـ Inspect أو عرض مصدر الصفحة
-    document.addEventListener('keydown', function(e) {
-        // منع F12
-        if (e.key === 'F12') {
-            e.preventDefault();
-        }
-        // منع Ctrl+Shift+I أو Ctrl+Shift+J أو Ctrl+Shift+C
-        if (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'i' || e.key === 'J' || e.key === 'j' || e.key === 'C' || e.key === 'c')) {
-            e.preventDefault();
-        }
-        // منع Ctrl+U (عرض مصدر الصفحة View Source)
-        if (e.ctrlKey && (e.key === 'U' || e.key === 'u')) {
-            e.preventDefault();
-        }
-    });
-
-    // 3. طريقة إضافية لكشف الوقف المباشر وإنذار المتصفح
-    setInterval(function() {
-        const before = new Date().getTime();
-        debugger;
-        const after = new Date().getTime();
-        if (after - before > 100) {
-            document.body.innerHTML = "<h1>Access Denied</h1>";
-        }
-    }, 1000);
-</script>
 </body>
 </html>
