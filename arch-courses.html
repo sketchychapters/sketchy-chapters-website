@@ -12,6 +12,14 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Google Fonts Cairo -->
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+
+    <!-- Firebase SDK (accounts, login, students data) -->
+    <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore-compat.js"></script>
+    <!-- EmailJS (instant admin notifications) -->
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
     <script>
         tailwind.config = {
             theme: {
@@ -60,6 +68,14 @@
                 <span id="langBtnText">العربية</span>
             </button>
 
+            <!-- Login / My Account Button (state-aware) -->
+            <div id="authArea" class="hidden md:block">
+                <a href="login.html" class="glass-card text-amber-400 border border-amber-500/30 px-4 py-2 rounded-xl text-xs font-bold hover:bg-amber-500/10 transition flex items-center gap-2">
+                    <i class="fa-solid fa-user text-sm"></i>
+                    <span data-ar="تسجيل الدخول" data-en="Log In">Log In</span>
+                </a>
+            </div>
+
             <!-- WhatsApp Quick Button (Desktop) -->
             <a href="https://wa.me/96171967714?text=مرحباً، أهتم بالتسجيل والاستفسار عن الدورات" target="_blank" class="hidden md:flex bg-amber-500/10 border border-amber-500/40 text-amber-400 px-4 py-2 rounded-xl text-xs font-bold hover:bg-amber-500/20 transition items-center space-x-2 rtl:space-x-reverse">
                 <i class="fa-brands fa-whatsapp text-sm"></i>
@@ -91,12 +107,18 @@
             <span data-ar=" دورات نقابة المهندسين" data-en=" OEA Courses">OEA Courses</span>
             <i class="fa-solid fa-arrow-left rtl:rotate-180 text-xs gold-accent"></i>
         </a>
+
+        <!-- Login / My Account (Mobile) -->
+        <a href="login.html" id="mobileAuthLink" onclick="toggleMobileMenu()" class="bg-amber-500/10 border border-amber-500/30 text-amber-400 p-3 rounded-xl text-xs font-bold flex items-center justify-center space-x-2 rtl:space-x-reverse">
+            <i class="fa-solid fa-user text-base"></i>
+            <span data-ar="تسجيل الدخول" data-en="Log In">Log In</span>
+        </a>
+
         <a href="https://wa.me/96171967714?text=مرحباً، أهتم بالتسجيل والاستفسار عن دورات التصميم و العمارة" target="_blank" class="bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 p-3 rounded-xl text-xs font-bold flex items-center justify-center space-x-2 rtl:space-x-reverse">
             <i class="fa-brands fa-whatsapp text-base"></i>
             <span data-ar="تواصل واتساب (Contact Us)" data-en="Contact Us (WhatsApp)">Contact Us (WhatsApp)</span>
         </a>
     </div>
-    </header>
     
     <!-- ================= MAIN CONTENT ================= -->
     <main class="flex-grow container mx-auto px-4 py-12 max-w-6xl mt-16">
@@ -121,7 +143,7 @@
                         </div>
                         <div class="text-left rtl:text-right">
                             <div class="flex items-center gap-2">
-                                 <span class="text-xs bg-amber-500/10 text-amber-400 px-2.5 py-1 rounded-lg border border-amber-500/20 font-bold block"><span id="autocad-card-price">89</span>$</span>
+                                 <span class="text-xs bg-amber-500/10 text-amber-400 px-2.5 py-1 rounded-lg border border-amber-500/20 font-bold block"><span id="autocad-card-price">149</span>$</span>
                                  <span class="text-xs text-gray-500 line-through">270$</span>
                             </div>
                             <span class="text-[10px] text-emerald-400 block font-bold mt-1">
@@ -161,7 +183,7 @@
   updateAutoCADCardDiscount();
 </script>
 
-<!-- 2. Revit Part 1 Card -->
+<!-- 2. Revit Architecture — Foundation Card -->
             <div class="glass-card rounded-2xl p-6 flex flex-col justify-between hover:border-amber-500/40 transition group">
                 <div>
                    <div class="flex items-center justify-between mb-4">
@@ -184,7 +206,7 @@
                             <i class="fa-solid fa-video text-[8px]"></i> Online via Zoom
                         </span>
                    </div>
-                   <h3 class="text-lg font-bold text-white mb-2 group-hover:text-amber-400 transition">Revit Part 1</h3>
+                   <h3 class="text-lg font-bold text-white mb-2 group-hover:text-amber-400 transition">Revit Architecture — Foundation</h3>
                    <p class="text-xs text-gray-400 font-light mb-4 line-clamp-3" data-ar="مدخل إلى نمذجة معلومات البناء (BIM)، إنشاء المساقط والواجهات والقطاعات بدقة عالية مع إدارة المشاريع المعمارية." data-en="Introduction to BIM, creating floor plans, elevations, and sections with precision and managing architectural projects.">
                         Introduction to BIM, creating floor plans, elevations, and sections with precision and managing architectural projects.
                    </p>
@@ -195,7 +217,7 @@
                 </button>
             </div>
 
-<!-- سكربت حساب نسبة الخصم تلقائياً لكارت Revit Part 1 -->
+<!-- سكربت حساب نسبة الخصم تلقائياً لكارت Revit Architecture — Foundation -->
 <script>
   function updateRevit1CardDiscount() {
     let originalPrice = 270;
@@ -210,7 +232,7 @@
   updateRevit1CardDiscount();
 </script>
 
-<!-- 3. Revit Part 2 + Vray Card -->
+<!-- 3. Revit Architecture — Advanced + V-Ray Card -->
             <div class="glass-card rounded-2xl p-6 flex flex-col justify-between hover:border-amber-500/40 transition group">
                 <div>
                    <div class="flex items-center justify-between mb-4">
@@ -233,7 +255,7 @@
                             <i class="fa-solid fa-video text-[8px]"></i> Online via Zoom
                         </span>
                    </div>
-                   <h3 class="text-lg font-bold text-white mb-2 group-hover:text-amber-400 transition">Revit Part 2 + Vray</h3>
+                   <h3 class="text-lg font-bold text-white mb-2 group-hover:text-amber-400 transition">Revit Architecture — Advanced + V-Ray</h3>
                    <p class="text-xs text-gray-400 font-light mb-4 line-clamp-3" data-ar="مستوى متقدم: تصميم باراميتري خارجي وداخلي، استخدام المنحنيات، إعدادات مواد متقدمة، رندر فيراي، وحساب الكميات (BOQ)." data-en="Advanced level: Exterior/Interior parametric design, curves, advanced materials, V-Ray render, and BOQ.">
                         Advanced level: Exterior/Interior parametric design, curves, advanced materials, V-Ray render, and BOQ.
                    </p>
@@ -244,7 +266,7 @@
                 </button>
             </div>
 
-<!-- سكربت حساب نسبة الخصم تلقائياً كارت Revit Part 2 + Vray -->
+<!-- سكربت حساب نسبة الخصم تلقائياً كارت Revit Architecture — Advanced + V-Ray -->
 <script>
   function updateRevit2CardDiscount() {
     let originalPrice = 270;
@@ -406,9 +428,8 @@
                     </div>
                     <div>
                         <span class="text-gray-500 block text-[10px]" data-ar="التكلفة" data-en="Price">Price</span>
-                        <!-- السعر الحالي ونسبة الخصم (تم إخفاء السعر الأساسي المشطوب مع الاحتفاظ بـ ID للحساب) -->
                         <strong class="text-amber-400 text-sm">
-                            <span id="modal-price">89</span>$ 
+                            <span id="modal-price">149</span>$ 
                             <span class="text-[10px] text-emerald-400 font-bold block">
                                 <span id="discount-percent">45</span>% Off
                             </span>
@@ -445,10 +466,10 @@
             </div>
 
             <div class="mt-6 flex gap-3">
-                <a href="https://forms.gle/ShVDMvXgE9sNeSxz8" target="_blank" class="flex-1 bg-gold text-black py-2.5 rounded-xl font-extrabold text-xs uppercase tracking-wider flex items-center justify-center space-x-2 rtl:space-x-reverse hover:brightness-110 transition shadow-lg shadow-amber-500/15">
+                <button onclick="openBookingModal('AutoCAD 2D/3D', 149)"
+                  class="flex-1 bg-gold text-black py-2.5 rounded-xl font-extrabold text-xs uppercase tracking-wider flex items-center justify-center space-x-2 rtl:space-x-reverse hover:brightness-110 transition shadow-lg shadow-amber-500/15">
                     <span data-ar="التسجيل الآن" data-en="Register Now">Register Now</span>
-                    <i class="fa-solid fa-external-link-alt text-[10px]"></i>
-                </a>
+                </button>
                 <a href="https://wa.me/96171967714?text=مرحباً، أهتم بالتسجيل والاستفسار عن دورة AutoCAD" target="_blank" class="flex-1 glass-card text-emerald-400 border border-emerald-500/30 py-2.5 rounded-xl font-bold text-xs flex items-center justify-center space-x-2 rtl:space-x-reverse hover:bg-emerald-500/10 transition">
                     <i class="fa-brands fa-whatsapp text-sm"></i>
                     <span data-ar="استفسار واتساب" data-en="WhatsApp Inquiry">WhatsApp Inquiry</span>
@@ -511,7 +532,7 @@
 </script>
 
 
-<!-- 2. Revit Part 1 Modal -->
+<!-- 2. Revit Architecture — Foundation Modal -->
     <div id="revit1Modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md hidden p-4">
         <div class="glass-card bg-[#121216] border border-amber-500/40 rounded-3xl max-w-lg w-full p-6 relative max-h-[90vh] overflow-y-auto text-left rtl:text-right ltr:text-left">
             <button onclick="closeModal('revit1Modal')" class="absolute top-4 right-4 rtl:left-4 ltr:right-4 text-gray-400 hover:text-white text-xl"><i class="fa-solid fa-xmark"></i></button>
@@ -527,7 +548,7 @@
                             <i class="fa-solid fa-video text-[8px]"></i> Online via Zoom
                         </span>
                     </div>
-                    <h3 class="text-xl font-black text-white">Revit Part 1</h3>
+                    <h3 class="text-xl font-black text-white">Revit Architecture — Foundation</h3>
                </div>
             </div>
 
@@ -539,7 +560,6 @@
                     </div>
                     <div>
                         <span class="text-gray-500 block text-[10px]" data-ar="التكلفة" data-en="Price">Price</span>
-                        <!-- السعر الحالي ونسبة الخصم (تم إخفاء السعر الأساسي عن العيون وبقي في الكود للحساب) -->
                         <strong class="text-amber-400 text-sm">
                             <span id="revit1-price">149</span>$ 
                             <span class="text-[10px] text-emerald-400 font-bold block">
@@ -550,7 +570,6 @@
                     </div>
                     <div>
                         <span class="text-gray-500 block text-[10px]" data-ar="تاريخ البدء" data-en="Start Date">Start Date</span>
-                        <!-- تاريخ البدء التلقائي لأول اثنين -->
                         <strong class="text-amber-400 text-sm" id="revit1-date">جاري التحميل...</strong>
                     </div>
                </div>
@@ -574,11 +593,11 @@
             </div>
 
             <div class="mt-6 flex gap-3">
-                <a href="https://forms.gle/ShVDMvXgE9sNeSxz8" target="_blank" class="flex-1 bg-gold text-black py-2.5 rounded-xl font-extrabold text-xs uppercase tracking-wider flex items-center justify-center space-x-2 rtl:space-x-reverse hover:brightness-110 transition shadow-lg shadow-amber-500/15">
+                <button onclick="openBookingModal('Revit Architecture — Foundation', 149)"
+                  class="flex-1 bg-gold text-black py-2.5 rounded-xl font-extrabold text-xs uppercase tracking-wider flex items-center justify-center space-x-2 rtl:space-x-reverse hover:brightness-110 transition shadow-lg shadow-amber-500/15">
                     <span data-ar="التسجيل الآن" data-en="Register Now">Register Now</span>
-                    <i class="fa-solid fa-external-link-alt text-[10px]"></i>
-                </a>
-                <a href="https://wa.me/96171967714?text=مرحباً، أهتم بالتسجيل والاستفسار عن دورة Revit Part 1" target="_blank" class="flex-1 glass-card text-emerald-400 border border-emerald-500/30 py-2.5 rounded-xl font-bold text-xs flex items-center justify-center space-x-2 rtl:space-x-reverse hover:bg-emerald-500/10 transition">
+                </button>
+                <a href="https://wa.me/96171967714?text=مرحباً، أهتم بالتسجيل والاستفسار عن دورة Revit Architecture — Foundation" target="_blank" class="flex-1 glass-card text-emerald-400 border border-emerald-500/30 py-2.5 rounded-xl font-bold text-xs flex items-center justify-center space-x-2 rtl:space-x-reverse hover:bg-emerald-500/10 transition">
                     <i class="fa-brands fa-whatsapp text-sm"></i>
                     <span data-ar="استفسار واتساب" data-en="WhatsApp Inquiry">WhatsApp Inquiry</span>
                 </a>
@@ -589,7 +608,6 @@
 <!-- سكربت التحديث -->
 <script>
   function updateRevit1Info() {
-    // تحديث تاريخ أول اثنين بالشهر
     let today = new Date();
     let year = today.getFullYear();
     let month = today.getMonth();
@@ -616,7 +634,6 @@
         dateEl.innerText = `${dayNum}/${monthNum}`;
     }
 
-    // حساب نسبة الحسم تلقائياً
     let curP = parseFloat(document.getElementById('revit1-price')?.innerText);
     let orgP = parseFloat(document.getElementById('revit1-original')?.innerText);
     let discEl = document.getElementById('revit1-discount');
@@ -631,7 +648,7 @@
 </script>
             
     
-<!-- 3. Revit Part 2 + Vray Modal -->
+<!-- 3. Revit Architecture — Advanced + V-Ray Modal -->
     <div id="revit2Modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md hidden p-4">
         <div class="glass-card bg-[#121216] border border-amber-500/40 rounded-3xl max-w-lg w-full p-6 relative max-h-[90vh] overflow-y-auto text-left rtl:text-right ltr:text-left">
             <button onclick="closeModal('revit2Modal')" class="absolute top-4 right-4 rtl:left-4 ltr:right-4 text-gray-400 hover:text-white text-xl"><i class="fa-solid fa-xmark"></i></button>
@@ -642,7 +659,7 @@
                </div>
                <div>
                     <span class="text-[10px] gold-accent font-bold uppercase" data-ar="برنامج تدريبي معتمد" data-en="Certified Training Program">Certified Training Program</span>
-                    <h3 class="text-xl font-black text-white">Revit Part 2 + Vray</h3>
+                    <h3 class="text-xl font-black text-white">Revit Architecture — Advanced + V-Ray</h3>
                </div>
             </div>
 
@@ -654,7 +671,6 @@
                     </div>
                     <div>
                         <span class="text-gray-500 block text-[10px]" data-ar="التكلفة" data-en="Price">Price</span>
-                        <!-- السعر الحالي ونسبة الخصم (تم إخفاء السعر الأساسي مع الاحتفاظ بالـ IDs للحساب) -->
                         <strong class="text-amber-400 text-sm">
                             <span id="revit2-price">149</span>$ 
                             <span class="text-[10px] text-emerald-400 font-bold block">
@@ -665,7 +681,6 @@
                     </div>
                     <div>
                         <span class="text-gray-500 block text-[10px]" data-ar="تاريخ البدء" data-en="Start Date">Start Date</span>
-                        <!-- تاريخ البدء التلقائي لأول اثنين -->
                         <strong class="text-amber-400 text-sm" id="revit2-date">جاري التحميل...</strong>
                     </div>
                </div>
@@ -689,11 +704,11 @@
             </div>
 
             <div class="mt-6 flex gap-3">
-                <a href="https://forms.gle/ShVDMvXgE9sNeSxz8" target="_blank" class="flex-1 bg-gold text-black py-2.5 rounded-xl font-extrabold text-xs uppercase tracking-wider flex items-center justify-center space-x-2 rtl:space-x-reverse hover:brightness-110 transition shadow-lg shadow-amber-500/15">
+                <button onclick="openBookingModal('Revit Architecture — Advanced + V-Ray', 149)"
+                  class="flex-1 bg-gold text-black py-2.5 rounded-xl font-extrabold text-xs uppercase tracking-wider flex items-center justify-center space-x-2 rtl:space-x-reverse hover:brightness-110 transition shadow-lg shadow-amber-500/15">
                     <span data-ar="التسجيل الآن" data-en="Register Now">Register Now</span>
-                    <i class="fa-solid fa-external-link-alt text-[10px]"></i>
-                </a>
-                <a href="https://wa.me/96171967714?text=مرحباً، أهتم بالتسجيل والاستفسار عن دورة Revit Part 2" target="_blank" class="flex-1 glass-card text-emerald-400 border border-emerald-500/30 py-2.5 rounded-xl font-bold text-xs flex items-center justify-center space-x-2 rtl:space-x-reverse hover:bg-emerald-500/10 transition">
+                </button>
+                <a href="https://wa.me/96171967714?text=مرحباً، أهتم بالتسجيل والاستفسار عن دورة Revit Architecture — Advanced + V-Ray" target="_blank" class="flex-1 glass-card text-emerald-400 border border-emerald-500/30 py-2.5 rounded-xl font-bold text-xs flex items-center justify-center space-x-2 rtl:space-x-reverse hover:bg-emerald-500/10 transition">
                     <i class="fa-brands fa-whatsapp text-sm"></i>
                     <span data-ar="استفسار واتساب" data-en="WhatsApp Inquiry">WhatsApp Inquiry</span>
                 </a>
@@ -767,7 +782,6 @@
                     </div>
                     <div>
                         <span class="text-gray-500 block text-[10px]" data-ar="التكلفة" data-en="Price">Price</span>
-                        <!-- السعر الحالي ونسبة الخصم (تم إخفاء السعر الأساسي مع الاحتفاظ بالـ IDs للحساب) -->
                         <strong class="text-amber-400 text-sm">
                             <span id="ps-price">99</span>$ 
                             <span class="text-[10px] text-emerald-400 font-bold block">
@@ -778,7 +792,6 @@
                     </div>
                     <div>
                         <span class="text-gray-500 block text-[10px]" data-ar="تاريخ البدء" data-en="Start Date">Start Date</span>
-                        <!-- تاريخ البدء التلقائي لأول اثنين -->
                         <strong class="text-amber-400 text-sm" id="ps-date">جاري التحميل...</strong>
                     </div>
                </div>
@@ -795,17 +808,17 @@
                     <ul class="list-disc list-inside space-y-1 text-gray-400 font-light leading-relaxed">
                         <li data-ar="تلوين وإخراج المساقط الأفقية (Plan Rendering): إضافة الخامات، الظلال، التأثيرات البصرية، وتوزيع الفرش والأثاث لإظهار المساقط بطريقة احترافية." data-en="Plan Rendering: Adding textures, shadows, visual effects, and furniture layouts to present floor plans professionally."><strong>Plan Rendering:</strong> Adding textures, shadows, visual effects, and furniture layouts to present floor plans professionally.</li>
                         <li data-ar="إخراج الواجهات والقطاعات (Elevations & Sections Post-Production): المعالجة اللونية، إضافة السماء، العناصر الطبيعية، وإبراز العمق والكتل المعمارية." data-en="Elevations & Sections Post-Production: Color grading, adding skies, natural elements, and highlighting architectural depth and masses."><strong>Elevations & Sections Post-Production:</strong> Color grading, adding skies, natural elements, and highlighting architectural depth and masses.</li>
-                        <li data-ar="صناعة المخططات التوضيحية (Architectural Diagrams): تصميم المخططات التحليلية والمفاهيمية (Concept & Analysis Diagrams) بأسلوب عصري." data-en="Architectural Diagrams: Designing concept and analysis diagrams in a modern style."><strong>Architectural Diagrams:</strong> Designing concept and analysis diagrams in a modern style.</li>
-                        <li data-ar="تصميم لوحات العرض (Presentation Boards): تنظيم العناصر، النصوص، والشعارات لإنتاج لوحة عرض متكاملة ومبهرة لجلسات التحكيم أو العروض التجارية." data-en="Presentation Boards: Organizing elements, texts, and logos to produce a cohesive, stunning presentation board for juries or commercial pitches."><strong>Presentation Boards:</strong> Organizing elements, texts, and logos to produce a cohesive, stunning presentation board for juries or commercial pitches.</li>
+                        <li data-ar="صناعة المخططات التوضيحية (Architectural Diagrams): تصميم المخططات التحليلية والمفاهيمية (Concept & Analysis Diagrams) بأسلوب عصري." data-en="Architectural Diagrams: Designing concept and analysis diagrams in a modern style.">Architectural Diagrams: Designing concept and analysis diagrams in a modern style.</li>
+                        <li data-ar="تصميم لوحات العرض (Presentation Boards): تنظيم العناصر، النصوص، والشعارات لإنتاج لوحة عرض متكاملة ومبهرة لجلسات التحكيم أو العروض التجارية." data-en="Presentation Boards: Organizing elements, texts, and logos to produce a cohesive, stunning presentation board for juries or commercial pitches.">Presentation Boards: Organizing elements, texts, and logos to produce a cohesive, stunning presentation board for juries or commercial pitches.</li>
                     </ul>
                </div>
             </div>
 
             <div class="mt-6 flex gap-3">
-                <a href="https://forms.gle/ShVDMvXgE9sNeSxz8" target="_blank" class="flex-1 bg-gold text-black py-2.5 rounded-xl font-extrabold text-xs uppercase tracking-wider flex items-center justify-center space-x-2 rtl:space-x-reverse hover:brightness-110 transition shadow-lg shadow-amber-500/15">
+                <button onclick="openBookingModal('Photoshop Rendering', 99)"
+                  class="flex-1 bg-gold text-black py-2.5 rounded-xl font-extrabold text-xs uppercase tracking-wider flex items-center justify-center space-x-2 rtl:space-x-reverse hover:brightness-110 transition shadow-lg shadow-amber-500/15">
                     <span data-ar="التسجيل الآن" data-en="Register Now">Register Now</span>
-                    <i class="fa-solid fa-external-link-alt text-[10px]"></i>
-                </a>
+                </button>
                 <a href="https://wa.me/96171967714?text=مرحباً، أهتم بالتسجيل والاستفسار عن دورة Photoshop Rendering" target="_blank" class="flex-1 glass-card text-emerald-400 border border-emerald-500/30 py-2.5 rounded-xl font-bold text-xs flex items-center justify-center space-x-2 rtl:space-x-reverse hover:bg-emerald-500/10 transition">
                     <i class="fa-brands fa-whatsapp text-sm"></i>
                     <span data-ar="استفسار واتساب" data-en="WhatsApp Inquiry">WhatsApp Inquiry</span>
@@ -880,7 +893,6 @@
                     </div>
                     <div>
                         <span class="text-gray-500 block text-[10px]" data-ar="التكلفة" data-en="Price">Price</span>
-                        <!-- السعر الحالي ونسبة الخصم (تم إخفاء السعر الأساسي مع الاحتفاظ بالـ IDs للحساب) -->
                         <strong class="text-amber-400 text-sm">
                             <span id="lumion-price">89</span>$ 
                             <span class="text-[10px] text-emerald-400 font-bold block">
@@ -891,7 +903,6 @@
                     </div>
                     <div>
                         <span class="text-gray-500 block text-[10px]" data-ar="تاريخ البدء" data-en="Start Date">Start Date</span>
-                        <!-- تاريخ البدء التلقائي لأول اثنين -->
                         <strong class="text-amber-400 text-sm" id="lumion-date">جاري التحميل...</strong>
                     </div>
                </div>
@@ -906,19 +917,19 @@
                <div>
                     <h4 class="font-bold text-white mb-1.5 flex items-center"><i class="fa-solid fa-list-check gold-accent mr-1.5 rtl:ml-1.5 ltr:mr-1.5"></i> <span data-ar="محاور المنهاج:" data-en="Curriculum Syllabus:">Curriculum Syllabus:</span></h4>
                     <ul class="list-disc list-inside space-y-1 text-gray-400 font-light leading-relaxed">
-                        <li data-ar="ربط النماذج وإعداد بيئة العمل: استيراد النماذج من Revit أو AutoCAD، تنظيم المشهد، وإعداد التضاريس والبيئة المحيطة." data-en="Model Linking & Environment Setup: Importing models from Revit or AutoCAD, organizing the scene, and setting up terrain and surroundings."><strong>Model Linking & Environment Setup:</strong> Importing models from Revit or AutoCAD, organizing the scene, and setting up terrain and surroundings.</li>
-                        <li data-ar="المواد والخامات المتقدمة: تخصيص وتعديل المواد، إضافة الخصائص الفيزيائية كالماء، الزجاج، والإضاءات الذاتية." data-en="Advanced Materials: Customizing and editing materials, adding physical properties like water, glass, and self-illumination."><strong>Advanced Materials:</strong> Customizing and editing materials, adding physical properties like water, glass, and self-illumination.</li>
-                        <li data-ar="العناصر الطبيعية والإضاءة: توزيع الأشجار، النباتات، السيارات، الشخصيات، وضبط إضاءة الشمس والسماء والظلال الحية." data-en="Nature Elements & Lighting: Placing trees, plants, cars, characters, and adjusting sun, sky, and live shadow lighting."><strong>Nature Elements & Lighting:</strong> Placing trees, plants, cars, characters, and adjusting sun, sky, and live shadow lighting.</li>
-                        <li data-ar="الإخراج السينمائي والفوتوغرافي: ضبط إعدادات الـ Effects، إخراج صور بدقة عالية (Render)، وصناعة فيديوهات تجوال واقعية للمشاريع." data-en="Cinematic & Photographic Output: Adjusting effects settings, rendering high-res images, and creating realistic architectural walkthrough videos."><strong>Cinematic & Photographic Output:</strong> Adjusting effects settings, rendering high-res images, and creating realistic architectural walkthrough videos.</li>
+                        <li data-ar="ربط النماذج وإعداد بيئة العمل: استيراد النماذج من Revit أو AutoCAD، تنظيم المشهد، وإعداد التضاريس والبيئة المحيطة." data-en="Model Linking & Environment Setup: Importing models from Revit or AutoCAD, organizing the scene, and setting up terrain and surroundings.">Model Linking & Environment Setup: Importing models from Revit or AutoCAD, organizing the scene, and setting up terrain and surroundings.</li>
+                        <li data-ar="المواد والخامات المتقدمة: تخصيص وتعديل المواد، إضافة الخصائص الفيزيائية كالماء، الزجاج، والإضاءات الذاتية." data-en="Advanced Materials: Customizing and editing materials, adding physical properties like water, glass, and self-illumination.">Advanced Materials: Customizing and editing materials, adding physical properties like water, glass, and self-illumination.</li>
+                        <li data-ar="العناصر الطبيعية والإضاءة: توزيع الأشجار، النباتات، السيارات، الشخصيات، وضبط إضاءة الشمس والسماء والظلال الحية." data-en="Nature Elements & Lighting: Placing trees, plants, cars, characters, and adjusting sun, sky, and live shadow lighting.">Nature Elements & Lighting: Placing trees, plants, cars, characters, and adjusting sun, sky, and live shadow lighting.</li>
+                        <li data-ar="الإخراج السينمائي والفوتوغرافي: ضبط إعدادات الـ Effects، إخراج صور بدقة عالية (Render)، وصناعة فيديوهات تجوال واقعية للمشاريع." data-en="Cinematic & Photographic Output: Adjusting effects settings, rendering high-res images, and creating realistic architectural walkthrough videos.">Cinematic & Photographic Output: Adjusting effects settings, rendering high-res images, and creating realistic architectural walkthrough videos.</li>
                     </ul>
                </div>
             </div>
 
             <div class="mt-6 flex gap-3">
-                <a href="https://forms.gle/ShVDMvXgE9sNeSxz8" target="_blank" class="flex-1 bg-gold text-black py-2.5 rounded-xl font-extrabold text-xs uppercase tracking-wider flex items-center justify-center space-x-2 rtl:space-x-reverse hover:brightness-110 transition shadow-lg shadow-amber-500/15">
+                <button onclick="openBookingModal('Lumion', 89)"
+                  class="flex-1 bg-gold text-black py-2.5 rounded-xl font-extrabold text-xs uppercase tracking-wider flex items-center justify-center space-x-2 rtl:space-x-reverse hover:brightness-110 transition shadow-lg shadow-amber-500/15">
                     <span data-ar="التسجيل الآن" data-en="Register Now">Register Now</span>
-                    <i class="fa-solid fa-external-link-alt text-[10px]"></i>
-                </a>
+                </button>
                 <a href="https://wa.me/96171967714?text=مرحباً، أهتم بالتسجيل والاستفسار عن دورة Lumion" target="_blank" class="flex-1 glass-card text-emerald-400 border border-emerald-500/30 py-2.5 rounded-xl font-bold text-xs flex items-center justify-center space-x-2 rtl:space-x-reverse hover:bg-emerald-500/10 transition">
                     <i class="fa-brands fa-whatsapp text-sm"></i>
                     <span data-ar="استفسار واتساب" data-en="WhatsApp Inquiry">WhatsApp Inquiry</span>
@@ -969,9 +980,44 @@
   updateLumionInfo();
 </script>
 
+    <!-- ================= BOOKING MODAL (Group / Private) ================= -->
+    <div id="bookingModal" class="hidden fixed inset-0 bg-black/80 z-[60] flex items-center justify-center px-6">
+      <div class="glass-card bg-[#121216] border border-amber-500/40 rounded-3xl p-8 max-w-sm w-full text-center">
+        <h3 id="modalCourseName" class="text-white font-black text-lg mb-2"></h3>
+        <p class="text-gray-400 text-xs mb-6" data-ar="اختر طريقة حضورك:" data-en="Choose how you'd like to attend:">Choose how you'd like to attend:</p>
 
-    <!-- (Note: The user's code snippet ended abruptly right here, but the rest of the file layout structure needs proper closing tags if fully rendered, though we kept exact code per instruction) -->
+        <div class="space-y-3">
+          <button id="redeemFreeCourseBtn" onclick="confirmBooking('free', event)"
+            class="hidden w-full bg-gradient-to-r from-amber-300 to-yellow-500 text-black font-black py-3 rounded-xl text-sm">
+            <svg class="mini-cap" width="16" height="16" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" style="display:inline-block;vertical-align:-3px;margin-inline-end:5px;">
+              <polygon points="32,10 60,24 32,38 4,24" fill="currentColor"/>
+              <path d="M14 28 V42 C14 46 22 50 32 50 C42 50 50 46 50 42 V28 L32 38 Z" fill="currentColor" opacity="0.65"/>
+              <circle cx="55" cy="45" r="3" fill="currentColor"/>
+              <line x1="55" y1="26" x2="55" y2="42" stroke="currentColor" stroke-width="1.5"/>
+            </svg> <span data-ar="استخدم الكورس المجاني السنوي (بلاتيني)" data-en="Redeem Yearly Free Course (Platinum)">Redeem Yearly Free Course (Platinum)</span>
+          </button>
+          <button onclick="confirmBooking('group', event)"
+            class="w-full border border-amber-500/40 text-amber-300 font-bold py-3 rounded-xl text-sm hover:bg-amber-500/10">
+            <svg class="mini-cap" width="16" height="16" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" style="display:inline-block;vertical-align:-3px;margin-inline-end:5px;">
+              <polygon points="32,10 60,24 32,38 4,24" fill="currentColor"/>
+              <path d="M14 28 V42 C14 46 22 50 32 50 C42 50 50 46 50 42 V28 L32 38 Z" fill="currentColor" opacity="0.65"/>
+              <circle cx="55" cy="45" r="3" fill="currentColor"/>
+              <line x1="55" y1="26" x2="55" y2="42" stroke="currentColor" stroke-width="1.5"/>
+            </svg> <span data-ar="دورة جماعية — السعر العادي" data-en="Group Course — Standard Price">Group Course — Standard Price</span>
+          </button>
+          <button onclick="confirmBooking('private', event)"
+            class="w-full bg-gold text-black font-bold py-3 rounded-xl text-sm">
+            <svg class="mini-cap" width="16" height="16" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" style="display:inline-block;vertical-align:-3px;margin-inline-end:5px;">
+              <polygon points="32,10 60,24 32,38 4,24" fill="currentColor"/>
+              <path d="M14 28 V42 C14 46 22 50 32 50 C42 50 50 46 50 42 V28 L32 38 Z" fill="currentColor" opacity="0.65"/>
+              <circle cx="55" cy="45" r="3" fill="currentColor"/>
+              <line x1="55" y1="26" x2="55" y2="42" stroke="currentColor" stroke-width="1.5"/>
+            </svg> <span data-ar="دورة خاصة — السعر ×2" data-en="Private Course — Price ×2">Private Course — Price ×2</span>
+          </button>
         </div>
+
+        <button onclick="closeBookingModal()" class="text-gray-500 text-xs mt-6" data-ar="إلغاء" data-en="Cancel">Cancel</button>
+      </div>
     </div>
 
     <script>
@@ -1033,37 +1079,10 @@
         }
     </script>
 
-<script>
-    // 1. منع زر الفأرة الأيمن (Right Click)
-    document.addEventListener('contextmenu', function(e) {
-        e.preventDefault();
-    });
+    <!-- Firebase account logic + email notifications + booking UI -->
+    <script src="firebase-init.js"></script>
+    <script src="course-booking.js"></script>
+    <script src="booking-ui.js"></script>
 
-    // 2. منع أختصارات الكيبورد لفتح الـ Inspect أو عرض مصدر الصفحة
-    document.addEventListener('keydown', function(e) {
-        // منع F12
-        if (e.key === 'F12') {
-            e.preventDefault();
-        }
-        // منع Ctrl+Shift+I أو Ctrl+Shift+J أو Ctrl+Shift+C
-        if (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'i' || e.key === 'J' || e.key === 'j' || e.key === 'C' || e.key === 'c')) {
-            e.preventDefault();
-        }
-        // منع Ctrl+U (عرض مصدر الصفحة View Source)
-        if (e.ctrlKey && (e.key === 'U' || e.key === 'u')) {
-            e.preventDefault();
-        }
-    });
-
-    // 3. طريقة إضافية لكشف الوقف المباشر وإنذار المتصفح
-    setInterval(function() {
-        const before = new Date().getTime();
-        debugger;
-        const after = new Date().getTime();
-        if (after - before > 100) {
-            document.body.innerHTML = "<h1>Access Denied</h1>";
-        }
-    }, 1000);
-</script>
 </body>
 </html>
