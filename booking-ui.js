@@ -40,7 +40,14 @@ async function openBookingModal(courseName, basePrice) {
 
     // نعرض السعر الفعلي (بعد الخصم) بدل السعر الأساسي، عشان الطالب يشوف صح قبل ما يأكد
     let bestDiscount = level.courseDiscount;
-    if (window.DISABLE_BIRTHDAY_DISCOUNT !== true && isBirthdayWeek(data.birthDate)) {
+    const thisYearForBday = new Date().getFullYear();
+    const hasEnrollmentHistory = (data.enrollments || []).length > 0;
+    const canUseBirthdayDiscount =
+      window.DISABLE_BIRTHDAY_DISCOUNT !== true &&
+      hasEnrollmentHistory &&
+      isBirthdayWeek(data.birthDate) &&
+      data.birthdayDiscountUsedYear !== thisYearForBday;
+    if (canUseBirthdayDiscount) {
       bestDiscount = Math.max(bestDiscount, level.birthdayDiscount);
     }
     renderBookingPriceHint(basePrice, bestDiscount);
