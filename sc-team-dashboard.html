@@ -67,9 +67,14 @@
   </div>
 </div>
 
-<!-- Search -->
-<input id="searchBox" type="text" placeholder="🔍 Search by name, ID, email, or course..."
-  class="w-full rounded-xl px-4 py-3 text-sm text-white mb-6" oninput="renderStudents()">
+<!-- Search + Filter -->
+<div class="flex gap-3 mb-6 flex-wrap">
+  <input id="searchBox" type="text" placeholder="🔍 Search by name, ID, email, or course..."
+    class="flex-1 min-w-[200px] rounded-xl px-4 py-3 text-sm text-white" oninput="renderStudents()">
+  <select id="countryFilter" class="rounded-xl px-4 py-3 text-sm text-white" onchange="renderStudents()">
+    <option value="">🌍 All Countries</option>
+  </select>
+</div>
 
 <!-- Students list -->
 <div id="studentsList" class="space-y-4">
@@ -187,6 +192,27 @@
   </div>
 </div>
 
+<!-- Course schedule (start/end dates) -->
+<div id="scheduleModal" class="hidden fixed inset-0 bg-black/80 z-[60] flex items-center justify-center px-6">
+  <div class="glass-card bg-[#121216] border border-amber-500/40 rounded-3xl p-8 max-w-sm w-full">
+    <h3 class="text-white font-black text-lg mb-1">📅 Course Schedule</h3>
+    <p id="scheduleModalCourseName" class="text-gray-400 text-xs mb-5"></p>
+
+    <label class="text-xs text-gray-400 block mb-1">Start Date</label>
+    <input id="scheduleStartDate" type="date" class="w-full rounded-xl px-4 py-2.5 text-sm text-white mb-4">
+
+    <label class="text-xs text-gray-400 block mb-1">End Date</label>
+    <input id="scheduleEndDate" type="date" class="w-full rounded-xl px-4 py-2.5 text-sm text-white mb-4">
+
+    <p class="text-amber-300 text-[10px] mb-4">⚠️ Visible to the student on their account page. End date fills in automatically once you mark the course completed, but you can set it here too.</p>
+
+    <div class="flex gap-3">
+      <button onclick="submitSchedule()" class="flex-1 bg-gold text-black font-bold py-2.5 rounded-xl text-xs">Save</button>
+      <button onclick="closeScheduleModal()" class="flex-1 glass-card text-gray-400 border border-gray-700 py-2.5 rounded-xl text-xs">Cancel</button>
+    </div>
+  </div>
+</div>
+
 <!-- Edit student profile -->
 <div id="editProfileModal" class="hidden fixed inset-0 bg-black/80 z-[60] flex items-center justify-center px-6">
   <div class="glass-card bg-[#121216] border border-amber-500/40 rounded-3xl p-8 max-w-sm w-full">
@@ -229,8 +255,20 @@ auth.onAuthStateChanged(async (user) => {
   if (!user || user.email !== ADMIN_EMAIL) return;
   allStudents = await getAllStudents();
   computeStats();
+  populateCountryFilter();
   renderStudents();
 });
+
+function populateCountryFilter() {
+  const select = document.getElementById('countryFilter');
+  const countries = [...new Set(allStudents.map(s => s.country).filter(Boolean))].sort();
+  countries.forEach(c => {
+    const opt = document.createElement('option');
+    opt.value = c;
+    opt.textContent = c;
+    select.appendChild(opt);
+  });
+}
 
 function computeStats() {
   let totalEnrollments = 0, privateCount = 0, revenue = 0;
@@ -249,11 +287,13 @@ function computeStats() {
 
 function renderStudents() {
   const query = document.getElementById('searchBox').value.toLowerCase();
+  const countryFilter = document.getElementById('countryFilter').value;
   const list = document.getElementById('studentsList');
 
   const filtered = allStudents.filter(s => {
+    if (countryFilter && s.country !== countryFilter) return false;
     const haystack = [
-      s.name, s.email, s.phone, s.studentId,
+      s.name, s.email, s.phone, s.studentId, s.country, s.region, s.specialization,
       ...(s.enrollments || []).map(e => e.courseName)
     ].join(' ').toLowerCase();
     return haystack.includes(query);
@@ -288,6 +328,8 @@ function renderStudents() {
           }
           // متاحة دايماً بغض النظر عن الحالة - يعني تقدر تلغي دورة حتى لو مؤكدة أو مكتملة
           actionsHtml += `
+              <button onclick="openScheduleModal('${s.uid}', '${eid}', '${en.courseName.replace(/'/g, "")}', '${en.startDate || ''}', '${en.endDate || ''}')"
+                class="text-[10px] font-bold px-2.5 py-1.5 rounded-lg bg-teal-500/20 text-teal-300">📅${(en.startDate || en.endDate) ? ' •' : ''}</button>
               <button onclick="openNoteModal('${s.uid}', '${eid}', '${en.courseName.replace(/'/g, "")}', '${(en.adminNote || '').replace(/'/g, "").replace(/\n/g, ' ')}')"
                 class="text-[10px] font-bold px-2.5 py-1.5 rounded-lg bg-blue-500/20 text-blue-300">📝${en.adminNote ? ' •' : ''}</button>
               <button onclick="rejectEnrollmentClick('${s.uid}', '${eid}', '${en.courseName.replace(/'/g, "")}')"
@@ -295,11 +337,13 @@ function renderStudents() {
 
           const statusTag = en.status === 'pending' ? '⏳ Pending' : (en.status === 'upcoming' ? '✓ Confirmed' : '');
           const noteHtml = en.adminNote ? `<p class="text-blue-300 text-[11px] mt-1">📝 ${en.adminNote}</p>` : '';
+          const scheduleHtml = (en.startDate || en.endDate) ? `<p class="text-teal-300 text-[11px] mt-1">📅 ${en.startDate || '?'} → ${en.endDate || '?'}</p>` : '';
           return `
           <div class="flex items-center justify-between bg-black/30 rounded-xl px-3 py-2 text-xs gap-2">
             <div>
               <span class="text-white font-bold">${en.courseName}</span>
               <span class="text-gray-400 block mt-0.5">${en.type === 'private' ? '👤 Private' : '👥 Group'} · $${en.finalPrice}${en.discountApplied ? ` (${en.discountApplied}% off)` : ''} · +${en.pointsEarned || 0} pts ${statusTag ? '· ' + statusTag : ''}</span>
+              ${scheduleHtml}
               ${noteHtml}
             </div>
             <div class="flex gap-1.5 shrink-0 flex-wrap justify-end">${actionsHtml}</div>
@@ -316,7 +360,7 @@ function renderStudents() {
             <div>
               <p class="text-white font-black">${s.name || 'Unnamed'} ${genderIcon}</p>
               <p class="text-gray-400 text-xs">${s.email || ''} ${s.phone ? '· ' + s.phone : ''}</p>
-              <p class="text-gray-500 text-[10px]">${s.country || ''}${s.specialization ? ' · ' + s.specialization : ''}</p>
+              <p class="text-gray-500 text-[10px]">${s.country || ''}${s.region ? ' — ' + s.region : ''}${s.specialization ? ' · ' + s.specialization : ''}</p>
               <p class="text-gray-500 text-[10px] font-mono mt-0.5">
                 ${s.studentId || ''} · ${s.birthDate || ''} · UID: ${s.uid}
                 <button onclick="editStudentIdClick('${s.uid}', '${s.studentId || ''}')" class="gold-accent underline ms-1">id</button>
@@ -400,6 +444,31 @@ async function submitNote() {
 async function clearNote() {
   await setEnrollmentNote(activeStudentUid, activeEnrollmentId, '');
   closeNoteModal();
+  allStudents = await getAllStudents();
+  renderStudents();
+}
+
+// ----- Course start/end date scheduling -----
+function openScheduleModal(uid, enrollmentId, courseName, startDate, endDate) {
+  activeStudentUid = uid;
+  activeEnrollmentId = enrollmentId;
+  document.getElementById('scheduleModalCourseName').innerText = courseName;
+  document.getElementById('scheduleStartDate').value = startDate || '';
+  document.getElementById('scheduleEndDate').value = endDate || '';
+  document.getElementById('scheduleModal').classList.remove('hidden');
+  document.getElementById('scheduleModal').classList.add('flex');
+}
+
+function closeScheduleModal() {
+  document.getElementById('scheduleModal').classList.add('hidden');
+  document.getElementById('scheduleModal').classList.remove('flex');
+}
+
+async function submitSchedule() {
+  const startDate = document.getElementById('scheduleStartDate').value;
+  const endDate = document.getElementById('scheduleEndDate').value;
+  await setEnrollmentSchedule(activeStudentUid, activeEnrollmentId, startDate, endDate);
+  closeScheduleModal();
   allStudents = await getAllStudents();
   renderStudents();
 }
