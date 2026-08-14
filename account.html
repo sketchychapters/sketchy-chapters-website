@@ -248,11 +248,15 @@ function enrollmentCardHtml(en) {
   const noteHtml = en.adminNote
     ? `<p class="text-blue-300 text-[11px] mt-1.5 flex items-start gap-1"><span>📝</span><span>${en.adminNote}</span></p>`
     : '';
+  const scheduleHtml = (en.startDate || en.endDate)
+    ? `<p class="text-teal-300 text-[11px] mt-1.5">📅 ${en.startDate || '?'} → ${en.endDate || '?'}</p>`
+    : '';
   return `
     <div class="glass-card rounded-2xl p-4 flex items-center justify-between gap-2">
       <div>
         <p class="text-white font-bold text-sm">${en.courseName}</p>
         <p class="text-gray-400 text-xs mt-0.5">${en.type === 'private' ? '👤 Private' : '👥 Group'} · ${priceHtml}${statusLabel}</p>
+        ${scheduleHtml}
         ${noteHtml}
       </div>
       <span class="text-[10px] text-gray-500 shrink-0">${new Date(en.date).toLocaleDateString()}</span>
