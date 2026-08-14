@@ -38,7 +38,7 @@ const LEVELS = [
 // المفتاح = اسم الدورة، القيمة = مصفوفة أسماء الدورات المطلوبة قبلها
 // ==========================================================
 const COURSE_PREREQUISITES = {
-  "Revit Architecture — Advanced + V-Ray": ["Revit Architecture — Foundation"]
+  "Revit Architecture Advanced + V-Ray": ["Revit Architecture"]
 };
 
 // بيتأكد إذا الطالب مؤهل يسجل بدورة معينة (خد بعين الاعتبار تسجيلاته الحالية + محتويات السلة الحالية)
@@ -293,6 +293,11 @@ async function submitCart(cartItems) {
   const newEnrollments = [];
   const skipped = [];
   let freeCourseUsedThisSubmission = false;
+  let birthdayDiscountUsedThisSubmission = false;
+
+  // خصم عيد الميلاد بشرطين: (1) عنده دورة قديمة واحدة عالأقل بحسابه (مش حساب جديد فاضي)
+  // (2) ما استخدمه هالسنة قبل - وبيتطبق على دورة وحدة بس من كل السلة، حتى لو فيها كذا دورة
+  const hasEnrollmentHistory = existingEnrollments.length > 0;
 
   for (const item of cartItems) {
     const alreadyActive =
@@ -325,8 +330,16 @@ async function submitCart(cartItems) {
       if (item.type === "private") finalPrice = finalPrice * 2;
 
       let bestDiscount = level.courseDiscount;
-      if (!noDiscount && isBirthdayWeek(studentData.birthDate)) {
+      const canUseBirthdayDiscount =
+        !noDiscount &&
+        hasEnrollmentHistory &&
+        isBirthdayWeek(studentData.birthDate) &&
+        studentData.birthdayDiscountUsedYear !== thisYear &&
+        !birthdayDiscountUsedThisSubmission;
+
+      if (canUseBirthdayDiscount) {
         bestDiscount = Math.max(bestDiscount, level.birthdayDiscount);
+        birthdayDiscountUsedThisSubmission = true; // بيتطبق على دورة وحدة بس من كل السلة
       }
       // خصم خاص حطّه الأدمن لهالطالب بالذات - إما لدورة محددة أو لكل الدورات ("*")
       const specialDiscounts = studentData.specialDiscounts || [];
@@ -360,6 +373,7 @@ async function submitCart(cartItems) {
     enrollments: firebase.firestore.FieldValue.arrayUnion(...newEnrollments)
   };
   if (freeCourseUsedThisSubmission) updates.freeCourseUsedYear = thisYear;
+  if (birthdayDiscountUsedThisSubmission) updates.birthdayDiscountUsedYear = thisYear;
 
   await db.collection("students").doc(user.uid).set(updates, { merge: true });
 
@@ -450,7 +464,15 @@ async function checkAndNotifyBirthday() {
   if (data.lastBirthdayNotifiedYear === thisYear) return;
 
   const level = computeLevel(data.points || 0);
-  await addNotification(user.uid, `🎂 عيد ميلاد سعيد! يحق لك الحصول على خصم خاص ${level.birthdayDiscount}% على أي دورة هذا الأسبوع.`);
+  const hasEnrollmentHistory = (data.enrollments || []).length > 0;
+  const alreadyUsedDiscount = data.birthdayDiscountUsedYear === thisYear;
+
+  // المعايدة توصل الكل دايماً - بس ذكر الخصم بس لو فعلاً بيستحقه (عنده دورة قديمة وما استخدمه هالسنة)
+  const message = (hasEnrollmentHistory && !alreadyUsedDiscount)
+    ? `🎂 عيد ميلاد سعيد! يحق لك الحصول على خصم خاص ${level.birthdayDiscount}% على دورة واحدة هذا الأسبوع.`
+    : `🎂 عيد ميلاد سعيد من فريق Sketchy Chapters! نتمنى لك سنة رائعة.`;
+
+  await addNotification(user.uid, message);
   await db.collection("students").doc(user.uid).update({ lastBirthdayNotifiedYear: thisYear });
 }
 
