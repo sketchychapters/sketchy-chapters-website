@@ -1,3 +1,5 @@
 User-agent: *
 Disallow: /sc-team-login.html
 Disallow: /sc-team-dashboard.html
+
+Sitemap: https://sketchychapters.com/sitemap.xml
