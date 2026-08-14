@@ -124,8 +124,11 @@
     <label class="text-xs text-gray-400 block mb-1">Price Paid ($)</label>
     <input id="enrollPrice" type="number" value="0" class="w-full rounded-xl px-4 py-2.5 text-sm text-white mb-4">
 
-    <label class="text-xs text-gray-400 block mb-1">Date</label>
-    <input id="enrollDate" type="date" class="w-full rounded-xl px-4 py-2.5 text-sm text-white mb-4">
+    <label class="text-xs text-gray-400 block mb-1">Course Start Date</label>
+    <input id="enrollStartDate" type="date" class="w-full rounded-xl px-4 py-2.5 text-sm text-white mb-4">
+
+    <label class="text-xs text-gray-400 block mb-1">Course End Date</label>
+    <input id="enrollEndDate" type="date" class="w-full rounded-xl px-4 py-2.5 text-sm text-white mb-4">
 
     <label class="text-xs text-gray-400 block mb-1">Status</label>
     <select id="enrollStatus" class="w-full rounded-xl px-4 py-2.5 text-sm text-white mb-6">
@@ -515,7 +518,8 @@ function openEnrollModal(uid, name) {
   document.getElementById('enrollCourseName').value = '';
   document.getElementById('enrollType').value = 'group';
   document.getElementById('enrollPrice').value = 0;
-  document.getElementById('enrollDate').value = new Date().toISOString().slice(0, 10);
+  document.getElementById('enrollStartDate').value = '';
+  document.getElementById('enrollEndDate').value = '';
   document.getElementById('enrollStatus').value = 'completed';
   document.getElementById('enrollModal').classList.remove('hidden');
   document.getElementById('enrollModal').classList.add('flex');
@@ -530,12 +534,17 @@ async function submitAddEnrollment() {
   const courseName = document.getElementById('enrollCourseName').value.trim();
   if (!courseName) { alert('Please enter a course name.'); return; }
 
+  const startDate = document.getElementById('enrollStartDate').value;
+  const endDate = document.getElementById('enrollEndDate').value;
+
   await addManualEnrollment(activeStudentUid, {
     courseName,
     type: document.getElementById('enrollType').value,
     finalPrice: parseFloat(document.getElementById('enrollPrice').value) || 0,
     status: document.getElementById('enrollStatus').value,
-    date: document.getElementById('enrollDate').value
+    date: startDate || new Date().toISOString().slice(0, 10),
+    startDate,
+    endDate
   });
 
   closeEnrollModal();
