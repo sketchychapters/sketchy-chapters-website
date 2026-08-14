@@ -95,7 +95,7 @@ async function generateStudentId() {
 // ==========================================================
 // تسجيل حساب جديد
 // ==========================================================
-async function signUpStudent({ name, email, password, birthDate, phone, gender, referredBy, country, specialization }) {
+async function signUpStudent({ name, email, password, birthDate, phone, gender, referredBy, country, region, specialization }) {
   const cred = await auth.createUserWithEmailAndPassword(email, password);
   const uid = cred.user.uid;
   const studentId = await generateStudentId();
@@ -108,6 +108,7 @@ async function signUpStudent({ name, email, password, birthDate, phone, gender, 
     gender: gender || "",           // "male" | "female"
     birthDate: birthDate,
     country: country || "",
+    region: region || "",
     specialization: specialization || "",
     referredBy: referredBy || "",   // studentId تبع اللي حولّه (اختياري)
     points: 0,
