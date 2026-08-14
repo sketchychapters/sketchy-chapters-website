@@ -146,7 +146,7 @@
 <!-- Add certificate modal -->
 <div id="certModal" class="hidden fixed inset-0 bg-black/80 z-[60] flex items-center justify-center px-6">
   <div class="glass-card bg-[#121216] border border-amber-500/40 rounded-3xl p-8 max-w-sm w-full">
-    <h3 class="text-white font-black text-lg mb-1">Add Certificate</h3>
+    <h3 id="certModalTitle" class="text-white font-black text-lg mb-1">🎓 Add Certificate</h3>
     <p id="certModalStudentName" class="text-gray-400 text-xs mb-5"></p>
 
     <label class="text-xs text-gray-400 block mb-1">Course Name</label>
@@ -156,7 +156,7 @@
     <input id="certUrl" type="url" placeholder="https://drive.google.com/..." class="w-full rounded-xl px-4 py-2.5 text-sm text-white mb-6">
 
     <div class="flex gap-3">
-      <button onclick="submitAddCertificate()" class="flex-1 bg-gold text-black font-bold py-2.5 rounded-xl text-xs">Add Certificate</button>
+      <button onclick="submitAddCertificate()" id="certSubmitBtn" class="flex-1 bg-gold text-black font-bold py-2.5 rounded-xl text-xs">Add Certificate</button>
       <button onclick="closeCertModal()" class="flex-1 glass-card text-gray-400 border border-gray-700 py-2.5 rounded-xl text-xs">Cancel</button>
     </div>
   </div>
@@ -355,6 +355,28 @@ function renderStudents() {
         }).join('')
       : '<p class="text-gray-500 text-xs">No enrollments yet.</p>';
 
+    const certificates = s.certificates || [];
+    const certificatesHtml = certificates.length
+      ? certificates.map(cert => {
+          const cid = cert.id || cert.url;
+          return `
+          <div class="flex items-center justify-between bg-black/30 rounded-xl px-3 py-2 text-xs gap-2">
+            <div>
+              <span class="text-white font-bold">🎓 ${cert.courseName}</span>
+              <a href="${cert.url}" target="_blank" class="text-emerald-400 block mt-0.5 underline break-all">${cert.url}</a>
+              <span class="text-gray-500 text-[10px] block mt-0.5">${cert.dateIssued ? new Date(cert.dateIssued).toLocaleDateString() : ''}</span>
+            </div>
+            <div class="flex gap-1.5 shrink-0">
+              <button onclick="openCertModal('${s.uid}', '${(s.name || '').replace(/'/g, "")}', '${cid}', '${cert.courseName.replace(/'/g, "")}', '${cert.url.replace(/'/g, "")}')"
+                class="text-[10px] font-bold px-2.5 py-1.5 rounded-lg bg-blue-500/20 text-blue-300">Edit</button>
+              <button onclick="deleteCertificateClick('${s.uid}', '${cid}', '${cert.courseName.replace(/'/g, "")}')"
+                class="text-[10px] font-bold px-2.5 py-1.5 rounded-lg bg-red-500/20 text-red-400">🗑️</button>
+            </div>
+          </div>
+        `;
+        }).join('')
+      : '';
+
     return `
       <div class="glass-card rounded-2xl p-5">
         <div class="flex items-center justify-between flex-wrap gap-3 mb-3">
@@ -395,6 +417,7 @@ function renderStudents() {
           </div>
         </div>
         <div class="space-y-2">${enrollmentsHtml}</div>
+        ${certificatesHtml ? `<div class="space-y-2 mt-3 pt-3 border-t border-gray-800">${certificatesHtml}</div>` : ''}
       </div>
     `;
   }).join('');
@@ -554,11 +577,16 @@ async function submitAddEnrollment() {
 }
 
 // ----- Add certificate -----
-function openCertModal(uid, name) {
+let activeCertId = null;
+
+function openCertModal(uid, name, certId, existingCourseName, existingUrl) {
   activeStudentUid = uid;
+  activeCertId = certId || null;
   document.getElementById('certModalStudentName').innerText = name;
-  document.getElementById('certCourseName').value = '';
-  document.getElementById('certUrl').value = '';
+  document.getElementById('certCourseName').value = existingCourseName || '';
+  document.getElementById('certUrl').value = existingUrl || '';
+  document.getElementById('certModalTitle').innerText = certId ? '✏️ Edit Certificate' : '🎓 Add Certificate';
+  document.getElementById('certSubmitBtn').innerText = certId ? 'Save Changes' : 'Add Certificate';
   document.getElementById('certModal').classList.remove('hidden');
   document.getElementById('certModal').classList.add('flex');
 }
@@ -573,9 +601,21 @@ async function submitAddCertificate() {
   const url = document.getElementById('certUrl').value.trim();
   if (!courseName || !url) { alert('Please fill in both fields.'); return; }
 
-  await addCertificateToStudent(activeStudentUid, { courseName, url });
+  if (activeCertId) {
+    await editCertificate(activeStudentUid, activeCertId, { courseName, url });
+  } else {
+    await addCertificateToStudent(activeStudentUid, { courseName, url });
+  }
   closeCertModal();
-  alert('Certificate added — the student will see it on their account page.');
+  allStudents = await getAllStudents();
+  renderStudents();
+}
+
+async function deleteCertificateClick(uid, certId, courseName) {
+  if (!confirm(`Delete the certificate for "${courseName}"? This can't be undone.`)) return;
+  await deleteCertificate(uid, certId);
+  allStudents = await getAllStudents();
+  renderStudents();
 }
 
 // ----- Send a notification to one specific student -----
