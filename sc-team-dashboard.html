@@ -56,6 +56,28 @@
   </div>
 </div>
 
+<!-- Analytics -->
+<div class="glass-card rounded-2xl p-5 mb-6">
+  <button onclick="toggleAnalytics()" class="w-full flex items-center justify-between text-white font-bold text-sm">
+    <span>📊 Analytics</span>
+    <i id="analyticsChevron" class="fa-solid fa-chevron-down text-xs gold-accent transition-transform"></i>
+  </button>
+  <div id="analyticsBody" class="hidden mt-5 grid grid-cols-1 md:grid-cols-3 gap-6">
+    <div>
+      <p class="text-gray-400 text-[11px] uppercase tracking-wide mb-2">Most Popular Courses</p>
+      <div id="analyticsCourses" class="space-y-2"></div>
+    </div>
+    <div>
+      <p class="text-gray-400 text-[11px] uppercase tracking-wide mb-2">Specializations</p>
+      <div id="analyticsSpecializations" class="space-y-2"></div>
+    </div>
+    <div>
+      <p class="text-gray-400 text-[11px] uppercase tracking-wide mb-2">Gender Ratio</p>
+      <div id="analyticsGender" class="space-y-2"></div>
+    </div>
+  </div>
+</div>
+
 <!-- Broadcast Announcement -->
 <div class="glass-card rounded-2xl p-5 mb-6">
   <p class="text-white font-bold text-sm mb-1">📢 Send Announcement to All Students</p>
@@ -150,7 +172,7 @@
     <p id="certModalStudentName" class="text-gray-400 text-xs mb-5"></p>
 
     <label class="text-xs text-gray-400 block mb-1">Course Name</label>
-    <input id="certCourseName" type="text" placeholder="e.g. Revit Architecture — Foundation" class="w-full rounded-xl px-4 py-2.5 text-sm text-white mb-4">
+    <input id="certCourseName" type="text" placeholder="e.g. Revit Architecture" class="w-full rounded-xl px-4 py-2.5 text-sm text-white mb-4">
 
     <label class="text-xs text-gray-400 block mb-1">Certificate Link (Google Drive, etc.)</label>
     <input id="certUrl" type="url" placeholder="https://drive.google.com/..." class="w-full rounded-xl px-4 py-2.5 text-sm text-white mb-6">
@@ -286,6 +308,71 @@ function computeStats() {
   document.getElementById('statEnrollments').innerText = totalEnrollments;
   document.getElementById('statPrivate').innerText = privateCount;
   document.getElementById('statRevenue').innerText = '$' + revenue.toFixed(0);
+}
+
+function toggleAnalytics() {
+  const body = document.getElementById('analyticsBody');
+  const chevron = document.getElementById('analyticsChevron');
+  const isHidden = body.classList.contains('hidden');
+  body.classList.toggle('hidden');
+  chevron.style.transform = isHidden ? 'rotate(180deg)' : 'rotate(0deg)';
+  if (isHidden) renderAnalytics();
+}
+
+function barRow(label, count, total) {
+  const pct = total > 0 ? Math.round((count / total) * 100) : 0;
+  return `
+    <div>
+      <div class="flex justify-between text-[11px] text-gray-300 mb-1">
+        <span>${label}</span>
+        <span class="gold-accent font-bold">${pct}% (${count})</span>
+      </div>
+      <div class="h-1.5 rounded-full bg-black/40 overflow-hidden">
+        <div class="h-full bg-gold" style="width:${pct}%"></div>
+      </div>
+    </div>
+  `;
+}
+
+function renderAnalytics() {
+  // ----- الدورات الأكثر اختياراً -----
+  const courseCounts = {};
+  let totalEnrollmentsForStats = 0;
+  allStudents.forEach(s => {
+    (s.enrollments || []).forEach(en => {
+      courseCounts[en.courseName] = (courseCounts[en.courseName] || 0) + 1;
+      totalEnrollmentsForStats++;
+    });
+  });
+  const topCourses = Object.entries(courseCounts).sort((a, b) => b[1] - a[1]).slice(0, 8);
+  document.getElementById('analyticsCourses').innerHTML = topCourses.length
+    ? topCourses.map(([name, count]) => barRow(name, count, totalEnrollmentsForStats)).join('')
+    : '<p class="text-gray-500 text-xs">No enrollments yet.</p>';
+
+  // ----- التخصصات -----
+  const specCounts = {};
+  let totalWithSpec = 0;
+  allStudents.forEach(s => {
+    if (s.specialization) {
+      specCounts[s.specialization] = (specCounts[s.specialization] || 0) + 1;
+      totalWithSpec++;
+    }
+  });
+  const topSpecs = Object.entries(specCounts).sort((a, b) => b[1] - a[1]).slice(0, 8);
+  document.getElementById('analyticsSpecializations').innerHTML = topSpecs.length
+    ? topSpecs.map(([name, count]) => barRow(name, count, totalWithSpec)).join('')
+    : '<p class="text-gray-500 text-xs">No data yet.</p>';
+
+  // ----- نسبة الذكور والإناث -----
+  let maleCount = 0, femaleCount = 0;
+  allStudents.forEach(s => {
+    if (s.gender === 'male') maleCount++;
+    else if (s.gender === 'female') femaleCount++;
+  });
+  const genderTotal = maleCount + femaleCount;
+  document.getElementById('analyticsGender').innerHTML = genderTotal
+    ? barRow('♂ Male', maleCount, genderTotal) + barRow('♀ Female', femaleCount, genderTotal)
+    : '<p class="text-gray-500 text-xs">No data yet.</p>';
 }
 
 function renderStudents() {
