@@ -648,7 +648,7 @@ async function setEnrollmentSchedule(studentUid, enrollmentId, startDate, endDat
 
 // الأدمن بيضيف دورة قديمة يدوياً لحساب طالب (لسجل دوراته من قبل ما ينضاف هالنظام)
 // بتاخد نقاط بس إذا حالتها "completed" (نفس قاعدة أي دورة تانية)
-async function addManualEnrollment(studentUid, { courseName, type, finalPrice, status, date }) {
+async function addManualEnrollment(studentUid, { courseName, type, finalPrice, status, date, startDate, endDate }) {
   const pointsEarned = Math.round((finalPrice || 0) * POINTS_PER_DOLLAR);
   const finalStatus = status || "completed";
 
@@ -662,6 +662,8 @@ async function addManualEnrollment(studentUid, { courseName, type, finalPrice, s
     pointsEarned,
     status: finalStatus,
     date: date ? new Date(date).toISOString() : new Date().toISOString(),
+    startDate: startDate || "",
+    endDate: endDate || "",
     manuallyAdded: true
   };
 
