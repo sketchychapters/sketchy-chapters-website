@@ -677,6 +677,7 @@ async function addManualEnrollment(studentUid, { courseName, type, finalPrice, s
 // الأدمن بيضيف رابط شهادة لحساب الطالب (رابط جاهز من Google Drive أو أي مكان تاني)
 async function addCertificateToStudent(studentUid, { courseName, url }) {
   const cert = {
+    id: generateEnrollmentId(), // نفس مولّد المعرّفات، صالح لأي شي محتاج ID فريد
     courseName,
     url,
     dateIssued: new Date().toISOString()
@@ -685,6 +686,24 @@ async function addCertificateToStudent(studentUid, { courseName, url }) {
     certificates: firebase.firestore.FieldValue.arrayUnion(cert)
   });
   await addNotification(studentUid, `🎓 شهادتك لدورة "${courseName}" جاهزة! افتح حسابك لتحميلها.`);
+}
+
+// الأدمن بيعدّل شهادة موجودة أصلاً (اسم الدورة أو الرابط)
+async function editCertificate(studentUid, certId, { courseName, url }) {
+  const ref = db.collection("students").doc(studentUid);
+  const doc = await ref.get();
+  const certificates = (doc.data().certificates || []).map(c =>
+    (c.id || c.url) === certId ? { ...c, courseName, url } : c
+  );
+  await ref.update({ certificates });
+}
+
+// الأدمن بيمسح شهادة
+async function deleteCertificate(studentUid, certId) {
+  const ref = db.collection("students").doc(studentUid);
+  const doc = await ref.get();
+  const certificates = (doc.data().certificates || []).filter(c => (c.id || c.url) !== certId);
+  await ref.update({ certificates });
 }
 
 // الأدمن بيغيّر رقم طالب يدوياً (مثلاً زبون قديم، وبدك رقمه يعكس سنة أول دورة اخدها فعلياً)
