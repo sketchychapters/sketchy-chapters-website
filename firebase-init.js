@@ -517,7 +517,11 @@ async function markEnrollmentStatus(studentUid, enrollmentId, newStatus) {
         pointsToAward = en.pointsEarned || 0;
         completedCourseName = en.courseName;
       }
-      return { ...en, status: newStatus };
+      // إذا ما في تاريخ نهاية محدد يدوياً، منحطه تلقائياً بتاريخ اليوم وقت الإتمام
+      const autoEndDate = (newStatus === "completed" && !en.endDate)
+        ? new Date().toISOString().slice(0, 10)
+        : en.endDate;
+      return { ...en, status: newStatus, endDate: autoEndDate };
     }
     return en;
   });
@@ -620,6 +624,25 @@ async function setEnrollmentNote(studentUid, enrollmentId, note) {
 
   if (note && courseName) {
     await addNotification(studentUid, `📝 ملاحظة جديدة على دورة "${courseName}": ${note}`);
+  }
+}
+
+// الأدمن بيحدّد تاريخ بداية ونهاية دورة معينة (متل جدولها الفعلي، مش تاريخ التسجيل)
+async function setEnrollmentSchedule(studentUid, enrollmentId, startDate, endDate) {
+  const ref = db.collection("students").doc(studentUid);
+  const doc = await ref.get();
+  let courseName = "";
+  const enrollments = (doc.data().enrollments || []).map(en => {
+    if ((en.id || en.date) === enrollmentId) {
+      courseName = en.courseName;
+      return { ...en, startDate: startDate || "", endDate: endDate || "" };
+    }
+    return en;
+  });
+  await ref.update({ enrollments });
+
+  if (courseName && (startDate || endDate)) {
+    await addNotification(studentUid, `📅 تم تحديث موعد دورة "${courseName}"${startDate ? ` — تبدأ ${startDate}` : ""}${endDate ? ` وتنتهي ${endDate}` : ""}.`);
   }
 }
 
