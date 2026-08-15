@@ -127,73 +127,11 @@
       </div>
     </div>
 
-    <input id="specialization" type="text" list="specializationList" placeholder="Specialization / Major — start typing (e.g. Arch...)" required
-      class="w-full rounded-xl px-4 py-3 text-sm text-white" autocomplete="off">
-    <datalist id="specializationList">
-      <option value="Architecture">
-      <option value="Interior Design">
-      <option value="Landscape Architecture">
-      <option value="Urban Planning">
-      <option value="Civil Engineering">
-      <option value="Structural Engineering">
-      <option value="Mechanical Engineering">
-      <option value="Electrical Engineering">
-      <option value="Electronics Engineering">
-      <option value="Industrial Engineering">
-      <option value="Chemical Engineering">
-      <option value="Environmental Engineering">
-      <option value="Construction Management">
-      <option value="Architectural Engineering">
-      <option value="Graphic Design">
-      <option value="Product Design">
-      <option value="Industrial Design">
-      <option value="Fashion Design">
-      <option value="Fine Arts">
-      <option value="Animation">
-      <option value="Film & Video Production">
-      <option value="Photography">
-      <option value="Multimedia Design">
-      <option value="UI/UX Design">
-      <option value="Web Design">
-      <option value="Computer Science">
-      <option value="Information Technology">
-      <option value="Software Engineering">
-      <option value="Business Administration">
-      <option value="Marketing">
-      <option value="Accounting">
-      <option value="Finance">
-      <option value="Economics">
-      <option value="Management">
-      <option value="Human Resources">
-      <option value="International Business">
-      <option value="Law">
-      <option value="Political Science">
-      <option value="Psychology">
-      <option value="Sociology">
-      <option value="Education">
-      <option value="Nursing">
-      <option value="Medicine">
-      <option value="Pharmacy">
-      <option value="Dentistry">
-      <option value="Physical Therapy">
-      <option value="Nutrition & Dietetics">
-      <option value="Public Health">
-      <option value="Biology">
-      <option value="Chemistry">
-      <option value="Physics">
-      <option value="Mathematics">
-      <option value="Statistics">
-      <option value="Agriculture">
-      <option value="Journalism">
-      <option value="Mass Communication">
-      <option value="English Literature">
-      <option value="Translation">
-      <option value="Hospitality Management">
-      <option value="Tourism Management">
-      <option value="Culinary Arts">
-      <option value="Music">
-      <option value="Theater & Performing Arts">
-    </datalist>
+    <div class="relative">
+      <input id="specialization" type="text" placeholder="Specialization / Major — start typing (e.g. Arch...)" required
+        class="w-full rounded-xl px-4 py-3 text-sm text-white" autocomplete="off">
+      <div id="specializationSuggestions" class="hidden absolute z-30 w-full mt-1 rounded-xl overflow-hidden border border-amber-500/30 bg-[#121216] max-h-56 overflow-y-auto shadow-xl"></div>
+    </div>
     <div>
       <label class="text-xs text-gray-400 block mb-1" data-ar="الجنس" data-en="Gender">Gender</label>
       <div class="grid grid-cols-2 gap-3">
@@ -447,6 +385,55 @@ function populateCountryFields() {
   dialSelect.value = "+961";
 }
 populateCountryFields();
+
+// ===== خانة التخصص - قائمة اقتراحات مبنية بالـ JS (بتشتغل صح عالتلفون، بعكس datalist المدمجة يلي مش موثوقة على iOS) =====
+const SPECIALIZATION_LIST = [
+  "Architecture", "Interior Design", "Landscape Architecture", "Urban Planning",
+  "Civil Engineering", "Structural Engineering", "Mechanical Engineering", "Electrical Engineering",
+  "Electronics Engineering", "Industrial Engineering", "Chemical Engineering", "Environmental Engineering",
+  "Construction Management", "Architectural Engineering", "Graphic Design", "Product Design",
+  "Industrial Design", "Fashion Design", "Fine Arts", "Animation",
+  "Film & Video Production", "Photography", "Multimedia Design", "UI/UX Design",
+  "Web Design", "Computer Science", "Information Technology", "Software Engineering",
+  "Business Administration", "Marketing", "Accounting", "Finance",
+  "Economics", "Management", "Human Resources", "International Business",
+  "Law", "Political Science", "Psychology", "Sociology",
+  "Education", "Nursing", "Medicine", "Pharmacy",
+  "Dentistry", "Physical Therapy", "Nutrition & Dietetics", "Public Health",
+  "Biology", "Chemistry", "Physics", "Mathematics",
+  "Statistics", "Agriculture", "Journalism", "Mass Communication",
+  "English Literature", "Translation", "Hospitality Management", "Tourism Management",
+  "Culinary Arts", "Music", "Theater & Performing Arts"
+];
+
+const specInput = document.getElementById('specialization');
+const specSuggestions = document.getElementById('specializationSuggestions');
+
+specInput.addEventListener('input', () => {
+  const query = specInput.value.trim().toLowerCase();
+  if (!query) { specSuggestions.classList.add('hidden'); specSuggestions.innerHTML = ''; return; }
+
+  const matches = SPECIALIZATION_LIST.filter(s => s.toLowerCase().includes(query)).slice(0, 8);
+  if (matches.length === 0) { specSuggestions.classList.add('hidden'); specSuggestions.innerHTML = ''; return; }
+
+  specSuggestions.innerHTML = matches.map(s =>
+    `<div class="px-4 py-3 text-sm text-white hover:bg-amber-500/10 active:bg-amber-500/20 cursor-pointer border-b border-amber-500/10 last:border-0" onclick="selectSpecialization('${s.replace(/'/g, "\\'")}')">${s}</div>`
+  ).join('');
+  specSuggestions.classList.remove('hidden');
+});
+
+function selectSpecialization(value) {
+  specInput.value = value;
+  specSuggestions.classList.add('hidden');
+  specSuggestions.innerHTML = '';
+}
+
+// نسكر القائمة لو دست بأي مكان تاني بالصفحة
+document.addEventListener('click', (e) => {
+  if (e.target !== specInput && !specSuggestions.contains(e.target)) {
+    specSuggestions.classList.add('hidden');
+  }
+});
 
 // ===== Lamp pull interaction (بتنطلب كل مرة يدخل فيها حدا الصفحة) =====
 function pullCord(el){
