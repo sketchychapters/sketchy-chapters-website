@@ -696,6 +696,31 @@ async function addManualEnrollment(studentUid, { courseName, type, finalPrice, s
   await db.collection("students").doc(studentUid).set(updates, { merge: true });
 }
 
+// الأدمن بيعدّل تفاصيل دورة موجودة أصلاً (اسمها، نوعها، سعرها) - لو غلط أو لازم تصحيح
+// لو الدورة أصلاً "completed" وانضافت نقاطها، بيتم تعديل رصيد النقاط تلقائياً حسب فرق السعر
+async function editEnrollmentDetails(studentUid, enrollmentId, { courseName, type, finalPrice }) {
+  const ref = db.collection("students").doc(studentUid);
+  const doc = await ref.get();
+  let pointsDiff = 0;
+
+  const enrollments = (doc.data().enrollments || []).map(en => {
+    if ((en.id || en.date) === enrollmentId) {
+      const newPointsEarned = Math.round((finalPrice || 0) * POINTS_PER_DOLLAR);
+      if (en.status === "completed") {
+        pointsDiff = newPointsEarned - (en.pointsEarned || 0);
+      }
+      return { ...en, courseName, type, basePrice: finalPrice, finalPrice, pointsEarned: newPointsEarned };
+    }
+    return en;
+  });
+
+  const updates = { enrollments };
+  if (pointsDiff !== 0) {
+    updates.points = firebase.firestore.FieldValue.increment(pointsDiff);
+  }
+  await ref.update(updates);
+}
+
 // الأدمن بيضيف رابط شهادة لحساب الطالب (رابط جاهز من Google Drive أو أي مكان تاني)
 async function addCertificateToStudent(studentUid, { courseName, url }) {
   const cert = {
@@ -744,9 +769,9 @@ async function setStudentId(studentUid, oldId, newId) {
 // الأدمن بيعدّل بيانات عرض الطالب (الاسم، الإيميل المعروض، الهاتف، الجنس، تاريخ الميلاد)
 // ملاحظة: هاد بيعدّل بيانات العرض بقاعدة البيانات بس - ما بيغيّر إيميل/باسوورد الدخول الفعلي
 // (هيك محمي من Firebase نفسها، وما فينا نلمسه من غير سيرفر خلفي)
-async function editStudentProfile(studentUid, { name, phone, gender, birthDate }) {
+async function editStudentProfile(studentUid, { name, phone, gender, birthDate, specialization, country, region }) {
   await db.collection("students").doc(studentUid).update({
-    name, phone, gender, birthDate
+    name, phone, gender, birthDate, specialization, country, region
   });
 }
 
