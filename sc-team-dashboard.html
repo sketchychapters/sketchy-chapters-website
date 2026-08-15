@@ -238,6 +238,31 @@
   </div>
 </div>
 
+<!-- Edit enrollment course details -->
+<div id="editEnrollmentModal" class="hidden fixed inset-0 bg-black/80 z-[60] flex items-center justify-center px-6">
+  <div class="glass-card bg-[#121216] border border-amber-500/40 rounded-3xl p-8 max-w-sm w-full">
+    <h3 class="text-white font-black text-lg mb-1">✏️ Edit Course Details</h3>
+    <p class="text-gray-500 text-[10px] mb-5">If this course was completed, changing the price will adjust the student's points balance automatically.</p>
+
+    <label class="text-xs text-gray-400 block mb-1">Course Name</label>
+    <input id="editEnrollCourseName" type="text" class="w-full rounded-xl px-4 py-2.5 text-sm text-white mb-4">
+
+    <label class="text-xs text-gray-400 block mb-1">Type</label>
+    <select id="editEnrollType" class="w-full rounded-xl px-4 py-2.5 text-sm text-white mb-4">
+      <option value="group">Group</option>
+      <option value="private">Private</option>
+    </select>
+
+    <label class="text-xs text-gray-400 block mb-1">Final Price ($)</label>
+    <input id="editEnrollPrice" type="number" class="w-full rounded-xl px-4 py-2.5 text-sm text-white mb-6">
+
+    <div class="flex gap-3">
+      <button onclick="submitEditEnrollment()" class="flex-1 bg-gold text-black font-bold py-2.5 rounded-xl text-xs">Save Changes</button>
+      <button onclick="closeEditEnrollmentModal()" class="flex-1 glass-card text-gray-400 border border-gray-700 py-2.5 rounded-xl text-xs">Cancel</button>
+    </div>
+  </div>
+</div>
+
 <!-- Edit student profile -->
 <div id="editProfileModal" class="hidden fixed inset-0 bg-black/80 z-[60] flex items-center justify-center px-6">
   <div class="glass-card bg-[#121216] border border-amber-500/40 rounded-3xl p-8 max-w-sm w-full">
@@ -257,7 +282,16 @@
     </select>
 
     <label class="text-xs text-gray-400 block mb-1">Date of Birth</label>
-    <input id="editBirthDate" type="date" class="w-full rounded-xl px-4 py-2.5 text-sm text-white mb-6">
+    <input id="editBirthDate" type="date" class="w-full rounded-xl px-4 py-2.5 text-sm text-white mb-4">
+
+    <label class="text-xs text-gray-400 block mb-1">Specialization / Major</label>
+    <input id="editSpecialization" type="text" class="w-full rounded-xl px-4 py-2.5 text-sm text-white mb-4">
+
+    <label class="text-xs text-gray-400 block mb-1">Country</label>
+    <input id="editCountry" type="text" class="w-full rounded-xl px-4 py-2.5 text-sm text-white mb-4">
+
+    <label class="text-xs text-gray-400 block mb-1">Region / Area</label>
+    <input id="editRegion" type="text" class="w-full rounded-xl px-4 py-2.5 text-sm text-white mb-6">
 
     <div class="flex gap-3">
       <button onclick="submitEditProfile()" class="flex-1 bg-gold text-black font-bold py-2.5 rounded-xl text-xs">Save Changes</button>
@@ -418,6 +452,8 @@ function renderStudents() {
           }
           // متاحة دايماً بغض النظر عن الحالة - يعني تقدر تلغي دورة حتى لو مؤكدة أو مكتملة
           actionsHtml += `
+              <button onclick="openEditEnrollmentModal('${s.uid}', '${eid}', '${en.courseName.replace(/'/g, "")}', '${en.type}', ${en.finalPrice})"
+                class="text-[10px] font-bold px-2.5 py-1.5 rounded-lg bg-indigo-500/20 text-indigo-300">✏️</button>
               <button onclick="openScheduleModal('${s.uid}', '${eid}', '${en.courseName.replace(/'/g, "")}', '${en.startDate || ''}', '${en.endDate || ''}')"
                 class="text-[10px] font-bold px-2.5 py-1.5 rounded-lg bg-teal-500/20 text-teal-300">📅${(en.startDate || en.endDate) ? ' •' : ''}</button>
               <button onclick="openNoteModal('${s.uid}', '${eid}', '${en.courseName.replace(/'/g, "")}', '${(en.adminNote || '').replace(/'/g, "").replace(/\n/g, ' ')}')"
@@ -586,6 +622,35 @@ async function submitSchedule() {
   renderStudents();
 }
 
+// ----- Edit course details on an existing enrollment -----
+function openEditEnrollmentModal(uid, enrollmentId, courseName, type, finalPrice) {
+  activeStudentUid = uid;
+  activeEnrollmentId = enrollmentId;
+  document.getElementById('editEnrollCourseName').value = courseName;
+  document.getElementById('editEnrollType').value = type;
+  document.getElementById('editEnrollPrice').value = finalPrice;
+  document.getElementById('editEnrollmentModal').classList.remove('hidden');
+  document.getElementById('editEnrollmentModal').classList.add('flex');
+}
+
+function closeEditEnrollmentModal() {
+  document.getElementById('editEnrollmentModal').classList.add('hidden');
+  document.getElementById('editEnrollmentModal').classList.remove('flex');
+}
+
+async function submitEditEnrollment() {
+  const courseName = document.getElementById('editEnrollCourseName').value.trim();
+  const type = document.getElementById('editEnrollType').value;
+  const finalPrice = parseFloat(document.getElementById('editEnrollPrice').value) || 0;
+  if (!courseName) { alert('Please enter a course name.'); return; }
+
+  await editEnrollmentDetails(activeStudentUid, activeEnrollmentId, { courseName, type, finalPrice });
+  closeEditEnrollmentModal();
+  allStudents = await getAllStudents();
+  computeStats();
+  renderStudents();
+}
+
 function openPointsModal(uid, name) {
   activeStudentUid = uid;
   document.getElementById('pointsModalStudentName').innerText = name;
@@ -737,6 +802,9 @@ function openEditProfileModal(uid) {
   document.getElementById('editPhone').value = student.phone || '';
   document.getElementById('editGender').value = student.gender || 'male';
   document.getElementById('editBirthDate').value = student.birthDate || '';
+  document.getElementById('editSpecialization').value = student.specialization || '';
+  document.getElementById('editCountry').value = student.country || '';
+  document.getElementById('editRegion').value = student.region || '';
   document.getElementById('editProfileModal').classList.remove('hidden');
   document.getElementById('editProfileModal').classList.add('flex');
 }
@@ -751,7 +819,10 @@ async function submitEditProfile() {
     name: document.getElementById('editName').value.trim(),
     phone: document.getElementById('editPhone').value.trim(),
     gender: document.getElementById('editGender').value,
-    birthDate: document.getElementById('editBirthDate').value
+    birthDate: document.getElementById('editBirthDate').value,
+    specialization: document.getElementById('editSpecialization').value.trim(),
+    country: document.getElementById('editCountry').value.trim(),
+    region: document.getElementById('editRegion').value.trim()
   };
   await editStudentProfile(activeStudentUid, updates);
   closeEditProfileModal();
