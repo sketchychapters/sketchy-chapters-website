@@ -428,6 +428,7 @@ async function getAllStudents() {
 // ==========================================================
 async function addNotification(studentUid, message) {
   const notif = {
+    id: generateEnrollmentId(),
     message,
     date: new Date().toISOString(),
     read: false
@@ -435,6 +436,14 @@ async function addNotification(studentUid, message) {
   await db.collection("students").doc(studentUid).update({
     notifications: firebase.firestore.FieldValue.arrayUnion(notif)
   });
+}
+
+// الأدمن بيمسح إشعار معيّن من سجل طالب
+async function deleteNotification(studentUid, notifId) {
+  const ref = db.collection("students").doc(studentUid);
+  const doc = await ref.get();
+  const notifications = (doc.data().notifications || []).filter(n => (n.id || n.date) !== notifId);
+  await ref.update({ notifications });
 }
 
 // الطالب بيفتح جرس الإشعارات -> منعلّم كلها مقروءة، ومنمسح يلي عمرها أكتر من شهر
