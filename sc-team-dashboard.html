@@ -536,14 +536,51 @@ function renderStudents() {
                 class="text-[10px] text-purple-300 border border-purple-500/30 px-2.5 py-1 rounded-lg hover:bg-purple-500/10">
                 🔔 Notify
               </button>
+              <button onclick="toggleStudentNotifications('${s.uid}')"
+                class="text-[10px] text-purple-300 border border-purple-500/30 px-2.5 py-1 rounded-lg hover:bg-purple-500/10">
+                👁️ View (${(s.notifications || []).length})
+              </button>
             </div>
           </div>
         </div>
         <div class="space-y-2">${enrollmentsHtml}</div>
         ${certificatesHtml ? `<div class="space-y-2 mt-3 pt-3 border-t border-gray-800">${certificatesHtml}</div>` : ''}
+        <div id="notifList-${s.uid}" class="hidden space-y-2 mt-3 pt-3 border-t border-gray-800">${notificationsHtml(s)}</div>
       </div>
     `;
   }).join('');
+}
+
+function notificationsHtml(s) {
+  const notifications = (s.notifications || []).slice().reverse();
+  if (notifications.length === 0) {
+    return '<p class="text-gray-500 text-xs">No notifications yet.</p>';
+  }
+  return notifications.map(n => {
+    const nid = n.id || n.date;
+    return `
+      <div class="flex items-center justify-between bg-black/30 rounded-xl px-3 py-2 text-xs gap-2">
+        <div>
+          <span class="text-white ${n.read ? 'opacity-60' : ''}">${n.message}</span>
+          <span class="text-gray-500 text-[10px] block mt-0.5">${new Date(n.date).toLocaleString()} ${n.read ? '· read' : '· unread'}</span>
+        </div>
+        <button onclick="deleteNotificationClick('${s.uid}', '${nid}')"
+          class="text-[10px] font-bold px-2.5 py-1.5 rounded-lg bg-red-500/20 text-red-400 shrink-0">🗑️</button>
+      </div>
+    `;
+  }).join('');
+}
+
+function toggleStudentNotifications(uid) {
+  const el = document.getElementById('notifList-' + uid);
+  el.classList.toggle('hidden');
+}
+
+async function deleteNotificationClick(uid, notifId) {
+  if (!confirm('Delete this notification?')) return;
+  await deleteNotification(uid, notifId);
+  allStudents = await getAllStudents();
+  renderStudents();
 }
 
 async function toggleEnrollmentStatus(uid, enrollmentId, newStatus) {
