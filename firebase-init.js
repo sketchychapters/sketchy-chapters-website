@@ -22,15 +22,15 @@ const db = firebase.firestore();
 // نظام النقاط والمستويات (Points & Levels)
 // ==========================================================
 
-// كل 1$ يدفعه الطالب = 5 نقاط (عدّل الرقم هون إذا تغيّر بالمستقبل)
-const POINTS_PER_DOLLAR = 5;
+// كل 1$ يدفعه الطالب = 7 نقاط (عدّل الرقم هون إذا تغيّر بالمستقبل)
+const POINTS_PER_DOLLAR = 7;
 
-// جدول المستويات الأصلي (زي الجدول الأول تبعك بالضبط)
+// جدول المستويات - المسافات بين المستويات أوسع (تصعيد أبطأ وأطول)
 const LEVELS = [
   { name: "Basic",    nameAr: "أساسي",    min: 0,    courseDiscount: 0,  referralDiscount: 0,  birthdayDiscount: 20, freeCourseYearly: false },
   { name: "Classic",  nameAr: "كلاسيك",   min: 1000, courseDiscount: 10, referralDiscount: 5,  birthdayDiscount: 30, freeCourseYearly: false },
-  { name: "Gold",     nameAr: "ذهبي",     min: 2000, courseDiscount: 15, referralDiscount: 10, birthdayDiscount: 40, freeCourseYearly: false },
-  { name: "Platinum", nameAr: "بلاتيني",  min: 4000, courseDiscount: 20, referralDiscount: 15, birthdayDiscount: 50, freeCourseYearly: true  }
+  { name: "Gold",     nameAr: "ذهبي",     min: 2500, courseDiscount: 15, referralDiscount: 10, birthdayDiscount: 40, freeCourseYearly: false },
+  { name: "Platinum", nameAr: "بلاتيني",  min: 5000, courseDiscount: 20, referralDiscount: 15, birthdayDiscount: 50, freeCourseYearly: true  }
 ];
 
 // ==========================================================
@@ -462,6 +462,51 @@ async function markAllNotificationsRead() {
 }
 
 // إشعار عيد ميلاد تلقائي - مرة وحدة بالسنة بس، وقت ما الطالب يفتح حسابه بأسبوع عيد ميلاده
+// نقاط الإحالة الثابتة (نفس الجدول الأصلي)
+const REFERRAL_BONUS_POINTS = 200;
+
+// الطالب الجديد بيكتب مين حوّله (نص حر بس) - ما في أي بحث أو مطابقة تلقائية بين الحسابات
+// الأدمن هو يلي بيفحص ويدوّر عن الشخص يدوياً ويضيفله النقاط بنفسه
+async function submitReferralClaim(identifier) {
+  const user = auth.currentUser;
+  if (!user) throw new Error("NOT_LOGGED_IN");
+
+  // فحص بسيط: ما يكتب معلوماته هو (اسمه/إيميله/رقمه) - بالمقارنة مع بياناته هو بس، بدون أي وصول لحسابات تانية
+  const myData = await getCurrentStudentData();
+  const mine = [myData?.name, myData?.email, myData?.phone, myData?.studentId]
+    .filter(Boolean).map(v => v.toLowerCase().trim());
+  if (mine.includes(identifier.toLowerCase().trim())) {
+    throw new Error("SELF_REFERRAL");
+  }
+
+  const claim = {
+    inputText: identifier,
+    status: "pending", // pending -> awarded/dismissed (بعد ما الأدمن يفحصها يدوياً)
+    date: new Date().toISOString()
+  };
+
+  await db.collection("students").doc(user.uid).update({ referralClaim: claim });
+  return claim;
+}
+
+// الأدمن بيأكد صحة الإحالة (بعد ما يلاقي الشخص يدوياً) وبيضيف نقاط الإحالة لصاحبه
+async function awardReferralPoints(referredStudentUid, referrerUid, referrerName) {
+  await addPointsToStudent(referrerUid, REFERRAL_BONUS_POINTS, "referral");
+
+  const ref = db.collection("students").doc(referredStudentUid);
+  const doc = await ref.get();
+  const claim = doc.data().referralClaim || {};
+  await ref.update({ referralClaim: { ...claim, status: "awarded", awardedTo: referrerName } });
+}
+
+// الأدمن بيعدّل نص طلب الإحالة (مثلاً يصحح غلطة إملائية بالاسم قبل ما يفتش عنه)
+async function editReferralClaimText(studentUid, newText) {
+  const ref = db.collection("students").doc(studentUid);
+  const doc = await ref.get();
+  const claim = doc.data().referralClaim || {};
+  await ref.update({ referralClaim: { ...claim, inputText: newText } });
+}
+
 async function checkAndNotifyBirthday() {
   const user = auth.currentUser;
   if (!user) return;
