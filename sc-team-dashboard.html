@@ -558,12 +558,17 @@ function renderStudents() {
                 class="text-[10px] text-purple-300 border border-purple-500/30 px-2.5 py-1 rounded-lg hover:bg-purple-500/10">
                 👁️ View (${(s.notifications || []).length})
               </button>
+              <button onclick="toggleStudentPointsLog('${s.uid}')"
+                class="text-[10px] gold-accent border border-amber-500/30 px-2.5 py-1 rounded-lg hover:bg-amber-500/10">
+                💰 Points Log (${(s.pointsLog || []).length})
+              </button>
             </div>
           </div>
         </div>
         <div class="space-y-2">${enrollmentsHtml}</div>
         ${certificatesHtml ? `<div class="space-y-2 mt-3 pt-3 border-t border-gray-800">${certificatesHtml}</div>` : ''}
         ${referralClaimHtml(s)}
+        <div id="pointsLog-${s.uid}" class="hidden space-y-2 mt-3 pt-3 border-t border-gray-800">${pointsLogHtml(s)}</div>
         <div id="notifList-${s.uid}" class="hidden space-y-2 mt-3 pt-3 border-t border-gray-800">${notificationsHtml(s)}</div>
       </div>
     `;
@@ -586,6 +591,27 @@ function referralClaimHtml(s) {
       </div>
     </div>
   `;
+}
+
+function pointsLogHtml(s) {
+  const log = (s.pointsLog || []).slice().reverse();
+  if (log.length === 0) {
+    return '<p class="text-gray-500 text-xs">No points history yet.</p>';
+  }
+  return log.map(entry => `
+    <div class="flex items-center justify-between bg-black/30 rounded-xl px-3 py-2 text-xs">
+      <span class="text-gray-300">${entry.reason || 'manual'}</span>
+      <div class="text-right rtl:text-left">
+        <span class="gold-accent font-bold">${entry.points > 0 ? '+' : ''}${entry.points} pts</span>
+        <span class="text-gray-500 text-[10px] block">${new Date(entry.date).toLocaleString()}</span>
+      </div>
+    </div>
+  `).join('');
+}
+
+function toggleStudentPointsLog(uid) {
+  const el = document.getElementById('pointsLog-' + uid);
+  el.classList.toggle('hidden');
 }
 
 function notificationsHtml(s) {
