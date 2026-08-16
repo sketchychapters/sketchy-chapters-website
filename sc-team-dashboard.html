@@ -530,6 +530,7 @@ function renderStudents() {
                 ${s.studentId || ''} · ${s.birthDate || ''} · UID: ${s.uid}
                 <button onclick="editStudentIdClick('${s.uid}', '${s.studentId || ''}')" class="gold-accent underline ms-1">id</button>
                 · <button onclick="openEditProfileModal('${s.uid}')" class="text-blue-300 underline">edit</button>
+                · <button onclick="deleteStudentClick('${s.uid}', '${s.studentId || ''}', '${(s.name || 'this student').replace(/'/g, "")}')" class="text-red-400 underline">delete</button>
               </p>
             </div>
           </div>
@@ -944,6 +945,24 @@ async function editStudentIdClick(uid, oldId) {
     alert('Could not update the ID — it might already be in use, or a permissions issue occurred.');
     console.error(err);
   }
+}
+
+// ----- Delete a student record entirely (e.g. after removing them from Firebase Authentication) -----
+async function deleteStudentClick(uid, studentId, name) {
+  const confirm1 = confirm(`⚠️ Permanently delete ${name}'s entire record (courses, points, certificates, everything)?\n\nThis cannot be undone.`);
+  if (!confirm1) return;
+
+  const typed = prompt(`To confirm, type DELETE (in capital letters):`);
+  if (typed !== 'DELETE') {
+    alert('Cancelled — text did not match.');
+    return;
+  }
+
+  await deleteStudentRecord(uid, studentId);
+  allStudents = await getAllStudents();
+  computeStats();
+  renderStudents();
+  alert(`✅ ${name}'s record has been deleted.`);
 }
 
 async function submitAnnouncement() {
