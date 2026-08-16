@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="color-scheme" content="dark">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title data-ar="هل حوّلك صديق؟ | Sketchy Chapters" data-en="Referred by a Friend? | Sketchy Chapters">Referred by a Friend? | Sketchy Chapters</title>
+<title data-ar="هل أحالك صديق إلينا؟ | Sketchy Chapters" data-en="Referred by a Friend? | Sketchy Chapters">Referred by a Friend? | Sketchy Chapters</title>
 <link rel="icon" type="image/png" href="favicon w.png">
 <script src="https://cdn.tailwindcss.com"></script>
 <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;500;700;900&display=swap" rel="stylesheet">
@@ -40,8 +40,8 @@
   <div id="askState">
     <div class="text-center mb-6">
       <i class="fa-solid fa-user-group gold-accent text-2xl mb-3"></i>
-      <h1 class="text-xl font-black text-white mb-1" data-ar="هل دلّك عنّا صديق؟" data-en="Did a friend refer you?">Did a friend refer you?</h1>
-      <p class="text-gray-400 text-xs" data-ar="اكتب اسمه، رقم طالبه، أو رقم هاتفه كما هو مسجل بحسابه — عشان ياخد نقاط الإحالة." data-en="Enter their name, Student ID, or phone number exactly as registered — so they get their referral points.">Enter their name, Student ID, or phone number exactly as registered — so they get their referral points.</p>
+      <h1 class="text-xl font-black text-white mb-1" data-ar="هل أحالك صديق إلينا؟" data-en="Did a friend refer you?">Did a friend refer you?</h1>
+      <p class="text-gray-400 text-xs" data-ar="يرجى كتابة اسمه، أو رقم طالبه، أو رقم هاتفه كما هو مسجّل في حسابه." data-en="Please enter their name, Student ID, or phone number exactly as registered in their account.">Please enter their name, Student ID, or phone number exactly as registered in their account.</p>
     </div>
 
     <input id="referralInput" type="text" placeholder="Friend's name, Student ID, or phone"
@@ -50,7 +50,7 @@
     <p id="referralError" class="text-red-400 text-xs hidden mb-3"></p>
 
     <button onclick="submitReferral()" class="w-full bg-gold text-black font-black py-3 rounded-xl text-sm hover:opacity-90 transition mb-3" data-ar="إرسال" data-en="Submit">Submit</button>
-    <button onclick="skipReferral()" class="w-full text-gray-400 text-xs py-2" data-ar="ما حدا دلّني، تخطّي" data-en="No one referred me, skip">No one referred me, skip</button>
+    <button onclick="skipReferral()" class="w-full text-gray-400 text-xs py-2" data-ar="لم يُحلني أحد، تخطّي" data-en="No one referred me, skip">No one referred me, skip</button>
   </div>
 
   <div id="resultState" class="hidden text-center py-4">
@@ -108,7 +108,7 @@ async function submitReferral() {
 
   const identifier = document.getElementById('referralInput').value.trim();
   if (!identifier) {
-    errorEl.textContent = currentLang === 'ar' ? 'اكتب اسم أو رقم صديقك، أو دوس "تخطّي".' : 'Enter your friend\'s name or ID, or click "Skip".';
+    errorEl.textContent = currentLang === 'ar' ? 'يرجى كتابة اسم أو رقم صديقك، أو الضغط على "تخطّي".' : 'Enter your friend\'s name or ID, or click "Skip".';
     errorEl.classList.remove('hidden');
     return;
   }
@@ -119,14 +119,14 @@ async function submitReferral() {
       'fa-circle-check', 'text-emerald-400',
       currentLang === 'ar' ? 'تم الإرسال! 🎉' : 'Sent! 🎉',
       currentLang === 'ar'
-        ? 'سجّلنا المعلومة، وفريقنا رح يتأكد ويضيف نقاط الإحالة لصديقك يدوياً.'
+        ? 'تم تسجيل المعلومة، وسيقوم فريقنا بمراجعتها.'
         : 'We\'ve saved this, and our team will verify and add your friend\'s referral points manually.'
     );
   } catch (err) {
     if (err.message === 'SELF_REFERRAL') {
-      errorEl.textContent = currentLang === 'ar' ? 'ما فيك تحيل حالك بنفسك 🙂 اكتب اسم صديقك بس.' : 'You can\'t refer yourself 🙂 Please enter your friend\'s info only.';
+      errorEl.textContent = currentLang === 'ar' ? 'لا يمكنك إحالة نفسك 🙂 يرجى كتابة اسم صديقك فقط.' : 'You can\'t refer yourself 🙂 Please enter your friend\'s info only.';
     } else {
-      errorEl.textContent = currentLang === 'ar' ? 'حدث خطأ. حاول مرة أخرى أو دوس "تخطّي".' : 'Something went wrong. Please try again or click "Skip".';
+      errorEl.textContent = currentLang === 'ar' ? 'حدث خطأ. يرجى المحاولة مرة أخرى أو الضغط على "تخطّي".' : 'Something went wrong. Please try again or click "Skip".';
     }
     errorEl.classList.remove('hidden');
   }
