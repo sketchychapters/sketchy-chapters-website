@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" id="htmlRoot">
+<head>
+<meta charset="UTF-8">
+<meta name="color-scheme" content="dark">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title data-ar="الصفحة غير موجودة | Sketchy Chapters" data-en="Page Not Found | Sketchy Chapters">Page Not Found | Sketchy Chapters</title>
+<link rel="icon" type="image/png" href="favicon w.png">
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+  body{color-scheme:dark;font-family:'Tajawal',sans-serif;background:#08080a;color:#e0e6ed;min-height:100vh;overflow-x:hidden;}
+  .gold-accent{color:#d4af37;}
+  .gold-gradient-text{background:linear-gradient(135deg,#bf953f,#fcf6ba,#b38728,#fbf5b7);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+  .bg-gold{background:linear-gradient(135deg,#d4af37 0%,#aa7c11 100%);}
+  .glass-card{background:rgba(18,18,22,.65);backdrop-filter:blur(16px);border:1px solid rgba(212,175,55,.15);}
+</style>
+</head>
+<body class="flex flex-col items-center justify-center px-6 py-10 text-center">
+
+<button onclick="toggleLanguage()" id="lang-btn" class="fixed top-5 right-5 rtl:right-auto rtl:left-5 glass-card text-amber-400 border border-amber-500/30 px-3 py-2 rounded-xl text-xs font-bold hover:bg-amber-500/10 transition flex items-center gap-1.5 z-20">
+  <i class="fa-solid fa-globe text-sm"></i>
+  <span id="langBtnText">العربية</span>
+</button>
+
+<div class="mb-6">
+  <img src="workshop.png" alt="Sketchy Chapters" class="h-12 w-auto object-contain mx-auto mb-2" onerror="this.style.display='none'; document.getElementById('logo-fallback').style.display='block';">
+  <span id="logo-fallback" class="hidden text-xl font-black tracking-wider text-white">SKETCHY <span class="gold-accent">CHAPTERS</span></span>
+</div>
+
+<div class="glass-card rounded-3xl p-10 md:p-14 max-w-lg w-full">
+  <p class="gold-gradient-text text-7xl md:text-8xl font-black mb-4">404</p>
+  <h1 class="text-white text-xl font-black mb-3" data-ar="هذه الصفحة غير موجودة" data-en="This page doesn't exist">This page doesn't exist</h1>
+  <p class="text-gray-400 text-sm mb-8" data-ar="الرابط الذي حاولت الوصول إليه غير صحيح أو تم نقله. يمكنك العودة إلى الصفحة الرئيسية للمتابعة." data-en="The link you tried to reach isn't valid or has moved. You can head back to the homepage to continue.">The link you tried to reach isn't valid or has moved. You can head back to the homepage to continue.</p>
+
+  <div class="flex flex-col md:flex-row gap-3 justify-center">
+    <a href="index.html" class="bg-gold text-black font-bold text-sm px-6 py-3 rounded-xl flex items-center justify-center gap-2">
+      <i class="fa-solid fa-house"></i>
+      <span data-ar="الرئيسية" data-en="Homepage">Homepage</span>
+    </a>
+    <a href="workshop.html" class="glass-card text-amber-300 border border-amber-500/30 font-bold text-sm px-6 py-3 rounded-xl flex items-center justify-center gap-2 hover:bg-amber-500/10 transition">
+      <i class="fa-solid fa-book-open"></i>
+      <span data-ar="تصفّح الدورات" data-en="Browse Courses">Browse Courses</span>
+    </a>
+  </div>
+</div>
+
+<footer class="mt-10 text-gray-600 text-[11px]">
+  <span data-ar="© 2026 مركز ورش عمل سكتشي تشابترز" data-en="© 2026 Sketchy Chapters Workshop Center">© 2026 Sketchy Chapters Workshop Center</span>
+</footer>
+
+<script>
+let currentLang = 'en';
+function toggleLanguage(){
+  currentLang = currentLang === 'en' ? 'ar' : 'en';
+  const htmlRoot = document.getElementById('htmlRoot');
+  const langBtnText = document.getElementById('langBtnText');
+  htmlRoot.setAttribute('dir', currentLang === 'ar' ? 'rtl' : 'ltr');
+  htmlRoot.setAttribute('lang', currentLang);
+  langBtnText.innerText = currentLang === 'ar' ? 'English' : 'العربية';
+  document.querySelectorAll('[data-ar]').forEach(el => {
+    const t = currentLang === 'ar' ? el.getAttribute('data-ar') : el.getAttribute('data-en');
+    if (t) el.innerText = t;
+  });
+}
+</script>
+</body>
+</html>
