@@ -563,9 +563,44 @@ async function removeSpecialDiscount(studentUid, courseName, discountPercent) {
 // بيبعت إشعار بالنقاط، وإشعار إضافي إذا صعد الطالب مستوى بسبب هالنقاط
 // سجل داخلي (للأدمن بس) بكل نقاط أُضيفت لأي طالب مع سببها - الطالب ما بيشوفه أبداً
 async function logPointsChange(studentUid, points, reason) {
-  const entry = { points, reason, date: new Date().toISOString() };
+  const entry = { id: generateEnrollmentId(), points, reason, date: new Date().toISOString() };
   await db.collection("students").doc(studentUid).update({
     pointsLog: firebase.firestore.FieldValue.arrayUnion(entry)
+  });
+}
+
+// الأدمن بيعدّل سطر بسجل النقاط (كمية أو سبب) - بيتعدّل رصيد الطالب تلقائياً حسب الفرق
+async function editPointsLogEntry(studentUid, entryId, newPoints, newReason) {
+  const ref = db.collection("students").doc(studentUid);
+  const doc = await ref.get();
+  const log = doc.data().pointsLog || [];
+  const target = log.find(e => (e.id || e.date) === entryId);
+  if (!target) return;
+
+  const diff = newPoints - target.points;
+  const updatedLog = log.map(e =>
+    (e.id || e.date) === entryId ? { ...e, points: newPoints, reason: newReason } : e
+  );
+
+  await ref.update({
+    pointsLog: updatedLog,
+    points: firebase.firestore.FieldValue.increment(diff)
+  });
+}
+
+// الأدمن بيمسح سطر بسجل النقاط بالكامل - بيرجّع نقاطه من رصيد الطالب
+async function deletePointsLogEntry(studentUid, entryId) {
+  const ref = db.collection("students").doc(studentUid);
+  const doc = await ref.get();
+  const log = doc.data().pointsLog || [];
+  const target = log.find(e => (e.id || e.date) === entryId);
+  if (!target) return;
+
+  const remainingLog = log.filter(e => (e.id || e.date) !== entryId);
+
+  await ref.update({
+    pointsLog: remainingLog,
+    points: firebase.firestore.FieldValue.increment(-target.points)
   });
 }
 
