@@ -1000,3 +1000,79 @@ async function migrateStudentData(oldUid, newIdentifier) {
 
   return { mergedInto: newUid, studentId: keepStudentId };
 }
+
+// ==========================================================
+// نظام رسائل موحّد بستايل الموقع (بدل alert/confirm/prompt الافتراضية البيضا)
+// بيتحقن أوتوماتيك بأي صفحة عم تحمّل هالملف
+// ==========================================================
+function injectDialogSystem() {
+  if (document.getElementById("customDialogModal")) return;
+  const modal = document.createElement("div");
+  modal.id = "customDialogModal";
+  modal.className = "hidden fixed inset-0 bg-black/80 flex items-center justify-center px-6";
+  modal.style.zIndex = "9998";
+  modal.innerHTML = `
+    <div style="background:#121216;border:1px solid rgba(212,175,55,.4);border-radius:24px;padding:32px;max-width:24rem;width:100%;">
+      <p id="customDialogMessage" style="color:#fff;font-size:14px;margin-bottom:20px;white-space:pre-line;line-height:1.6;"></p>
+      <input id="customDialogInput" type="text" class="hidden" style="width:100%;background:rgba(0,0,0,.4);border:1px solid rgba(212,175,55,.25);color:#fff;border-radius:12px;padding:10px 16px;font-size:14px;margin-bottom:16px;">
+      <div id="customDialogButtons" style="display:flex;gap:12px;"></div>
+    </div>
+  `;
+  document.body.appendChild(modal);
+}
+
+function closeCustomDialog() {
+  const modal = document.getElementById("customDialogModal");
+  modal.classList.add("hidden");
+  modal.classList.remove("flex");
+}
+
+function customAlert(message) {
+  injectDialogSystem();
+  return new Promise(resolve => {
+    document.getElementById("customDialogMessage").textContent = message;
+    document.getElementById("customDialogInput").classList.add("hidden");
+    document.getElementById("customDialogButtons").innerHTML =
+      '<button id="dlgOk" style="flex:1;background:linear-gradient(135deg,#d4af37,#aa7c11);color:#000;font-weight:700;padding:10px;border-radius:12px;font-size:13px;">OK</button>';
+    const modal = document.getElementById("customDialogModal");
+    modal.classList.remove("hidden");
+    modal.classList.add("flex");
+    document.getElementById("dlgOk").onclick = () => { closeCustomDialog(); resolve(); };
+  });
+}
+
+function customConfirm(message) {
+  injectDialogSystem();
+  return new Promise(resolve => {
+    document.getElementById("customDialogMessage").textContent = message;
+    document.getElementById("customDialogInput").classList.add("hidden");
+    document.getElementById("customDialogButtons").innerHTML = `
+      <button id="dlgYes" style="flex:1;background:linear-gradient(135deg,#d4af37,#aa7c11);color:#000;font-weight:700;padding:10px;border-radius:12px;font-size:13px;">Yes</button>
+      <button id="dlgNo" style="flex:1;background:rgba(18,18,22,.65);border:1px solid #374151;color:#9ca3af;font-weight:700;padding:10px;border-radius:12px;font-size:13px;">Cancel</button>
+    `;
+    const modal = document.getElementById("customDialogModal");
+    modal.classList.remove("hidden");
+    modal.classList.add("flex");
+    document.getElementById("dlgYes").onclick = () => { closeCustomDialog(); resolve(true); };
+    document.getElementById("dlgNo").onclick = () => { closeCustomDialog(); resolve(false); };
+  });
+}
+
+function customPrompt(message, defaultValue) {
+  injectDialogSystem();
+  return new Promise(resolve => {
+    document.getElementById("customDialogMessage").textContent = message;
+    const input = document.getElementById("customDialogInput");
+    input.classList.remove("hidden");
+    input.value = defaultValue || "";
+    document.getElementById("customDialogButtons").innerHTML = `
+      <button id="dlgPOk" style="flex:1;background:linear-gradient(135deg,#d4af37,#aa7c11);color:#000;font-weight:700;padding:10px;border-radius:12px;font-size:13px;">OK</button>
+      <button id="dlgPCancel" style="flex:1;background:rgba(18,18,22,.65);border:1px solid #374151;color:#9ca3af;font-weight:700;padding:10px;border-radius:12px;font-size:13px;">Cancel</button>
+    `;
+    const modal = document.getElementById("customDialogModal");
+    modal.classList.remove("hidden");
+    modal.classList.add("flex");
+    document.getElementById("dlgPOk").onclick = () => { const v = input.value; closeCustomDialog(); resolve(v); };
+    document.getElementById("dlgPCancel").onclick = () => { closeCustomDialog(); resolve(null); };
+  });
+}
