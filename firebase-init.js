@@ -820,6 +820,14 @@ async function setStudentId(studentUid, oldId, newId) {
   }
 }
 
+// الأدمن بيمسح سجل طالب بالكامل من قاعدة البيانات (مثلاً بعد ما مسحته من Firebase Authentication)
+async function deleteStudentRecord(studentUid, studentId) {
+  await db.collection("students").doc(studentUid).delete();
+  if (studentId) {
+    await db.collection("studentIdLookup").doc(studentId).delete();
+  }
+}
+
 // الأدمن بيعدّل بيانات عرض الطالب (الاسم، الإيميل المعروض، الهاتف، الجنس، تاريخ الميلاد)
 // ملاحظة: هاد بيعدّل بيانات العرض بقاعدة البيانات بس - ما بيغيّر إيميل/باسوورد الدخول الفعلي
 // (هيك محمي من Firebase نفسها، وما فينا نلمسه من غير سيرفر خلفي)
