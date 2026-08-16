@@ -3,6 +3,7 @@
 <head>
 <meta name="robots" content="noindex, nofollow">
 <meta charset="UTF-8">
+<meta name="color-scheme" content="dark">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Admin Dashboard | Sketchy Chapters</title>
 <link rel="icon" type="image/png" href="favicon w.png">
@@ -15,7 +16,7 @@
 <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore-compat.js"></script>
 
 <style>
-  body{font-family:'Tajawal',sans-serif;background:#08080a;color:#e0e6ed;}
+  body{color-scheme:dark;font-family:'Tajawal',sans-serif;background:#08080a;color:#e0e6ed;}
   .gold-accent{color:#d4af37;}
   .bg-gold{background:linear-gradient(135deg,#d4af37 0%,#aa7c11 100%);}
   .glass-card{background:rgba(18,18,22,.65);backdrop-filter:blur(16px);border:1px solid rgba(212,175,55,.15);}
@@ -259,6 +260,22 @@
     <div class="flex gap-3">
       <button onclick="submitEditEnrollment()" class="flex-1 bg-gold text-black font-bold py-2.5 rounded-xl text-xs">Save Changes</button>
       <button onclick="closeEditEnrollmentModal()" class="flex-1 glass-card text-gray-400 border border-gray-700 py-2.5 rounded-xl text-xs">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<!-- Edit referral claim text -->
+<div id="editReferralModal" class="hidden fixed inset-0 bg-black/80 z-[60] flex items-center justify-center px-6">
+  <div class="glass-card bg-[#121216] border border-amber-500/40 rounded-3xl p-8 max-w-sm w-full">
+    <h3 class="text-white font-black text-lg mb-1">✏️ Edit Referral Claim</h3>
+    <p class="text-gray-500 text-[10px] mb-5">Fix a typo or clarify who they meant.</p>
+
+    <label class="text-xs text-gray-400 block mb-1">Referral Text</label>
+    <input id="editReferralText" type="text" class="w-full rounded-xl px-4 py-2.5 text-sm text-white mb-6">
+
+    <div class="flex gap-3">
+      <button onclick="submitEditReferral()" class="flex-1 bg-gold text-black font-bold py-2.5 rounded-xl text-xs">Save Changes</button>
+      <button onclick="closeEditReferralModal()" class="flex-1 glass-card text-gray-400 border border-gray-700 py-2.5 rounded-xl text-xs">Cancel</button>
     </div>
   </div>
 </div>
@@ -545,10 +562,29 @@ function renderStudents() {
         </div>
         <div class="space-y-2">${enrollmentsHtml}</div>
         ${certificatesHtml ? `<div class="space-y-2 mt-3 pt-3 border-t border-gray-800">${certificatesHtml}</div>` : ''}
+        ${referralClaimHtml(s)}
         <div id="notifList-${s.uid}" class="hidden space-y-2 mt-3 pt-3 border-t border-gray-800">${notificationsHtml(s)}</div>
       </div>
     `;
   }).join('');
+}
+
+function referralClaimHtml(s) {
+  const claim = s.referralClaim;
+  if (!claim || claim.status === 'awarded' || claim.status === 'dismissed') return '';
+
+  return `
+    <div class="mt-3 pt-3 border-t border-gray-800 bg-amber-500/5 rounded-xl p-3">
+      <p class="text-amber-300 text-xs font-bold">🔗 Referral claim: "${claim.inputText}"</p>
+      <p class="text-gray-500 text-[10px] mt-1">Search for this person manually — if you find them, use their "+ Points" button (reason: Successful Referral) to award ${REFERRAL_BONUS_POINTS} pts.</p>
+      <div class="flex gap-2 mt-2">
+        <button onclick="openEditReferralModal('${s.uid}', '${(claim.inputText || '').replace(/'/g, "")}')"
+          class="text-[10px] font-bold px-2.5 py-1.5 rounded-lg bg-indigo-500/20 text-indigo-300">✏️ Edit</button>
+        <button onclick="dismissReferralClick('${s.uid}')"
+          class="text-[10px] font-bold px-2.5 py-1.5 rounded-lg bg-gray-500/20 text-gray-400">Dismiss</button>
+      </div>
+    </div>
+  `;
 }
 
 function notificationsHtml(s) {
@@ -579,6 +615,34 @@ function toggleStudentNotifications(uid) {
 async function deleteNotificationClick(uid, notifId) {
   if (!confirm('Delete this notification?')) return;
   await deleteNotification(uid, notifId);
+  allStudents = await getAllStudents();
+  renderStudents();
+}
+
+// ----- Referral claims -----
+async function dismissReferralClick(studentUid) {
+  await db.collection("students").doc(studentUid).update({ "referralClaim.status": "dismissed" });
+  allStudents = await getAllStudents();
+  renderStudents();
+}
+
+function openEditReferralModal(uid, currentText) {
+  activeStudentUid = uid;
+  document.getElementById('editReferralText').value = currentText || '';
+  document.getElementById('editReferralModal').classList.remove('hidden');
+  document.getElementById('editReferralModal').classList.add('flex');
+}
+
+function closeEditReferralModal() {
+  document.getElementById('editReferralModal').classList.add('hidden');
+  document.getElementById('editReferralModal').classList.remove('flex');
+}
+
+async function submitEditReferral() {
+  const newText = document.getElementById('editReferralText').value.trim();
+  if (!newText) { alert('Please enter some text.'); return; }
+  await editReferralClaimText(activeStudentUid, newText);
+  closeEditReferralModal();
   allStudents = await getAllStudents();
   renderStudents();
 }
