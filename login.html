@@ -2,6 +2,7 @@
 <html lang="en" dir="ltr" id="htmlRoot">
 <head>
 <meta charset="UTF-8">
+<meta name="color-scheme" content="dark">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title data-ar="تسجيل الدخول | Sketchy Chapters" data-en="Log In | Sketchy Chapters">Log In | Sketchy Chapters</title>
 <link rel="icon" type="image/png" href="favicon w.png">
@@ -14,7 +15,7 @@
 <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore-compat.js"></script>
 
 <style>
-  body{font-family:'Tajawal',sans-serif;background:#08080a;color:#e0e6ed;overflow-x:hidden;min-height:100vh;}
+  body{color-scheme:dark;font-family:'Tajawal',sans-serif;background:#08080a;color:#e0e6ed;overflow-x:hidden;min-height:100vh;}
   .gold-accent{color:#d4af37;}
   .bg-gold{background:linear-gradient(135deg,#d4af37 0%,#aa7c11 100%);}
   .glass-card{background:rgba(18,18,22,.65);backdrop-filter:blur(16px);border:1px solid rgba(212,175,55,.15);}
@@ -108,7 +109,7 @@
     <p id="errorMsg" class="text-red-400 text-xs hidden"></p>
     <p id="resetMsg" class="text-emerald-400 text-xs hidden"></p>
 
-    <button type="submit" class="w-full bg-gold text-black font-black py-3 rounded-xl text-sm hover:opacity-90 transition" data-ar="تسجيل الدخول" data-en="Log In">Log In</button>
+    <button type="submit" id="loginSubmitBtn" class="w-full bg-gold text-black font-black py-3 rounded-xl text-sm hover:opacity-90 transition flex items-center justify-center gap-2" data-ar="تسجيل الدخول" data-en="Log In">Log In</button>
   </form>
 
   <p class="text-center text-gray-400 text-xs mt-6">
@@ -196,6 +197,11 @@ document.getElementById('loginForm').addEventListener('submit', async (e) => {
   const errorEl = document.getElementById('errorMsg');
   errorEl.classList.add('hidden');
 
+  const btn = document.getElementById('loginSubmitBtn');
+  const originalHtml = btn.innerHTML;
+  btn.disabled = true;
+  btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> <span>' + (currentLang === 'ar' ? 'جاري الدخول...' : 'Logging in...') + '</span>';
+
   try {
     await loginStudent(
       document.getElementById('email').value,
@@ -210,6 +216,8 @@ document.getElementById('loginForm').addEventListener('submit', async (e) => {
       errorEl.textContent = currentLang === 'ar' ? 'الإيميل/رقم الطالب أو كلمة السر غير صحيحة.' : 'Incorrect email/Student ID or password.';
     }
     errorEl.classList.remove('hidden');
+    btn.disabled = false;
+    btn.innerHTML = originalHtml;
   }
 });
 </script>
