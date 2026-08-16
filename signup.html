@@ -2,6 +2,7 @@
 <html lang="en" dir="ltr" id="htmlRoot">
 <head>
 <meta charset="UTF-8">
+<meta name="color-scheme" content="dark">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title data-ar="إنشاء حساب | Sketchy Chapters" data-en="Create Account | Sketchy Chapters">Create Account | Sketchy Chapters</title>
 <link rel="icon" type="image/png" href="favicon w.png">
@@ -14,7 +15,7 @@
 <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore-compat.js"></script>
 
 <style>
-  body{font-family:'Tajawal',sans-serif;background:#08080a;color:#e0e6ed;overflow-x:hidden;min-height:100vh;}
+  body{color-scheme:dark;font-family:'Tajawal',sans-serif;background:#08080a;color:#e0e6ed;overflow-x:hidden;min-height:100vh;}
   .gold-accent{color:#d4af37;}
   .bg-gold{background:linear-gradient(135deg,#d4af37 0%,#aa7c11 100%);}
   .glass-card{background:rgba(18,18,22,.65);backdrop-filter:blur(16px);border:1px solid rgba(212,175,55,.15);}
@@ -494,7 +495,8 @@ document.getElementById('signupForm').addEventListener('submit', async (e) => {
     });
 
     const params = new URLSearchParams(window.location.search);
-    window.location.href = params.get('redirect') || 'account.html';
+    const finalDestination = params.get('redirect') || 'account.html';
+    window.location.href = 'referral.html?next=' + encodeURIComponent(finalDestination);
   } catch (err) {
     errorEl.textContent = err.message;
     errorEl.classList.remove('hidden');
