@@ -127,7 +127,17 @@ async function addPackageToCart(courseNames, totalPrice, event) {
     localStorage.setItem('sketchy_cart', JSON.stringify(cart));
     renderCartBadge();
     renderCartItems();
-    flyGraduationCapFrom(originX, originY, null, '#cartToggleBtn');
+
+    // قبعة لكل دورة بالباكج، بفاصل بسيط بينهم لشكل أحلى
+    courseNames.forEach((_, i) => {
+      setTimeout(() => {
+        // شوي عشوائية بسيطة بنقطة الانطلاق حتى ما يطلعوا فوق بعض بالضبط
+        const jitterX = originX != null ? originX + (Math.random() * 30 - 15) : originX;
+        const jitterY = originY != null ? originY + (Math.random() * 20 - 10) : originY;
+        flyGraduationCapFrom(jitterX, jitterY, null, '#cartToggleBtn');
+      }, i * 180);
+    });
+
     showBookingToast(`🎓 Package added to your selections (${courseNames.length} courses). Open your cart to review and submit.`);
   } catch (err) {
     console.error('addPackageToCart failed:', err);
