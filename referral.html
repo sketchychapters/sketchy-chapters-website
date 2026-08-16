@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" id="htmlRoot">
+<head>
+<meta charset="UTF-8">
+<meta name="color-scheme" content="dark">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title data-ar="هل حوّلك صديق؟ | Sketchy Chapters" data-en="Referred by a Friend? | Sketchy Chapters">Referred by a Friend? | Sketchy Chapters</title>
+<link rel="icon" type="image/png" href="favicon w.png">
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore-compat.js"></script>
+
+<style>
+  body{color-scheme:dark;font-family:'Tajawal',sans-serif;background:#08080a;color:#e0e6ed;min-height:100vh;overflow-x:hidden;}
+  .gold-accent{color:#d4af37;}
+  .bg-gold{background:linear-gradient(135deg,#d4af37 0%,#aa7c11 100%);}
+  .glass-card{background:rgba(18,18,22,.65);backdrop-filter:blur(16px);border:1px solid rgba(212,175,55,.15);}
+  input{background:rgba(0,0,0,.4);border:1px solid rgba(212,175,55,.25);color:#fff;}
+  input:focus{outline:none;border-color:#d4af37;}
+</style>
+</head>
+<body class="flex flex-col items-center justify-center px-6 py-10">
+
+<button onclick="toggleLanguage()" id="lang-btn" class="fixed top-5 right-5 rtl:right-auto rtl:left-5 glass-card text-amber-400 border border-amber-500/30 px-3 py-2 rounded-xl text-xs font-bold hover:bg-amber-500/10 transition flex items-center gap-1.5 z-20">
+  <i class="fa-solid fa-globe text-sm"></i>
+  <span id="langBtnText">العربية</span>
+</button>
+
+<div class="text-center mb-8">
+  <img src="workshop.png" alt="Workshop Logo" class="h-12 w-auto object-contain mx-auto mb-2" onerror="this.style.display='none'; document.getElementById('logo-fallback').style.display='block';">
+  <span id="logo-fallback" class="hidden text-xl font-black tracking-wider text-white">SKETCHY <span class="gold-accent">CHAPTERS</span></span>
+</div>
+
+<div class="glass-card w-full max-w-md rounded-3xl p-8 md:p-10">
+
+  <div id="askState">
+    <div class="text-center mb-6">
+      <i class="fa-solid fa-user-group gold-accent text-2xl mb-3"></i>
+      <h1 class="text-xl font-black text-white mb-1" data-ar="هل دلّك عنّا صديق؟" data-en="Did a friend refer you?">Did a friend refer you?</h1>
+      <p class="text-gray-400 text-xs" data-ar="اكتب اسمه، رقم طالبه، أو رقم هاتفه كما هو مسجل بحسابه — عشان ياخد نقاط الإحالة." data-en="Enter their name, Student ID, or phone number exactly as registered — so they get their referral points.">Enter their name, Student ID, or phone number exactly as registered — so they get their referral points.</p>
+    </div>
+
+    <input id="referralInput" type="text" placeholder="Friend's name, Student ID, or phone"
+      class="w-full rounded-xl px-4 py-3 text-sm text-white mb-3">
+
+    <p id="referralError" class="text-red-400 text-xs hidden mb-3"></p>
+
+    <button onclick="submitReferral()" class="w-full bg-gold text-black font-black py-3 rounded-xl text-sm hover:opacity-90 transition mb-3" data-ar="إرسال" data-en="Submit">Submit</button>
+    <button onclick="skipReferral()" class="w-full text-gray-400 text-xs py-2" data-ar="ما حدا دلّني، تخطّي" data-en="No one referred me, skip">No one referred me, skip</button>
+  </div>
+
+  <div id="resultState" class="hidden text-center py-4">
+    <i id="resultIcon" class="fa-solid fa-circle-check text-emerald-400 text-3xl mb-3"></i>
+    <h1 id="resultTitle" class="text-white font-black text-lg mb-2">Thank you!</h1>
+    <p id="resultDesc" class="text-gray-400 text-xs mb-6"></p>
+    <button onclick="continueOn()" class="inline-block bg-gold text-black font-bold text-xs px-6 py-3 rounded-xl" data-ar="متابعة" data-en="Continue">Continue</button>
+  </div>
+
+</div>
+
+<script src="firebase-init.js"></script>
+<script>
+let currentLang = 'en';
+function toggleLanguage(){
+  currentLang = currentLang === 'en' ? 'ar' : 'en';
+  const htmlRoot = document.getElementById('htmlRoot');
+  const langBtnText = document.getElementById('langBtnText');
+  htmlRoot.setAttribute('dir', currentLang === 'ar' ? 'rtl' : 'ltr');
+  htmlRoot.setAttribute('lang', currentLang);
+  langBtnText.innerText = currentLang === 'ar' ? 'English' : 'العربية';
+  document.querySelectorAll('[data-ar]').forEach(el => {
+    const t = currentLang === 'ar' ? el.getAttribute('data-ar') : el.getAttribute('data-en');
+    if (t) el.innerText = t;
+  });
+}
+
+requireLogin();
+
+function getNextDestination() {
+  const params = new URLSearchParams(window.location.search);
+  return params.get('next') || 'account.html';
+}
+
+function continueOn() {
+  window.location.href = getNextDestination();
+}
+
+function showResult(iconClass, iconColor, title, desc) {
+  document.getElementById('askState').classList.add('hidden');
+  document.getElementById('resultState').classList.remove('hidden');
+  const icon = document.getElementById('resultIcon');
+  icon.className = `fa-solid ${iconClass} ${iconColor} text-3xl mb-3`;
+  document.getElementById('resultTitle').innerText = title;
+  document.getElementById('resultDesc').innerText = desc;
+}
+
+function skipReferral() {
+  continueOn();
+}
+
+async function submitReferral() {
+  const errorEl = document.getElementById('referralError');
+  errorEl.classList.add('hidden');
+
+  const identifier = document.getElementById('referralInput').value.trim();
+  if (!identifier) {
+    errorEl.textContent = currentLang === 'ar' ? 'اكتب اسم أو رقم صديقك، أو دوس "تخطّي".' : 'Enter your friend\'s name or ID, or click "Skip".';
+    errorEl.classList.remove('hidden');
+    return;
+  }
+
+  try {
+    await submitReferralClaim(identifier);
+    showResult(
+      'fa-circle-check', 'text-emerald-400',
+      currentLang === 'ar' ? 'تم الإرسال! 🎉' : 'Sent! 🎉',
+      currentLang === 'ar'
+        ? 'سجّلنا المعلومة، وفريقنا رح يتأكد ويضيف نقاط الإحالة لصديقك يدوياً.'
+        : 'We\'ve saved this, and our team will verify and add your friend\'s referral points manually.'
+    );
+  } catch (err) {
+    if (err.message === 'SELF_REFERRAL') {
+      errorEl.textContent = currentLang === 'ar' ? 'ما فيك تحيل حالك بنفسك 🙂 اكتب اسم صديقك بس.' : 'You can\'t refer yourself 🙂 Please enter your friend\'s info only.';
+    } else {
+      errorEl.textContent = currentLang === 'ar' ? 'حدث خطأ. حاول مرة أخرى أو دوس "تخطّي".' : 'Something went wrong. Please try again or click "Skip".';
+    }
+    errorEl.classList.remove('hidden');
+  }
+}
+</script>
+</body>
+</html>
