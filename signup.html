@@ -156,7 +156,7 @@
 
     <p id="errorMsg" class="text-red-400 text-xs hidden"></p>
 
-    <button type="submit" class="w-full bg-gold text-black font-black py-3 rounded-xl text-sm hover:opacity-90 transition" data-ar="إنشاء الحساب" data-en="Create Account">Create Account</button>
+    <button type="submit" id="signupSubmitBtn" class="w-full bg-gold text-black font-black py-3 rounded-xl text-sm hover:opacity-90 transition flex items-center justify-center gap-2" data-ar="إنشاء الحساب" data-en="Create Account">Create Account</button>
   </form>
 
   <p class="text-center text-gray-400 text-xs mt-6">
@@ -477,6 +477,11 @@ document.getElementById('signupForm').addEventListener('submit', async (e) => {
   const errorEl = document.getElementById('errorMsg');
   errorEl.classList.add('hidden');
 
+  const btn = document.getElementById('signupSubmitBtn');
+  const originalHtml = btn.innerHTML;
+  btn.disabled = true;
+  btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> <span>' + (currentLang === 'ar' ? 'جاري الإنشاء...' : 'Creating account...') + '</span>';
+
   try {
     const firstName = document.getElementById('firstName').value.trim();
     const lastName = document.getElementById('lastName').value.trim();
@@ -500,6 +505,8 @@ document.getElementById('signupForm').addEventListener('submit', async (e) => {
   } catch (err) {
     errorEl.textContent = err.message;
     errorEl.classList.remove('hidden');
+    btn.disabled = false;
+    btn.innerHTML = originalHtml;
   }
 });
 </script>
