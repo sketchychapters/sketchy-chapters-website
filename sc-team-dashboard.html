@@ -668,7 +668,7 @@ function toggleStudentNotifications(uid) {
 }
 
 async function deleteNotificationClick(uid, notifId) {
-  if (!confirm('Delete this notification?')) return;
+  if (!(await customConfirm('Delete this notification?'))) return;
   await deleteNotification(uid, notifId);
   allStudents = await getAllStudents();
   renderStudents();
@@ -695,7 +695,7 @@ function closeEditReferralModal() {
 
 async function submitEditReferral() {
   const newText = document.getElementById('editReferralText').value.trim();
-  if (!newText) { alert('Please enter some text.'); return; }
+  if (!newText) { await customAlert('Please enter some text.'); return; }
   await editReferralClaimText(activeStudentUid, newText);
   closeEditReferralModal();
   allStudents = await getAllStudents();
@@ -729,7 +729,7 @@ async function submitEditPointsLog() {
 }
 
 async function deletePointsLogClick(uid, entryId) {
-  if (!confirm('Delete this points entry? The points will be subtracted from the student\'s balance.')) return;
+  if (!(await customConfirm('Delete this points entry? The points will be subtracted from the student\'s balance.'))) return;
   await deletePointsLogEntry(uid, entryId);
   allStudents = await getAllStudents();
   renderStudents();
@@ -748,7 +748,7 @@ async function approveEnrollmentClick(uid, enrollmentId) {
 }
 
 async function rejectEnrollmentClick(uid, enrollmentId, courseName) {
-  if (!confirm(`Remove this student's registration for "${courseName}"? If points were already awarded for it, they'll be reversed.`)) return;
+  if (!(await customConfirm(`Remove this student's registration for "${courseName}"? If points were already awarded for it, they'll be reversed.`))) return;
   await adminCancelEnrollment(uid, enrollmentId);
   allStudents = await getAllStudents();
   computeStats();
@@ -831,7 +831,7 @@ async function submitEditEnrollment() {
   const courseName = document.getElementById('editEnrollCourseName').value.trim();
   const type = document.getElementById('editEnrollType').value;
   const finalPrice = parseFloat(document.getElementById('editEnrollPrice').value) || 0;
-  if (!courseName) { alert('Please enter a course name.'); return; }
+  if (!courseName) { await customAlert('Please enter a course name.'); return; }
 
   await editEnrollmentDetails(activeStudentUid, activeEnrollmentId, { courseName, type, finalPrice });
   closeEditEnrollmentModal();
@@ -896,7 +896,7 @@ function closeEnrollModal() {
 
 async function submitAddEnrollment() {
   const courseName = document.getElementById('enrollCourseName').value.trim();
-  if (!courseName) { alert('Please enter a course name.'); return; }
+  if (!courseName) { await customAlert('Please enter a course name.'); return; }
 
   const startDate = document.getElementById('enrollStartDate').value;
   const endDate = document.getElementById('enrollEndDate').value;
@@ -940,7 +940,7 @@ function closeCertModal() {
 async function submitAddCertificate() {
   const courseName = document.getElementById('certCourseName').value.trim();
   const url = document.getElementById('certUrl').value.trim();
-  if (!courseName || !url) { alert('Please fill in both fields.'); return; }
+  if (!courseName || !url) { await customAlert('Please fill in both fields.'); return; }
 
   if (activeCertId) {
     await editCertificate(activeStudentUid, activeCertId, { courseName, url });
@@ -953,7 +953,7 @@ async function submitAddCertificate() {
 }
 
 async function deleteCertificateClick(uid, certId, courseName) {
-  if (!confirm(`Delete the certificate for "${courseName}"? This can't be undone.`)) return;
+  if (!(await customConfirm(`Delete the certificate for "${courseName}"? This can't be undone.`))) return;
   await deleteCertificate(uid, certId);
   allStudents = await getAllStudents();
   renderStudents();
@@ -975,11 +975,11 @@ function closeNotifyModal() {
 
 async function submitNotify() {
   const message = document.getElementById('notifyMessage').value.trim();
-  if (!message) { alert('Please write a message.'); return; }
+  if (!message) { await customAlert('Please write a message.'); return; }
 
   await addNotification(activeStudentUid, message);
   closeNotifyModal();
-  alert('✅ Notification sent to this student.');
+  await customAlert('✅ Notification sent to this student.');
 }
 
 // ----- Edit a student's full profile -----
@@ -1021,7 +1021,7 @@ async function submitEditProfile() {
 
 // ----- Edit a student's ID (e.g. legacy student - set the ID to reflect the year they actually first joined) -----
 async function editStudentIdClick(uid, oldId) {
-  const newId = prompt('Enter the new Student ID (e.g. 202210001 for a student who first joined in 2022):', oldId);
+  const newId = await customPrompt('Enter the new Student ID (e.g. 202210001 for a student who first joined in 2022):', oldId);
   if (!newId || newId.trim() === '' || newId.trim() === oldId) return;
 
   try {
@@ -1029,19 +1029,19 @@ async function editStudentIdClick(uid, oldId) {
     allStudents = await getAllStudents();
     renderStudents();
   } catch (err) {
-    alert('Could not update the ID — it might already be in use, or a permissions issue occurred.');
+    await customAlert('Could not update the ID — it might already be in use, or a permissions issue occurred.');
     console.error(err);
   }
 }
 
 // ----- Delete a student record entirely (e.g. after removing them from Firebase Authentication) -----
 async function deleteStudentClick(uid, studentId, name) {
-  const confirm1 = confirm(`⚠️ Permanently delete ${name}'s entire record (courses, points, certificates, everything)?\n\nThis cannot be undone.`);
+  const confirm1 = await customConfirm(`⚠️ Permanently delete ${name}'s entire record (courses, points, certificates, everything)?\n\nThis cannot be undone.`);
   if (!confirm1) return;
 
-  const typed = prompt(`To confirm, type DELETE (in capital letters):`);
+  const typed = await customPrompt(`To confirm, type DELETE (in capital letters):`);
   if (typed !== 'DELETE') {
-    alert('Cancelled — text did not match.');
+    await customAlert('Cancelled — text did not match.');
     return;
   }
 
@@ -1049,21 +1049,21 @@ async function deleteStudentClick(uid, studentId, name) {
   allStudents = await getAllStudents();
   computeStats();
   renderStudents();
-  alert(`✅ ${name}'s record has been deleted.`);
+  await customAlert(`✅ ${name}'s record has been deleted.`);
 }
 
 async function submitAnnouncement() {
   const input = document.getElementById('announcementText');
   const message = input.value.trim();
   if (!message) return;
-  if (!confirm(`Send this notification to all ${allStudents.length} students?\n\n"${message}"`)) return;
+  if (!(await customConfirm(`Send this notification to all ${allStudents.length} students?\n\n"${message}"`))) return;
 
   try {
     const count = await broadcastAnnouncement(message);
-    alert(`✅ Sent to ${count} students.`);
+    await customAlert(`✅ Sent to ${count} students.`);
     input.value = '';
   } catch (err) {
-    alert('Something went wrong sending the announcement.');
+    await customAlert('Something went wrong sending the announcement.');
     console.error(err);
   }
 }
