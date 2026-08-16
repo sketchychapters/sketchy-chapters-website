@@ -280,6 +280,25 @@
   </div>
 </div>
 
+<!-- Edit points log entry -->
+<div id="editPointsLogModal" class="hidden fixed inset-0 bg-black/80 z-[60] flex items-center justify-center px-6">
+  <div class="glass-card bg-[#121216] border border-amber-500/40 rounded-3xl p-8 max-w-sm w-full">
+    <h3 class="text-white font-black text-lg mb-1">✏️ Edit Points Entry</h3>
+    <p class="text-gray-500 text-[10px] mb-5">Changing the amount adjusts the student's total balance automatically.</p>
+
+    <label class="text-xs text-gray-400 block mb-1">Points</label>
+    <input id="editPointsLogAmount" type="number" class="w-full rounded-xl px-4 py-2.5 text-sm text-white mb-4">
+
+    <label class="text-xs text-gray-400 block mb-1">Reason</label>
+    <input id="editPointsLogReason" type="text" class="w-full rounded-xl px-4 py-2.5 text-sm text-white mb-6">
+
+    <div class="flex gap-3">
+      <button onclick="submitEditPointsLog()" class="flex-1 bg-gold text-black font-bold py-2.5 rounded-xl text-xs">Save Changes</button>
+      <button onclick="closeEditPointsLogModal()" class="flex-1 glass-card text-gray-400 border border-gray-700 py-2.5 rounded-xl text-xs">Cancel</button>
+    </div>
+  </div>
+</div>
+
 <!-- Edit student profile -->
 <div id="editProfileModal" class="hidden fixed inset-0 bg-black/80 z-[60] flex items-center justify-center px-6">
   <div class="glass-card bg-[#121216] border border-amber-500/40 rounded-3xl p-8 max-w-sm w-full">
@@ -598,15 +617,24 @@ function pointsLogHtml(s) {
   if (log.length === 0) {
     return '<p class="text-gray-500 text-xs">No points history yet.</p>';
   }
-  return log.map(entry => `
-    <div class="flex items-center justify-between bg-black/30 rounded-xl px-3 py-2 text-xs">
+  return log.map(entry => {
+    const eid = entry.id || entry.date;
+    return `
+    <div class="flex items-center justify-between bg-black/30 rounded-xl px-3 py-2 text-xs gap-2">
       <span class="text-gray-300">${entry.reason || 'manual'}</span>
-      <div class="text-right rtl:text-left">
-        <span class="gold-accent font-bold">${entry.points > 0 ? '+' : ''}${entry.points} pts</span>
-        <span class="text-gray-500 text-[10px] block">${new Date(entry.date).toLocaleString()}</span>
+      <div class="flex items-center gap-2 shrink-0">
+        <div class="text-right rtl:text-left">
+          <span class="gold-accent font-bold">${entry.points > 0 ? '+' : ''}${entry.points} pts</span>
+          <span class="text-gray-500 text-[10px] block">${new Date(entry.date).toLocaleString()}</span>
+        </div>
+        <button onclick="openEditPointsLogModal('${s.uid}', '${eid}', ${entry.points}, '${(entry.reason || '').replace(/'/g, "")}')"
+          class="text-[10px] font-bold px-2 py-1 rounded-lg bg-indigo-500/20 text-indigo-300">✏️</button>
+        <button onclick="deletePointsLogClick('${s.uid}', '${eid}')"
+          class="text-[10px] font-bold px-2 py-1 rounded-lg bg-red-500/20 text-red-400">🗑️</button>
       </div>
     </div>
-  `).join('');
+  `;
+  }).join('');
 }
 
 function toggleStudentPointsLog(uid) {
@@ -670,6 +698,39 @@ async function submitEditReferral() {
   if (!newText) { alert('Please enter some text.'); return; }
   await editReferralClaimText(activeStudentUid, newText);
   closeEditReferralModal();
+  allStudents = await getAllStudents();
+  renderStudents();
+}
+
+// ----- Edit / delete points log entries -----
+let activePointsLogId = null;
+
+function openEditPointsLogModal(uid, entryId, points, reason) {
+  activeStudentUid = uid;
+  activePointsLogId = entryId;
+  document.getElementById('editPointsLogAmount').value = points;
+  document.getElementById('editPointsLogReason').value = reason;
+  document.getElementById('editPointsLogModal').classList.remove('hidden');
+  document.getElementById('editPointsLogModal').classList.add('flex');
+}
+
+function closeEditPointsLogModal() {
+  document.getElementById('editPointsLogModal').classList.add('hidden');
+  document.getElementById('editPointsLogModal').classList.remove('flex');
+}
+
+async function submitEditPointsLog() {
+  const newPoints = parseInt(document.getElementById('editPointsLogAmount').value, 10) || 0;
+  const newReason = document.getElementById('editPointsLogReason').value.trim();
+  await editPointsLogEntry(activeStudentUid, activePointsLogId, newPoints, newReason);
+  closeEditPointsLogModal();
+  allStudents = await getAllStudents();
+  renderStudents();
+}
+
+async function deletePointsLogClick(uid, entryId) {
+  if (!confirm('Delete this points entry? The points will be subtracted from the student\'s balance.')) return;
+  await deletePointsLogEntry(uid, entryId);
   allStudents = await getAllStudents();
   renderStudents();
 }
