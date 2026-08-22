@@ -1,16 +1,7 @@
-// ==========================================================
-// booking-ui.js
-// منطق "سلة الاختيارات" (Cart) + أنيميشن القبعة الطايرة
-// الطالب بيضيف كل الكورسات يلي بده ياها، ويقدر يشيل ويزيد،
-// وبس يدوس "تأكيد وإرسال التسجيل" بينكتبوا كلهم وبيبعت إيميل واحد فيه القائمة كاملة
-// حط هاد السكربت + firebase-init.js + course-booking.js بكل صفحة فيها زر تسجيل بدورة
-// ==========================================================
-
 let currentBooking = null;
 let cart = [];
 try { cart = JSON.parse(localStorage.getItem('sketchy_cart') || '[]'); } catch (e) { cart = []; }
 
-// نستنى Firebase يتأكد فعلياً من حالة تسجيل الدخول قبل ما نسمح/نمنع الحجز
 let authReadyPromise = new Promise(resolve => {
   const unsub = auth.onAuthStateChanged(user => { unsub(); resolve(user); });
 });
@@ -18,19 +9,16 @@ let authReadyPromise = new Promise(resolve => {
 async function openBookingModal(courseName, basePrice) {
   const user = await authReadyPromise;
   if (!user || !auth.currentUser) {
-    console.warn('openBookingModal: no authenticated user, redirecting to login.', { user, current: auth.currentUser });
     window.location.href = 'login.html?redirect=' + encodeURIComponent(window.location.pathname);
     return;
   }
   currentBooking = { courseName, basePrice };
   document.getElementById('modalCourseName').innerText = courseName;
 
-  // نجيب بيانات الطالب مرة وحدة، ومنستخدمها لعرض السعر الفعلي (بعد خصم مستواه/عيد ميلاده) وزر الكورس المجاني
   getCurrentStudentData().then(data => {
     if (!data) return;
     const level = computeLevel(data.points);
 
-    // زر الكورس المجاني للبلاتيني (إذا موجود بالصفحة ولسا ما استخدمه هالسنة)
     const freeBtn = document.getElementById('redeemFreeCourseBtn');
     if (freeBtn) {
       const thisYear = new Date().getFullYear();
@@ -38,7 +26,6 @@ async function openBookingModal(courseName, basePrice) {
       freeBtn.classList.toggle('hidden', !canRedeem);
     }
 
-    // نعرض السعر الفعلي (بعد الخصم) بدل السعر الأساسي، عشان الطالب يشوف صح قبل ما يأكد
     let bestDiscount = level.courseDiscount;
     const thisYearForBday = new Date().getFullYear();
     const hasEnrollmentHistory = (data.enrollments || []).length > 0;
@@ -57,7 +44,6 @@ async function openBookingModal(courseName, basePrice) {
   document.getElementById('bookingModal').classList.add('flex');
 }
 
-// شريط صغير بمودال الحجز يبيّن السعر الفعلي بعد أي خصم مستحق (مستوى الطالب أو أسبوع عيد ميلاده)
 function renderBookingPriceHint(basePrice, discountPercent) {
   const modalBox = document.querySelector('#bookingModal > div');
   if (!modalBox) return;
@@ -90,8 +76,6 @@ function closeBookingModal() {
   document.getElementById('bookingModal').classList.remove('flex');
 }
 
-// دوس Group/Private/Free بمودال الكورس -> منضيف للسلة، ما منسجل فوراً وما منبعت إيميل هلق
-// إضافة باقة صيفية (Package) للسلة - يا الباقة كاملة يا ولا شي، ممنوع تنضاف ناقصة
 async function addPackageToCart(courseNames, totalPrice, event) {
   const user = await authReadyPromise;
   if (!user || !auth.currentUser) {
@@ -108,7 +92,6 @@ async function addPackageToCart(courseNames, totalPrice, event) {
     const data = await getCurrentStudentData();
     const existingEnrollments = (data && data.enrollments) || [];
 
-    // نفحص كل دورات الباقة قبل ما نضيف أي شي - لو في تعارض بأي وحدة منهم، الباقة كلها بترفض
     const conflicts = courseNames.filter(courseName =>
       cart.some(item => item.courseName === courseName) ||
       existingEnrollments.some(en => en.courseName === courseName && en.status !== 'cancelled')
@@ -128,10 +111,8 @@ async function addPackageToCart(courseNames, totalPrice, event) {
     renderCartBadge();
     renderCartItems();
 
-    // قبعة لكل دورة بالباكج، بفاصل بسيط بينهم لشكل أحلى
     courseNames.forEach((_, i) => {
       setTimeout(() => {
-        // شوي عشوائية بسيطة بنقطة الانطلاق حتى ما يطلعوا فوق بعض بالضبط
         const jitterX = originX != null ? originX + (Math.random() * 30 - 15) : originX;
         const jitterY = originY != null ? originY + (Math.random() * 20 - 10) : originY;
         flyGraduationCapFrom(jitterX, jitterY, null, '#cartToggleBtn');
@@ -171,7 +152,6 @@ async function confirmBooking(type, event) {
     return;
   }
 
-  // فحص فوري: هل الطالب مؤهل لهاي الدورة (سجّل بالدورة المطلوبة قبلها إذا في وحدة)؟
   try {
     const data = await getCurrentStudentData();
     const prereq = checkPrerequisites(booking.courseName, data ? data.enrollments : [], cart);
@@ -188,16 +168,11 @@ async function confirmBooking(type, event) {
   renderCartBadge();
   renderCartItems();
 
-  // القبعة الصغيرة تطير هلق عالسلة (مش عالحساب - لسا ما تسجل رسمياً)
   flyGraduationCapFrom(originX, originY, capIcon, '#cartToggleBtn');
 
   showBookingToast(`🎓 "${booking.courseName}" added to your selections. Open your cart to review and submit.`);
 }
 
-// ----------------------------------------------------------
-// أنيميشن القبعة: نفس القبعة الصغيرة يلي عالزر هي يلي بتنطلق
-// (مسار منحني متل قذيفة مدفع) وبتوصل لهدفها (السلة أو الحساب)
-// ----------------------------------------------------------
 const GRAD_CAP_SVG = `
 <svg width="46" height="46" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
   <polygon points="32,10 60,24 32,38 4,24" fill="#0b0b0e" stroke="#d4af37" stroke-width="2"/>
@@ -214,7 +189,6 @@ const GRAD_CAP_SVG = `
   </defs>
 </svg>`;
 
-// إعداد أنيميشن ميل الزر (يُحقن مرة وحدة بكل صفحة)
 (function injectCapStyles() {
   const style = document.createElement('style');
   style.textContent = `
@@ -301,9 +275,6 @@ function flyGraduationCap(event) {
   flyGraduationCapFrom(x, y, null);
 }
 
-// ----------------------------------------------------------
-// رسالة تأكيد صغيرة أسفل الشاشة بدل alert()
-// ----------------------------------------------------------
 function showBookingToast(message) {
   const toast = document.createElement('div');
   toast.textContent = message;
@@ -328,9 +299,6 @@ function showBookingToast(message) {
   setTimeout(() => toast.remove(), 3700);
 }
 
-// ----------------------------------------------------------
-// دائرة الأفاتار بالهيدر (بدل نص "My Account")
-// ----------------------------------------------------------
 function renderAuthAvatar() {
   const desktopArea = document.getElementById('authArea');
   const mobileLink = document.getElementById('mobileAuthLink');
@@ -368,9 +336,6 @@ function renderAuthAvatar() {
 }
 window.refreshAuthAvatar = renderAuthAvatar;
 
-// ==========================================================
-// سلة الاختيارات (Cart UI) - أيقونة بالهيدر + نافذة المراجعة والإرسال
-// ==========================================================
 function injectCartUI() {
   const authArea = document.getElementById('authArea');
   if (!authArea || document.getElementById('cartToggleBtn')) return;
@@ -497,9 +462,6 @@ async function submitCartClick() {
   }
 }
 
-// ==========================================================
-// جرس الإشعارات (Notifications) بالهيدر
-// ==========================================================
 function injectNotificationUI() {
   const authArea = document.getElementById('authArea');
   if (!authArea || document.getElementById('notifToggleBtn')) return;
@@ -576,7 +538,6 @@ function closeNotifModal() {
   document.getElementById('notifModal').classList.remove('flex');
 }
 
-// شغّل كل شي أوتوماتيك أول ما الصفحة تحمّل (بعد ما firebase-init.js يخلص)
 renderAuthAvatar();
 injectCartUI();
 injectNotificationUI();
