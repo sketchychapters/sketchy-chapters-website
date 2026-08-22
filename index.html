@@ -2,14 +2,13 @@
 <html lang="en" dir="ltr" class="scroll-smooth" id="main-html">
 <head>
     <meta charset="UTF-8">
+    <meta name="color-scheme" content="dark">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <!-- Title & SEO Description optimized for Construction & Interior Design -->
+
     <title>Sketchy Chapters | Construction & Interior Design Studio</title>
-    <meta name="description" content="Sketchy Chapters is a premier design, construction, and interior design studio delivering residential and commercial projects from concept to execution.">
+    <meta name="description" content="Sketchy Chapters is a premier design, construction, and interior design studio delivering residential and commercial projects from concept to execution. Every sketch tells a story.">
     <meta name="keywords" content="construction company, interior design studio, architecture, building contractor, sketchy chapters">
 
-    <!-- Schema Markup to tell Google you are a General Contractor / Construction Company -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -19,6 +18,7 @@
       "url": "https://www.sketchychapters.com/",
       "telephone": "+96181427589",
       "priceRange": "$$$",
+      "slogan": "Every Sketch Tells a Story",
       "address": {
         "@type": "PostalAddress",
         "addressLocality": "Tripoli, Riyadh, Doha",
@@ -27,27 +27,15 @@
       "description": "Professional design, construction, and interior design studio."
     }
     </script>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sketchy Chapters | Design & Construction (SCDC)</title>
-    <!-- Favicon -->
+
     <link rel="icon" type="image/png" href="favicon.png">
-    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Swiper CSS Slider -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&family=Tajawal:wght@300;500;700;900&display=swap" rel="stylesheet">
-    <!-- Font Awesome Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&family=Tajawal:wght@300;500;700;900&family=Cormorant+Garamond:wght@500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- AOS Animation Library -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <style>
-        html {
-            overflow-x: hidden;
-            width: 100%;
-        }
+        html { overflow-x: hidden; width: 100%; }
         body {
             font-family: 'Plus Jakarta Sans', 'Tajawal', sans-serif;
             background-color: #08080a;
@@ -74,28 +62,134 @@
         }
         .swiper-pagination-bullet-active { background: #d4af37 !important; }
         img { user-select: none; -webkit-user-drag: none; }
-
-        /* Ensure Swiper slides never force horizontal overflow before JS initializes */
-        .swiper {
-            width: 100%;
-            overflow: hidden;
-        }
-
-        /* Language Display Controls */
+        .swiper { width: 100%; overflow: hidden; }
         [lang="ar"] .lang-en { display: none !important; }
         [lang="en"] .lang-ar { display: none !important; }
+        .slogan-text { font-family: 'Plus Jakarta Sans', 'Tajawal', sans-serif; font-weight: 800; letter-spacing: 0.1em; }
+
+        /* ================= INTRO ANIMATION ================= */
+        #introOverlay {
+            position: fixed; inset: 0; z-index: 9999;
+            background: #08080a;
+            display: flex; align-items: center; justify-content: center;
+            overflow: hidden;
+        }
+        #introOverlay.intro-hidden { display: none; }
+        #introOverlay.intro-exit { animation: introFadeToBlack 1.6s ease forwards; }
+        @keyframes introFadeToBlack {
+            0%   { opacity: 1; background-color: #08080a; }
+            35%  { opacity: 1; background-color: #000000; }
+            100% { opacity: 0; background-color: #000000; }
+        }
+        #introFlash {
+            position: absolute; inset: 0; z-index: 3; pointer-events: none;
+            background: radial-gradient(circle, rgba(255,255,255,0.95) 0%, rgba(212,175,55,0.55) 35%, transparent 70%);
+            opacity: 0;
+        }
+        #introOverlay.intro-exit #introFlash { animation: introFlashPulse 0.6s ease-out forwards; }
+        @keyframes introFlashPulse {
+            0%   { opacity: 0; transform: scale(0.25); }
+            35%  { opacity: 1; }
+            100% { opacity: 0; transform: scale(3); }
+        }
+        .intro-particle {
+            position: absolute; width: 2px; height: 2px;
+            background: #d4af37; border-radius: 50%;
+            box-shadow: 0 0 6px 1px rgba(212,175,55,0.7);
+            opacity: 0; animation: introParticleRise linear infinite;
+        }
+        @keyframes introParticleRise {
+            0%   { transform: translateY(0) scale(1); opacity: 0; }
+            10%  { opacity: 0.8; }
+            90%  { opacity: 0.3; }
+            100% { transform: translateY(-420px) scale(0.4); opacity: 0; }
+        }
+        .intro-grid-line {
+            stroke: #d4af37; stroke-width: 0.75; fill: none;
+            stroke-dasharray: 620; stroke-dashoffset: 620; opacity: 0.25;
+            animation: introDrawLine 1.7s cubic-bezier(.65,0,.35,1) forwards;
+        }
+        @keyframes introDrawLine { to { stroke-dashoffset: 0; } }
+        #introWordmark {
+            opacity: 0; transform: scale(0.85);
+            animation: introLogoIn 1s cubic-bezier(.34,1.56,.64,1) forwards;
+            animation-delay: 2.0s;
+        }
+        @keyframes introLogoIn { to { opacity: 1; transform: scale(1); } }
+        #introSlogan {
+            opacity: 0; transform: translateY(10px);
+            animation: introTagIn 0.9s ease forwards;
+            animation-delay: 2.75s;
+        }
+        #introTagline {
+            opacity: 0; transform: translateY(10px);
+            animation: introTagIn 0.8s ease forwards;
+            animation-delay: 3.2s;
+        }
+        @keyframes introTagIn { to { opacity: 1; transform: translateY(0); } }
+        #introSweep {
+            position: absolute; top: 0; bottom: 0; width: 40%;
+            background: linear-gradient(90deg, transparent, rgba(212,175,55,0.15), transparent);
+            transform: translateX(-150%);
+            animation: introSweepMove 2.4s ease-in-out forwards;
+            animation-delay: 0.4s;
+        }
+        @keyframes introSweepMove { to { transform: translateX(250%); } }
+        .intro-glow-ring {
+            position: absolute; width: 360px; height: 360px; border-radius: 50%;
+            border: 1px solid rgba(212,175,55,0.25);
+            animation: introRingPulse 2.6s ease-out infinite;
+        }
+        @keyframes introRingPulse {
+            0% { transform: scale(0.6); opacity: 0; }
+            40% { opacity: 0.55; }
+            100% { transform: scale(1.35); opacity: 0; }
+        }
     </style>
 </head>
 <body class="selection:bg-amber-500 selection:text-black">
+
+    <!-- ================= INTRO ANIMATION ================= -->
+    <div id="introOverlay">
+        <div id="introFlash"></div>
+        <div id="introSweep"></div>
+        <div class="intro-glow-ring"></div>
+        <div id="introParticles"></div>
+
+        <svg class="absolute" style="pointer-events:none; width:230px; height:270px; left:50%; top:36%; transform:translate(-50%,-50%);" viewBox="0 0 200 240">
+            <path d="M 10 10 L 190 10 L 190 40 L 60 40 L 60 110 L 10 110 Z" class="intro-grid-line" style="animation-delay:0.15s"/>
+            <path d="M 190 230 L 10 230 L 10 200 L 140 200 L 140 130 L 190 130 Z" class="intro-grid-line" style="animation-delay:0.4s"/>
+        </svg>
+
+        <div class="relative text-center px-6">
+            <div id="introWordmark" class="flex flex-col items-center">
+                <img src="logo.png" alt="Sketchy Chapters" class="h-14 md:h-16 w-auto object-contain mb-5" onerror="this.style.display='none'; document.getElementById('introLogoFallback').style.display='block';">
+                <span id="introLogoFallback" class="hidden text-2xl md:text-3xl font-black tracking-wider text-white mb-5">
+                    <span class="lang-en">SKETCHY <span class="gold-accent">CHAPTERS</span></span>
+                    <span class="lang-ar">سكتشي <span class="gold-accent">تشابترز</span></span>
+                </span>
+            </div>
+            <p id="introSlogan" class="slogan-text text-white text-lg md:text-2xl mb-3">
+                <span class="lang-en">Every Sketch Tells a Story</span>
+                <span class="lang-ar">كل خط يحكي قصة</span>
+            </p>
+            <p id="introTagline" class="text-amber-300/70 text-[10px] md:text-xs uppercase tracking-[0.4em] font-bold">
+                <span class="lang-en">Design &middot; Construction &middot; Interiors</span>
+                <span class="lang-ar">تصميم · بناء · ديكور</span>
+            </p>
+        </div>
+    </div>
 
     <!-- ================= HEADER / NAVIGATION ================= -->
     <header class="glass-card fixed top-0 w-full z-50 border-b border-amber-500/15 py-4 px-6 md:px-12 flex items-center justify-between gap-3">
         <a href="index.html" class="flex items-center space-x-3 rtl:space-x-reverse min-w-0 shrink overflow-hidden">
             <img src="logo.png" alt="SCDC Logo" class="h-10 md:h-12 w-auto object-contain shrink-0" onerror="this.style.display='none'; document.getElementById('logo-fallback-header').style.display='block';">
-            <span id="logo-fallback-header" class="hidden text-xl font-black tracking-wider text-white whitespace-nowrap truncate">SKETCHY <span class="gold-accent">CHAPTERS</span></span>
+            <span id="logo-fallback-header" class="hidden text-xl font-black tracking-wider text-white whitespace-nowrap truncate">
+                <span class="lang-en">SKETCHY <span class="gold-accent">CHAPTERS</span></span>
+                <span class="lang-ar">سكتشي <span class="gold-accent">تشابترز</span></span>
+            </span>
         </a>
-    
-        <!-- Desktop Navigation Links -->
+
         <nav class="hidden md:flex items-center space-x-6 rtl:space-x-reverse text-xs font-bold">
             <a href="#about" class="text-gray-300 hover:text-amber-400 transition">
                 <span class="lang-en">About Us</span>
@@ -108,7 +202,7 @@
             <a href="#services" class="text-gray-300 hover:text-amber-400 transition">
                 <span class="lang-en">Services</span>
                 <span class="lang-ar">الخدمات</span>
-            </a> 
+            </a>
             <a href="#sections" class="text-gray-300 hover:text-amber-400 transition">
                 <span class="lang-en">Divisions</span>
                 <span class="lang-ar">الأقسام</span>
@@ -120,24 +214,21 @@
             <a href="#contact" class="text-gray-300 hover:text-amber-400 transition">
                 <span class="lang-en">Contact</span>
                 <span class="lang-ar">تواصل معنا</span>
-            </a>        
+            </a>
         </nav>
 
         <div class="flex items-center space-x-3 rtl:space-x-reverse shrink-0">
-            <!-- Language Switcher Button (Corrected ID matching JS) -->
             <button onclick="toggleLanguage()" class="glass-card text-amber-400 border border-amber-500/30 px-3 py-2 rounded-xl text-xs font-bold hover:bg-amber-500/10 transition flex items-center space-x-1.5 rtl:space-x-reverse shrink-0">
                 <i class="fa-solid fa-globe text-sm"></i>
                 <span id="lang-btn-text">العربية</span>
             </button>
 
-            <!-- Workshops Button (Desktop) - Fixed Icon -->
             <a href="workshop.html" target="_blank" class="hidden md:flex bg-amber-500/10 border border-amber-500/40 text-amber-400 px-4 py-2 rounded-xl text-xs font-bold hover:bg-amber-500/20 transition items-center space-x-2 rtl:space-x-reverse shrink-0">
                 <i class="fa-solid fa-graduation-cap text-sm"></i>
                 <span class="lang-en">Workshop Center</span>
                 <span class="lang-ar">Workshop Center</span>
             </a>
 
-            <!-- Mobile Menu Toggle Button -->
             <button type="button" onclick="toggleMobileMenu()" class="md:hidden w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-500/40 text-amber-300 flex items-center justify-center text-lg hover:bg-amber-500/20 transition shrink-0">
                 <i class="fa-solid fa-ellipsis-vertical pointer-events-none"></i>
             </button>
@@ -147,44 +238,29 @@
     <!-- ================= MOBILE DROPDOWN MENU ================= -->
     <div id="mobileMenu" class="fixed inset-x-0 top-[76px] z-40 bg-[#121216]/95 backdrop-blur-xl border-b border-amber-500/30 p-6 hidden flex-col space-y-4 md:hidden shadow-2xl transition-all">
         <a href="index.html" onclick="toggleMobileMenu()" class="text-white text-sm font-bold py-2 border-b border-amber-500/10 flex items-center justify-between">
-            <span>
-                <span class="lang-en">Home</span>
-                <span class="lang-ar">الرئيسية</span>
-            </span>
+            <span><span class="lang-en">Home</span><span class="lang-ar">الرئيسية</span></span>
             <i class="fa-solid fa-arrow-left rtl:rotate-180 text-xs gold-accent"></i>
         </a>
         <a href="workshop.html" onclick="toggleMobileMenu()" class="text-white text-sm font-bold py-2 border-b border-amber-500/10 flex items-center justify-between">
-            <span>
-                <span class="lang-en">Workshop Center</span>
-                <span class="lang-ar">Workshop Center</span>
-            </span>
+            <span><span class="lang-en">Workshop Center</span><span class="lang-ar">Workshop Center</span></span>
             <i class="fa-solid fa-arrow-left rtl:rotate-180 text-xs gold-accent"></i>
         </a>
         <a href="portfolio.html" onclick="toggleMobileMenu()" class="text-white text-sm font-bold py-2 border-b border-amber-500/10 flex items-center justify-between">
-            <span>
-                <span class="lang-en">Projects</span>
-                <span class="lang-ar">المشاريع</span>
-            </span>
+            <span><span class="lang-en">Projects</span><span class="lang-ar">المشاريع</span></span>
             <i class="fa-solid fa-arrow-left rtl:rotate-180 text-xs gold-accent"></i>
         </a>
         <a href="https://wa.me/96181427589" target="_blank" class="bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 p-3 rounded-xl text-xs font-bold flex items-center justify-center space-x-2 rtl:space-x-reverse">
             <i class="fa-brands fa-whatsapp text-base"></i>
-            <span>
-                <span class="lang-en">Contact Us (WhatsApp)</span>
-                <span class="lang-ar">تواصل واتساب (Contact Us)</span>
-            </span>
+            <span><span class="lang-en">Contact Us (WhatsApp)</span><span class="lang-ar">تواصل واتساب (Contact Us)</span></span>
         </a>
     </div>
-    
-    <!-- Hero Section with Architectural Blueprint/Rendering Dynamic Background -->
+
+    <!-- Hero Section -->
     <section class="min-h-screen relative flex items-center justify-center pt-20 overflow-hidden">
         <div class="swiper heroSwiper absolute inset-0 w-full h-full z-0">
             <div class="swiper-wrapper">
-               <!-- Slide 1: Modern Architectural Villa Render -->
                <div class="swiper-slide bg-cover bg-center" style="background-image: linear-gradient(180deg, rgba(8,8,10,0.85) 0%, rgba(8,8,10,0.95) 100%), url('https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?q=80&w=1920');"></div>
-               <!-- Slide 2: Structural & Interior Blueprint / Concept -->
                <div class="swiper-slide bg-cover bg-center" style="background-image: linear-gradient(180deg, rgba(8,8,10,0.85) 0%, rgba(8,8,10,0.95) 100%), url('https://images.unsplash.com/photo-1503387762-592deb58ef4e?q=80&w=1920');"></div>
-               <!-- Slide 3: High-end Corporate Office Workspace -->
                <div class="swiper-slide bg-cover bg-center" style="background-image: linear-gradient(180deg, rgba(8,8,10,0.85) 0%, rgba(8,8,10,0.95) 100%), url('https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=1920');"></div>
             </div>
             <div class="swiper-pagination"></div>
@@ -195,10 +271,19 @@
                <span class="lang-en">Architecture • Interior • Construction</span>
                <span class="lang-ar">هندسة معمارية • تصميم داخلي • تنفيذ وتعهدات</span>
             </div>
-            <h1 class="text-4xl md:text-7xl font-black mb-6 leading-tight tracking-tight text-white">
-               SKETCHY <span class="gold-gradient-text">CHAPTERS</span> <br>
-               <span class="text-2xl md:text-5xl font-light text-gray-300">Design & Construction (SCDC)</span>
+            <h1 class="text-4xl md:text-7xl font-black mb-4 leading-tight tracking-tight text-white">
+               <span class="lang-en">SKETCHY <span class="gold-gradient-text">CHAPTERS</span></span>
+               <span class="lang-ar">سكتشي <span class="gold-gradient-text">تشابترز</span></span>
+               <br>
+               <span class="text-2xl md:text-5xl font-light text-gray-300">
+                   <span class="lang-en">Design & Construction (SCDC)</span>
+                   <span class="lang-ar">للتصميم والبناء (SCDC)</span>
+               </span>
             </h1>
+            <p class="slogan-text text-white text-xl md:text-3xl mb-6">
+                <span class="lang-en">Every Sketch Tells a Story</span>
+                <span class="lang-ar">كل خط يحكي قصة</span>
+            </p>
             <p class="text-base md:text-lg text-gray-400 mb-8 max-w-2xl mx-auto font-light leading-relaxed">
                <span class="lang-en">Innovative solutions for value-based project planning, architectural design, and turnkey execution from concept to delivery.</span>
                <span class="lang-ar">حلول مبتكرة لتخطيط المشاريع، التصميم المعماري، والتنفيذ الكامل من الفكرة حتى التسليم على المفتاح.</span>
@@ -245,37 +330,25 @@
             <div class="glass-card p-8 rounded-3xl grid grid-cols-2 gap-6 text-center" data-aos="fade-left">
                <div class="p-6 border border-amber-500/20 rounded-2xl bg-black/40">
                    <div class="text-3xl md:text-4xl font-black gold-gradient-text mb-2">100%</div>
-                   <div class="text-xs text-gray-400 font-bold uppercase">
-                       <span class="lang-en">Turnkey Execution</span>
-                       <span class="lang-ar">تسليم على المفتاح</span>
-                   </div>
+                   <div class="text-xs text-gray-400 font-bold uppercase"><span class="lang-en">Turnkey Execution</span><span class="lang-ar">تسليم على المفتاح</span></div>
                </div>
                <div class="p-6 border border-amber-500/20 rounded-2xl bg-black/40">
                    <div class="text-3xl md:text-4xl font-black gold-gradient-text mb-2">4K</div>
-                   <div class="text-xs text-gray-400 font-bold uppercase">
-                       <span class="lang-en">3D Render Quality</span>
-                       <span class="lang-ar">دقة الرندر والواقعية</span>
-                   </div>
+                   <div class="text-xs text-gray-400 font-bold uppercase"><span class="lang-en">3D Render Quality</span><span class="lang-ar">دقة الرندر والواقعية</span></div>
                </div>
                <div class="p-6 border border-amber-500/20 rounded-2xl bg-black/40">
                    <div class="text-3xl md:text-4xl font-black gold-gradient-text mb-2">4</div>
-                   <div class="text-xs text-gray-400 font-bold uppercase">
-                       <span class="lang-en">Core Divisions</span>
-                       <span class="lang-ar">أقسام متخصصة</span>
-                   </div>
+                   <div class="text-xs text-gray-400 font-bold uppercase"><span class="lang-en">Core Divisions</span><span class="lang-ar">أقسام متخصصة</span></div>
                </div>
                <div class="p-6 border border-amber-500/20 rounded-2xl bg-black/40">
                    <div class="text-3xl md:text-4xl font-black gold-gradient-text mb-2">VBE</div>
-                   <div class="text-xs text-gray-400 font-bold uppercase">
-                       <span class="lang-en">Value Engineering</span>
-                       <span class="lang-ar">الهندسة القيمة</span>
-                   </div>
+                   <div class="text-xs text-gray-400 font-bold uppercase"><span class="lang-en">Value Engineering</span><span class="lang-ar">الهندسة القيمة</span></div>
                </div>
            </div>
         </div>
     </section>
 
-    <!-- SLIDER SHOWCASE (Expanded with Diverse Projects: Berlin Office, Downtown Villa, Arz Villa, Makeup Salon) -->
+    <!-- SLIDER SHOWCASE -->
     <section class="py-20 px-6 max-w-7xl mx-auto bg-black/40 rounded-3xl border border-amber-500/10">
         <div class="text-center mb-12" data-aos="fade-up">
             <h2 class="text-3xl md:text-5xl font-black mb-4 gold-gradient-text">
@@ -290,63 +363,42 @@
 
         <div class="swiper ShowcaseSwiper rounded-3xl glass-card p-4 overflow-hidden" data-aos="zoom-in">
             <div class="swiper-wrapper">
-               <!-- Slide 1: Beauty By Rosaline Salon -->
                <div class="swiper-slide relative h-96 rounded-2xl overflow-hidden">
                    <img src="Rosaline-Salon-Render-1.jpg" class="w-full h-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1560066984-138dadb4c035?q=80&w=1200'">
                    <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent p-6 flex flex-col justify-end">
-                       <span class="gold-accent text-xs font-bold uppercase">
-                           <span class="lang-en">Tripoli, Lebanon (2023)</span>
-                           <span class="lang-ar">طرابلس، لبنان (٢٠٢٣)</span>
-                       </span>
+                       <span class="gold-accent text-xs font-bold uppercase"><span class="lang-en">Tripoli, Lebanon (2023)</span><span class="lang-ar">طرابلس، لبنان (٢٠٢٣)</span></span>
                        <h3 class="text-xl font-bold text-white">Beauty By Rosaline Makeup Salon</h3>
                    </div>
                </div>
-               <!-- Slide 2: Office Berlin -->
                <div class="swiper-slide relative h-96 rounded-2xl overflow-hidden">
                    <img src="Office-Berlin-1.jpg" class="w-full h-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1497215728101-856f4ea42174?q=80&w=1200'">
                    <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent p-6 flex flex-col justify-end">
-                       <span class="gold-accent text-xs font-bold uppercase">
-                           <span class="lang-en">Berlin, Germany (2023)</span>
-                           <span class="lang-ar">برلين، ألمانيا (٢٠٢٣)</span>
-                       </span>
+                       <span class="gold-accent text-xs font-bold uppercase"><span class="lang-en">Berlin, Germany (2023)</span><span class="lang-ar">برلين، ألمانيا (٢٠٢٣)</span></span>
                        <h3 class="text-xl font-bold text-white">Office Berline Workspace Interior</h3>
                    </div>
                </div>
-               <!-- Slide 3: Downtown Beirut Villa -->
                <div class="swiper-slide relative h-96 rounded-2xl overflow-hidden">
                    <img src="Downtown-Apartment-Living.jpg" class="w-full h-full object-cover">
                    <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent p-6 flex flex-col justify-end">
-                       <span class="gold-accent text-xs font-bold uppercase">
-                           <span class="lang-en">Downtown Beirut (2024)</span>
-                           <span class="lang-ar">وسط بيروت (٢٠٢٤)</span>
-                       </span>
+                       <span class="gold-accent text-xs font-bold uppercase"><span class="lang-en">Downtown Beirut (2024)</span><span class="lang-ar">وسط بيروت (٢٠٢٤)</span></span>
                        <h3 class="text-xl font-bold text-white">Luxury Living Room & Kitchen Villa</h3>
                    </div>
                </div>
-               <!-- Slide 4: Arz Villa Project -->
                <div class="swiper-slide relative h-96 rounded-2xl overflow-hidden">
                    <img src="Arz-Villa-1.jpg" class="w-full h-full object-cover">
                    <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent p-6 flex flex-col justify-end">
-                       <span class="gold-accent text-xs font-bold uppercase">
-                           <span class="lang-en">Arz, Lebanon (2025)</span>
-                           <span class="lang-ar">الأرز، لبنان (٢٠٢٥)</span>
-                       </span>
+                       <span class="gold-accent text-xs font-bold uppercase"><span class="lang-en">Arz, Lebanon (2025)</span><span class="lang-ar">الأرز، لبنان (٢٠٢٥)</span></span>
                        <h3 class="text-xl font-bold text-white">Mountain Villa Salon & Dining Area</h3>
                    </div>
                </div>
-               <!-- Slide 5: Dermexcel Display Stand -->
                <div class="swiper-slide relative h-96 rounded-2xl overflow-hidden">
                    <img src="Dermexcel-1.jpg" class="w-full h-full object-cover">
                    <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent p-6 flex flex-col justify-end">
-                       <span class="gold-accent text-xs font-bold uppercase">
-                           <span class="lang-en">Akkar, Lebanon (2024)</span>
-                           <span class="lang-ar">عكار، لبنان (٢٠٢٤)</span>
-                       </span>
+                       <span class="gold-accent text-xs font-bold uppercase"><span class="lang-en">Akkar, Lebanon (2024)</span><span class="lang-ar">عكار، لبنان (٢٠٢٤)</span></span>
                        <h3 class="text-xl font-bold text-white">Dermexcel Commercial Display Stand</h3>
                    </div>
                </div>
             </div>
-            <!-- Pagination and Navigation for Showcase -->
             <div class="swiper-pagination mt-4"></div>
         </div>
     </section>
@@ -354,57 +406,24 @@
     <!-- OBJECTIVES -->
     <section id="objectives" class="py-24 px-6 max-w-7xl mx-auto">
         <div class="text-center mb-16" data-aos="fade-up">
-            <span class="text-xs font-bold gold-accent uppercase tracking-widest block mb-2">
-               <span class="lang-en">Our Pillars</span>
-               <span class="lang-ar">ركائزنا</span>
-            </span>
-            <h2 class="text-3xl md:text-5xl font-black text-white">
-               <span class="lang-en">Strategic Objectives</span>
-               <span class="lang-ar">الأهداف الاستراتيجية</span>
-            </h2>
+            <span class="text-xs font-bold gold-accent uppercase tracking-widest block mb-2"><span class="lang-en">Our Pillars</span><span class="lang-ar">ركائزنا</span></span>
+            <h2 class="text-3xl md:text-5xl font-black text-white"><span class="lang-en">Strategic Objectives</span><span class="lang-ar">الأهداف الاستراتيجية</span></h2>
         </div>
-
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div class="glass-card p-8 rounded-3xl" data-aos="fade-up" data-aos-delay="100">
-               <div class="w-14 h-14 rounded-2xl bg-gold text-black flex items-center justify-center text-2xl font-black mb-6">
-                   <i class="fa-solid fa-compass-drafting"></i>
-               </div>
-                <h3 class="text-xl font-bold text-white mb-3">
-                   <span class="lang-en">Architectural Precision</span>
-                   <span class="lang-ar">الدقة المعمارية</span>
-                </h3>
-                <p class="text-gray-400 text-sm font-light leading-relaxed">
-                   <span class="lang-en">Harmonizing functional spatial distribution with structural integrity in both residential villas and commercial complexes.</span>
-                   <span class="lang-ar">تحقيق التوازن المثالي بين التوزيع الوظيفي للمساحات والمتانة الإنشائية للمشاريع السكنية والتجارية.</span>
-                </p>
+               <div class="w-14 h-14 rounded-2xl bg-gold text-black flex items-center justify-center text-2xl font-black mb-6"><i class="fa-solid fa-compass-drafting"></i></div>
+                <h3 class="text-xl font-bold text-white mb-3"><span class="lang-en">Architectural Precision</span><span class="lang-ar">الدقة المعمارية</span></h3>
+                <p class="text-gray-400 text-sm font-light leading-relaxed"><span class="lang-en">Harmonizing functional spatial distribution with structural integrity in both residential villas and commercial complexes.</span><span class="lang-ar">تحقيق التوازن المثالي بين التوزيع الوظيفي للمساحات والمتانة الإنشائية للمشاريع السكنية والتجارية.</span></p>
            </div>
-
             <div class="glass-card p-8 rounded-3xl" data-aos="fade-up" data-aos-delay="200">
-               <div class="w-14 h-14 rounded-2xl bg-gold text-black flex items-center justify-center text-2xl font-black mb-6">
-                   <i class="fa-solid fa-coins"></i>
-               </div>
-                <h3 class="text-xl font-bold text-white mb-3">
-                   <span class="lang-en">Value Engineering</span>
-                   <span class="lang-ar">الهندسة القيمة</span>
-                </h3>
-                <p class="text-gray-400 text-sm font-light leading-relaxed">
-                   <span class="lang-en">Balancing luxury material selections and execution methods to maximize aesthetic value without budget inflation.</span>
-                   <span class="lang-ar">اختيار المواد والتفاصيل العالية الجودة لتحقيق أقصى جمالية بأسعار وميزانيات مدروسة ودقيقة.</span>
-                </p>
+               <div class="w-14 h-14 rounded-2xl bg-gold text-black flex items-center justify-center text-2xl font-black mb-6"><i class="fa-solid fa-coins"></i></div>
+                <h3 class="text-xl font-bold text-white mb-3"><span class="lang-en">Value Engineering</span><span class="lang-ar">الهندسة القيمة</span></h3>
+                <p class="text-gray-400 text-sm font-light leading-relaxed"><span class="lang-en">Balancing luxury material selections and execution methods to maximize aesthetic value without budget inflation.</span><span class="lang-ar">اختيار المواد والتفاصيل العالية الجودة لتحقيق أقصى جمالية بأسعار وميزانيات مدروسة ودقيقة.</span></p>
            </div>
-
             <div class="glass-card p-8 rounded-3xl" data-aos="fade-up" data-aos-delay="300">
-               <div class="w-14 h-14 rounded-2xl bg-gold text-black flex items-center justify-center text-2xl font-black mb-6">
-                   <i class="fa-solid fa-key"></i>
-               </div>
-                <h3 class="text-xl font-bold text-white mb-3">
-                   <span class="lang-en">Turnkey Execution</span>
-                   <span class="lang-ar">التنفيذ المباشر</span>
-                </h3>
-                <p class="text-gray-400 text-sm font-light leading-relaxed">
-                   <span class="lang-en">Direct site supervision, contractor management, and structural hand-over matching initial 3D design renders 100%.</span>
-                   <span class="lang-ar">إشراف ميداني مباشر وضمان مطابقة التنفيذ النهائي مع التصاميم ثلاثية الأبعاد بنسبة 100%.</span>
-                </p>
+               <div class="w-14 h-14 rounded-2xl bg-gold text-black flex items-center justify-center text-2xl font-black mb-6"><i class="fa-solid fa-key"></i></div>
+                <h3 class="text-xl font-bold text-white mb-3"><span class="lang-en">Turnkey Execution</span><span class="lang-ar">التنفيذ المباشر</span></h3>
+                <p class="text-gray-400 text-sm font-light leading-relaxed"><span class="lang-en">Direct site supervision, contractor management, and structural hand-over matching initial 3D design renders 100%.</span><span class="lang-ar">إشراف ميداني مباشر وضمان مطابقة التنفيذ النهائي مع التصاميم ثلاثية الأبعاد بنسبة 100%.</span></p>
            </div>
         </div>
     </section>
@@ -412,82 +431,40 @@
     <!-- SERVICES -->
     <section id="services" class="py-24 px-6 max-w-7xl mx-auto border-t border-amber-500/10">
         <div class="text-center mb-16" data-aos="fade-up">
-            <span class="text-xs font-bold gold-accent uppercase tracking-widest block mb-2">
-               <span class="lang-en">Scope of Expertise</span>
-               <span class="lang-ar">نطاق الخبرات</span>
-            </span>
-            <h2 class="text-3xl md:text-5xl font-black text-white">
-               <span class="lang-en">Core Architectural & Design Services</span>
-               <span class="lang-ar">خدماتنا الهندسيّة الأساسية</span>
-            </h2>
+            <span class="text-xs font-bold gold-accent uppercase tracking-widest block mb-2"><span class="lang-en">Scope of Expertise</span><span class="lang-ar">نطاق الخبرات</span></span>
+            <h2 class="text-3xl md:text-5xl font-black text-white"><span class="lang-en">Core Architectural & Design Services</span><span class="lang-ar">خدماتنا الهندسيّة الأساسية</span></h2>
         </div>
-
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             <div class="glass-card p-6 rounded-3xl" data-aos="fade-up">
                 <i class="fa-solid fa-building text-3xl gold-accent mb-4 block"></i>
-                <h4 class="text-lg font-bold text-white mb-2">
-                   <span class="lang-en">Architectural Layouts</span>
-                   <span class="lang-ar">المخططات المعمارية</span>
-                </h4>
-                <p class="text-gray-400 text-xs font-light leading-relaxed">
-                   <span class="lang-en">Comprehensive floor plans, structural layouts, exterior elevation concepts, and municipal permit documentation.</span>
-                   <span class="lang-ar">خرائط تنفيذية، توزيع المساحات، تصاميم الواجهات الخارجية، والخرائط المعتمدة للرخص.</span>
-                </p>
+                <h4 class="text-lg font-bold text-white mb-2"><span class="lang-en">Architectural Layouts</span><span class="lang-ar">المخططات المعمارية</span></h4>
+                <p class="text-gray-400 text-xs font-light leading-relaxed"><span class="lang-en">Comprehensive floor plans, structural layouts, exterior elevation concepts, and municipal permit documentation.</span><span class="lang-ar">خرائط تنفيذية، توزيع المساحات، تصاميم الواجهات الخارجية، والخرائط المعتمدة للرخص.</span></p>
            </div>
-
             <div class="glass-card p-6 rounded-3xl" data-aos="fade-up" data-aos-delay="100">
                 <i class="fa-solid fa-couch text-3xl gold-accent mb-4 block"></i>
-                <h4 class="text-lg font-bold text-white mb-2">
-                   <span class="lang-en">Interior Design</span>
-                   <span class="lang-ar">التصميم الداخلي</span>
-                </h4>
-                <p class="text-gray-400 text-xs font-light leading-relaxed">
-                   <span class="lang-en">Tailored moodboards, spatial ergonomics, lighting systems, custom carpentry detailing, and material selections.</span>
-                   <span class="lang-ar">توزيع الأثاث، دراسة الإضاءة، تفاصيل الخشب والديكورات الداخلية مع اختيار المواد.</span>
-                </p>
+                <h4 class="text-lg font-bold text-white mb-2"><span class="lang-en">Interior Design</span><span class="lang-ar">التصميم الداخلي</span></h4>
+                <p class="text-gray-400 text-xs font-light leading-relaxed"><span class="lang-en">Tailored moodboards, spatial ergonomics, lighting systems, custom carpentry detailing, and material selections.</span><span class="lang-ar">توزيع الأثاث، دراسة الإضاءة، تفاصيل الخشب والديكورات الداخلية مع اختيار المواد.</span></p>
            </div>
-
             <div class="glass-card p-6 rounded-3xl" data-aos="fade-up" data-aos-delay="200">
                 <i class="fa-solid fa-cube text-3xl gold-accent mb-4 block"></i>
-                <h4 class="text-lg font-bold text-white mb-2">
-                   <span class="lang-en">3D Renders & Walkthroughs</span>
-                   <span class="lang-ar">الرندر والانيميشن 3D</span>
-                </h4>
-                <p class="text-gray-400 text-xs font-light leading-relaxed">
-                   <span class="lang-en">Photorealistic high-resolution 3D visualizations simulating daytime and nighttime lighting scenarios.</span>
-                   <span class="lang-ar">إظهار معماري فائق الدقة بلقطات واقعية تجسد الإضاءة النهارية والليلية بدقة.</span>
-                </p>
+                <h4 class="text-lg font-bold text-white mb-2"><span class="lang-en">3D Renders & Walkthroughs</span><span class="lang-ar">الرندر والانيميشن 3D</span></h4>
+                <p class="text-gray-400 text-xs font-light leading-relaxed"><span class="lang-en">Photorealistic high-resolution 3D visualizations simulating daytime and nighttime lighting scenarios.</span><span class="lang-ar">إظهار معماري فائق الدقة بلقطات واقعية تجسد الإضاءة النهارية والليلية بدقة.</span></p>
            </div>
-
             <div class="glass-card p-6 rounded-3xl" data-aos="fade-up" data-aos-delay="300">
                 <i class="fa-solid fa-helmet-safety text-3xl gold-accent mb-4 block"></i>
-                <h4 class="text-lg font-bold text-white mb-2">
-                   <span class="lang-en">Construction Supervision</span>
-                   <span class="lang-ar">الإشراف على التنفيذ</span>
-                </h4>
-                <p class="text-gray-400 text-xs font-light leading-relaxed">
-                   <span class="lang-en">On-site structural execution oversight, contractor quality assurance, and timeline milestones management.</span>
-                   <span class="lang-ar">متابعة ورش العمل، ضبط جودة المواد والتنفيذ، والالتزام بالجدول الزمني.</span>
-                </p>
+                <h4 class="text-lg font-bold text-white mb-2"><span class="lang-en">Construction Supervision</span><span class="lang-ar">الإشراف على التنفيذ</span></h4>
+                <p class="text-gray-400 text-xs font-light leading-relaxed"><span class="lang-en">On-site structural execution oversight, contractor quality assurance, and timeline milestones management.</span><span class="lang-ar">متابعة ورش العمل، ضبط جودة المواد والتنفيذ، والالتزام بالجدول الزمني.</span></p>
            </div>
         </div>
     </section>
 
-    <!-- SECTION: SPECIALIZED DIVISIONS WITH CUSTOM LOGOS -->
+    <!-- SECTION: SPECIALIZED DIVISIONS -->
     <section id="sections" class="py-24 px-6 max-w-7xl mx-auto border-t border-amber-500/10">
         <div class="text-center mb-16" data-aos="fade-up">
-            <span class="text-xs font-bold gold-accent uppercase tracking-widest block mb-2">
-               <span class="lang-en">SCDC Specialized Divisions</span>
-               <span class="lang-ar">أقسام SCDC المتخصصة</span>
-            </span>
-            <h2 class="text-3xl md:text-5xl font-black text-white">
-               <span class="lang-en">Our Main Divisions</span>
-               <span class="lang-ar">أقسام الشركة</span>
-            </h2>
+            <span class="text-xs font-bold gold-accent uppercase tracking-widest block mb-2"><span class="lang-en">SCDC Specialized Divisions</span><span class="lang-ar">أقسام SCDC المتخصصة</span></span>
+            <h2 class="text-3xl md:text-5xl font-black text-white"><span class="lang-en">Our Main Divisions</span><span class="lang-ar">أقسام الشركة</span></h2>
         </div>
-
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <!-- Division 1: Academic Collaboration (AC.png) -->
             <div class="glass-card p-8 rounded-3xl border-t-4 border-amber-400" data-aos="fade-up" data-aos-delay="100">
                <div class="flex items-center space-x-4 rtl:space-x-reverse mb-4">
                    <div class="w-14 h-14 rounded-2xl bg-gold/10 p-2.5 flex items-center justify-center border border-amber-500/10 overflow-hidden shrink-0">
@@ -496,13 +473,8 @@
                    </div>
                    <h3 class="text-xl font-bold text-white">Academic Collaboration</h3>
                </div>
-                <p class="text-gray-400 text-sm font-light leading-relaxed">
-                   <span class="lang-en">Bridging educational foundations with real-world architectural practice, supporting students, researchers, and university entrance prep through technical guidance and practical engineering exposure.</span>
-                   <span class="lang-ar">ربط التعليم الأكاديمي بالتطبيق الهندسي العملي، ودعم الطلاب والباحثين وطلاب امتحانات الدخول للهندسة عبر التوجيه التقني المباشر.</span>
-                </p>
+                <p class="text-gray-400 text-sm font-light leading-relaxed"><span class="lang-en">Bridging educational foundations with real-world architectural practice, supporting students, researchers, and university entrance prep through technical guidance and practical engineering exposure.</span><span class="lang-ar">ربط التعليم الأكاديمي بالتطبيق الهندسي العملي، ودعم الطلاب والباحثين وطلاب امتحانات الدخول للهندسة عبر التوجيه التقني المباشر.</span></p>
            </div>
-
-            <!-- Division 2: Real Estate (RE.png) -->
             <div class="glass-card p-8 rounded-3xl border-t-4 border-amber-300" data-aos="fade-up" data-aos-delay="200">
                <div class="flex items-center space-x-4 rtl:space-x-reverse mb-4">
                    <div class="w-14 h-14 rounded-2xl bg-gold/10 p-2.5 flex items-center justify-center border border-amber-500/10 overflow-hidden shrink-0">
@@ -511,13 +483,8 @@
                    </div>
                    <h3 class="text-xl font-bold text-white">Real Estate</h3>
                </div>
-                <p class="text-gray-400 text-sm font-light leading-relaxed">
-                   <span class="lang-en">Property evaluation, investment design optimization, spatial feasibility analysis, and architectural consulting tailored for developers and real estate investors.</span>
-                   <span class="lang-ar">تقييم العقارات، دراسات الجدوى المعمارية، وتحسين الاستثمار العقاري من خلال حلول تصميمية واستشارية مبتكرة للمستثمرين.</span>
-                </p>
+                <p class="text-gray-400 text-sm font-light leading-relaxed"><span class="lang-en">Property evaluation, investment design optimization, spatial feasibility analysis, and architectural consulting tailored for developers and real estate investors.</span><span class="lang-ar">تقييم العقارات، دراسات الجدوى المعمارية، وتحسين الاستثمار العقاري من خلال حلول تصميمية واستشارية مبتكرة للمستثمرين.</span></p>
            </div>
-
-            <!-- Division 3: Material (MC.png) -->
             <div class="glass-card p-8 rounded-3xl border-t-4 border-amber-300" data-aos="fade-up" data-aos-delay="300">
                <div class="flex items-center space-x-4 rtl:space-x-reverse mb-4">
                    <div class="w-14 h-14 rounded-2xl bg-gold/10 p-2.5 flex items-center justify-center border border-amber-500/10 overflow-hidden shrink-0">
@@ -526,13 +493,8 @@
                    </div>
                    <h3 class="text-xl font-bold text-white">Material & Finishes</h3>
                </div>
-                <p class="text-gray-400 text-sm font-light leading-relaxed">
-                   <span class="lang-en">Curated material selection, premium interior finishing solutions, marble, lighting, wood joinery specifications, and high-end texture sampling for architectural executions.</span>
-                   <span class="lang-ar">توفير واختيار أجود المواد والتجهيزات الداخلية من الرخام، الخشب، أنظمة الإضاءة، والعينات لتنفيذ راقٍ وممتاز.</span>
-                </p>
+                <p class="text-gray-400 text-sm font-light leading-relaxed"><span class="lang-en">Curated material selection, premium interior finishing solutions, marble, lighting, wood joinery specifications, and high-end texture sampling for architectural executions.</span><span class="lang-ar">توفير واختيار أجود المواد والتجهيزات الداخلية من الرخام، الخشب، أنظمة الإضاءة، والعينات لتنفيذ راقٍ وممتاز.</span></p>
            </div>
-
-            <!-- Division 4: Workshop Center (WC.png) -->
             <a href="workshop.html" class="glass-card p-8 rounded-3xl border-t-4 border-amber-300 block hover:border-amber-300 hover:scale-[1.02] transition-all duration-300 group" data-aos="fade-up" data-aos-delay="400">
                 <div class="flex items-center justify-between mb-4">
                     <div class="flex items-center space-x-4 rtl:space-x-reverse">
@@ -546,243 +508,132 @@
                         <i class="fa-solid fa-arrow-left rtl:rotate-180 text-sm"></i>
                     </div>
                 </div>
-                <p class="text-gray-400 text-sm font-light leading-relaxed">
-                    <span class="lang-en">A hands-on training hub delivering specialized technical engineering software courses (Revit, 3D Rendering) and comprehensive prep modules for engineering entrance exams.</span>
-                    <span class="lang-ar">مركز تدريبي متخصص يقدم دورات احترافية في البرامج الهندسية (Revit, 3D Rendering) ودورات التحضير للامتحانات الهندسية.</span>
-                </p>
+                <p class="text-gray-400 text-sm font-light leading-relaxed"><span class="lang-en">A hands-on training hub delivering specialized technical engineering software courses (Revit, 3D Rendering) and comprehensive prep modules for engineering entrance exams.</span><span class="lang-ar">مركز تدريبي متخصص يقدم دورات احترافية في البرامج الهندسية (Revit, 3D Rendering) ودورات التحضير للامتحانات الهندسية.</span></p>
             </a>
         </div>
     </section>
 
-<!-- CONTACT NUMBERS WITH REGIONAL LINES -->
+    <!-- CONTACT -->
     <section id="contact" class="py-24 px-6 max-w-7xl mx-auto bg-black/60 rounded-3xl border border-amber-500/10 mb-20">
         <div class="text-center mb-16" data-aos="fade-up">
-            <span class="text-xs font-bold gold-accent uppercase tracking-widest block mb-2">
-               <span class="lang-en">Get In Touch</span>
-               <span class="lang-ar">تواصل معنا</span>
-            </span>
-            <h2 class="text-3xl md:text-5xl font-black gold-gradient-text">
-               <span class="lang-en">Direct Contact Lines</span>
-               <span class="lang-ar">خطوط التواصل المباشرة</span>
-            </h2>
-            <p class="text-gray-400 font-light mt-4">
-               <span class="lang-en">Reach out directly via phone or WhatsApp.</span>
-               <span class="lang-ar">يمكنك التواصل مباشرة عبر الهاتف أو الـ WhatsApp.</span>
-            </p>
+            <span class="text-xs font-bold gold-accent uppercase tracking-widest block mb-2"><span class="lang-en">Get In Touch</span><span class="lang-ar">تواصل معنا</span></span>
+            <h2 class="text-3xl md:text-5xl font-black gold-gradient-text"><span class="lang-en">Direct Contact Lines</span><span class="lang-ar">خطوط التواصل المباشرة</span></h2>
+            <p class="text-gray-400 font-light mt-4"><span class="lang-en">Reach out directly via phone or WhatsApp.</span><span class="lang-ar">يمكنك التواصل مباشرة عبر الهاتف أو الـ WhatsApp.</span></p>
         </div>
-
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <!-- Lebanon Line (Main HQ) -->
             <div class="glass-card p-8 rounded-3xl text-center" data-aos="fade-up" data-aos-delay="100">
-               <div class="w-12 h-12 rounded-full bg-gold/10 text-gold mx-auto flex items-center justify-center text-xl mb-4 border border-amber-500/20">
-                   <i class="fa-solid fa-location-dot"></i>
-               </div>
+               <div class="w-12 h-12 rounded-full bg-gold/10 text-gold mx-auto flex items-center justify-center text-xl mb-4 border border-amber-500/20"><i class="fa-solid fa-location-dot"></i></div>
                <h3 class="text-xl font-bold text-white mb-1">Lebanon HQ</h3>
                <p class="text-gray-400 text-xs font-light mb-6">Tripoli Studio (Main Office)</p>
-               <a href="https://wa.me/96181427589" class="bg-gold text-black px-6 py-3 rounded-full font-bold text-xs uppercase tracking-wider inline-flex items-center space-x-2 rtl:space-x-reverse hover:brightness-110 transition">
-                   <i class="fa-solid fa-phone"></i>
-                   <span>+961 81 427 589</span>
-               </a>
+               <a href="https://wa.me/96181427589" class="bg-gold text-black px-6 py-3 rounded-full font-bold text-xs uppercase tracking-wider inline-flex items-center space-x-2 rtl:space-x-reverse hover:brightness-110 transition"><i class="fa-solid fa-phone"></i><span>+961 81 427 589</span></a>
             </div>
-
-            <!-- Saudi Arabia Line -->
             <div class="glass-card p-8 rounded-3xl text-center" data-aos="fade-up" data-aos-delay="200">
-               <div class="w-12 h-12 rounded-full bg-gold/10 text-gold mx-auto flex items-center justify-center text-xl mb-4 border border-amber-500/20">
-                   <i class="fa-solid fa-globe"></i>
-               </div>
+               <div class="w-12 h-12 rounded-full bg-gold/10 text-gold mx-auto flex items-center justify-center text-xl mb-4 border border-amber-500/20"><i class="fa-solid fa-globe"></i></div>
                <h3 class="text-xl font-bold text-white mb-1">Saudi Arabia Line</h3>
                <p class="text-gray-400 text-xs font-light mb-6">Riyadh Region Services</p>
-               <a href="https://wa.me/966540585295" class="bg-gold text-black px-6 py-3 rounded-full font-bold text-xs uppercase tracking-wider inline-flex items-center space-x-2 rtl:space-x-reverse hover:brightness-110 transition">
-                   <i class="fa-solid fa-phone"></i>
-                   <span>+966 54 058 5295</span>
-               </a>
+               <a href="https://wa.me/966540585295" class="bg-gold text-black px-6 py-3 rounded-full font-bold text-xs uppercase tracking-wider inline-flex items-center space-x-2 rtl:space-x-reverse hover:brightness-110 transition"><i class="fa-solid fa-phone"></i><span>+966 54 058 5295</span></a>
             </div>
-
-            <!-- Qatar Line -->
             <div class="glass-card p-8 rounded-3xl text-center" data-aos="fade-up" data-aos-delay="300">
-               <div class="w-12 h-12 rounded-full bg-gold/10 text-gold mx-auto flex items-center justify-center text-xl mb-4 border border-amber-500/20">
-                   <i class="fa-solid fa-globe"></i>
-               </div>
+               <div class="w-12 h-12 rounded-full bg-gold/10 text-gold mx-auto flex items-center justify-center text-xl mb-4 border border-amber-500/20"><i class="fa-solid fa-globe"></i></div>
                <h3 class="text-xl font-bold text-white mb-1">Qatar Line</h3>
                <p class="text-gray-400 text-xs font-light mb-6">Doha Region Services</p>
-               <a href="https://wa.me/97471679639" class="bg-gold text-black px-6 py-3 rounded-full font-bold text-xs uppercase tracking-wider inline-flex items-center space-x-2 rtl:space-x-reverse hover:brightness-110 transition">
-                   <i class="fa-solid fa-phone"></i>
-                   <span>+974 7167 9639</span>
-               </a>
+               <a href="https://wa.me/97471679639" class="bg-gold text-black px-6 py-3 rounded-full font-bold text-xs uppercase tracking-wider inline-flex items-center space-x-2 rtl:space-x-reverse hover:brightness-110 transition"><i class="fa-solid fa-phone"></i><span>+974 7167 9639</span></a>
             </div>
         </div>
     </section>
 
-    <!-- ================= FOOTER SECTION ================= -->
+    <!-- FOOTER -->
     <footer class="bg-[#08080a] border-t border-amber-500/25 pt-16 pb-12 px-6 md:px-12">
         <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-10 mb-12">
-            
-            <!-- Column 1: Company Info & Branding -->
             <div class="space-y-4">
                 <div class="flex items-center space-x-3 rtl:space-x-reverse">
                     <img src="logo.png" alt="SCDC Logo" class="h-10 md:h-12 w-auto object-contain" onerror="this.style.display='none'; document.getElementById('logo-fallback-footer').style.display='block';">
-                    <span id="logo-fallback-footer" class="hidden text-xl font-black tracking-wider text-white">SKETCHY <span class="gold-accent">CHAPTERS</span></span>
+                    <span id="logo-fallback-footer" class="hidden text-xl font-black tracking-wider text-white">
+                        <span class="lang-en">SKETCHY <span class="gold-accent">CHAPTERS</span></span>
+                        <span class="lang-ar">سكتشي <span class="gold-accent">تشابترز</span></span>
+                    </span>
                 </div>
-                <p class="text-gray-400 text-sm font-light leading-relaxed">
-                    <span class="lang-en">Sketchy Chapters Design & Construction (SCDC) - Professional design, construction, interior design studio, and advanced workshop training center.</span>
-                    <span class="lang-ar">استوديو سكتشي تشابترز للتصميم والبناء (SCDC) - استوديو احترافي للتصميم، البناء، التصميم الداخلي، وأكاديمية ورش التدريب المتقدمة.</span>
+                <p class="slogan-text text-white text-sm">
+                    <span class="lang-en">Every Sketch Tells a Story</span>
+                    <span class="lang-ar">كل خط يحكي قصة</span>
                 </p>
-                <div class="text-xs text-amber-400/90 font-semibold space-y-1">
-                    <p><i class="fa-solid fa-envelope me-2"></i> info@sketchychapters.com</p>
-                </div>
+                <p class="text-gray-400 text-sm font-light leading-relaxed"><span class="lang-en">Sketchy Chapters Design & Construction (SCDC) - Professional design, construction, interior design studio, and advanced workshop training center.</span><span class="lang-ar">استوديو سكتشي تشابترز للتصميم والبناء (SCDC) - استوديو احترافي للتصميم، البناء، التصميم الداخلي، وأكاديمية ورش التدريب المتقدمة.</span></p>
+                <div class="text-xs text-amber-400/90 font-semibold space-y-1"><p><i class="fa-solid fa-envelope me-2"></i> info@sketchychapters.com</p></div>
             </div>
-
-            <!-- Column 2: Global Presence / Coverage -->
             <div class="space-y-4">
-                <h4 class="text-white font-bold text-sm uppercase tracking-wider">
-                    <span class="lang-en">Global Coverage & HQ</span>
-                    <span class="lang-ar">مقرنا وخدماتنا الإقليمية</span>
-                </h4>
+                <h4 class="text-white font-bold text-sm uppercase tracking-wider"><span class="lang-en">Global Coverage & HQ</span><span class="lang-ar">مقرنا وخدماتنا الإقليمية</span></h4>
                 <ul class="text-gray-400 text-xs space-y-2.5 font-light">
-                    <li class="flex items-center space-x-2 rtl:space-x-reverse">
-                        <i class="fa-solid fa-location-dot text-amber-400"></i>
-                        <span>Tripoli, Lebanon (Main HQ) / طرابلس، لبنان (المقر الرئيسي)</span>
-                    </li>
-                    <li class="flex items-center space-x-2 rtl:space-x-reverse">
-                        <i class="fa-solid fa-globe text-amber-400"></i>
-                        <span>Riyadh, Saudi Arabia (Services & Projects) / الرياض، السعودية (خدمات ومشاريع)</span>
-                    </li>
-                    <li class="flex items-center space-x-2 rtl:space-x-reverse">
-                        <i class="fa-solid fa-globe text-amber-400"></i>
-                        <span>Doha, Qatar (Services & Projects) / الدوحة، قطر (خدمات ومشاريع)</span>
-                    </li>
+                    <li class="flex items-center space-x-2 rtl:space-x-reverse"><i class="fa-solid fa-location-dot text-amber-400"></i><span>Tripoli, Lebanon (Main HQ) / طرابلس، لبنان (المقر الرئيسي)</span></li>
+                    <li class="flex items-center space-x-2 rtl:space-x-reverse"><i class="fa-solid fa-globe text-amber-400"></i><span>Riyadh, Saudi Arabia (Services & Projects) / الرياض، السعودية (خدمات ومشاريع)</span></li>
+                    <li class="flex items-center space-x-2 rtl:space-x-reverse"><i class="fa-solid fa-globe text-amber-400"></i><span>Doha, Qatar (Services & Projects) / الدوحة، قطر (خدمات ومشاريع)</span></li>
                 </ul>
             </div>
-
-            <!-- Column 3: Social Media & Quick Links -->
             <div class="space-y-4">
-                <h4 class="text-white font-bold text-sm uppercase tracking-wider">
-                    <span class="lang-en">Connect With Us</span>
-                    <span class="lang-ar">تواصل معنا عبر منصاتنا</span>
-                </h4>
-                <p class="text-gray-400 text-xs font-light">
-                    <span class="lang-en">Follow our latest projects, workshops, and architectural updates.</span>
-                    <span class="lang-ar">تابع أحدث مشاريعنا، ورشات العمل، والتحديثات الهندسية.</span>
-                </p>
-                <!-- Social Media Icons -->
+                <h4 class="text-white font-bold text-sm uppercase tracking-wider"><span class="lang-en">Connect With Us</span><span class="lang-ar">تواصل معنا عبر منصاتنا</span></h4>
+                <p class="text-gray-400 text-xs font-light"><span class="lang-en">Follow our latest projects, workshops, and architectural updates.</span><span class="lang-ar">تابع أحدث مشاريعنا، ورشات العمل، والتحديثات الهندسية.</span></p>
                 <div class="flex flex-wrap items-center gap-2 pt-2">
-                    <a href="https://www.facebook.com/sketchy.chapters/" target="_blank" class="w-10 h-10 rounded-xl glass-card flex items-center justify-center text-gray-300 hover:text-amber-400 hover:border-amber-500/50 transition">
-                        <i class="fa-brands fa-facebook-f text-sm"></i>
-                    </a>
-                    <a href="https://www.instagram.com/sketchychapters/" target="_blank" class="w-10 h-10 rounded-xl glass-card flex items-center justify-center text-gray-300 hover:text-amber-400 hover:border-amber-500/50 transition">
-                        <i class="fa-brands fa-instagram text-sm"></i>
-                    </a>
-                    <a href="https://www.linkedin.com/company/sketchy-chapters/" target="_blank" class="w-10 h-10 rounded-xl glass-card flex items-center justify-center text-gray-300 hover:text-amber-400 hover:border-amber-500/50 transition">
-                        <i class="fa-brands fa-linkedin-in text-sm"></i>
-                    </a>
-                    <a href="https://x.com/sketchychapters" target="_blank" class="w-10 h-10 rounded-xl glass-card flex items-center justify-center text-gray-300 hover:text-amber-400 hover:border-amber-500/50 transition">
-                        <i class="fa-brands fa-x text-sm"></i>
-                    </a>
-                    <a href="https://tiktok.com/@sketchy.chapters" target="_blank" class="w-10 h-10 rounded-xl glass-card flex items-center justify-center text-gray-300 hover:text-amber-400 hover:border-amber-500/50 transition">
-                        <i class="fa-brands fa-tiktok text-sm"></i>
-                    </a>
-                    <a href="https://wa.me/96181427589" target="_blank" class="w-10 h-10 rounded-xl glass-card flex items-center justify-center text-gray-300 hover:text-amber-400 hover:border-amber-500/50 transition">
-                        <i class="fa-brands fa-whatsapp text-sm"></i>
-                    </a>
+                    <a href="https://www.facebook.com/sketchy.chapters/" target="_blank" class="w-10 h-10 rounded-xl glass-card flex items-center justify-center text-gray-300 hover:text-amber-400 hover:border-amber-500/50 transition"><i class="fa-brands fa-facebook-f text-sm"></i></a>
+                    <a href="https://www.instagram.com/sketchychapters/" target="_blank" class="w-10 h-10 rounded-xl glass-card flex items-center justify-center text-gray-300 hover:text-amber-400 hover:border-amber-500/50 transition"><i class="fa-brands fa-instagram text-sm"></i></a>
+                    <a href="https://www.linkedin.com/company/sketchy-chapters/" target="_blank" class="w-10 h-10 rounded-xl glass-card flex items-center justify-center text-gray-300 hover:text-amber-400 hover:border-amber-500/50 transition"><i class="fa-brands fa-linkedin-in text-sm"></i></a>
+                    <a href="https://x.com/sketchychapters" target="_blank" class="w-10 h-10 rounded-xl glass-card flex items-center justify-center text-gray-300 hover:text-amber-400 hover:border-amber-500/50 transition"><i class="fa-brands fa-x text-sm"></i></a>
+                    <a href="https://tiktok.com/@sketchy.chapters" target="_blank" class="w-10 h-10 rounded-xl glass-card flex items-center justify-center text-gray-300 hover:text-amber-400 hover:border-amber-500/50 transition"><i class="fa-brands fa-tiktok text-sm"></i></a>
+                    <a href="https://wa.me/96181427589" target="_blank" class="w-10 h-10 rounded-xl glass-card flex items-center justify-center text-gray-300 hover:text-amber-400 hover:border-amber-500/50 transition"><i class="fa-brands fa-whatsapp text-sm"></i></a>
                 </div>
-                <!-- Link to Careers Page -->
-                <div class="pt-2">
-                    <a href="mailto:hr@sketchychapters.com" class="inline-flex items-center space-x-2 rtl:space-x-reverse text-xs font-bold text-amber-400 hover:underline">
-                        <i class="fa-solid fa-briefcase"></i>
-                        <span>
-                            <span class="lang-en">Join Our Team</span>
-                            <span class="lang-ar">انضم إلى فريقنا</span>
-                        </span>
-                    </a>
-                </div>
+                <div class="pt-2"><a href="mailto:hr@sketchychapters.com" class="inline-flex items-center space-x-2 rtl:space-x-reverse text-xs font-bold text-amber-400 hover:underline"><i class="fa-solid fa-briefcase"></i><span><span class="lang-en">Join Our Team</span><span class="lang-ar">انضم إلى فريقنا</span></span></a></div>
             </div>
-
         </div>
-
-        <!-- Copyright Bottom Bar -->
         <div class="max-w-7xl mx-auto border-t border-amber-500/10 pt-6 text-center text-gray-500 text-xs">
-            <p>© <span id="current-year"></span> Sketchy Chapters Design & Construction (SCDC). All Rights Reserved.</p>
+            <p>© <span id="current-year"></span> Sketchy Chapters Design & Construction (SCDC). All Rights Reserved. All site content, code, and design are proprietary to SCDC.</p>
         </div>
     </footer>
-    
-    <!-- Scripts: Swiper, AOS & Functionalities -->
+
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        // Initialize AOS animations
-        AOS.init({
-            once: true,
-            duration: 1000,
-            offset: 100
-        });
+        AOS.init({ once: true, duration: 1000, offset: 100 });
 
-        // Initialize Hero Background Swiper (fade transition, autoplay)
         const heroSwiper = new Swiper('.heroSwiper', {
             loop: true,
-            autoplay: {
-                delay: 4000,
-                disableOnInteraction: false
-            },
+            autoplay: { delay: 4000, disableOnInteraction: false },
             effect: 'fade',
             fadeEffect: { crossFade: true },
             speed: 1000,
-            pagination: {
-                el: '.heroSwiper .swiper-pagination',
-                clickable: true
-            }
+            pagination: { el: '.heroSwiper .swiper-pagination', clickable: true }
         });
 
-        // Initialize Showcase Projects Swiper (multi-slide carousel)
         const showcaseSwiper = new Swiper('.ShowcaseSwiper', {
             slidesPerView: 1,
             spaceBetween: 16,
             loop: true,
-            autoplay: {
-                delay: 3500,
-                disableOnInteraction: false
-            },
-            pagination: {
-                el: '.ShowcaseSwiper .swiper-pagination',
-                clickable: true
-            },
-            breakpoints: {
-                640: { slidesPerView: 2, spaceBetween: 20 },
-                1024: { slidesPerView: 3, spaceBetween: 24 }
-            }
+            autoplay: { delay: 3500, disableOnInteraction: false },
+            pagination: { el: '.ShowcaseSwiper .swiper-pagination', clickable: true },
+            breakpoints: { 640: { slidesPerView: 2, spaceBetween: 20 }, 1024: { slidesPerView: 3, spaceBetween: 24 } }
         });
 
-        // Footer copyright year (avoids document.write, which some mobile browsers block after load)
         const yearEl = document.getElementById('current-year');
         if (yearEl) yearEl.textContent = new Date().getFullYear();
 
-        // Toggle Mobile Menu Function (Fixed 3 dots button)
         function toggleMobileMenu() {
             const menu = document.getElementById('mobileMenu');
-            if (menu) {
-                menu.classList.toggle('hidden');
-                menu.classList.toggle('flex');
-            }
+            if (menu) { menu.classList.toggle('hidden'); menu.classList.toggle('flex'); }
         }
 
-        // Language Switcher Function
         function toggleLanguage() {
             const htmlTag = document.getElementById('main-html');
             const btnText = document.getElementById('lang-btn-text');
-            
             if (htmlTag.getAttribute('lang') === 'en') {
                 htmlTag.setAttribute('lang', 'ar');
                 htmlTag.setAttribute('dir', 'rtl');
-                if(btnText) btnText.textContent = 'English';
+                if (btnText) btnText.textContent = 'English';
                 localStorage.setItem('scdc_lang', 'ar');
             } else {
                 htmlTag.setAttribute('lang', 'en');
                 htmlTag.setAttribute('dir', 'ltr');
-                if(btnText) btnText.textContent = 'العربية';
+                if (btnText) btnText.textContent = 'العربية';
                 localStorage.setItem('scdc_lang', 'en');
             }
         }
 
-        // Check saved language preference on load
         window.addEventListener('DOMContentLoaded', () => {
             const savedLang = localStorage.getItem('scdc_lang');
             if (savedLang === 'ar') {
@@ -792,47 +643,44 @@
                 const btnText = document.getElementById('lang-btn-text');
                 if (btnText) btnText.textContent = 'English';
             }
+
+            const particlesWrap = document.getElementById('introParticles');
+            if (particlesWrap) {
+                for (let i = 0; i < 26; i++) {
+                    const p = document.createElement('div');
+                    p.className = 'intro-particle';
+                    p.style.left = Math.random() * 100 + '%';
+                    p.style.bottom = '0';
+                    p.style.animationDuration = (3 + Math.random() * 3) + 's';
+                    p.style.animationDelay = (Math.random() * 2.5) + 's';
+                    particlesWrap.appendChild(p);
+                }
+            }
         });
     </script>
-    <!-- كل الكود تبع موقعك هون -->
-    
-    <!-- سكريبت الـ Analytics -->
+
+    <script>
+        (function () {
+            var seen = sessionStorage.getItem('scdc_intro_seen');
+            var overlay = document.getElementById('introOverlay');
+            if (seen === 'true') { overlay.classList.add('intro-hidden'); return; }
+            document.body.style.overflow = 'hidden';
+            var dismissed = false;
+            function endIntro() {
+                if (dismissed) return;
+                dismissed = true;
+                sessionStorage.setItem('scdc_intro_seen', 'true');
+                overlay.classList.add('intro-exit');
+                document.body.style.overflow = '';
+                setTimeout(function () { overlay.classList.add('intro-hidden'); }, 1600);
+            }
+            window.skipIntro = endIntro;
+            setTimeout(endIntro, 4400);
+        })();
+    </script>
+
     <script defer src="/_vercel/insights/script.js"></script>
-    
-    <!-- سكريبت الـ Speed Insights -->
     <script defer src="/_vercel/speed-insights/script.js"></script>
 
-<script>
-    // 1. منع زر الفأرة الأيمن (Right Click)
-    document.addEventListener('contextmenu', function(e) {
-        e.preventDefault();
-    });
-
-    // 2. منع أختصارات الكيبورد لفتح الـ Inspect أو عرض مصدر الصفحة
-    document.addEventListener('keydown', function(e) {
-        // منع F12
-        if (e.key === 'F12') {
-            e.preventDefault();
-        }
-        // منع Ctrl+Shift+I أو Ctrl+Shift+J أو Ctrl+Shift+C
-        if (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'i' || e.key === 'J' || e.key === 'j' || e.key === 'C' || e.key === 'c')) {
-            e.preventDefault();
-        }
-        // منع Ctrl+U (عرض مصدر الصفحة View Source)
-        if (e.ctrlKey && (e.key === 'U' || e.key === 'u')) {
-            e.preventDefault();
-        }
-    });
-
-    // 3. طريقة إضافية لكشف الوقف المباشر وإنذار المتصفح
-    setInterval(function() {
-        const before = new Date().getTime();
-        debugger;
-        const after = new Date().getTime();
-        if (after - before > 100) {
-            document.body.innerHTML = "<h1>Access Denied</h1>";
-        }
-    }, 1000);
-</script>
 </body>
 </html>
