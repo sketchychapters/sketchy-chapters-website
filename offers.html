@@ -2,6 +2,7 @@
 <html lang="en" dir="ltr" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
+<meta name="color-scheme" content="dark">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Summer Packages & Offers | Sketchy Chapters</title>
     <!-- Favicon -->
@@ -24,7 +25,7 @@
     <script>window.DISABLE_BIRTHDAY_DISCOUNT = true;</script>
 
     <style>
-        body {
+        body {color-scheme:dark;
            font-family: 'Tajawal', sans-serif;
            background-color: #08080a;
            color: #e0e6ed;
@@ -246,6 +247,26 @@
                    <span class="text-xs font-bold text-amber-400 bg-amber-500/10 border border-amber-500/30 px-4 py-2 rounded-xl group-hover:bg-amber-500/20 transition" data-ar="عرض التفاصيل والتسجيل" data-en="View Details & Register">View Details & Register</span>
                </div>
             </div>
+
+            <!-- 5. The Complete Architecture & Interior Package -->
+            <div onclick="openModal('pkg5')" class="glass-card p-6 md:p-8 rounded-3xl flex flex-col justify-between relative overflow-hidden group cursor-pointer md:col-span-2 border-amber-500/50 bg-gradient-to-b from-amber-950/25 to-black/60">
+               <div class="ribbon" data-ar="الباقة الأشمل" data-en="The Complete Path">The Complete Path</div>
+               <div>
+                   <div class="h-48 rounded-2xl bg-cover bg-center mb-6 border border-amber-500/30" style="background-image: url('https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=1200');"></div>
+                   <span class="gold-accent text-xs font-bold uppercase tracking-wider">Package 05</span>
+                   <h3 class="text-2xl font-black text-white mt-1 mb-2" data-ar="باقة العمارة والتصميم الداخلي المتكاملة" data-en="The Complete Architecture & Interior Package">The Complete Architecture & Interior Package</h3>
+                   <p class="text-gray-300 text-xs font-light leading-relaxed mb-4" data-ar="تتضمن: أوتوكاد + ريفيت المعماري + ريفيت المتقدم وفيراي + فوتوشوب + لوميون. كل برامج العمارة والتصميم الداخلي الأساسية بمسار واحد متكامل." data-en="Includes: AutoCAD + Revit Architecture + Revit Advanced & V-Ray + Photoshop + Lumion. Every essential architecture & interior design software in one complete path.">
+                       Includes: AutoCAD + Revit Architecture + Revit Advanced & V-Ray + Photoshop + Lumion. Every essential architecture & interior design software in one complete path.
+                   </p>
+               </div>
+               <div class="pt-4 border-t border-amber-500/20 flex justify-between items-center">
+                   <div>
+                       <span class="text-xs text-gray-500 line-through block" data-ar="$635 القيمة الأساسية" data-en="$635 Value">$635 Value</span>
+                       <span class="text-2xl font-black gold-accent">$499</span>
+                   </div>
+                   <span class="text-xs font-bold text-amber-400 bg-amber-500/10 border border-amber-500/30 px-4 py-2 rounded-xl group-hover:bg-amber-500/20 transition" data-ar="عرض التفاصيل والتسجيل" data-en="View Details & Register">View Details & Register</span>
+               </div>
+            </div>
  
         </div>
     </section>
@@ -372,6 +393,24 @@
                     { code: "AI", colorClass: "amber", titleEn: "Adobe Illustrator Course", titleAr: "كورس أدوبي إيليستريتور", descEn: "Vector graphics, branding creation, logos, and typography design.", descAr: "تصميم الشعارات، الهويات البصرية (Branding)، والرسوم المتجهية (Vector Graphics)." },
                     { code: "PS", colorClass: "cyan", titleEn: "Adobe Photoshop Course", titleAr: "كورس أدوبي فوتوشوب المتكامل", descEn: "Advanced image manipulation, digital painting, and composition.", descAr: "تعديل الصور، دمج العناصر البصرية، والتصميم الإعلاني الرقمي." },
                     { code: "PR", colorClass: "purple", titleEn: "Adobe Premiere Pro Course", titleAr: "كورس أدوبي بريمير برو للمونتاج", descEn: "Professional video editing, color grading, sound mixing, and content creation.", descAr: "مونتاج الفيديوهات الاحترافية، المؤثرات البصرية، وهندسة الصوت لوسائل التواصل الاجتماعي." }
+                ]
+            },
+            pkg5: {
+                titleEn: "The Complete Architecture & Interior Package",
+                titleAr: "باقة العمارة والتصميم الداخلي المتكاملة",
+                valueEn: "$635 Value",
+                valueAr: "$635 القيمة الأساسية",
+                price: "$499",
+                priceNum: 499,
+                splitCourses: ["AutoCAD 2D/3D", "Revit Architecture", "Revit Architecture Advanced + V-Ray", "Photoshop Rendering", "Lumion"],
+                descEn: "Every essential architecture & interior design software in one complete path — from technical drafting to photorealistic rendering and cinematic walkthroughs.",
+                descAr: "كل برامج العمارة والتصميم الداخلي الأساسية بمسار واحد متكامل — من الرسم الهندسي إلى الإخراج الواقعي والفيديوهات السينمائية.",
+                courses: [
+                    { code: "CAD", colorClass: "red", titleEn: "AutoCAD Course (2D & 3D)", titleAr: "كورس أوتوكاد (2D & 3D)", descEn: "Precise architectural and technical drawing preparation.", descAr: "رسم المخططات الهندسية المعمارية بدقة متناهية وإخراج المساقط التنفيذية." },
+                    { code: "RVT", colorClass: "blue", titleEn: "Revit Architecture", titleAr: "كورس ريفيت المعماري", descEn: "BIM fundamentals, walls, floors, and 3D components creation.", descAr: "أساسيات نمذجة معلومات المباني BIM، الجدران، الأبواب، النوافذ، والكتل ثلاثية الأبعاد." },
+                    { code: "ADV", colorClass: "orange", titleEn: "Revit Architecture Advanced + V-Ray", titleAr: "كورس ريفيت المعماري المتقدم + فيراي", descEn: "Advanced BIM modeling, custom families, schedules, and photorealistic V-Ray rendering.", descAr: "النمذجة المتقدمة، إنشاء العائلات الخاصة (Families)، جدول الكميات، والإخراج الواقعي بفيراي." },
+                    { code: "PS", colorClass: "cyan", titleEn: "Photoshop for Architects", titleAr: "كورس فوتوشوب للمعماريين", descEn: "Architectural board post-production, color grading, and rendering enhancement.", descAr: "إخراج لوحات العرض المعمارية (Presentations)، إضافة الفراغات والتشجير، ومعالجة الصور." },
+                    { code: "LUM", colorClass: "emerald", titleEn: "Lumion Animation & Render", titleAr: "كورس لوميون للإخراج المعماري والتحريك", descEn: "Photorealistic rendering, lighting, materials, and motion walkthroughs.", descAr: "صنع فيديوهات الحركة (Animation)، اللقطات الواقعية السريعة (Render)، وإضافة البيئة والمواد." }
                 ]
             }
         };
