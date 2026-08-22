@@ -76,13 +76,12 @@
         }
         #introOverlay.intro-hidden { display: none; }
         #introOverlay.intro-exit {
-            animation: introZoomThrough 1.4s cubic-bezier(.55,0,.1,1) forwards;
+            animation: introFadeToBlack 1.6s ease forwards;
         }
-        @keyframes introZoomThrough {
-            0%   { transform: scale(1);   opacity: 1; background-color: #08080a; }
-            40%  { transform: scale(1.5); opacity: 1; background-color: #000000; }
-            80%  { transform: scale(2.1); opacity: 1; background-color: #000000; }
-            100% { transform: scale(2.6); opacity: 0; background-color: #000000; }
+        @keyframes introFadeToBlack {
+            0%   { opacity: 1; background-color: #08080a; }
+            35%  { opacity: 1; background-color: #000000; }
+            100% { opacity: 0; background-color: #000000; }
         }
         #introFlash {
             position: absolute; inset: 0; z-index: 3; pointer-events: none;
@@ -188,7 +187,7 @@
                 sessionStorage.setItem('sketchy_intro_seen', 'true');
                 overlay.classList.add('intro-exit');
                 document.body.style.overflow = '';
-                setTimeout(function () { overlay.classList.add('intro-hidden'); }, 1400);
+                setTimeout(function () { overlay.classList.add('intro-hidden'); }, 1600);
             }
             window.skipIntro = endIntro;
             setTimeout(endIntro, 4000);
@@ -240,19 +239,19 @@
     <!-- ================= MOBILE DROPDOWN MENU ================= -->
     <div id="mobileMenu" class="fixed inset-x-0 top-[76px] z-40 bg-[#121216]/95 backdrop-blur-xl border-b border-amber-500/30 p-6 hidden flex-col space-y-4 md:hidden shadow-2xl transition-all">
         <a href="index.html" onclick="toggleMobileMenu()" class="text-white text-sm font-bold py-2 border-b border-amber-500/10 flex items-center justify-between">
-            <span data-ar="🏠 الرئيسية" data-en="🏠 Home">Home</span>
+            <span data-ar=" الرئيسية" data-en=" Home">Home</span>
             <i class="fa-solid fa-arrow-left rtl:rotate-180 text-xs gold-accent"></i>
         </a>
         <a href="workshop.html" onclick="toggleMobileMenu()" class="text-white text-sm font-bold py-2 border-b border-amber-500/10 flex items-center justify-between">
-            <span data-ar="🛠️ ورش العمل" data-en="🛠️ Workshops">Workshops</span>
+            <span data-ar=" ورش العمل" data-en=" Workshops">Workshops</span>
             <i class="fa-solid fa-arrow-left rtl:rotate-180 text-xs gold-accent"></i>
         </a>
         <a href="offers.html" onclick="toggleMobileMenu()" class="text-white text-sm font-bold py-2 border-b border-amber-500/10 flex items-center justify-between">
-            <span data-ar="🔥 الباقات الصيفية" data-en="🔥 Summer Packages">Summer Packages</span>
+            <span data-ar= الباقات الصيفية" data-en=" Summer Packages">Summer Packages</span>
             <i class="fa-solid fa-arrow-left rtl:rotate-180 text-xs gold-accent"></i>
         </a>
         <a href="oea-courses.html" class="text-white text-sm font-bold py-2 border-b border-amber-500/10 flex items-center justify-between">
-            <span data-ar="🏛️ دورات نقابة المهندسين" data-en="🏛️ OEA Courses">OEA Courses</span>
+            <span data-ar=" دورات نقابة المهندسين" data-en=" OEA Courses">OEA Courses</span>
             <i class="fa-solid fa-arrow-left rtl:rotate-180 text-xs gold-accent"></i>
         </a>
 
@@ -354,7 +353,7 @@
     <!-- JavaScript for Countdown Timer -->
     <script>
     function updateCountdown() {
-        const targetDate = new Date('August 18, 2026 23:59:59').getTime();
+        const targetDate = new Date('August 28, 2026 23:59:59').getTime();
         const now = new Date().getTime();
         const gap = targetDate - now;
 
