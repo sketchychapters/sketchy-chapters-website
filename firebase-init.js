@@ -1,10 +1,3 @@
-// ==========================================================
-// firebase-init.js
-// شغل هيدا الملف مرة وحدة، وحطو بنفس مجلد باقي صفحات الموقع
-// لازم ينضاف بـ <script> بكل صفحة قبل أي كود تاني يستخدم Firebase
-// ==========================================================
-// مشروع Firebase: sketchy-chapters (معبى ✅)
-
 const firebaseConfig = {
   apiKey: "AIzaSyDOojwwATzwl93nFCXJxnUDm3LlOSHspgQ",
   authDomain: "sketchy-chapters.firebaseapp.com",
@@ -18,14 +11,8 @@ firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 const db = firebase.firestore();
 
-// ==========================================================
-// نظام النقاط والمستويات (Points & Levels)
-// ==========================================================
-
-// كل 1$ يدفعه الطالب = 7 نقاط (عدّل الرقم هون إذا تغيّر بالمستقبل)
 const POINTS_PER_DOLLAR = 7;
 
-// جدول المستويات - المسافات بين المستويات أوسع (تصعيد أبطأ وأطول)
 const LEVELS = [
   { name: "Basic",    nameAr: "أساسي",    min: 0,    courseDiscount: 0,  referralDiscount: 0,  birthdayDiscount: 20, freeCourseYearly: false },
   { name: "Classic",  nameAr: "كلاسيك",   min: 1000, courseDiscount: 10, referralDiscount: 5,  birthdayDiscount: 30, freeCourseYearly: false },
@@ -33,15 +20,10 @@ const LEVELS = [
   { name: "Platinum", nameAr: "بلاتيني",  min: 5000, courseDiscount: 20, referralDiscount: 15, birthdayDiscount: 50, freeCourseYearly: true  }
 ];
 
-// ==========================================================
-// متطلبات مسبقة بين الدورات - زيد أي دورة هون لما تحب تربطها بدورة تانية لازم تنسجل قبلها
-// المفتاح = اسم الدورة، القيمة = مصفوفة أسماء الدورات المطلوبة قبلها
-// ==========================================================
 const COURSE_PREREQUISITES = {
   "Revit Architecture Advanced + V-Ray": ["Revit Architecture"]
 };
 
-// بيتأكد إذا الطالب مؤهل يسجل بدورة معينة (خد بعين الاعتبار تسجيلاته الحالية + محتويات السلة الحالية)
 function checkPrerequisites(courseName, existingEnrollments, cartItems) {
   const required = COURSE_PREREQUISITES[courseName];
   if (!required) return { ok: true };
@@ -55,7 +37,6 @@ function checkPrerequisites(courseName, existingEnrollments, cartItems) {
   return { ok: true };
 }
 
-// بيرجع كائن المستوى الحالي حسب عدد النقاط
 function computeLevel(points) {
   points = points || 0;
   let current = LEVELS[0];
@@ -65,7 +46,6 @@ function computeLevel(points) {
   return current;
 }
 
-// بيرجع المستوى الجاي (لعرض "باقيلك كم نقطة" بصفحة الحساب)
 function nextLevel(points) {
   points = points || 0;
   for (const lvl of LEVELS) {
@@ -74,11 +54,6 @@ function nextLevel(points) {
   return null; // وصل لأعلى مستوى
 }
 
-// ==========================================================
-// توليد رقم تسلسلي (Student ID) لكل طالب جديد
-// الصيغة: السنة + رقم يبلش من 10001 (مش من 1) - عشان ما يبين عدد الطلاب الحقيقي
-// مثال: أول طالب بسنة 2026 بياخد 202610001، وبيرجع يبلش من جديد كل سنة
-// ==========================================================
 async function generateStudentId() {
   const year = new Date().getFullYear();
   const counterRef = db.collection("meta").doc("studentCounter_" + year);
@@ -92,9 +67,6 @@ async function generateStudentId() {
   return String(year) + String(newNumber);
 }
 
-// ==========================================================
-// تسجيل حساب جديد
-// ==========================================================
 async function signUpStudent({ name, email, password, birthDate, phone, gender, referredBy, country, region, specialization }) {
   const cred = await auth.createUserWithEmailAndPassword(email, password);
   const uid = cred.user.uid;
@@ -117,18 +89,15 @@ async function signUpStudent({ name, email, password, birthDate, phone, gender, 
     enrollments: []
   });
 
-  // خريطة بسيطة: رقم الطالب -> إيميله (عشان الطالب يقدر يدخل بالـ ID بدل الإيميل)
   await db.collection("studentIdLookup").doc(studentId).set({ email, uid });
 
   return uid;
 }
 
-// تسجيل دخول بالإيميل أو برقم الطالب (Student ID) - أيهم بده الطالب
 async function loginStudent(identifier, password) {
   let email = (identifier || "").trim();
 
   if (!email.includes("@")) {
-    // مش شكل إيميل -> اعتبره Student ID ودور عن الإيميل المرتبط فيه
     const lookupDoc = await db.collection("studentIdLookup").doc(email).get();
     if (!lookupDoc.exists) throw new Error("STUDENT_ID_NOT_FOUND");
     email = lookupDoc.data().email;
@@ -139,7 +108,6 @@ async function loginStudent(identifier, password) {
 }
 
 function logoutStudent() {
-  // نصفّر أي كورسات مضافة للسلة وما تثبتت - ما بدنا نخليها معلقة لجلسة تانية
   try { localStorage.removeItem('sketchy_cart'); } catch (e) {}
   return auth.signOut();
 }
@@ -151,8 +119,6 @@ async function getCurrentStudentData() {
   return doc.exists ? { uid: user.uid, ...doc.data() } : null;
 }
 
-// حروف الأفاتار (أول حرف من الاسم الأول وأول حرف من اسم العيلة)
-// معرّف فريد حقيقي لكل تسجيل دورة - عشان دورتين بنفس اللحظة بالضبط ما ينلخبطوا مع بعض
 function generateEnrollmentId() {
   return Date.now().toString(36) + "-" + Math.random().toString(36).slice(2, 9);
 }
@@ -165,10 +131,6 @@ function getInitials(fullName) {
   return (first + last).toUpperCase();
 }
 
-// ==========================================================
-// خصم عيد الميلاد: بيتفعل بس بأسبوع عيد ميلاد الطالب
-// بيرجع نسبة خصم عيد الميلاد الخاصة بمستوى الطالب
-// ==========================================================
 function isBirthdayWeek(birthDateStr) {
   if (!birthDateStr) return false;
   const today = new Date();
@@ -178,11 +140,6 @@ function isBirthdayWeek(birthDateStr) {
   return diffDays <= 7;
 }
 
-// ==========================================================
-// تسجيل بدورة (Group أو Private) + نقاط + خصومات حسب المستوى
-// noDiscount:true بيلغي خصم عيد الميلاد بس (لصفحات offers/oea)
-// خصم المستوى (Level Discount) بيضل شغال دايماً
-// ==========================================================
 async function enrollInCourse({ courseName, basePrice, type, noDiscount, redeemFreeCourse }) {
   const user = auth.currentUser;
   if (!user) {
@@ -192,11 +149,9 @@ async function enrollInCourse({ courseName, basePrice, type, noDiscount, redeemF
 
   const studentData = await getCurrentStudentData();
   if (!studentData) {
-    // ملف الطالب مش موجود بقاعدة البيانات (حساب اتعمل بشكل ناقص) - ما فينا نكمل
     throw new Error("PROFILE_MISSING");
   }
 
-  // منع التسجيل بنفس الدورة مرتين وهي لسا نشطة (قيد الموافقة أو قادمة)
   const existingEnrollments = studentData.enrollments || [];
   const alreadyActive = existingEnrollments.some(
     en => en.courseName === courseName && en.status !== "completed" && en.status !== "cancelled"
@@ -207,7 +162,6 @@ async function enrollInCourse({ courseName, basePrice, type, noDiscount, redeemF
 
   const level = computeLevel(studentData.points);
 
-  // إذا الطالب بلاتيني وبده يستخدم الكورس المجاني السنوي
   const thisYear = new Date().getFullYear();
   const canRedeemFree = level.freeCourseYearly && studentData.freeCourseUsedYear !== thisYear;
 
@@ -222,7 +176,6 @@ async function enrollInCourse({ courseName, basePrice, type, noDiscount, redeemF
   } else {
     if (type === "private") finalPrice = finalPrice * 2;
 
-    // نختار الأكبر بين خصم المستوى العادي وخصم عيد الميلاد (ما يتكدسوا فوق بعض)
     let bestDiscount = level.courseDiscount;
     if (!noDiscount && isBirthdayWeek(studentData.birthDate)) {
       bestDiscount = Math.max(bestDiscount, level.birthdayDiscount);
@@ -247,14 +200,11 @@ async function enrollInCourse({ courseName, basePrice, type, noDiscount, redeemF
     date: new Date().toISOString()
   };
 
-  // ملاحظة مهمة: ما منزيد رصيد النقاط هون - النقاط بتنضاف بس لما الأدمن يأكد إنو الطالب خلّص الدورة فعلياً
-  // (من صفحة الأدمن، زر "Mark Completed") - هيك ما حدا بيستفيد من خصم مستوى أعلى قبل ما يخلّص دوراته الفعلية
   const updates = {
     enrollments: firebase.firestore.FieldValue.arrayUnion(enrollment)
   };
   if (usedFreeCourse) updates.freeCourseUsedYear = thisYear;
 
-  // set + merge بدل update: بيكتب حتى لو في حقل ناقص، وما بيفشل بصمت
   await db.collection("students").doc(user.uid).set(updates, { merge: true });
 
   if (window.sendEnrollmentEmail) {
@@ -270,11 +220,6 @@ async function enrollInCourse({ courseName, basePrice, type, noDiscount, redeemF
   return enrollment;
 }
 
-// ==========================================================
-// تسجيل دفعة كورسات مرة وحدة (سلة الاختيارات) - كتابة وحدة + إيميل وحد
-// cartItems: [{ courseName, basePrice, type, redeemFreeCourse }, ...]
-// بيرجع { added: [...], skipped: [أسماء الدورات المكررة] }
-// ==========================================================
 async function submitCart(cartItems) {
   const user = auth.currentUser;
   if (!user) {
@@ -295,8 +240,6 @@ async function submitCart(cartItems) {
   let freeCourseUsedThisSubmission = false;
   let birthdayDiscountUsedThisSubmission = false;
 
-  // خصم عيد الميلاد بشرطين: (1) عنده دورة قديمة واحدة عالأقل بحسابه (مش حساب جديد فاضي)
-  // (2) ما استخدمه هالسنة قبل - وبيتطبق على دورة وحدة بس من كل السلة، حتى لو فيها كذا دورة
   const hasEnrollmentHistory = existingEnrollments.length > 0;
 
   for (const item of cartItems) {
@@ -341,7 +284,6 @@ async function submitCart(cartItems) {
         bestDiscount = Math.max(bestDiscount, level.birthdayDiscount);
         birthdayDiscountUsedThisSubmission = true; // بيتطبق على دورة وحدة بس من كل السلة
       }
-      // خصم خاص حطّه الأدمن لهالطالب بالذات - إما لدورة محددة أو لكل الدورات ("*")
       const specialDiscounts = studentData.specialDiscounts || [];
       const specialMatch = specialDiscounts.find(sd => sd.courseName === item.courseName || sd.courseName === "*");
       if (specialMatch) {
@@ -396,9 +338,6 @@ function requireLogin() {
   });
 }
 
-// ==========================================================
-// دوال خاصة بصفحة الأدمن (admin.html)
-// ==========================================================
 const ADMIN_EMAIL = "info@sketchychapters.com";
 
 async function loginAdmin(email, password) {
@@ -423,9 +362,6 @@ async function getAllStudents() {
   return snapshot.docs.map(doc => ({ uid: doc.id, ...doc.data() }));
 }
 
-// ==========================================================
-// نظام الإشعارات - جرس الإشعارات بالهيدر + قسم بصفحة الحساب
-// ==========================================================
 async function addNotification(studentUid, message) {
   const notif = {
     id: generateEnrollmentId(),
@@ -438,7 +374,6 @@ async function addNotification(studentUid, message) {
   });
 }
 
-// الأدمن بيمسح إشعار معيّن من سجل طالب
 async function deleteNotification(studentUid, notifId) {
   const ref = db.collection("students").doc(studentUid);
   const doc = await ref.get();
@@ -446,7 +381,6 @@ async function deleteNotification(studentUid, notifId) {
   await ref.update({ notifications });
 }
 
-// الطالب بيفتح جرس الإشعارات -> منعلّم كلها مقروءة، ومنمسح يلي عمرها أكتر من شهر
 async function markAllNotificationsRead() {
   const user = auth.currentUser;
   if (!user) return;
@@ -461,17 +395,12 @@ async function markAllNotificationsRead() {
   await ref.update({ notifications });
 }
 
-// إشعار عيد ميلاد تلقائي - مرة وحدة بالسنة بس، وقت ما الطالب يفتح حسابه بأسبوع عيد ميلاده
-// نقاط الإحالة الثابتة (نفس الجدول الأصلي)
 const REFERRAL_BONUS_POINTS = 200;
 
-// الطالب الجديد بيكتب مين حوّله (نص حر بس) - ما في أي بحث أو مطابقة تلقائية بين الحسابات
-// الأدمن هو يلي بيفحص ويدوّر عن الشخص يدوياً ويضيفله النقاط بنفسه
 async function submitReferralClaim(identifier) {
   const user = auth.currentUser;
   if (!user) throw new Error("NOT_LOGGED_IN");
 
-  // فحص بسيط: ما يكتب معلوماته هو (اسمه/إيميله/رقمه) - بالمقارنة مع بياناته هو بس، بدون أي وصول لحسابات تانية
   const myData = await getCurrentStudentData();
   const mine = [myData?.name, myData?.email, myData?.phone, myData?.studentId]
     .filter(Boolean).map(v => v.toLowerCase().trim());
@@ -489,7 +418,6 @@ async function submitReferralClaim(identifier) {
   return claim;
 }
 
-// الأدمن بيأكد صحة الإحالة (بعد ما يلاقي الشخص يدوياً) وبيضيف نقاط الإحالة لصاحبه
 async function awardReferralPoints(referredStudentUid, referrerUid, referrerName) {
   await addPointsToStudent(referrerUid, REFERRAL_BONUS_POINTS, "referral");
 
@@ -499,7 +427,6 @@ async function awardReferralPoints(referredStudentUid, referrerUid, referrerName
   await ref.update({ referralClaim: { ...claim, status: "awarded", awardedTo: referrerName } });
 }
 
-// الأدمن بيعدّل نص طلب الإحالة (مثلاً يصحح غلطة إملائية بالاسم قبل ما يفتش عنه)
 async function editReferralClaimText(studentUid, newText) {
   const ref = db.collection("students").doc(studentUid);
   const doc = await ref.get();
@@ -521,7 +448,6 @@ async function checkAndNotifyBirthday() {
   const hasEnrollmentHistory = (data.enrollments || []).length > 0;
   const alreadyUsedDiscount = data.birthdayDiscountUsedYear === thisYear;
 
-  // المعايدة توصل الكل دايماً - بس ذكر الخصم بس لو فعلاً بيستحقه (عنده دورة قديمة وما استخدمه هالسنة)
   const message = (hasEnrollmentHistory && !alreadyUsedDiscount)
     ? `🎂 عيد ميلاد سعيد! يحق لك الحصول على خصم خاص ${level.birthdayDiscount}% على دورة واحدة هذا الأسبوع.`
     : `🎂 عيد ميلاد سعيد من فريق Sketchy Chapters! نتمنى لك سنة رائعة.`;
@@ -530,7 +456,6 @@ async function checkAndNotifyBirthday() {
   await db.collection("students").doc(user.uid).update({ lastBirthdayNotifiedYear: thisYear });
 }
 
-// الأدمن بيبعت إعلان/عرض/خصم جديد لكل الطلاب دفعة وحدة
 async function broadcastAnnouncement(message) {
   const students = await getAllStudents();
   const notif = { message, date: new Date().toISOString(), read: false };
@@ -542,8 +467,6 @@ async function broadcastAnnouncement(message) {
   return students.length;
 }
 
-// الأدمن بيحط خصم خاص لطالب معيّن على دورة معيّنة (أو "*" لكل الدورات)
-// بيتطبق أوتوماتيك وقت التسجيل - بياخد الأكبر بينه وبين خصم المستوى العادي
 async function setSpecialDiscount(studentUid, courseName, discountPercent) {
   const discount = { courseName, discountPercent: Number(discountPercent) };
   await db.collection("students").doc(studentUid).update({
@@ -551,7 +474,6 @@ async function setSpecialDiscount(studentUid, courseName, discountPercent) {
   });
 }
 
-// الأدمن بيشيل خصم خاص كان حاططه لطالب
 async function removeSpecialDiscount(studentUid, courseName, discountPercent) {
   const discount = { courseName, discountPercent: Number(discountPercent) };
   await db.collection("students").doc(studentUid).update({
@@ -559,9 +481,6 @@ async function removeSpecialDiscount(studentUid, courseName, discountPercent) {
   });
 }
 
-// الأدمن بيضيف نقاط يدوياً (فيدباك / ريفيو فيسبوك / ريفيو غوغل / إحالة / يدوي)
-// بيبعت إشعار بالنقاط، وإشعار إضافي إذا صعد الطالب مستوى بسبب هالنقاط
-// سجل داخلي (للأدمن بس) بكل نقاط أُضيفت لأي طالب مع سببها - الطالب ما بيشوفه أبداً
 async function logPointsChange(studentUid, points, reason) {
   const entry = { id: generateEnrollmentId(), points, reason, date: new Date().toISOString() };
   await db.collection("students").doc(studentUid).update({
@@ -569,7 +488,6 @@ async function logPointsChange(studentUid, points, reason) {
   });
 }
 
-// الأدمن بيعدّل سطر بسجل النقاط (كمية أو سبب) - بيتعدّل رصيد الطالب تلقائياً حسب الفرق
 async function editPointsLogEntry(studentUid, entryId, newPoints, newReason) {
   const ref = db.collection("students").doc(studentUid);
   const doc = await ref.get();
@@ -588,7 +506,6 @@ async function editPointsLogEntry(studentUid, entryId, newPoints, newReason) {
   });
 }
 
-// الأدمن بيمسح سطر بسجل النقاط بالكامل - بيرجّع نقاطه من رصيد الطالب
 async function deletePointsLogEntry(studentUid, entryId) {
   const ref = db.collection("students").doc(studentUid);
   const doc = await ref.get();
@@ -620,8 +537,6 @@ async function addPointsToStudent(studentUid, points, note) {
   }
 }
 
-// الأدمن بيغيّر حالة دورة الطالب لـ completed - وهون بالضبط بتنضاف النقاط لرصيد الطالب لأول مرة
-// بيبعت إشعار بإتمام الدورة، وإشعار ترقية مستوى إذا صار
 async function markEnrollmentStatus(studentUid, enrollmentId, newStatus) {
   const ref = db.collection("students").doc(studentUid);
   const doc = await ref.get();
@@ -633,12 +548,10 @@ async function markEnrollmentStatus(studentUid, enrollmentId, newStatus) {
 
   const enrollments = existing.map(en => {
     if ((en.id || en.date) === enrollmentId) {
-      // منضيف النقاط بس أول مرة توصل الحالة completed (مش كل مرة تنكبس الزر)
       if (newStatus === "completed" && en.status !== "completed") {
         pointsToAward = en.pointsEarned || 0;
         completedCourseName = en.courseName;
       }
-      // إذا ما في تاريخ نهاية محدد يدوياً، منحطه تلقائياً بتاريخ اليوم وقت الإتمام
       const autoEndDate = (newStatus === "completed" && !en.endDate)
         ? new Date().toISOString().slice(0, 10)
         : en.endDate;
@@ -665,8 +578,6 @@ async function markEnrollmentStatus(studentUid, enrollmentId, newStatus) {
       await addNotification(studentUid, `🎉 مبروك! وصلت لمستوى ${afterLevel.nameAr}!`);
     }
 
-    // ==== توليد شهادة إلكترونية موثّقة تلقائياً ====
-    // معرّف فريد وطويل بما يكفي إنو ما حدا يقدر يخمّنه أو يزوّر واحد صحيح
     const certId = generateEnrollmentId() + "-" + generateEnrollmentId();
     const studentData = doc.data();
 
@@ -693,7 +604,6 @@ async function markEnrollmentStatus(studentUid, enrollmentId, newStatus) {
   }
 }
 
-// الطالب بيلغي تسجيله بحاله - بس مسموح إذا لسا الحالة "pending" (ما وافق عليها الأدمن بعد)
 async function cancelEnrollment(enrollmentId) {
   const user = auth.currentUser;
   if (!user) throw new Error("NOT_LOGGED_IN");
@@ -708,14 +618,12 @@ async function cancelEnrollment(enrollmentId) {
 
   const remaining = enrollments.filter(en => (en.id || en.date) !== enrollmentId);
   const updates = { enrollments: remaining };
-  // ملاحظة: ما منرجع نقاط هون - النقاط أصلاً ما بتنضاف إلا لما الدورة توصل completed
   if (target.discountApplied === 100) {
     updates.freeCourseUsedYear = firebase.firestore.FieldValue.delete();
   }
   await ref.set(updates, { merge: true });
 }
 
-// الأدمن بيوافق على تسجيل قيد الموافقة -> بتصير "upcoming" وما تعود تنلغى من الطالب
 async function approveEnrollment(studentUid, enrollmentId) {
   const ref = db.collection("students").doc(studentUid);
   const doc = await ref.get();
@@ -733,8 +641,6 @@ async function approveEnrollment(studentUid, enrollmentId) {
   }
 }
 
-// الأدمن بيلغي/يشيل تسجيل دورة - بيشتغل على أي حالة (pending/upcoming/completed)
-// مو بس الـ pending - هيك فيك تلغي دورة لطالب حتى لو كانت متأكدة أو مكتملة أصلاً
 async function adminCancelEnrollment(studentUid, enrollmentId) {
   const ref = db.collection("students").doc(studentUid);
   const doc = await ref.get();
@@ -758,8 +664,6 @@ async function adminCancelEnrollment(studentUid, enrollmentId) {
   await addNotification(studentUid, msg);
 }
 
-// الأدمن بيضيف/يعدّل ملاحظة على دورة معينة - بتبين للطالب نفسه بحسابه (مش سرّية)
-// مثلاً: "يرجى تسليم المشروع الأخير للحصول على الشهادة"
 async function setEnrollmentNote(studentUid, enrollmentId, note) {
   const ref = db.collection("students").doc(studentUid);
   const doc = await ref.get();
@@ -778,7 +682,6 @@ async function setEnrollmentNote(studentUid, enrollmentId, note) {
   }
 }
 
-// الأدمن بيحدّد تاريخ بداية ونهاية دورة معينة (متل جدولها الفعلي، مش تاريخ التسجيل)
 async function setEnrollmentSchedule(studentUid, enrollmentId, startDate, endDate) {
   const ref = db.collection("students").doc(studentUid);
   const doc = await ref.get();
@@ -797,8 +700,6 @@ async function setEnrollmentSchedule(studentUid, enrollmentId, startDate, endDat
   }
 }
 
-// الأدمن بيضيف دورة قديمة يدوياً لحساب طالب (لسجل دوراته من قبل ما ينضاف هالنظام)
-// بتاخد نقاط بس إذا حالتها "completed" (نفس قاعدة أي دورة تانية)
 async function addManualEnrollment(studentUid, { courseName, type, finalPrice, status, date, startDate, endDate }) {
   const pointsEarned = Math.round((finalPrice || 0) * POINTS_PER_DOLLAR);
   const finalStatus = status || "completed";
@@ -825,8 +726,6 @@ async function addManualEnrollment(studentUid, { courseName, type, finalPrice, s
   await db.collection("students").doc(studentUid).set(updates, { merge: true });
 }
 
-// الأدمن بيعدّل تفاصيل دورة موجودة أصلاً (اسمها، نوعها، سعرها) - لو غلط أو لازم تصحيح
-// لو الدورة أصلاً "completed" وانضافت نقاطها، بيتم تعديل رصيد النقاط تلقائياً حسب فرق السعر
 async function editEnrollmentDetails(studentUid, enrollmentId, { courseName, type, finalPrice }) {
   const ref = db.collection("students").doc(studentUid);
   const doc = await ref.get();
@@ -850,7 +749,6 @@ async function editEnrollmentDetails(studentUid, enrollmentId, { courseName, typ
   await ref.update(updates);
 }
 
-// الأدمن بيضيف رابط شهادة لحساب الطالب (رابط جاهز من Google Drive أو أي مكان تاني)
 async function addCertificateToStudent(studentUid, { courseName, url }) {
   const cert = {
     id: generateEnrollmentId(), // نفس مولّد المعرّفات، صالح لأي شي محتاج ID فريد
@@ -864,7 +762,6 @@ async function addCertificateToStudent(studentUid, { courseName, url }) {
   await addNotification(studentUid, `🎓 شهادتك لدورة "${courseName}" جاهزة! افتح حسابك لتحميلها.`);
 }
 
-// الأدمن بيعدّل شهادة موجودة أصلاً (اسم الدورة أو الرابط)
 async function editCertificate(studentUid, certId, { courseName, url }) {
   const ref = db.collection("students").doc(studentUid);
   const doc = await ref.get();
@@ -874,7 +771,6 @@ async function editCertificate(studentUid, certId, { courseName, url }) {
   await ref.update({ certificates });
 }
 
-// الأدمن بيمسح شهادة
 async function deleteCertificate(studentUid, certId) {
   const ref = db.collection("students").doc(studentUid);
   const doc = await ref.get();
@@ -882,7 +778,6 @@ async function deleteCertificate(studentUid, certId) {
   await ref.update({ certificates });
 }
 
-// الأدمن بيغيّر رقم طالب يدوياً (مثلاً زبون قديم، وبدك رقمه يعكس سنة أول دورة اخدها فعلياً)
 async function setStudentId(studentUid, oldId, newId) {
   const studentRef = db.collection("students").doc(studentUid);
   const doc = await studentRef.get();
@@ -895,7 +790,6 @@ async function setStudentId(studentUid, oldId, newId) {
   }
 }
 
-// الأدمن بيمسح سجل طالب بالكامل من قاعدة البيانات (مثلاً بعد ما مسحته من Firebase Authentication)
 async function deleteStudentRecord(studentUid, studentId) {
   await db.collection("students").doc(studentUid).delete();
   if (studentId) {
@@ -903,53 +797,31 @@ async function deleteStudentRecord(studentUid, studentId) {
   }
 }
 
-// الأدمن بيعدّل بيانات عرض الطالب (الاسم، الإيميل المعروض، الهاتف، الجنس، تاريخ الميلاد)
-// ملاحظة: هاد بيعدّل بيانات العرض بقاعدة البيانات بس - ما بيغيّر إيميل/باسوورد الدخول الفعلي
-// (هيك محمي من Firebase نفسها، وما فينا نلمسه من غير سيرفر خلفي)
 async function editStudentProfile(studentUid, { name, phone, gender, birthDate, specialization, country, region }) {
   await db.collection("students").doc(studentUid).update({
     name, phone, gender, birthDate, specialization, country, region
   });
 }
 
-// ==========================================================
-// فحص إذا الإيميل مسجل عندنا فعلاً - قبل ما نرسل أي شي
-// (Firebase نفسه ما بيكشف هالمعلومة لأسباب أمان، فمنفحصها إحنا بقاعدة بياناتنا)
-// ==========================================================
 async function checkEmailRegistered(email) {
   const snap = await db.collection("studentIdLookup").where("email", "==", email).limit(1).get();
   return !snap.empty;
 }
 
-// ==========================================================
-// نسيان كلمة السر - الرابط بيوديك مباشرة على reset-password.html بموقعنا
-// (handleCodeInApp: true بيلغي صفحة Firebase الوسيطة تماماً)
-// ==========================================================
 async function requestPasswordReset(email) {
   const resetUrl = window.location.origin + window.location.pathname.replace(/[^/]*$/, '') + 'reset-password.html';
   await auth.sendPasswordResetEmail(email, { url: resetUrl, handleCodeInApp: true });
 }
 
-// ==========================================================
-// تغيير كلمة السر - للطالب المسجل دخول مسبقاً، بدون أي إيميل
-// ==========================================================
 async function changeMyPassword(currentPassword, newPassword) {
   const user = auth.currentUser;
   if (!user) throw new Error("NOT_LOGGED_IN");
 
-  // Firebase بيطلب إعادة تأكيد الهوية قبل تغيير كلمة السر (إجراء أمان)
   const credential = firebase.auth.EmailAuthProvider.credential(user.email, currentPassword);
   await user.reauthenticateWithCredential(credential);
   await user.updatePassword(newPassword);
 }
 
-// ==========================================================
-// نقل بيانات طالب نسي كلمة سره لحساب جديد (بدون أي إيميل تلقائي)
-// السيناريو: الطالب رجعك بالواتساب -> بتمسحله حسابه القديم من Firebase Console
-// -> بيعمل حساب جديد بنفس إيميله وباسوورد يختاره -> بتستخدم هاي الدالة تنقل
-// كل تاريخه (نقاط/دورات/رقمه/شهادات/إشعارات) من الحساب القديم اليتيم للحساب الجديد
-// newIdentifier: إيميل أو رقم طالب (Student ID) تبع الحساب الجديد
-// ==========================================================
 async function migrateStudentData(oldUid, newIdentifier) {
   let newUid = null;
   const identifier = (newIdentifier || "").trim();
@@ -990,21 +862,15 @@ async function migrateStudentData(oldUid, newIdentifier) {
     birthDate: newData.birthDate || oldData.birthDate || ""
   }, { merge: true });
 
-  // حدّث خريطة رقم الطالب تشاور عالحساب الجديد
   if (keepStudentId) {
     await db.collection("studentIdLookup").doc(keepStudentId).set({ email: newData.email, uid: newUid });
   }
 
-  // احذف الحساب القديم اليتيم بعد ما خلص النقل
   await oldRef.delete();
 
   return { mergedInto: newUid, studentId: keepStudentId };
 }
 
-// ==========================================================
-// نظام رسائل موحّد بستايل الموقع (بدل alert/confirm/prompt الافتراضية البيضا)
-// بيتحقن أوتوماتيك بأي صفحة عم تحمّل هالملف
-// ==========================================================
 function injectDialogSystem() {
   if (document.getElementById("customDialogModal")) return;
   const modal = document.createElement("div");
