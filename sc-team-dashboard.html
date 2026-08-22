@@ -343,7 +343,6 @@ requireAdmin();
 let allStudents = [];
 let activeStudentUid = null;
 
-// نقاط الفيدباك بتختلف حسب مستوى الطالب وقت الإضافة
 const FEEDBACK_POINTS_BY_LEVEL = { Basic: 20, Classic: 50, Gold: 100, Platinum: 150 };
 
 auth.onAuthStateChanged(async (user) => {
@@ -405,7 +404,6 @@ function barRow(label, count, total) {
 }
 
 function renderAnalytics() {
-  // ----- الدورات الأكثر اختياراً -----
   const courseCounts = {};
   let totalEnrollmentsForStats = 0;
   allStudents.forEach(s => {
@@ -419,7 +417,6 @@ function renderAnalytics() {
     ? topCourses.map(([name, count]) => barRow(name, count, totalEnrollmentsForStats)).join('')
     : '<p class="text-gray-500 text-xs">No enrollments yet.</p>';
 
-  // ----- التخصصات -----
   const specCounts = {};
   let totalWithSpec = 0;
   allStudents.forEach(s => {
@@ -433,7 +430,6 @@ function renderAnalytics() {
     ? topSpecs.map(([name, count]) => barRow(name, count, totalWithSpec)).join('')
     : '<p class="text-gray-500 text-xs">No data yet.</p>';
 
-  // ----- نسبة الذكور والإناث -----
   let maleCount = 0, femaleCount = 0;
   allStudents.forEach(s => {
     if (s.gender === 'male') maleCount++;
@@ -486,7 +482,6 @@ function renderStudents() {
           } else {
             actionsHtml = `<span class="text-[10px] font-bold px-2.5 py-1.5 rounded-lg bg-emerald-500/20 text-emerald-400">✓ Completed</span>`;
           }
-          // متاحة دايماً بغض النظر عن الحالة - يعني تقدر تلغي دورة حتى لو مؤكدة أو مكتملة
           actionsHtml += `
               <button onclick="openEditEnrollmentModal('${s.uid}', '${eid}', '${en.courseName.replace(/'/g, "")}', '${en.type}', ${en.finalPrice})"
                 class="text-[10px] font-bold px-2.5 py-1.5 rounded-lg bg-indigo-500/20 text-indigo-300">✏️</button>
@@ -674,7 +669,6 @@ async function deleteNotificationClick(uid, notifId) {
   renderStudents();
 }
 
-// ----- Referral claims -----
 async function dismissReferralClick(studentUid) {
   await db.collection("students").doc(studentUid).update({ "referralClaim.status": "dismissed" });
   allStudents = await getAllStudents();
@@ -702,7 +696,6 @@ async function submitEditReferral() {
   renderStudents();
 }
 
-// ----- Edit / delete points log entries -----
 let activePointsLogId = null;
 
 function openEditPointsLogModal(uid, entryId, points, reason) {
@@ -786,7 +779,6 @@ async function clearNote() {
   renderStudents();
 }
 
-// ----- Course start/end date scheduling -----
 function openScheduleModal(uid, enrollmentId, courseName, startDate, endDate) {
   activeStudentUid = uid;
   activeEnrollmentId = enrollmentId;
@@ -811,7 +803,6 @@ async function submitSchedule() {
   renderStudents();
 }
 
-// ----- Edit course details on an existing enrollment -----
 function openEditEnrollmentModal(uid, enrollmentId, courseName, type, finalPrice) {
   activeStudentUid = uid;
   activeEnrollmentId = enrollmentId;
@@ -875,7 +866,6 @@ async function submitAddPoints() {
   renderStudents();
 }
 
-// ----- Add old/legacy course -----
 function openEnrollModal(uid, name) {
   activeStudentUid = uid;
   document.getElementById('enrollModalStudentName').innerText = name;
@@ -917,7 +907,6 @@ async function submitAddEnrollment() {
   renderStudents();
 }
 
-// ----- Add certificate -----
 let activeCertId = null;
 
 function openCertModal(uid, name, certId, existingCourseName, existingUrl) {
@@ -959,7 +948,6 @@ async function deleteCertificateClick(uid, certId, courseName) {
   renderStudents();
 }
 
-// ----- Send a notification to one specific student -----
 function openNotifyModal(uid, name) {
   activeStudentUid = uid;
   document.getElementById('notifyModalStudentName').innerText = name;
@@ -982,7 +970,6 @@ async function submitNotify() {
   await customAlert('✅ Notification sent to this student.');
 }
 
-// ----- Edit a student's full profile -----
 function openEditProfileModal(uid) {
   const student = allStudents.find(s => s.uid === uid);
   if (!student) return;
@@ -1019,7 +1006,6 @@ async function submitEditProfile() {
   renderStudents();
 }
 
-// ----- Edit a student's ID (e.g. legacy student - set the ID to reflect the year they actually first joined) -----
 async function editStudentIdClick(uid, oldId) {
   const newId = await customPrompt('Enter the new Student ID (e.g. 202210001 for a student who first joined in 2022):', oldId);
   if (!newId || newId.trim() === '' || newId.trim() === oldId) return;
@@ -1034,7 +1020,6 @@ async function editStudentIdClick(uid, oldId) {
   }
 }
 
-// ----- Delete a student record entirely (e.g. after removing them from Firebase Authentication) -----
 async function deleteStudentClick(uid, studentId, name) {
   const confirm1 = await customConfirm(`⚠️ Permanently delete ${name}'s entire record (courses, points, certificates, everything)?\n\nThis cannot be undone.`);
   if (!confirm1) return;
