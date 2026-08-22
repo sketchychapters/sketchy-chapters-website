@@ -167,7 +167,6 @@
 
 <script src="firebase-init.js"></script>
 <script>
-// ===== قائمة الدول + أكواد الهاتف (فلسطين موجودة، إسرائيل مش موجودة) =====
 const COUNTRY_LIST = [
   { name: "Afghanistan", dial: "+93" },
   { name: "Albania", dial: "+355" },
@@ -381,13 +380,11 @@ function populateCountryFields() {
     dialSelect.appendChild(opt2);
   });
 
-  // افتراضياً لبنان (يقدر يغيّرها الطالب براحته)
   countrySelect.value = "Lebanon";
   dialSelect.value = "+961";
 }
 populateCountryFields();
 
-// ===== خانة التخصص - قائمة اقتراحات مبنية بالـ JS (بتشتغل صح عالتلفون، بعكس datalist المدمجة يلي مش موثوقة على iOS) =====
 const SPECIALIZATION_LIST = [
   "Architecture", "Interior Design", "Landscape Architecture", "Urban Planning",
   "Civil Engineering", "Structural Engineering", "Mechanical Engineering", "Electrical Engineering",
@@ -429,14 +426,12 @@ function selectSpecialization(value) {
   specSuggestions.innerHTML = '';
 }
 
-// نسكر القائمة لو دست بأي مكان تاني بالصفحة
 document.addEventListener('click', (e) => {
   if (e.target !== specInput && !specSuggestions.contains(e.target)) {
     specSuggestions.classList.add('hidden');
   }
 });
 
-// ===== Lamp pull interaction (بتنطلب كل مرة يدخل فيها حدا الصفحة) =====
 function pullCord(el){
   if (el.classList.contains('done')) return;
   el.classList.add('pulled');
@@ -456,7 +451,6 @@ function litLampNow(){
   document.getElementById('hint').classList.add('hide');
 }
 
-// ===== Language toggle (matches rest of the site) =====
 let currentLang = 'en';
 function toggleLanguage(){
   currentLang = currentLang === 'en' ? 'ar' : 'en';
@@ -471,7 +465,6 @@ function toggleLanguage(){
   });
 }
 
-// ===== Signup logic =====
 document.getElementById('signupForm').addEventListener('submit', async (e) => {
   e.preventDefault();
   const errorEl = document.getElementById('errorMsg');
