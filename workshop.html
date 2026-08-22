@@ -247,7 +247,7 @@
             <i class="fa-solid fa-arrow-left rtl:rotate-180 text-xs gold-accent"></i>
         </a>
         <a href="offers.html" onclick="toggleMobileMenu()" class="text-white text-sm font-bold py-2 border-b border-amber-500/10 flex items-center justify-between">
-            <span data-ar= الباقات الصيفية" data-en=" Summer Packages">Summer Packages</span>
+            <span data-ar="الباقات الصيفية" data-en=" Summer Packages">Summer Packages</span>
             <i class="fa-solid fa-arrow-left rtl:rotate-180 text-xs gold-accent"></i>
         </a>
         <a href="oea-courses.html" class="text-white text-sm font-bold py-2 border-b border-amber-500/10 flex items-center justify-between">
@@ -716,6 +716,7 @@
     <!-- Footer -->
     <footer class="py-12 text-center text-gray-500 text-xs border-t border-gray-900 mt-20">
         <p data-en="&copy; 2026 Sketchy Chapters Workshop Center. All rights reserved." data-ar="&copy; 2026 مركز ورش عمل سكتشي تشابترز. جميع الحقوق محفوظة.">&copy; 2026 Sketchy Chapters Workshop Center. All rights reserved.</p>
+        <p class="mt-1 text-[10px] text-gray-600" data-en="All site content, code, and design are proprietary to Sketchy Chapters." data-ar="جميع محتويات وأكواد وتصميم هذا الموقع ملكية خاصة بمركز سكتشي تشابترز.">All site content, code, and design are proprietary to Sketchy Chapters.</p>
     </footer>
 
     <!-- ================= SCRIPTS ================= -->
@@ -831,36 +832,6 @@
             currentSlideIndex = (currentSlideIndex + 1) % slides.length;
             showSlide(currentSlideIndex);
         }, 4000);
-    </script>
-
-    <script>
-        // 1. منع زر الفأرة الأيمن (Right Click)
-        document.addEventListener('contextmenu', function(e) {
-            e.preventDefault();
-        });
-
-        // 2. منع أختصارات الكيبورد لفتح الـ Inspect أو عرض مصدر الصفحة
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'F12') {
-                e.preventDefault();
-            }
-            if (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'i' || e.key === 'J' || e.key === 'j' || e.key === 'C' || e.key === 'c')) {
-                e.preventDefault();
-            }
-            if (e.ctrlKey && (e.key === 'U' || e.key === 'u')) {
-                e.preventDefault();
-            }
-        });
-
-        // 3. طريقة إضافية لكشف الوقف المباشر وإنذار المتصفح
-        setInterval(function() {
-            const before = new Date().getTime();
-            debugger;
-            const after = new Date().getTime();
-            if (after - before > 100) {
-                document.body.innerHTML = "<h1>Access Denied</h1>";
-            }
-        }, 1000);
     </script>
 </body>
 </html>
