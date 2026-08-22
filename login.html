@@ -120,7 +120,6 @@
 
 <script src="firebase-init.js"></script>
 <script>
-// ===== Lamp pull interaction (بتنطلب كل مرة يدخل فيها حدا الصفحة) =====
 function pullCord(el){
   if (el.classList.contains('done')) return;
   el.classList.add('pulled');
@@ -140,7 +139,6 @@ function litLampNow(){
   document.getElementById('hint').classList.add('hide');
 }
 
-// ===== Language toggle (matches rest of the site) =====
 let currentLang = 'en';
 function toggleLanguage(){
   currentLang = currentLang === 'en' ? 'ar' : 'en';
@@ -155,7 +153,6 @@ function toggleLanguage(){
   });
 }
 
-// ===== Forgot Password =====
 async function handleForgotPassword(e) {
   e.preventDefault();
   const errorEl = document.getElementById('errorMsg');
@@ -191,7 +188,6 @@ async function handleForgotPassword(e) {
   }
 }
 
-// ===== Login logic =====
 document.getElementById('loginForm').addEventListener('submit', async (e) => {
   e.preventDefault();
   const errorEl = document.getElementById('errorMsg');
