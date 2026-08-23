@@ -2,6 +2,7 @@
 <html lang="en" dir="ltr" id="htmlRoot">
 <head>
     <meta charset="UTF-8">
+<meta name="color-scheme" content="dark">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title data-ar="دورات الهندسة المعمارية المعتمدة | Sketchy Chapters" data-en="Certified Architecture Courses | Sketchy Chapters">Certified Architecture Courses | Sketchy Chapters</title>
     <!-- Favicon -->
@@ -37,7 +38,7 @@
         }
     </script>
     <style>
-        body { font-family: 'Inter', sans-serif; background-color: #0b0b0e; color: #f3f4f6; transition: font-family 0.3s ease; }
+        body {color-scheme:dark; font-family: 'Inter', sans-serif; background-color: #0b0b0e; color: #f3f4f6; transition: font-family 0.3s ease; }
         body.ar-lang { font-family: 'Cairo', sans-serif; }
         .glass-card { background: rgba(18, 18, 22, 0.75); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid rgba(212, 175, 55, 0.15); }
         .gold-accent { color: #d4af37; }
@@ -1021,6 +1022,17 @@
     </div>
 
     <script>
+        function detectDefaultLang() {
+            const saved = localStorage.getItem('sketchy_lang');
+            if (saved === 'ar' || saved === 'en') return saved;
+            const gulfTZ = ['Asia/Riyadh', 'Asia/Dubai', 'Asia/Kuwait', 'Asia/Qatar', 'Asia/Bahrain', 'Asia/Muscat'];
+            try {
+                const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+                if (gulfTZ.includes(tz)) return 'ar';
+            } catch (e) {}
+            return 'en';
+        }
+
         function toggleLanguage() {
             const htmlRoot = document.getElementById('htmlRoot');
             const bodyEl = document.getElementById('bodyEl');
@@ -1032,6 +1044,7 @@
                 bodyEl.classList.remove('en-lang');
                 bodyEl.classList.add('ar-lang');
                 langBtnText.innerText = 'English';
+                localStorage.setItem('sketchy_lang', 'ar');
                 
                 document.querySelectorAll('[data-ar]').forEach(el => {
                     if (el.hasAttribute('data-ar')) {
@@ -1044,6 +1057,7 @@
                 bodyEl.classList.remove('ar-lang');
                 bodyEl.classList.add('en-lang');
                 langBtnText.innerText = 'العربية';
+                localStorage.setItem('sketchy_lang', 'en');
                 
                 document.querySelectorAll('[data-en]').forEach(el => {
                     if (el.hasAttribute('data-en')) {
@@ -1052,6 +1066,8 @@
                 });
             }
         }
+
+        if (detectDefaultLang() === 'ar') { toggleLanguage(); }
 
         function toggleMobileMenu() {
             const mobileMenu = document.getElementById('mobileMenu');
