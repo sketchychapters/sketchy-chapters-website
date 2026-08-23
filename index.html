@@ -618,6 +618,17 @@
             if (menu) { menu.classList.toggle('hidden'); menu.classList.toggle('flex'); }
         }
 
+        function detectDefaultLang() {
+            const saved = localStorage.getItem('sketchy_lang');
+            if (saved === 'ar' || saved === 'en') return saved;
+            const gulfTZ = ['Asia/Riyadh', 'Asia/Dubai', 'Asia/Kuwait', 'Asia/Qatar', 'Asia/Bahrain', 'Asia/Muscat'];
+            try {
+                const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+                if (gulfTZ.includes(tz)) return 'ar';
+            } catch (e) {}
+            return 'en';
+        }
+
         function toggleLanguage() {
             const htmlTag = document.getElementById('main-html');
             const btnText = document.getElementById('lang-btn-text');
@@ -625,17 +636,17 @@
                 htmlTag.setAttribute('lang', 'ar');
                 htmlTag.setAttribute('dir', 'rtl');
                 if (btnText) btnText.textContent = 'English';
-                localStorage.setItem('scdc_lang', 'ar');
+                localStorage.setItem('sketchy_lang', 'ar');
             } else {
                 htmlTag.setAttribute('lang', 'en');
                 htmlTag.setAttribute('dir', 'ltr');
                 if (btnText) btnText.textContent = 'العربية';
-                localStorage.setItem('scdc_lang', 'en');
+                localStorage.setItem('sketchy_lang', 'en');
             }
         }
 
         window.addEventListener('DOMContentLoaded', () => {
-            const savedLang = localStorage.getItem('scdc_lang');
+            const savedLang = detectDefaultLang();
             if (savedLang === 'ar') {
                 const htmlTag = document.getElementById('main-html');
                 htmlTag.setAttribute('lang', 'ar');
