@@ -2,9 +2,9 @@
 <html lang="en" dir="ltr" class="scroll-smooth" id="main-html">
 <head>
     <meta charset="UTF-8">
+    <meta name="color-scheme" content="dark">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title id="page-title">Project Details | Sketchy Chapters</title>
-    <!-- Favicon -->
     <link rel="icon" type="image/png" href="favicon.png">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&family=Tajawal:wght@300;500;700;900&display=swap" rel="stylesheet">
@@ -33,7 +33,6 @@
 </head>
 <body class="selection:bg-amber-500 selection:text-black min-h-screen flex flex-col justify-between">
 
-    <!-- Header Navigation -->
     <nav class="fixed w-full z-50 glass-card px-6 py-4 flex justify-between items-center top-0 border-b border-amber-500/15">
         <a href="index.html" class="flex items-center space-x-3 rtl:space-x-reverse">
             <img src="logo.png" alt="SCDC Logo" class="h-10 md:h-12 w-auto object-contain" onerror="this.style.display='none'; document.getElementById('logo-fallback').style.display='block';">
@@ -52,36 +51,29 @@
         </div>
     </nav>
 
-    <!-- Page Header -->
     <header class="pt-32 pb-16 px-6 text-center max-w-4xl mx-auto">
         <div class="inline-block px-4 py-1.5 rounded-full glass-card text-xs font-bold gold-accent mb-4 uppercase tracking-widest border border-amber-500/30">
            <span class="lang-en">SCDC Projects Archive</span>
            <span class="lang-ar">أرشيف مشاريع SCDC</span>
         </div>
         <h1 class="text-4xl md:text-6xl font-black mb-6 text-white">
-           <span class="lang-en">Our Architectural & Design</span> <span class="gold-gradient-text">Portfolio</span>
-           <span class="lang-ar">معرض الأعمال والهندسة</span>
+           <span class="lang-en">Our Architectural & Design <span class="gold-gradient-text">Portfolio</span></span>
+           <span class="lang-ar"><span class="gold-gradient-text">معرض</span> الأعمال والتصميم الهندسي</span>
         </h1>
     </header>
 
-    <!-- Projects Grid (8 Projects) -->
     <main class="pb-24 px-6 max-w-7xl mx-auto">
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
 
-            <!-- 1. Downtown Apartment -->
             <a href="downtown-apart.html" class="glass-card rounded-3xl overflow-hidden group transition duration-300 hover:-translate-y-2 block" data-aos="fade-up">
                 <div class="relative h-72 overflow-hidden bg-zinc-900">
                     <img src="Downtown-Apartment-Living.jpg" alt="Downtown Apartment Living" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
                     <div class="absolute inset-0 bg-gradient-to-t from-[#08080a] via-transparent to-transparent opacity-80"></div>
-                    
-                    <!-- Location Badge (Top Right) -->
                     <span class="absolute top-4 right-4 bg-black/60 backdrop-blur-md border border-amber-500/30 text-amber-400 text-xs font-bold px-3 py-1 rounded-full flex items-center gap-1.5">
                        <i class="fa-solid fa-location-dot"></i>
                        <span class="lang-en">Downtown Beirut</span>
                        <span class="lang-ar">وسط بيروت</span>
                     </span>
-
-                    <!-- Year Badge (Top Left) -->
                     <span class="absolute top-4 left-4 bg-black/60 backdrop-blur-md border border-white/10 text-gray-300 text-xs font-bold px-2.5 py-1 rounded-full flex items-center gap-1">
                        <i class="fa-solid fa-calendar gold-accent text-[10px]"></i>
                        2024
@@ -100,20 +92,15 @@
                 </div>
             </a>
 
-            <!-- 2. Beauty By Rosaline -->
             <a href="project-rosaline.html" class="glass-card rounded-3xl overflow-hidden group transition duration-300 hover:-translate-y-2 block" data-aos="fade-up" data-aos-delay="100">
                 <div class="relative h-72 overflow-hidden bg-zinc-900">
                     <img src="Rosaline-Salon-Render-4.jpg" alt="Rosaline Salon Render" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
                     <div class="absolute inset-0 bg-gradient-to-t from-[#08080a] via-transparent to-transparent opacity-80"></div>
-                    
-                    <!-- Location Badge -->
                     <span class="absolute top-4 right-4 bg-black/60 backdrop-blur-md border border-amber-500/30 text-amber-400 text-xs font-bold px-3 py-1 rounded-full flex items-center gap-1.5">
                        <i class="fa-solid fa-location-dot"></i>
                        <span class="lang-en">Tripoli</span>
                        <span class="lang-ar">طرابلس</span>
                     </span>
-
-                    <!-- Year Badge -->
                     <span class="absolute top-4 left-4 bg-black/60 backdrop-blur-md border border-white/10 text-gray-300 text-xs font-bold px-2.5 py-1 rounded-full flex items-center gap-1">
                        <i class="fa-solid fa-calendar gold-accent text-[10px]"></i>
                        2023
@@ -132,20 +119,15 @@
                 </div>
             </a>
 
-            <!-- 3. Office Berlin -->
             <a href="project-berlin.html" class="glass-card rounded-3xl overflow-hidden group transition duration-300 hover:-translate-y-2 block" data-aos="fade-up" data-aos-delay="200">
                 <div class="relative h-72 overflow-hidden bg-zinc-900">
                     <img src="Office-Berlin-1.jpg" alt="Office Berlin" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
                     <div class="absolute inset-0 bg-gradient-to-t from-[#08080a] via-transparent to-transparent opacity-80"></div>
-                    
-                    <!-- Location Badge -->
                     <span class="absolute top-4 right-4 bg-black/60 backdrop-blur-md border border-amber-500/30 text-amber-400 text-xs font-bold px-3 py-1 rounded-full flex items-center gap-1.5">
                        <i class="fa-solid fa-location-dot"></i>
                        <span class="lang-en">Berlin, Germany</span>
                        <span class="lang-ar">برلين، ألمانيا</span>
                     </span>
-
-                    <!-- Year Badge -->
                     <span class="absolute top-4 left-4 bg-black/60 backdrop-blur-md border border-white/10 text-gray-300 text-xs font-bold px-2.5 py-1 rounded-full flex items-center gap-1">
                        <i class="fa-solid fa-calendar gold-accent text-[10px]"></i>
                        2023
@@ -164,20 +146,15 @@
                 </div>
             </a>
 
-            <!-- 4. Arz Villa -->
             <a href="arz-villa.html" class="glass-card rounded-3xl overflow-hidden group transition duration-300 hover:-translate-y-2 block" data-aos="fade-up" data-aos-delay="300">
                 <div class="relative h-72 overflow-hidden bg-zinc-900">
                     <img src="Arz-Villa-1.jpg" alt="Arz Villa" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
                     <div class="absolute inset-0 bg-gradient-to-t from-[#08080a] via-transparent to-transparent opacity-80"></div>
-                    
-                    <!-- Location Badge -->
                     <span class="absolute top-4 right-4 bg-black/60 backdrop-blur-md border border-amber-500/30 text-amber-400 text-xs font-bold px-3 py-1 rounded-full flex items-center gap-1.5">
                        <i class="fa-solid fa-location-dot"></i>
                        <span class="lang-en">Arz</span>
                        <span class="lang-ar">الأرز</span>
                     </span>
-
-                    <!-- Year Badge -->
                     <span class="absolute top-4 left-4 bg-black/60 backdrop-blur-md border border-white/10 text-gray-300 text-xs font-bold px-2.5 py-1 rounded-full flex items-center gap-1">
                        <i class="fa-solid fa-calendar gold-accent text-[10px]"></i>
                        2025
@@ -196,20 +173,15 @@
                 </div>
             </a>
 
-            <!-- 5. Dermexcel Display Stand -->
             <a href="dermexcel-display-stand.html" class="glass-card rounded-3xl overflow-hidden group transition duration-300 hover:-translate-y-2 block" data-aos="fade-up" data-aos-delay="400">
                 <div class="relative h-72 overflow-hidden bg-zinc-900">
                     <img src="Dermexcel-1.jpg" alt="Dermexcel Stand" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
                     <div class="absolute inset-0 bg-gradient-to-t from-[#08080a] via-transparent to-transparent opacity-80"></div>
-                    
-                    <!-- Location Badge -->
                     <span class="absolute top-4 right-4 bg-black/60 backdrop-blur-md border border-amber-500/30 text-amber-400 text-xs font-bold px-3 py-1 rounded-full flex items-center gap-1.5">
                        <i class="fa-solid fa-location-dot"></i>
                        <span class="lang-en">Akkar</span>
                        <span class="lang-ar">عكار</span>
                     </span>
-
-                    <!-- Year Badge -->
                     <span class="absolute top-4 left-4 bg-black/60 backdrop-blur-md border border-white/10 text-gray-300 text-xs font-bold px-2.5 py-1 rounded-full flex items-center gap-1">
                        <i class="fa-solid fa-calendar gold-accent text-[10px]"></i>
                        2024
@@ -228,20 +200,15 @@
                 </div>
             </a>
 
-            <!-- 6. Riyadh Villa -->
             <a href="riyadh-villa.html" class="glass-card rounded-3xl overflow-hidden group transition duration-300 hover:-translate-y-2 block" data-aos="fade-up" data-aos-delay="500">
                 <div class="relative h-72 overflow-hidden bg-zinc-900">
                     <img src="Villa-Riyadh-Living-4.jpg" alt="Riyadh Villa Living" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
                     <div class="absolute inset-0 bg-gradient-to-t from-[#08080a] via-transparent to-transparent opacity-80"></div>
-                    
-                    <!-- Location Badge -->
                     <span class="absolute top-4 right-4 bg-black/60 backdrop-blur-md border border-amber-500/30 text-amber-400 text-xs font-bold px-3 py-1 rounded-full flex items-center gap-1.5">
                        <i class="fa-solid fa-location-dot"></i>
                        <span class="lang-en">Riyadh, KSA</span>
                        <span class="lang-ar">الرياض، السعودية</span>
                     </span>
-
-                    <!-- Year Badge -->
                     <span class="absolute top-4 left-4 bg-black/60 backdrop-blur-md border border-white/10 text-gray-300 text-xs font-bold px-2.5 py-1 rounded-full flex items-center gap-1">
                        <i class="fa-solid fa-calendar gold-accent text-[10px]"></i>
                        2024
@@ -260,20 +227,15 @@
                 </div>
             </a>
 
-            <!-- 7. Tripoli Partition TV Unit -->
             <a href="tripoli-partition-tvunit.html" class="glass-card rounded-3xl overflow-hidden group transition duration-300 hover:-translate-y-2 block" data-aos="fade-up" data-aos-delay="600">
                 <div class="relative h-72 overflow-hidden bg-zinc-900">
                     <img src="Tripoli-Partition.jpg" alt="Tripoli Partition" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
                     <div class="absolute inset-0 bg-gradient-to-t from-[#08080a] via-transparent to-transparent opacity-80"></div>
-                    
-                    <!-- Location Badge -->
                     <span class="absolute top-4 right-4 bg-black/60 backdrop-blur-md border border-amber-500/30 text-amber-400 text-xs font-bold px-3 py-1 rounded-full flex items-center gap-1.5">
                        <i class="fa-solid fa-location-dot"></i>
                        <span class="lang-en">Tripoli</span>
                        <span class="lang-ar">طرابلس</span>
                     </span>
-
-                    <!-- Year Badge -->
                     <span class="absolute top-4 left-4 bg-black/60 backdrop-blur-md border border-white/10 text-gray-300 text-xs font-bold px-2.5 py-1 rounded-full flex items-center gap-1">
                        <i class="fa-solid fa-calendar gold-accent text-[10px]"></i>
                        2025
@@ -292,20 +254,15 @@
                 </div>
             </a>
 
-            <!-- 8. Dubai Villa Apartment -->
             <a href="dubai-villa-apartment.html" class="glass-card rounded-3xl overflow-hidden group transition duration-300 hover:-translate-y-2 block" data-aos="fade-up" data-aos-delay="700">
                 <div class="relative h-72 overflow-hidden bg-zinc-900">
                     <img src="Dubai-Living.jpg" alt="Dubai Living" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
                     <div class="absolute inset-0 bg-gradient-to-t from-[#08080a] via-transparent to-transparent opacity-80"></div>
-                    
-                    <!-- Location Badge -->
                     <span class="absolute top-4 right-4 bg-black/60 backdrop-blur-md border border-amber-500/30 text-amber-400 text-xs font-bold px-3 py-1 rounded-full flex items-center gap-1.5">
                        <i class="fa-solid fa-location-dot"></i>
                        <span class="lang-en">Dubai, UAE</span>
                        <span class="lang-ar">دبي، الإمارات</span>
                     </span>
-
-                    <!-- Year Badge -->
                     <span class="absolute top-4 left-4 bg-black/60 backdrop-blur-md border border-white/10 text-gray-300 text-xs font-bold px-2.5 py-1 rounded-full flex items-center gap-1">
                        <i class="fa-solid fa-calendar gold-accent text-[10px]"></i>
                        2024
@@ -327,11 +284,8 @@
         </div>
     </main>
 
-<!-- ================= FOOTER SECTION ================= -->
     <footer class="bg-[#08080a] border-t border-amber-500/25 pt-16 pb-12 px-6 md:px-12">
         <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-10 mb-12">
-            
-            <!-- Column 1: Company Info & Branding -->
             <div class="space-y-4">
                 <div class="flex items-center space-x-3 rtl:space-x-reverse">
                     <img src="logo.png" alt="SCDC Logo" class="h-10 md:h-12 w-auto object-contain" onerror="this.style.display='none'; document.getElementById('logo-fallback-footer').style.display='block';">
@@ -346,7 +300,6 @@
                 </div>
             </div>
 
-            <!-- Column 2: Global Presence / Coverage -->
             <div class="space-y-4">
                 <h4 class="text-white font-bold text-sm uppercase tracking-wider">
                     <span class="lang-en">Global Coverage & HQ</span>
@@ -368,7 +321,6 @@
                 </ul>
             </div>
 
-            <!-- Social Media & Quick Links -->
             <div class="space-y-4">
                 <h4 class="text-white font-bold text-sm uppercase tracking-wider">
                     <span class="lang-en">Connect With Us</span>
@@ -378,7 +330,6 @@
                     <span class="lang-en">Follow our latest projects, workshops, and architectural updates.</span>
                     <span class="lang-ar">تابع أحدث مشاريعنا، ورشات العمل، والتحديثات الهندسية.</span>
                 </p>
-                <!-- Social Media Icons -->
                 <div class="flex items-center space-x-3 rtl:space-x-reverse pt-2">
                     <a href="https://www.facebook.com/sketchy.chapters/" target="_blank" class="w-10 h-10 rounded-xl glass-card flex items-center justify-center text-gray-300 hover:text-amber-400 hover:border-amber-500/50 transition">
                         <i class="fa-brands fa-facebook-f text-sm"></i>
@@ -399,7 +350,6 @@
                         <i class="fa-brands fa-whatsapp text-sm"></i>
                     </a>
                 </div>
-                <!-- Link to Careers Page -->
                 <div class="pt-2">
                     <a href="mailto:hr@sketchychapters.com" class="inline-flex items-center space-x-2 rtl:space-x-reverse text-xs font-bold text-amber-400 hover:underline">
                         <i class="fa-solid fa-briefcase"></i>
@@ -413,15 +363,28 @@
 
         </div>
 
-        <!-- Copyright Bottom Bar -->
         <div class="max-w-7xl mx-auto border-t border-gray-900 pt-6 text-center text-gray-500 text-xs">
-            <p>© <script>document.write(new Date().getFullYear())</script> Sketchy Chapters Design & Construction (SCDC). All Rights Reserved.</p>
+            <p>© <span id="footer-year"></span> Sketchy Chapters Design & Construction (SCDC). All Rights Reserved.</p>
         </div>
     </footer>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         AOS.init({ once: true, duration: 1000, offset: 100 });
+
+        const yearEl = document.getElementById('footer-year');
+        if (yearEl) yearEl.textContent = new Date().getFullYear();
+
+        function detectDefaultLang() {
+            const saved = localStorage.getItem('sketchy_lang');
+            if (saved === 'ar' || saved === 'en') return saved;
+            const gulfTZ = ['Asia/Riyadh', 'Asia/Dubai', 'Asia/Kuwait', 'Asia/Qatar', 'Asia/Bahrain', 'Asia/Muscat'];
+            try {
+                const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+                if (gulfTZ.includes(tz)) return 'ar';
+            } catch (e) {}
+            return 'en';
+        }
 
         function toggleLanguage() {
             const htmlTag = document.getElementById('main-html');
@@ -430,18 +393,17 @@
                 htmlTag.setAttribute('lang', 'ar');
                 htmlTag.setAttribute('dir', 'rtl');
                 btnText.textContent = 'English';
-                localStorage.setItem('scdc_lang', 'ar');
+                localStorage.setItem('sketchy_lang', 'ar');
             } else {
                 htmlTag.setAttribute('lang', 'en');
                 htmlTag.setAttribute('dir', 'ltr');
                 btnText.textContent = 'العربية';
-                localStorage.setItem('scdc_lang', 'en');
+                localStorage.setItem('sketchy_lang', 'en');
             }
         }
 
         window.addEventListener('DOMContentLoaded', () => {
-            const savedLang = localStorage.getItem('scdc_lang');
-            if (savedLang === 'ar') {
+            if (detectDefaultLang() === 'ar') {
                 const htmlTag = document.getElementById('main-html');
                 htmlTag.setAttribute('lang', 'ar');
                 htmlTag.setAttribute('dir', 'rtl');
@@ -449,38 +411,5 @@
             }
         });
     </script>
-
-<script>
-    // 1. منع زر الفأرة الأيمن (Right Click)
-    document.addEventListener('contextmenu', function(e) {
-        e.preventDefault();
-    });
-
-    // 2. منع أختصارات الكيبورد لفتح الـ Inspect أو عرض مصدر الصفحة
-    document.addEventListener('keydown', function(e) {
-        // منع F12
-        if (e.key === 'F12') {
-            e.preventDefault();
-        }
-        // منع Ctrl+Shift+I أو Ctrl+Shift+J أو Ctrl+Shift+C
-        if (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'i' || e.key === 'J' || e.key === 'j' || e.key === 'C' || e.key === 'c')) {
-            e.preventDefault();
-        }
-        // منع Ctrl+U (عرض مصدر الصفحة View Source)
-        if (e.ctrlKey && (e.key === 'U' || e.key === 'u')) {
-            e.preventDefault();
-        }
-    });
-
-    // 3. طريقة إضافية لكشف الوقف المباشر وإنذار المتصفح
-    setInterval(function() {
-        const before = new Date().getTime();
-        debugger;
-        const after = new Date().getTime();
-        if (after - before > 100) {
-            document.body.innerHTML = "<h1>Access Denied</h1>";
-        }
-    }, 1000);
-</script>
 </body>
 </html>
