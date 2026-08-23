@@ -2,6 +2,7 @@
 <html lang="en" dir="ltr" id="htmlRoot">
 <head>
     <meta charset="UTF-8">
+<meta name="color-scheme" content="dark">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title data-ar="دورات الطاقة الشمسية والتحكم الكلاسيكي | Sketchy Chapters" data-en="Solar Systems & Classic Control Courses | Sketchy Chapters">Solar Systems & Classic Control Courses | Sketchy Chapters</title>
     <!-- Favicon -->
@@ -37,7 +38,7 @@
         }
     </script>
     <style>
-        body { font-family: 'Inter', sans-serif; background-color: #0b0b0e; color: #f3f4f6; transition: font-family 0.3s ease; }
+        body {color-scheme:dark; font-family: 'Inter', sans-serif; background-color: #0b0b0e; color: #f3f4f6; transition: font-family 0.3s ease; }
         body.ar-lang { font-family: 'Cairo', sans-serif; }
         .glass-card { background: rgba(18, 18, 22, 0.75); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid rgba(212, 175, 55, 0.15); }
         .gold-accent { color: #d4af37; }
@@ -554,9 +555,20 @@
             }
         }
 
+        function detectDefaultLang() {
+            const saved = localStorage.getItem('sketchy_lang');
+            if (saved === 'ar' || saved === 'en') return saved;
+            const gulfTZ = ['Asia/Riyadh', 'Asia/Dubai', 'Asia/Kuwait', 'Asia/Qatar', 'Asia/Bahrain', 'Asia/Muscat'];
+            try {
+                const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+                if (gulfTZ.includes(tz)) return 'ar';
+            } catch (e) {}
+            return 'en';
+        }
         let currentLang = 'en';
         function toggleLanguage() {
             currentLang = currentLang === 'en' ? 'ar' : 'en';
+            localStorage.setItem('sketchy_lang', currentLang);
             const htmlRoot = document.getElementById('htmlRoot');
             const bodyEl = document.getElementById('bodyEl');
             const langBtnText = document.getElementById('langBtnText');
@@ -583,6 +595,8 @@
                 }
             });
         }
+
+        if (detectDefaultLang() === 'ar') { toggleLanguage(); }
     </script>
 
     <!-- Firebase account logic + email notifications + booking UI -->
