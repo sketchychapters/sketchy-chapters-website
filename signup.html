@@ -451,9 +451,20 @@ function litLampNow(){
   document.getElementById('hint').classList.add('hide');
 }
 
+function detectDefaultLang() {
+  const saved = localStorage.getItem('sketchy_lang');
+  if (saved === 'ar' || saved === 'en') return saved;
+  const gulfTZ = ['Asia/Riyadh', 'Asia/Dubai', 'Asia/Kuwait', 'Asia/Qatar', 'Asia/Bahrain', 'Asia/Muscat'];
+  try {
+    const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    if (gulfTZ.includes(tz)) return 'ar';
+  } catch (e) {}
+  return 'en';
+}
 let currentLang = 'en';
 function toggleLanguage(){
   currentLang = currentLang === 'en' ? 'ar' : 'en';
+  localStorage.setItem('sketchy_lang', currentLang);
   const htmlRoot = document.getElementById('htmlRoot');
   const langBtnText = document.getElementById('langBtnText');
   htmlRoot.setAttribute('dir', currentLang === 'ar' ? 'rtl' : 'ltr');
@@ -464,6 +475,7 @@ function toggleLanguage(){
     if (t) el.innerText = t;
   });
 }
+if (detectDefaultLang() === 'ar') { toggleLanguage(); }
 
 document.getElementById('signupForm').addEventListener('submit', async (e) => {
   e.preventDefault();
