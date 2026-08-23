@@ -424,8 +424,8 @@
                 Engineering & Professional Training Center
             </div>
             <h1 class="text-4xl md:text-6xl font-black mb-6 leading-tight text-white">
-                <span data-en="Training Departments" data-ar="أقسام الدورات ">Training Departments</span> <br>
-                <span class="gold-gradient-text" data-en="& Specialties" data-ar="والتخصصات">& Specialties</span>
+                <span data-en="Training Departments" data-ar="أقسام الدورات والتخصصات">Training Departments</span> <br>
+                <span class="gold-gradient-text" data-en="& Specialties" data-ar="& Specialties">& Specialties</span>
             </h1>
             <p class="text-base md:text-lg text-gray-400 mb-8 max-w-2xl mx-auto font-light leading-relaxed" data-en="Choose your required training department to explore available courses and complete program details." data-ar="اختر القسم التدريبي المطلوب لاستعراض الدورات المتاحة والتفاصيل الكاملة لكل برنامج.">
                 Choose your required training department to explore available courses and complete program details.
@@ -796,6 +796,16 @@
         });
 
         // Fixed Language Toggle Function
+        function detectDefaultLang() {
+            const saved = localStorage.getItem('sketchy_lang');
+            if (saved === 'ar' || saved === 'en') return saved;
+            const gulfTZ = ['Asia/Riyadh', 'Asia/Dubai', 'Asia/Kuwait', 'Asia/Qatar', 'Asia/Bahrain', 'Asia/Muscat'];
+            try {
+                const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+                if (gulfTZ.includes(tz)) return 'ar';
+            } catch (e) {}
+            return 'en';
+        }
         let currentLang = 'en';
 
         function toggleLanguage() {
@@ -807,6 +817,7 @@
                 html.setAttribute('dir', 'rtl');
                 html.setAttribute('lang', 'ar');
                 langBtn.innerHTML = '<i class="fa-solid fa-globe text-sm"></i> <span>English</span>';
+                localStorage.setItem('sketchy_lang', 'ar');
 
                 document.querySelectorAll('[data-ar]').forEach(el => {
                     if (el.hasAttribute('data-ar')) {
@@ -823,6 +834,7 @@
                 html.setAttribute('dir', 'ltr');
                 html.setAttribute('lang', 'en');
                 langBtn.innerHTML = '<i class="fa-solid fa-globe text-sm"></i> <span>العربية</span>';
+                localStorage.setItem('sketchy_lang', 'en');
 
                 document.querySelectorAll('[data-en]').forEach(el => {
                     if (el.hasAttribute('data-en')) {
@@ -836,6 +848,8 @@
                 });
             }
         }
+
+        if (detectDefaultLang() === 'ar') { toggleLanguage(); }
 
         // Single Slide Carousel Logic
         let currentSlideIndex = 0;
