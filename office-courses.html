@@ -567,6 +567,17 @@
             });
         }
 
+        function detectDefaultLang() {
+            const saved = localStorage.getItem('sketchy_lang');
+            if (saved === 'ar' || saved === 'en') return saved;
+            const gulfTZ = ['Asia/Riyadh', 'Asia/Dubai', 'Asia/Kuwait', 'Asia/Qatar', 'Asia/Bahrain', 'Asia/Muscat'];
+            try {
+                const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+                if (gulfTZ.includes(tz)) return 'ar';
+            } catch (e) {}
+            return 'en';
+        }
+
         function toggleLanguage() {
             const htmlRoot = document.getElementById('htmlRoot');
             const bodyEl = document.getElementById('bodyEl');
@@ -580,6 +591,7 @@
                 bodyEl.classList.remove('ar-lang');
                 bodyEl.classList.add('en-lang');
                 langBtnText.innerText = 'العربية';
+                localStorage.setItem('sketchy_lang', 'en');
                 
                 document.querySelectorAll('[data-en]').forEach(el => {
                     if(el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
@@ -594,6 +606,7 @@
                 bodyEl.classList.remove('en-lang');
                 bodyEl.classList.add('ar-lang');
                 langBtnText.innerText = 'English';
+                localStorage.setItem('sketchy_lang', 'ar');
                 
                 document.querySelectorAll('[data-ar]').forEach(el => {
                     if(el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
@@ -604,6 +617,8 @@
                 });
             }
         }
+
+        if (detectDefaultLang() === 'ar') { toggleLanguage(); }
     </script>
 
     <!-- Firebase account logic + email notifications + booking UI -->
