@@ -470,7 +470,6 @@ function renderStudents() {
     const enrollmentsHtml = enrollments.length
       ? enrollments.map((en, idx) => {
           const eid = en.id || en.date;
-          const enCourseNameSafe = (en.courseName || '').replace(/'/g, "");
           let actionsHtml = '';
           if (en.status === 'pending') {
             actionsHtml = `
@@ -484,13 +483,13 @@ function renderStudents() {
             actionsHtml = `<span class="text-[10px] font-bold px-2.5 py-1.5 rounded-lg bg-emerald-500/20 text-emerald-400">✓ Completed</span>`;
           }
           actionsHtml += `
-              <button onclick="openEditEnrollmentModal('${s.uid}', '${eid}', '${enCourseNameSafe}', '${en.type}', ${en.finalPrice})"
+              <button onclick="openEditEnrollmentModal('${s.uid}', '${eid}', '${en.courseName.replace(/'/g, "")}', '${en.type}', ${en.finalPrice})"
                 class="text-[10px] font-bold px-2.5 py-1.5 rounded-lg bg-indigo-500/20 text-indigo-300">✏️</button>
-              <button onclick="openScheduleModal('${s.uid}', '${eid}', '${enCourseNameSafe}', '${en.startDate || ''}', '${en.endDate || ''}')"
+              <button onclick="openScheduleModal('${s.uid}', '${eid}', '${en.courseName.replace(/'/g, "")}', '${en.startDate || ''}', '${en.endDate || ''}')"
                 class="text-[10px] font-bold px-2.5 py-1.5 rounded-lg bg-teal-500/20 text-teal-300">📅${(en.startDate || en.endDate) ? ' •' : ''}</button>
-              <button onclick="openNoteModal('${s.uid}', '${eid}', '${enCourseNameSafe}', '${(en.adminNote || '').replace(/'/g, "").replace(/\n/g, ' ')}')"
+              <button onclick="openNoteModal('${s.uid}', '${eid}', '${en.courseName.replace(/'/g, "")}', '${(en.adminNote || '').replace(/'/g, "").replace(/\n/g, ' ')}')"
                 class="text-[10px] font-bold px-2.5 py-1.5 rounded-lg bg-blue-500/20 text-blue-300">📝${en.adminNote ? ' •' : ''}</button>
-              <button onclick="rejectEnrollmentClick('${s.uid}', '${eid}', '${enCourseNameSafe}')"
+              <button onclick="rejectEnrollmentClick('${s.uid}', '${eid}', '${en.courseName.replace(/'/g, "")}')"
                 class="text-[10px] font-bold px-2.5 py-1.5 rounded-lg bg-red-500/20 text-red-400">🗑️ Remove</button>`;
 
           const statusTag = en.status === 'pending' ? '⏳ Pending' : (en.status === 'upcoming' ? '✓ Confirmed' : '');
@@ -499,7 +498,7 @@ function renderStudents() {
           return `
           <div class="flex items-center justify-between bg-black/30 rounded-xl px-3 py-2 text-xs gap-2">
             <div>
-              <span class="text-white font-bold">${en.courseName || '(no course name)'}</span>
+              <span class="text-white font-bold">${en.courseName}</span>
               <span class="text-gray-400 block mt-0.5">${en.type === 'private' ? '👤 Private' : '👥 Group'} · $${en.finalPrice}${en.discountApplied ? ` (${en.discountApplied}% off)` : ''} · +${en.pointsEarned || 0} pts ${statusTag ? '· ' + statusTag : ''}</span>
               ${scheduleHtml}
               ${noteHtml}
@@ -514,19 +513,17 @@ function renderStudents() {
     const certificatesHtml = certificates.length
       ? certificates.map(cert => {
           const cid = cert.id || cert.url;
-          const certCourseNameSafe = (cert.courseName || '').replace(/'/g, "");
-          const certUrlSafe = (cert.url || '').replace(/'/g, "");
           return `
           <div class="flex items-center justify-between bg-black/30 rounded-xl px-3 py-2 text-xs gap-2">
             <div>
-              <span class="text-white font-bold">🎓 ${cert.courseName || '(no course name)'}</span>
-              <a href="${cert.url || '#'}" target="_blank" class="text-emerald-400 block mt-0.5 underline break-all">${cert.url || ''}</a>
+              <span class="text-white font-bold">🎓 ${cert.courseName}</span>
+              <a href="${cert.url}" target="_blank" class="text-emerald-400 block mt-0.5 underline break-all">${cert.url}</a>
               <span class="text-gray-500 text-[10px] block mt-0.5">${cert.dateIssued ? new Date(cert.dateIssued).toLocaleDateString() : ''}</span>
             </div>
             <div class="flex gap-1.5 shrink-0">
-              <button onclick="openCertModal('${s.uid}', '${(s.name || '').replace(/'/g, "")}', '${cid}', '${certCourseNameSafe}', '${certUrlSafe}')"
+              <button onclick="openCertModal('${s.uid}', '${(s.name || '').replace(/'/g, "")}', '${cid}', '${cert.courseName.replace(/'/g, "")}', '${cert.url.replace(/'/g, "")}')"
                 class="text-[10px] font-bold px-2.5 py-1.5 rounded-lg bg-blue-500/20 text-blue-300">Edit</button>
-              <button onclick="deleteCertificateClick('${s.uid}', '${cid}', '${certCourseNameSafe}')"
+              <button onclick="deleteCertificateClick('${s.uid}', '${cid}', '${cert.courseName.replace(/'/g, "")}')"
                 class="text-[10px] font-bold px-2.5 py-1.5 rounded-lg bg-red-500/20 text-red-400">🗑️</button>
             </div>
           </div>
