@@ -15,7 +15,8 @@
 <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore-compat.js"></script>
 
 <style>
-  body{color-scheme:dark;font-family:'Tajawal',sans-serif;background:#08080a;color:#e0e6ed;overflow-x:hidden;min-height:100vh;}
+  html{overflow-x:hidden;width:100%;}
+  body{color-scheme:dark;font-family:'Tajawal',sans-serif;background:#08080a;color:#e0e6ed;overflow-x:hidden;width:100%;min-height:100vh;}
   .gold-accent{color:#d4af37;}
   .bg-gold{background:linear-gradient(135deg,#d4af37 0%,#aa7c11 100%);}
   .glass-card{background:rgba(18,18,22,.65);backdrop-filter:blur(16px);border:1px solid rgba(212,175,55,.15);}
@@ -45,7 +46,7 @@
     100%{transform:translateY(0) rotate(0deg);}
   }
 
-  #lampGlow{position:absolute;top:0;left:50%;transform:translateX(-50%);width:640px;height:640px;
+  #lampGlow{position:absolute;top:0;left:50%;transform:translateX(-50%);width:640px;max-width:100vw;height:640px;
     background:radial-gradient(circle at top, rgba(212,175,55,.32), transparent 70%);
     opacity:0;transition:opacity 1.1s ease;pointer-events:none;}
   #lampGlow.lit{opacity:1;}
