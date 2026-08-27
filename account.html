@@ -127,6 +127,17 @@
     <p class="text-amber-300 font-black" data-ar="🎂 عيد ميلاد سعيد! يحق لك الحصول على خصم خاص هذا الأسبوع على أي دورة." data-en="🎂 It's your birthday week! You get a special discount on any course.">🎂 It's your birthday week! You get a special discount on any course.</p>
   </div>
 
+  <!-- My Library — admin-managed links, no automatic trigger -->
+  <div class="flex items-center justify-between mb-4">
+    <h2 class="text-lg font-black text-white flex items-center gap-2">
+      <i class="fa-solid fa-book-bookmark gold-accent"></i>
+      <span data-ar="مكتبتي" data-en="My Library">My Library</span>
+    </h2>
+  </div>
+  <div id="libraryList" class="space-y-3 mb-10">
+    <p class="text-gray-500 text-sm" data-ar="لا توجد ملفات بعد." data-en="No files yet.">No files yet.</p>
+  </div>
+
   <!-- Current Courses -->
   <div class="flex items-center justify-between mb-4">
     <h2 class="text-lg font-black text-white" data-ar="دوراتي الحالية" data-en="Current Courses">Current Courses</h2>
@@ -166,20 +177,9 @@
 <script>
 requireLogin();
 
-function detectDefaultLang() {
-  const saved = localStorage.getItem('sketchy_lang');
-  if (saved === 'ar' || saved === 'en') return saved;
-  const gulfTZ = ['Asia/Riyadh', 'Asia/Dubai', 'Asia/Kuwait', 'Asia/Qatar', 'Asia/Bahrain', 'Asia/Muscat'];
-  try {
-    const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
-    if (gulfTZ.includes(tz)) return 'ar';
-  } catch (e) {}
-  return 'en';
-}
 let currentLang = 'en';
 function toggleLanguage(){
   currentLang = currentLang === 'en' ? 'ar' : 'en';
-  localStorage.setItem('sketchy_lang', currentLang);
   const htmlRoot = document.getElementById('htmlRoot');
   const langBtnText = document.getElementById('langBtnText');
   htmlRoot.setAttribute('dir', currentLang === 'ar' ? 'rtl' : 'ltr');
@@ -190,7 +190,6 @@ function toggleLanguage(){
     if (t) el.innerText = t;
   });
 }
-if (detectDefaultLang() === 'ar') { toggleLanguage(); }
 
 function openChangePasswordModal() {
   document.getElementById('cpCurrentPassword').value = '';
@@ -254,7 +253,6 @@ function enrollmentCardHtml(en) {
     : en.status === 'upcoming'
       ? '<span class="text-emerald-400">✓ Confirmed</span>'
       : '';
-  // السعر بيبين بس لما تكون الدورة لسا "قيد الموافقة" - بعد ما توافق عليها، بيختفي
   const priceHtml = en.status === 'pending'
     ? `<span class="gold-accent font-bold">$${en.finalPrice}</span>${en.discountApplied ? ` <span class="text-emerald-400">(${en.discountApplied}% off)</span>` : ''} · `
     : '';
@@ -267,12 +265,30 @@ function enrollmentCardHtml(en) {
   return `
     <div class="glass-card rounded-2xl p-4 flex items-center justify-between gap-2">
       <div>
-        <p class="text-white font-bold text-sm">${en.courseName}</p>
+        <p class="text-white font-bold text-sm">${en.courseName || '(course)'}</p>
         <p class="text-gray-400 text-xs mt-0.5">${en.type === 'private' ? '👤 Private' : '👥 Group'} · ${priceHtml}${statusLabel}</p>
         ${scheduleHtml}
         ${noteHtml}
       </div>
       <span class="text-[10px] text-gray-500 shrink-0">${new Date(en.date).toLocaleDateString()}</span>
+    </div>
+  `;
+}
+
+function libraryItemHtml(item) {
+  return `
+    <div class="glass-card rounded-2xl p-4 flex items-center justify-between gap-2">
+      <div class="flex items-center gap-3">
+        <i class="fa-solid fa-file-arrow-down gold-accent"></i>
+        <div>
+          <p class="text-white font-bold text-sm">${item.title || 'File'}</p>
+          <p class="text-gray-500 text-[10px]">${item.dateAdded ? new Date(item.dateAdded).toLocaleDateString() : ''}</p>
+        </div>
+      </div>
+      <a href="${item.url || '#'}" target="_blank" class="bg-gold text-black text-xs font-bold px-4 py-2 rounded-xl shrink-0">
+        <i class="fa-solid fa-download"></i>
+        <span data-ar="تحميل" data-en="Download">Download</span>
+      </a>
     </div>
   `;
 }
@@ -326,10 +342,16 @@ auth.onAuthStateChanged(async (user) => {
   })();
   if (isBday) document.getElementById('discountBanner').classList.remove('hidden');
 
-  // إشعار عيد ميلاد تلقائي (مرة وحدة بالسنة) + تحديث جرس الإشعارات بالهيدر
   checkAndNotifyBirthday().then(() => {
     if (window.refreshNotifBadge) window.refreshNotifBadge();
   });
+
+  // مكتبتي — روابط أضافها الأدمن يدوياً، بدون أي شرط تلقائي
+  const resources = data.resources || [];
+  const libraryList = document.getElementById('libraryList');
+  if (resources.length > 0) {
+    libraryList.innerHTML = resources.slice().reverse().map(libraryItemHtml).join('');
+  }
 
   const enrollments = data.enrollments || [];
   const current = enrollments.filter(e => e.status !== 'completed').slice().reverse();
@@ -357,13 +379,13 @@ auth.onAuthStateChanged(async (user) => {
         <div class="flex items-center gap-3">
           <i class="fa-solid fa-certificate gold-accent text-lg"></i>
           <div>
-            <p class="text-white font-bold text-sm">${cert.courseName}</p>
-            <p class="text-gray-500 text-[11px]">${new Date(cert.dateIssued).toLocaleDateString()}</p>
+            <p class="text-white font-bold text-sm">${cert.courseName || '(certificate)'}</p>
+            <p class="text-gray-500 text-[11px]">${cert.dateIssued ? new Date(cert.dateIssued).toLocaleDateString() : ''}</p>
           </div>
         </div>
-        <a href="${cert.url}" target="_blank" class="bg-gold text-black text-xs font-bold px-4 py-2 rounded-xl shrink-0">
-          <i class="fa-solid ${cert.autoGenerated ? 'fa-eye' : 'fa-download'}"></i>
-          <span data-ar="${cert.autoGenerated ? 'عرض الشهادة' : 'تحميل'}" data-en="${cert.autoGenerated ? 'View Certificate' : 'Download'}">${cert.autoGenerated ? 'View Certificate' : 'Download'}</span>
+        <a href="${cert.url || '#'}" target="_blank" class="bg-gold text-black text-xs font-bold px-4 py-2 rounded-xl shrink-0">
+          <i class="fa-solid fa-download"></i>
+          <span data-ar="تحميل" data-en="Download">Download</span>
         </a>
       </div>
     `).join('');
