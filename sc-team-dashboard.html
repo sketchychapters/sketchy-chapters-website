@@ -185,6 +185,25 @@
   </div>
 </div>
 
+<!-- Add library item modal -->
+<div id="libraryModal" class="hidden fixed inset-0 bg-black/80 z-[60] flex items-center justify-center px-6">
+  <div class="glass-card bg-[#121216] border border-amber-500/40 rounded-3xl p-8 max-w-sm w-full">
+    <h3 id="libraryModalTitle" class="text-white font-black text-lg mb-1">📚 Add Library File</h3>
+    <p id="libraryModalStudentName" class="text-gray-400 text-xs mb-5"></p>
+
+    <label class="text-xs text-gray-400 block mb-1">Title (shown to student)</label>
+    <input id="libraryTitle" type="text" placeholder="e.g. Revit + V-Ray Exercise Files" class="w-full rounded-xl px-4 py-2.5 text-sm text-white mb-4">
+
+    <label class="text-xs text-gray-400 block mb-1">Download Link (Google Drive, etc.)</label>
+    <input id="libraryUrl" type="url" placeholder="https://drive.google.com/..." class="w-full rounded-xl px-4 py-2.5 text-sm text-white mb-6">
+
+    <div class="flex gap-3">
+      <button onclick="submitAddLibraryItem()" id="librarySubmitBtn" class="flex-1 bg-gold text-black font-bold py-2.5 rounded-xl text-xs">Add File</button>
+      <button onclick="closeLibraryModal()" class="flex-1 glass-card text-gray-400 border border-gray-700 py-2.5 rounded-xl text-xs">Cancel</button>
+    </div>
+  </div>
+</div>
+
 <!-- Send individual notification -->
 <div id="notifyModal" class="hidden fixed inset-0 bg-black/80 z-[60] flex items-center justify-center px-6">
   <div class="glass-card bg-[#121216] border border-amber-500/40 rounded-3xl p-8 max-w-sm w-full">
@@ -470,6 +489,7 @@ function renderStudents() {
     const enrollmentsHtml = enrollments.length
       ? enrollments.map((en, idx) => {
           const eid = en.id || en.date;
+          const enCourseNameSafe = (en.courseName || '').replace(/'/g, "");
           let actionsHtml = '';
           if (en.status === 'pending') {
             actionsHtml = `
@@ -483,13 +503,13 @@ function renderStudents() {
             actionsHtml = `<span class="text-[10px] font-bold px-2.5 py-1.5 rounded-lg bg-emerald-500/20 text-emerald-400">✓ Completed</span>`;
           }
           actionsHtml += `
-              <button onclick="openEditEnrollmentModal('${s.uid}', '${eid}', '${en.courseName.replace(/'/g, "")}', '${en.type}', ${en.finalPrice})"
+              <button onclick="openEditEnrollmentModal('${s.uid}', '${eid}', '${enCourseNameSafe}', '${en.type}', ${en.finalPrice})"
                 class="text-[10px] font-bold px-2.5 py-1.5 rounded-lg bg-indigo-500/20 text-indigo-300">✏️</button>
-              <button onclick="openScheduleModal('${s.uid}', '${eid}', '${en.courseName.replace(/'/g, "")}', '${en.startDate || ''}', '${en.endDate || ''}')"
+              <button onclick="openScheduleModal('${s.uid}', '${eid}', '${enCourseNameSafe}', '${en.startDate || ''}', '${en.endDate || ''}')"
                 class="text-[10px] font-bold px-2.5 py-1.5 rounded-lg bg-teal-500/20 text-teal-300">📅${(en.startDate || en.endDate) ? ' •' : ''}</button>
-              <button onclick="openNoteModal('${s.uid}', '${eid}', '${en.courseName.replace(/'/g, "")}', '${(en.adminNote || '').replace(/'/g, "").replace(/\n/g, ' ')}')"
+              <button onclick="openNoteModal('${s.uid}', '${eid}', '${enCourseNameSafe}', '${(en.adminNote || '').replace(/'/g, "").replace(/\n/g, ' ')}')"
                 class="text-[10px] font-bold px-2.5 py-1.5 rounded-lg bg-blue-500/20 text-blue-300">📝${en.adminNote ? ' •' : ''}</button>
-              <button onclick="rejectEnrollmentClick('${s.uid}', '${eid}', '${en.courseName.replace(/'/g, "")}')"
+              <button onclick="rejectEnrollmentClick('${s.uid}', '${eid}', '${enCourseNameSafe}')"
                 class="text-[10px] font-bold px-2.5 py-1.5 rounded-lg bg-red-500/20 text-red-400">🗑️ Remove</button>`;
 
           const statusTag = en.status === 'pending' ? '⏳ Pending' : (en.status === 'upcoming' ? '✓ Confirmed' : '');
@@ -498,7 +518,7 @@ function renderStudents() {
           return `
           <div class="flex items-center justify-between bg-black/30 rounded-xl px-3 py-2 text-xs gap-2">
             <div>
-              <span class="text-white font-bold">${en.courseName}</span>
+              <span class="text-white font-bold">${en.courseName || '(no course name)'}</span>
               <span class="text-gray-400 block mt-0.5">${en.type === 'private' ? '👤 Private' : '👥 Group'} · $${en.finalPrice}${en.discountApplied ? ` (${en.discountApplied}% off)` : ''} · +${en.pointsEarned || 0} pts ${statusTag ? '· ' + statusTag : ''}</span>
               ${scheduleHtml}
               ${noteHtml}
@@ -513,17 +533,43 @@ function renderStudents() {
     const certificatesHtml = certificates.length
       ? certificates.map(cert => {
           const cid = cert.id || cert.url;
+          const certCourseNameSafe = (cert.courseName || '').replace(/'/g, "");
+          const certUrlSafe = (cert.url || '').replace(/'/g, "");
           return `
           <div class="flex items-center justify-between bg-black/30 rounded-xl px-3 py-2 text-xs gap-2">
             <div>
-              <span class="text-white font-bold">🎓 ${cert.courseName}</span>
-              <a href="${cert.url}" target="_blank" class="text-emerald-400 block mt-0.5 underline break-all">${cert.url}</a>
+              <span class="text-white font-bold">🎓 ${cert.courseName || '(no course name)'}</span>
+              <a href="${cert.url || '#'}" target="_blank" class="text-emerald-400 block mt-0.5 underline break-all">${cert.url || ''}</a>
               <span class="text-gray-500 text-[10px] block mt-0.5">${cert.dateIssued ? new Date(cert.dateIssued).toLocaleDateString() : ''}</span>
             </div>
             <div class="flex gap-1.5 shrink-0">
-              <button onclick="openCertModal('${s.uid}', '${(s.name || '').replace(/'/g, "")}', '${cid}', '${cert.courseName.replace(/'/g, "")}', '${cert.url.replace(/'/g, "")}')"
+              <button onclick="openCertModal('${s.uid}', '${(s.name || '').replace(/'/g, "")}', '${cid}', '${certCourseNameSafe}', '${certUrlSafe}')"
                 class="text-[10px] font-bold px-2.5 py-1.5 rounded-lg bg-blue-500/20 text-blue-300">Edit</button>
-              <button onclick="deleteCertificateClick('${s.uid}', '${cid}', '${cert.courseName.replace(/'/g, "")}')"
+              <button onclick="deleteCertificateClick('${s.uid}', '${cid}', '${certCourseNameSafe}')"
+                class="text-[10px] font-bold px-2.5 py-1.5 rounded-lg bg-red-500/20 text-red-400">🗑️</button>
+            </div>
+          </div>
+        `;
+        }).join('')
+      : '';
+
+    const libraryItems = s.resources || [];
+    const libraryHtml = libraryItems.length
+      ? libraryItems.map(item => {
+          const lid = item.id || item.url;
+          const libTitleSafe = (item.title || '').replace(/'/g, "");
+          const libUrlSafe = (item.url || '').replace(/'/g, "");
+          return `
+          <div class="flex items-center justify-between bg-black/30 rounded-xl px-3 py-2 text-xs gap-2">
+            <div>
+              <span class="text-white font-bold">📚 ${item.title || '(no title)'}</span>
+              <a href="${item.url || '#'}" target="_blank" class="text-teal-400 block mt-0.5 underline break-all">${item.url || ''}</a>
+              <span class="text-gray-500 text-[10px] block mt-0.5">${item.dateAdded ? new Date(item.dateAdded).toLocaleDateString() : ''}</span>
+            </div>
+            <div class="flex gap-1.5 shrink-0">
+              <button onclick="openLibraryModal('${s.uid}', '${(s.name || '').replace(/'/g, "")}', '${lid}', '${libTitleSafe}', '${libUrlSafe}')"
+                class="text-[10px] font-bold px-2.5 py-1.5 rounded-lg bg-blue-500/20 text-blue-300">Edit</button>
+              <button onclick="deleteLibraryItemClick('${s.uid}', '${lid}', '${libTitleSafe}')"
                 class="text-[10px] font-bold px-2.5 py-1.5 rounded-lg bg-red-500/20 text-red-400">🗑️</button>
             </div>
           </div>
@@ -564,6 +610,10 @@ function renderStudents() {
                 class="text-[10px] text-emerald-300 border border-emerald-500/30 px-2.5 py-1 rounded-lg hover:bg-emerald-500/10">
                 + Certificate
               </button>
+              <button onclick="openLibraryModal('${s.uid}', '${(s.name || '').replace(/'/g, "")}')"
+                class="text-[10px] text-teal-300 border border-teal-500/30 px-2.5 py-1 rounded-lg hover:bg-teal-500/10">
+                📚 + Library
+              </button>
               <button onclick="openNotifyModal('${s.uid}', '${(s.name || '').replace(/'/g, "")}')"
                 class="text-[10px] text-purple-300 border border-purple-500/30 px-2.5 py-1 rounded-lg hover:bg-purple-500/10">
                 🔔 Notify
@@ -581,6 +631,7 @@ function renderStudents() {
         </div>
         <div class="space-y-2">${enrollmentsHtml}</div>
         ${certificatesHtml ? `<div class="space-y-2 mt-3 pt-3 border-t border-gray-800">${certificatesHtml}</div>` : ''}
+        ${libraryHtml ? `<div class="space-y-2 mt-3 pt-3 border-t border-gray-800">${libraryHtml}</div>` : ''}
         ${referralClaimHtml(s)}
         <div id="pointsLog-${s.uid}" class="hidden space-y-2 mt-3 pt-3 border-t border-gray-800">${pointsLogHtml(s)}</div>
         <div id="notifList-${s.uid}" class="hidden space-y-2 mt-3 pt-3 border-t border-gray-800">${notificationsHtml(s)}</div>
@@ -944,6 +995,47 @@ async function submitAddCertificate() {
 async function deleteCertificateClick(uid, certId, courseName) {
   if (!(await customConfirm(`Delete the certificate for "${courseName}"? This can't be undone.`))) return;
   await deleteCertificate(uid, certId);
+  allStudents = await getAllStudents();
+  renderStudents();
+}
+
+let activeLibraryId = null;
+
+function openLibraryModal(uid, name, itemId, existingTitle, existingUrl) {
+  activeStudentUid = uid;
+  activeLibraryId = itemId || null;
+  document.getElementById('libraryModalStudentName').innerText = name;
+  document.getElementById('libraryTitle').value = existingTitle || '';
+  document.getElementById('libraryUrl').value = existingUrl || '';
+  document.getElementById('libraryModalTitle').innerText = itemId ? '✏️ Edit Library File' : '📚 Add Library File';
+  document.getElementById('librarySubmitBtn').innerText = itemId ? 'Save Changes' : 'Add File';
+  document.getElementById('libraryModal').classList.remove('hidden');
+  document.getElementById('libraryModal').classList.add('flex');
+}
+
+function closeLibraryModal() {
+  document.getElementById('libraryModal').classList.add('hidden');
+  document.getElementById('libraryModal').classList.remove('flex');
+}
+
+async function submitAddLibraryItem() {
+  const title = document.getElementById('libraryTitle').value.trim();
+  const url = document.getElementById('libraryUrl').value.trim();
+  if (!title || !url) { await customAlert('Please fill in both fields.'); return; }
+
+  if (activeLibraryId) {
+    await editResource(activeStudentUid, activeLibraryId, { title, url });
+  } else {
+    await addResourceToStudent(activeStudentUid, { title, url });
+  }
+  closeLibraryModal();
+  allStudents = await getAllStudents();
+  renderStudents();
+}
+
+async function deleteLibraryItemClick(uid, itemId, title) {
+  if (!(await customConfirm(`Delete the library file "${title}"? This can't be undone.`))) return;
+  await deleteResource(uid, itemId);
   allStudents = await getAllStudents();
   renderStudents();
 }
