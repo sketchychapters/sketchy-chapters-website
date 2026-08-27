@@ -82,12 +82,14 @@
 <!-- Broadcast Announcement -->
 <div class="glass-card rounded-2xl p-5 mb-6">
   <p class="text-white font-bold text-sm mb-1">📢 Send Announcement to All Students</p>
-  <p class="text-gray-400 text-xs mb-3">e.g. new offers, discounts, or general updates. Appears in every student's notification bell.</p>
-  <div class="flex gap-2 flex-wrap">
+  <p class="text-gray-400 text-xs mb-3">e.g. new offers, discounts, or general updates. Appears in every student's notification bell. Add a link to make it tappable — takes the student straight there.</p>
+  <div class="flex gap-2 flex-wrap mb-2">
     <input id="announcementText" type="text" placeholder="e.g. 20% off all Adobe courses this week only!"
       class="flex-1 min-w-[200px] rounded-xl px-4 py-2.5 text-sm text-white">
     <button onclick="submitAnnouncement()" class="bg-gold text-black font-bold px-5 py-2.5 rounded-xl text-xs shrink-0">Send to All</button>
   </div>
+  <input id="announcementLink" type="text" placeholder="Optional link (e.g. graphic-courses.html or offers.html)"
+    class="w-full rounded-xl px-4 py-2.5 text-sm text-white">
 </div>
 
 <!-- Search + Filter -->
@@ -211,7 +213,10 @@
     <p id="notifyModalStudentName" class="text-gray-400 text-xs mb-5"></p>
 
     <label class="text-xs text-gray-400 block mb-1">Message</label>
-    <textarea id="notifyMessage" rows="3" placeholder="e.g. Your certificate print is ready for pickup!" class="w-full rounded-xl px-4 py-2.5 text-sm text-white mb-6"></textarea>
+    <textarea id="notifyMessage" rows="3" placeholder="e.g. Your certificate print is ready for pickup!" class="w-full rounded-xl px-4 py-2.5 text-sm text-white mb-4"></textarea>
+
+    <label class="text-xs text-gray-400 block mb-1">Link (optional)</label>
+    <input id="notifyLink" type="text" placeholder="e.g. account.html" class="w-full rounded-xl px-4 py-2.5 text-sm text-white mb-6">
 
     <div class="flex gap-3">
       <button onclick="submitNotify()" class="flex-1 bg-gold text-black font-bold py-2.5 rounded-xl text-xs">Send</button>
@@ -1044,6 +1049,7 @@ function openNotifyModal(uid, name) {
   activeStudentUid = uid;
   document.getElementById('notifyModalStudentName').innerText = name;
   document.getElementById('notifyMessage').value = '';
+  document.getElementById('notifyLink').value = '';
   document.getElementById('notifyModal').classList.remove('hidden');
   document.getElementById('notifyModal').classList.add('flex');
 }
@@ -1055,9 +1061,10 @@ function closeNotifyModal() {
 
 async function submitNotify() {
   const message = document.getElementById('notifyMessage').value.trim();
+  const link = document.getElementById('notifyLink').value.trim();
   if (!message) { await customAlert('Please write a message.'); return; }
 
-  await addNotification(activeStudentUid, message);
+  await addNotification(activeStudentUid, message, link || null);
   closeNotifyModal();
   await customAlert('✅ Notification sent to this student.');
 }
@@ -1131,14 +1138,17 @@ async function deleteStudentClick(uid, studentId, name) {
 
 async function submitAnnouncement() {
   const input = document.getElementById('announcementText');
+  const linkInput = document.getElementById('announcementLink');
   const message = input.value.trim();
+  const link = linkInput.value.trim();
   if (!message) return;
-  if (!(await customConfirm(`Send this notification to all ${allStudents.length} students?\n\n"${message}"`))) return;
+  if (!(await customConfirm(`Send this notification to all ${allStudents.length} students?\n\n"${message}"${link ? `\n\nLink: ${link}` : ''}`))) return;
 
   try {
-    const count = await broadcastAnnouncement(message);
+    const count = await broadcastAnnouncement(message, link || null);
     await customAlert(`✅ Sent to ${count} students.`);
     input.value = '';
+    linkInput.value = '';
   } catch (err) {
     await customAlert('Something went wrong sending the announcement.');
     console.error(err);
