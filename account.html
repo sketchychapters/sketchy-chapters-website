@@ -27,6 +27,24 @@
   .level-badge{background:linear-gradient(135deg,#d4af37,#aa7c11);}
   .progress-bar-bg{background:rgba(255,255,255,.08);}
   .progress-bar-fill{background:linear-gradient(90deg,#d4af37,#fcf6ba);}
+
+  /* ===== Birthday celebration ===== */
+  #birthdayCelebration{position:fixed;inset:0;z-index:9997;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,.75);backdrop-filter:blur(4px);overflow:hidden;}
+  #birthdayCelebration.show{display:flex;}
+  #confettiLayer{position:absolute;inset:0;pointer-events:none;overflow:hidden;}
+  .confetti-piece{position:absolute;top:-20px;width:8px;height:14px;opacity:.9;animation:confettiFall linear forwards;}
+  @keyframes confettiFall{
+    0%{transform:translateY(0) rotate(0deg);opacity:1;}
+    100%{transform:translateY(110vh) rotate(720deg);opacity:.85;}
+  }
+  #birthdayCard{position:relative;z-index:2;text-align:center;max-width:22rem;width:100%;margin:0 24px;
+    background:linear-gradient(180deg, rgba(18,18,22,.9), rgba(8,8,10,.95));
+    border:1px solid rgba(212,175,55,.5);border-radius:28px;padding:40px 28px;
+    box-shadow:0 20px 60px rgba(212,175,55,.15), 0 0 0 1px rgba(212,175,55,.1);
+    animation:birthdayPop .5s cubic-bezier(.34,1.56,.64,1);}
+  @keyframes birthdayPop{0%{transform:scale(.7);opacity:0;}100%{transform:scale(1);opacity:1;}}
+  #birthdayEmoji{font-size:52px;line-height:1;margin-bottom:14px;display:block;animation:birthdayBounce 1.4s ease-in-out infinite;}
+  @keyframes birthdayBounce{0%,100%{transform:translateY(0);}50%{transform:translateY(-8px);}}
 </style>
 </head>
 <body class="min-h-screen">
@@ -168,6 +186,17 @@
 
 </main>
 
+<!-- Birthday Celebration Overlay -->
+<div id="birthdayCelebration">
+  <div id="confettiLayer"></div>
+  <div id="birthdayCard">
+    <span id="birthdayEmoji">🎉</span>
+    <h2 class="text-white font-black text-xl mb-2" data-ar="عيد ميلاد سعيد!" data-en="Happy Birthday!">Happy Birthday!</h2>
+    <p id="birthdayMsg" class="text-gray-300 text-sm leading-relaxed mb-6"></p>
+    <button onclick="closeBirthdayCelebration()" class="bg-gold text-black font-black px-8 py-3 rounded-xl text-sm" data-ar="شكراً!" data-en="Thank You!">Thank You!</button>
+  </div>
+</div>
+
 <footer class="py-10 text-center text-gray-600 text-[11px] border-t border-gray-900 mt-10">
   <span data-ar="© 2026 مركز ورش عمل سكتشي تشابترز" data-en="© 2026 Sketchy Chapters Workshop Center">© 2026 Sketchy Chapters Workshop Center</span>
 </footer>
@@ -245,6 +274,50 @@ async function submitChangePassword() {
     }
     errorEl.classList.remove('hidden');
   }
+}
+
+// ==========================================================
+// احتفال عيد الميلاد — كونفيتي + بطاقة ترحيب، مرة وحدة بكل جلسة تصفّح
+// ==========================================================
+const CONFETTI_COLORS = ['#d4af37', '#fcf6ba', '#f0d374', '#ffffff', '#e0b84a'];
+
+function generateConfetti(count) {
+  const layer = document.getElementById('confettiLayer');
+  layer.innerHTML = '';
+  for (let i = 0; i < count; i++) {
+    const piece = document.createElement('div');
+    piece.className = 'confetti-piece';
+    piece.style.left = Math.random() * 100 + '%';
+    piece.style.background = CONFETTI_COLORS[Math.floor(Math.random() * CONFETTI_COLORS.length)];
+    piece.style.animationDuration = (2.6 + Math.random() * 2.2) + 's';
+    piece.style.animationDelay = (Math.random() * 1.2) + 's';
+    piece.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
+    layer.appendChild(piece);
+  }
+}
+
+function triggerBirthdayCelebration(name, discountPercent) {
+  if (sessionStorage.getItem('sketchy_bday_shown') === 'true') return;
+  sessionStorage.setItem('sketchy_bday_shown', 'true');
+
+  const isAr = document.documentElement.getAttribute('lang') === 'ar';
+  const firstName = (name || '').split(' ')[0];
+  const msgAr = discountPercent > 0
+    ? `كل سنة وانت طيب/ة يا ${firstName}! 🎂 عندك خصم ${discountPercent}% على أي دورة هالأسبوع.`
+    : `كل سنة وانت طيب/ة يا ${firstName}! 🎂 نتمنى لك سنة رائعة من فريق Sketchy Chapters.`;
+  const msgEn = discountPercent > 0
+    ? `Happy Birthday, ${firstName}! 🎂 You've got ${discountPercent}% off any course this week.`
+    : `Happy Birthday, ${firstName}! 🎂 Wishing you a wonderful year from the Sketchy Chapters team.`;
+
+  document.getElementById('birthdayMsg').textContent = isAr ? msgAr : msgEn;
+  generateConfetti(80);
+  document.getElementById('birthdayCelebration').classList.add('show');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeBirthdayCelebration() {
+  document.getElementById('birthdayCelebration').classList.remove('show');
+  document.body.style.overflow = '';
 }
 
 function enrollmentCardHtml(en) {
@@ -340,7 +413,10 @@ auth.onAuthStateChanged(async (user) => {
     const birthdayThisYear = new Date(today.getFullYear(), bd.getMonth(), bd.getDate());
     return Math.abs((birthdayThisYear - today) / (1000 * 60 * 60 * 24)) <= 7;
   })();
-  if (isBday) document.getElementById('discountBanner').classList.remove('hidden');
+  if (isBday) {
+    document.getElementById('discountBanner').classList.remove('hidden');
+    triggerBirthdayCelebration(data.name, level.birthdayDiscount);
+  }
 
   checkAndNotifyBirthday().then(() => {
     if (window.refreshNotifBadge) window.refreshNotifBadge();
