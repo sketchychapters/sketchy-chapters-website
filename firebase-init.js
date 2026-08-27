@@ -362,13 +362,14 @@ async function getAllStudents() {
   return snapshot.docs.map(doc => ({ uid: doc.id, ...doc.data() }));
 }
 
-async function addNotification(studentUid, message) {
+async function addNotification(studentUid, message, link) {
   const notif = {
     id: generateEnrollmentId(),
     message,
     date: new Date().toISOString(),
     read: false
   };
+  if (link) notif.link = link;
   await db.collection("students").doc(studentUid).update({
     notifications: firebase.firestore.FieldValue.arrayUnion(notif)
   });
@@ -456,9 +457,10 @@ async function checkAndNotifyBirthday() {
   await db.collection("students").doc(user.uid).update({ lastBirthdayNotifiedYear: thisYear });
 }
 
-async function broadcastAnnouncement(message) {
+async function broadcastAnnouncement(message, link) {
   const students = await getAllStudents();
   const notif = { message, date: new Date().toISOString(), read: false };
+  if (link) notif.link = link;
   await Promise.all(students.map(s =>
     db.collection("students").doc(s.uid).update({
       notifications: firebase.firestore.FieldValue.arrayUnion(notif)
