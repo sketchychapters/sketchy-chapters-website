@@ -514,16 +514,23 @@ async function openNotifModal() {
   const list = document.getElementById('notifItemsList');
   const data = await getCurrentStudentData();
   const notifications = ((data && data.notifications) || []).slice().reverse();
+  const isAr = document.documentElement.getAttribute('lang') === 'ar';
 
   if (notifications.length === 0) {
     list.innerHTML = '<p class="text-gray-500 text-sm text-center py-6" data-ar="لا توجد إشعارات بعد." data-en="No notifications yet.">No notifications yet.</p>';
   } else {
-    list.innerHTML = notifications.map(n => `
-      <div class="glass-card rounded-2xl p-3 ${n.read ? 'opacity-60' : ''}">
+    // إشعار عنده رابط (n.link) بيصير بطاقة قابلة للضغط تاخد الطالب مباشرة للصفحة المقصودة
+    list.innerHTML = notifications.map(n => {
+      const inner = `
         <p class="text-white text-sm">${n.message}</p>
         <p class="text-gray-500 text-[10px] mt-1">${new Date(n.date).toLocaleString()}</p>
-      </div>
-    `).join('');
+        ${n.link ? `<p class="gold-accent text-[11px] font-bold mt-1.5 flex items-center gap-1">${isAr ? 'اضغط للعرض' : 'Tap to view'} <i class="fa-solid fa-arrow-right rtl:rotate-180"></i></p>` : ''}
+      `;
+      if (n.link) {
+        return `<a href="${n.link}" class="block glass-card rounded-2xl p-3 hover:border-amber-500/50 transition ${n.read ? 'opacity-60' : ''}">${inner}</a>`;
+      }
+      return `<div class="glass-card rounded-2xl p-3 ${n.read ? 'opacity-60' : ''}">${inner}</div>`;
+    }).join('');
   }
 
   document.getElementById('notifModal').classList.remove('hidden');
