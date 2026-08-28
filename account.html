@@ -29,22 +29,38 @@
   .progress-bar-fill{background:linear-gradient(90deg,#d4af37,#fcf6ba);}
 
   /* ===== Birthday celebration ===== */
-  #birthdayCelebration{position:fixed;inset:0;z-index:9997;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,.75);backdrop-filter:blur(4px);overflow:hidden;}
+  #birthdayCelebration{position:fixed;inset:0;z-index:9997;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,.8);backdrop-filter:blur(5px);overflow:hidden;}
   #birthdayCelebration.show{display:flex;}
   #confettiLayer{position:absolute;inset:0;pointer-events:none;overflow:hidden;}
-  .confetti-piece{position:absolute;top:-20px;width:8px;height:14px;opacity:.9;animation:confettiFall linear forwards;}
+  .confetti-piece{position:absolute;top:-20px;width:9px;height:16px;opacity:.9;animation:confettiFall linear forwards;}
   @keyframes confettiFall{
     0%{transform:translateY(0) rotate(0deg);opacity:1;}
-    100%{transform:translateY(110vh) rotate(720deg);opacity:.85;}
+    100%{transform:translateY(110vh) rotate(900deg);opacity:.85;}
   }
-  #birthdayCard{position:relative;z-index:2;text-align:center;max-width:22rem;width:100%;margin:0 24px;
-    background:linear-gradient(180deg, rgba(18,18,22,.9), rgba(8,8,10,.95));
-    border:1px solid rgba(212,175,55,.5);border-radius:28px;padding:40px 28px;
-    box-shadow:0 20px 60px rgba(212,175,55,.15), 0 0 0 1px rgba(212,175,55,.1);
-    animation:birthdayPop .5s cubic-bezier(.34,1.56,.64,1);}
-  @keyframes birthdayPop{0%{transform:scale(.7);opacity:0;}100%{transform:scale(1);opacity:1;}}
-  #birthdayEmoji{font-size:52px;line-height:1;margin-bottom:14px;display:block;animation:birthdayBounce 1.4s ease-in-out infinite;}
-  @keyframes birthdayBounce{0%,100%{transform:translateY(0);}50%{transform:translateY(-8px);}}
+  #fireworksLayer{position:absolute;inset:0;pointer-events:none;overflow:hidden;}
+  .firework-particle{position:absolute;width:6px;height:6px;border-radius:50%;animation:fireworkBurst 1.1s ease-out forwards;}
+  @keyframes fireworkBurst{
+    0%{transform:translate(0,0) scale(1);opacity:1;}
+    100%{transform:translate(var(--fx), var(--fy)) scale(.2);opacity:0;}
+  }
+  #birthdayCard{position:relative;z-index:2;text-align:center;max-width:23rem;width:100%;margin:0 24px;
+    background:linear-gradient(180deg, rgba(20,20,24,.92), rgba(8,8,10,.97));
+    border:1.5px solid rgba(212,175,55,.6);border-radius:28px;padding:44px 30px 34px;
+    box-shadow:0 25px 70px rgba(212,175,55,.2), 0 0 0 1px rgba(212,175,55,.12);
+    animation:birthdayPop .6s cubic-bezier(.34,1.56,.64,1);overflow:visible;}
+  @keyframes birthdayPop{0%{transform:scale(.6);opacity:0;}100%{transform:scale(1);opacity:1;}}
+  .sparkle-ring{position:absolute;top:50%;left:50%;width:100%;height:100%;border-radius:28px;
+    border:1px solid rgba(212,175,55,.4);transform:translate(-50%,-50%) scale(1);
+    animation:sparkleRingPulse 2.4s ease-out infinite;pointer-events:none;}
+  .sparkle-ring.ring2{animation-delay:1.2s;}
+  @keyframes sparkleRingPulse{
+    0%{transform:translate(-50%,-50%) scale(1);opacity:.6;}
+    100%{transform:translate(-50%,-50%) scale(1.12);opacity:0;}
+  }
+  #birthdayEmoji{font-size:58px;line-height:1;margin-bottom:10px;display:block;animation:birthdayBounce 1.4s ease-in-out infinite;}
+  @keyframes birthdayBounce{0%,100%{transform:translateY(0) rotate(0deg);}50%{transform:translateY(-10px) rotate(-4deg);}}
+  .gold-gradient-text2{background:linear-gradient(135deg,#bf953f,#fcf6ba,#b38728,#fbf5b7);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+  .birthday-badge{background:rgba(212,175,55,.08);border:1px solid rgba(212,175,55,.35);border-radius:18px;padding:16px 20px;margin:0 auto;max-width:15rem;}
 </style>
 </head>
 <body class="min-h-screen">
@@ -189,10 +205,19 @@
 <!-- Birthday Celebration Overlay -->
 <div id="birthdayCelebration">
   <div id="confettiLayer"></div>
+  <div id="fireworksLayer"></div>
   <div id="birthdayCard">
+    <div class="sparkle-ring"></div>
+    <div class="sparkle-ring ring2"></div>
     <span id="birthdayEmoji">🎉</span>
-    <h2 class="text-white font-black text-xl mb-2" data-ar="عيد ميلاد سعيد!" data-en="Happy Birthday!">Happy Birthday!</h2>
-    <p id="birthdayMsg" class="text-gray-300 text-sm leading-relaxed mb-6"></p>
+    <h2 class="text-white font-black text-2xl mb-1" data-ar="عيد ميلاد سعيد!" data-en="Happy Birthday!">Happy Birthday!</h2>
+    <p id="birthdayName" class="gold-gradient-text2 font-black text-lg mb-4"></p>
+    <div id="birthdayBadge" class="birthday-badge">
+      <p id="birthdayLevelText" class="text-[10px] uppercase tracking-widest text-amber-300/80 font-bold"></p>
+      <p id="birthdayDiscountText" class="text-3xl font-black gold-gradient-text2 my-1"></p>
+      <p id="birthdayDurationText" class="text-[10px] text-gray-400"></p>
+    </div>
+    <p id="birthdayMsg" class="text-gray-300 text-sm leading-relaxed my-5"></p>
     <button onclick="closeBirthdayCelebration()" class="bg-gold text-black font-black px-8 py-3 rounded-xl text-sm" data-ar="شكراً!" data-en="Thank You!">Thank You!</button>
   </div>
 </div>
@@ -277,7 +302,7 @@ async function submitChangePassword() {
 }
 
 // ==========================================================
-// احتفال عيد الميلاد — كونفيتي + بطاقة ترحيب، مرة وحدة بكل جلسة تصفّح
+// احتفال عيد الميلاد — كونفيتي + ألعاب نارية + بطاقة فاخرة، مرة وحدة بكل جلسة تصفّح
 // ==========================================================
 const CONFETTI_COLORS = ['#d4af37', '#fcf6ba', '#f0d374', '#ffffff', '#e0b84a'];
 
@@ -289,28 +314,67 @@ function generateConfetti(count) {
     piece.className = 'confetti-piece';
     piece.style.left = Math.random() * 100 + '%';
     piece.style.background = CONFETTI_COLORS[Math.floor(Math.random() * CONFETTI_COLORS.length)];
-    piece.style.animationDuration = (2.6 + Math.random() * 2.2) + 's';
-    piece.style.animationDelay = (Math.random() * 1.2) + 's';
+    piece.style.animationDuration = (2.6 + Math.random() * 2.6) + 's';
+    piece.style.animationDelay = (Math.random() * 1.5) + 's';
     piece.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
     layer.appendChild(piece);
   }
 }
 
-function triggerBirthdayCelebration(name, discountPercent) {
+function fireworkBurstAt(xPercent, yPercent) {
+  const layer = document.getElementById('fireworksLayer');
+  const n = 22;
+  for (let i = 0; i < n; i++) {
+    const p = document.createElement('div');
+    p.className = 'firework-particle';
+    const angle = (Math.PI * 2 * i) / n;
+    const dist = 90 + Math.random() * 70;
+    p.style.setProperty('--fx', Math.cos(angle) * dist + 'px');
+    p.style.setProperty('--fy', Math.sin(angle) * dist + 'px');
+    p.style.left = xPercent + '%';
+    p.style.top = yPercent + '%';
+    p.style.background = CONFETTI_COLORS[Math.floor(Math.random() * CONFETTI_COLORS.length)];
+    layer.appendChild(p);
+    setTimeout(() => p.remove(), 1200);
+  }
+}
+
+function runFireworksShow() {
+  const spots = [[20, 30], [80, 25], [50, 15], [30, 45], [70, 40]];
+  spots.forEach((spot, i) => {
+    setTimeout(() => fireworkBurstAt(spot[0], spot[1]), i * 350);
+  });
+}
+
+function triggerBirthdayCelebration(name, discountPercent, levelName) {
   if (sessionStorage.getItem('sketchy_bday_shown') === 'true') return;
   sessionStorage.setItem('sketchy_bday_shown', 'true');
 
   const isAr = document.documentElement.getAttribute('lang') === 'ar';
-  const firstName = (name || '').split(' ')[0];
-  const msgAr = discountPercent > 0
-    ? `كل سنة وانت طيب/ة يا ${firstName}! 🎂 عندك خصم ${discountPercent}% على أي دورة هالأسبوع.`
-    : `كل سنة وانت طيب/ة يا ${firstName}! 🎂 نتمنى لك سنة رائعة من فريق Sketchy Chapters.`;
-  const msgEn = discountPercent > 0
-    ? `Happy Birthday, ${firstName}! 🎂 You've got ${discountPercent}% off any course this week.`
-    : `Happy Birthday, ${firstName}! 🎂 Wishing you a wonderful year from the Sketchy Chapters team.`;
+  const firstName = (name || '').split(' ')[0] || (isAr ? 'صديقنا العزيز' : 'Dear Friend');
 
+  const msgAr = discountPercent > 0
+    ? `بمناسبة عيد ميلادك، تتقدم أسرة Sketchy Chapters بأصدق التهاني وأجمل الأمنيات بموفور الصحة والسعادة والتوفيق. كل عام وأنت بألف خير 🎂`
+    : `بمناسبة عيد ميلادك، تتقدم أسرة Sketchy Chapters بأصدق التهاني وأجمل الأمنيات بموفور الصحة والسعادة والتوفيق في مسيرتك. كل عام وأنت بألف خير 🎂`;
+  const msgEn = discountPercent > 0
+    ? `On this special day, the entire Sketchy Chapters family extends our warmest wishes for a joyous birthday filled with happiness and success.`
+    : `On this special day, the entire Sketchy Chapters family extends our warmest wishes for a joyous birthday filled with happiness and success.`;
+
+  document.getElementById('birthdayName').textContent = firstName;
   document.getElementById('birthdayMsg').textContent = isAr ? msgAr : msgEn;
-  generateConfetti(80);
+
+  const badge = document.getElementById('birthdayBadge');
+  if (discountPercent > 0) {
+    document.getElementById('birthdayLevelText').textContent = (levelName || '') + (isAr ? ' — عضو' : ' Member');
+    document.getElementById('birthdayDiscountText').textContent = discountPercent + '% ' + (isAr ? 'خصم' : 'OFF');
+    document.getElementById('birthdayDurationText').textContent = isAr ? 'ساري لمدة 7 أيام من تاريخ ميلادك' : 'Valid for 7 days from your birthday';
+    badge.classList.remove('hidden');
+  } else {
+    badge.classList.add('hidden');
+  }
+
+  generateConfetti(110);
+  runFireworksShow();
   document.getElementById('birthdayCelebration').classList.add('show');
   document.body.style.overflow = 'hidden';
 }
@@ -415,7 +479,7 @@ auth.onAuthStateChanged(async (user) => {
   })();
   if (isBday) {
     document.getElementById('discountBanner').classList.remove('hidden');
-    triggerBirthdayCelebration(data.name, level.birthdayDiscount);
+    triggerBirthdayCelebration(data.name, level.birthdayDiscount, level.name);
   }
 
   checkAndNotifyBirthday().then(() => {
