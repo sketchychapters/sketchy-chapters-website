@@ -57,6 +57,13 @@
   </div>
 </div>
 
+<!-- Birthdays This Week -->
+<div id="birthdaysCard" class="glass-card rounded-2xl p-5 mb-6 border-amber-500/40">
+  <p class="text-white font-bold text-sm mb-1">🎂 Birthdays This Week</p>
+  <p class="text-gray-400 text-xs mb-4">Tap "Send Greeting" to open WhatsApp with a ready message — edit it if you like, then hit send yourself.</p>
+  <div id="birthdaysList" class="space-y-2"></div>
+</div>
+
 <!-- Analytics -->
 <div class="glass-card rounded-2xl p-5 mb-6">
   <button onclick="toggleAnalytics()" class="w-full flex items-center justify-between text-white font-bold text-sm">
@@ -375,6 +382,7 @@ auth.onAuthStateChanged(async (user) => {
   computeStats();
   populateCountryFilter();
   renderStudents();
+  renderBirthdaysSection();
 });
 
 function populateCountryFilter() {
@@ -401,6 +409,206 @@ function computeStats() {
   document.getElementById('statEnrollments').innerText = totalEnrollments;
   document.getElementById('statPrivate').innerText = privateCount;
   document.getElementById('statRevenue').innerText = '$' + revenue.toFixed(0);
+}
+
+const birthdayDataMap = {};
+
+function renderBirthdaysSection() {
+  const container = document.getElementById('birthdaysList');
+  const birthdayStudents = allStudents.filter(s => isBirthdayWeek(s.birthDate));
+
+  if (birthdayStudents.length === 0) {
+    container.innerHTML = '<p class="text-gray-500 text-xs">No birthdays this week.</p>';
+    return;
+  }
+
+  const thisYear = new Date().getFullYear();
+
+  container.innerHTML = birthdayStudents.map(s => {
+    const cleanPhone = (s.phone || '').replace(/[^\d]/g, '');
+    const level = computeLevel(s.points || 0);
+    const name = s.name || 'Student';
+    const salutation = s.gender === 'female' ? 'عزيزتي' : 'عزيزي'; // افتراضي "عزيزي" لو الجنس غير محدد بالحساب
+
+    const greetingAr =
+`${salutation} ${name}،
+بمناسبة عيد ميلادكم، تتقدم أسرة Sketchy Chapters بأصدق التهاني وأجمل الأمنيات بموفور الصحة والسعادة والتوفيق في مسيرتكم العلمية والمهنية.
+وعربوناً لتقديرنا لكم، نُهديكم خصماً خاصاً بنسبة ${level.birthdayDiscount}% على أي دورة تدريبية تختارونها، سارياً لمدة سبعة أيام من تاريخ ميلادكم.
+كل عام وأنتم بألف خير 🎂✨`;
+
+    const greetingEn =
+`Dear ${name},
+On the occasion of your birthday, the entire Sketchy Chapters family extends our warmest congratulations and best wishes for continued health, happiness, and success in your academic and professional journey.
+As a token of our appreciation, we are delighted to offer you an exclusive ${level.birthdayDiscount}% discount on any course of your choosing, valid for seven days from your birthday.
+Wishing you a joyous celebration and a wonderful year ahead 🎂✨`;
+
+    birthdayDataMap[s.uid] = { name, level, cleanPhone, greetingAr, greetingEn };
+
+    const sentKey = `sketchy_bday_sent::${s.uid}::${thisYear}`;
+    const alreadySent = localStorage.getItem(sentKey) === 'true';
+
+    return `
+      <div class="bg-black/30 rounded-xl px-3 py-2.5" id="bdayRow-${s.uid}">
+        <div class="flex items-center justify-between gap-2 mb-2">
+          <div>
+            <p class="text-white font-bold text-sm">🎂 ${name}</p>
+            <p class="text-gray-500 text-[10px]">${s.phone || 'No phone on file'} ${s.birthDate ? '· ' + s.birthDate : ''} · ${level.name} · ${level.birthdayDiscount}% off</p>
+          </div>
+          ${alreadySent ? `<span class="text-[10px] font-bold text-emerald-400 flex items-center gap-1 shrink-0"><i class="fa-solid fa-circle-check"></i> Sent</span>` : ''}
+        </div>
+        <div class="flex gap-1.5 flex-wrap">
+          ${cleanPhone
+            ? `<button onclick="sendBirthdayGreeting('${s.uid}', 'ar')" ${alreadySent ? 'disabled' : ''}
+                class="text-[10px] font-bold px-3 py-2 rounded-lg flex items-center gap-1.5 ${alreadySent ? 'bg-gray-700/30 text-gray-500 cursor-not-allowed' : 'bg-emerald-500/20 text-emerald-400 hover:bg-emerald-500/30'}">
+                <i class="fa-brands fa-whatsapp"></i> عربي (فصحى)
+              </button>
+              <button onclick="sendBirthdayGreeting('${s.uid}', 'en')" ${alreadySent ? 'disabled' : ''}
+                class="text-[10px] font-bold px-3 py-2 rounded-lg flex items-center gap-1.5 ${alreadySent ? 'bg-gray-700/30 text-gray-500 cursor-not-allowed' : 'bg-emerald-500/20 text-emerald-400 hover:bg-emerald-500/30'}">
+                <i class="fa-brands fa-whatsapp"></i> English
+              </button>`
+            : `<span class="text-[10px] text-gray-500">No phone number</span>`}
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+function sendBirthdayGreeting(uid, lang) {
+  const info = birthdayDataMap[uid];
+  if (!info || !info.cleanPhone) return;
+
+  // خطوة 1: نولّد الصورة ونحمّلها أول شي، حتى تكون جاهزة يرفقها الأدمن بالواتساب
+  generateBirthdayCard(info.name, info.level.name, info.level.birthdayDiscount);
+
+  // خطوة 2: نفتح واتساب بالرسالة الجاهزة (بعد لحظة بسيطة حتى التحميل يبلش صح)
+  const message = lang === 'ar' ? info.greetingAr : info.greetingEn;
+  setTimeout(() => {
+    window.open(`https://wa.me/${info.cleanPhone}?text=${encodeURIComponent(message)}`, '_blank');
+  }, 400);
+
+  // خطوة 3: نعلّمها "Sent" حتى ما ننسى ولا نبعت مرتين
+  const thisYear = new Date().getFullYear();
+  localStorage.setItem(`sketchy_bday_sent::${uid}::${thisYear}`, 'true');
+  renderBirthdaysSection();
+}
+
+
+function generateBirthdayCard(name, levelName, discountPercent) {
+  const W = 1080, H = 1350;
+  const canvas = document.createElement('canvas');
+  canvas.width = W;
+  canvas.height = H;
+  const ctx = canvas.getContext('2d');
+
+  // خلفية متدرجة داكنة تطابق هوية الموقع
+  const bgGrad = ctx.createLinearGradient(0, 0, 0, H);
+  bgGrad.addColorStop(0, '#0d0d10');
+  bgGrad.addColorStop(1, '#08080a');
+  ctx.fillStyle = bgGrad;
+  ctx.fillRect(0, 0, W, H);
+
+  // توهج ذهبي خلف المنتصف
+  const glow = ctx.createRadialGradient(W / 2, H * 0.38, 40, W / 2, H * 0.38, 480);
+  glow.addColorStop(0, 'rgba(212,175,55,0.28)');
+  glow.addColorStop(1, 'rgba(212,175,55,0)');
+  ctx.fillStyle = glow;
+  ctx.fillRect(0, 0, W, H);
+
+  // إطار ذهبي مزدوج
+  ctx.strokeStyle = 'rgba(212,175,55,0.9)';
+  ctx.lineWidth = 4;
+  ctx.strokeRect(36, 36, W - 72, H - 72);
+  ctx.strokeStyle = 'rgba(212,175,55,0.35)';
+  ctx.lineWidth = 1.5;
+  ctx.strokeRect(52, 52, W - 104, H - 104);
+
+  ctx.textAlign = 'center';
+
+  // شعار مصغّر
+  ctx.fillStyle = '#d4af37';
+  ctx.font = '700 32px Arial';
+  ctx.fillText('SKETCHY CHAPTERS', W / 2, 150);
+  ctx.fillStyle = 'rgba(255,255,255,0.5)';
+  ctx.font = '400 22px Arial';
+  ctx.fillText('WORKSHOP CENTER', W / 2, 186);
+
+  // إيموجي احتفالي
+  ctx.font = '110px Arial';
+  ctx.fillText('🎉🎂🎉', W / 2, 340);
+
+  // عيد ميلاد سعيد (عربي وإنجليزي)
+  const titleGrad = ctx.createLinearGradient(0, 400, 0, 460);
+  titleGrad.addColorStop(0, '#fcf6ba');
+  titleGrad.addColorStop(1, '#d4af37');
+  ctx.fillStyle = titleGrad;
+  ctx.font = '700 58px Arial';
+  ctx.fillText('عيد ميلاد سعيد', W / 2, 460);
+  ctx.font = 'italic 400 34px Georgia';
+  ctx.fillStyle = '#e6c766';
+  ctx.fillText('Happy Birthday', W / 2, 512);
+
+  // اسم الطالب
+  ctx.fillStyle = '#ffffff';
+  ctx.font = '700 46px Arial';
+  ctx.fillText(name, W / 2, 600);
+
+  // خط فاصل
+  ctx.strokeStyle = 'rgba(212,175,55,0.5)';
+  ctx.lineWidth = 1.5;
+  ctx.beginPath();
+  ctx.moveTo(W / 2 - 140, 630);
+  ctx.lineTo(W / 2 + 140, 630);
+  ctx.stroke();
+
+  // شارة المستوى
+  ctx.fillStyle = 'rgba(212,175,55,0.12)';
+  ctx.strokeStyle = 'rgba(212,175,55,0.6)';
+  ctx.lineWidth = 2;
+  const badgeY = 700, badgeW = 340, badgeH = 90;
+  ctx.beginPath();
+  ctx.roundRect(W / 2 - badgeW / 2, badgeY, badgeW, badgeH, 45);
+  ctx.fill();
+  ctx.stroke();
+  ctx.fillStyle = '#d4af37';
+  ctx.font = '700 34px Arial';
+  ctx.fillText(levelName.toUpperCase() + ' LEVEL', W / 2, badgeY + 58);
+
+  // نسبة الخصم الكبيرة
+  const discGrad = ctx.createLinearGradient(0, 850, 0, 990);
+  discGrad.addColorStop(0, '#fcf6ba');
+  discGrad.addColorStop(1, '#d4af37');
+  ctx.fillStyle = discGrad;
+  ctx.font = '700 140px Arial';
+  ctx.fillText(discountPercent + '% OFF', W / 2, 980);
+
+  ctx.fillStyle = 'rgba(255,255,255,0.85)';
+  ctx.font = '400 30px Arial';
+  ctx.fillText('على أي دورة تدريبية تختارها', W / 2, 1040);
+  ctx.font = 'italic 400 26px Georgia';
+  ctx.fillStyle = 'rgba(255,255,255,0.6)';
+  ctx.fillText('on any course of your choice', W / 2, 1076);
+
+  // مدة الصلاحية
+  ctx.fillStyle = 'rgba(212,175,55,0.9)';
+  ctx.font = '700 28px Arial';
+  ctx.fillText('⏳ ساري لمدة 7 أيام من تاريخ ميلادك', W / 2, 1150);
+  ctx.font = 'italic 400 22px Georgia';
+  ctx.fillStyle = 'rgba(255,255,255,0.55)';
+  ctx.fillText('Valid for 7 days from your birthday', W / 2, 1182);
+
+  // تذييل
+  ctx.font = '400 20px Arial';
+  ctx.fillStyle = 'rgba(255,255,255,0.35)';
+  ctx.fillText('sketchychapters.com', W / 2, 1270);
+
+  canvas.toBlob(blob => {
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `birthday-card-${name.replace(/\s+/g, '-')}.png`;
+    a.click();
+    URL.revokeObjectURL(url);
+  });
 }
 
 function toggleAnalytics() {
@@ -1103,6 +1311,7 @@ async function submitEditProfile() {
   closeEditProfileModal();
   allStudents = await getAllStudents();
   renderStudents();
+  renderBirthdaysSection();
 }
 
 async function editStudentIdClick(uid, oldId) {
