@@ -158,7 +158,7 @@
 
   <!-- Birthday discount banner -->
   <div id="discountBanner" class="hidden glass-card rounded-3xl p-5 mb-6 border-amber-500/50 bg-gradient-to-r from-amber-500/10 via-transparent to-amber-500/10 text-center">
-    <p class="text-amber-300 font-black" data-ar="🎂 عيد ميلاد سعيد! يحق لك الحصول على خصم خاص هذا الأسبوع على أي دورة." data-en="🎂 It's your birthday week! You get a special discount on any course.">🎂 It's your birthday week! You get a special discount on any course.</p>
+    <p id="discountBannerText" class="text-amber-300 font-black"></p>
   </div>
 
   <!-- My Library — admin-managed links, no automatic trigger -->
@@ -477,9 +477,22 @@ auth.onAuthStateChanged(async (user) => {
     const birthdayThisYear = new Date(today.getFullYear(), bd.getMonth(), bd.getDate());
     return Math.abs((birthdayThisYear - today) / (1000 * 60 * 60 * 24)) <= 7;
   })();
+  const hasEnrollmentHistory = (data.enrollments || []).length > 0;
+  const qualifiesForBirthdayDiscount = level.birthdayDiscount > 0;
+
   if (isBday) {
+    const thisYear = new Date().getFullYear();
+    const isUsed = data.birthdayDiscountUsedYear === thisYear;
+    const grantDiscount = hasEnrollmentHistory && qualifiesForBirthdayDiscount && !isUsed;
+
+    const isAr = document.documentElement.getAttribute('lang') === 'ar';
+    const bannerText = document.getElementById('discountBannerText');
+    bannerText.textContent = grantDiscount
+      ? (isAr ? '🎂 عيد ميلاد سعيد! يحق لك الحصول على خصم خاص هذا الأسبوع على أي دورة.' : "🎂 It's your birthday week! You get a special discount on any course.")
+      : (isAr ? '🎂 عيد ميلاد سعيد من فريق Sketchy Chapters! نتمنى لك سنة رائعة.' : '🎂 Happy Birthday from the Sketchy Chapters team! Wishing you a wonderful year.');
     document.getElementById('discountBanner').classList.remove('hidden');
-    triggerBirthdayCelebration(data.name, level.birthdayDiscount, level.name);
+
+    triggerBirthdayCelebration(data.name, grantDiscount ? level.birthdayDiscount : 0, level.name);
   }
 
   checkAndNotifyBirthday().then(() => {
