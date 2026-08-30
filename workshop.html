@@ -5,12 +5,10 @@
 <meta name="color-scheme" content="dark">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- Title & SEO Description optimized for Courses & Workshops -->
     <title>Workshop Center | Architecture Courses & Exam Preparation - Sketchy Chapters</title>
     <meta name="description" content="Join Workshop Center by Sketchy Chapters for professional architectural design courses, AutoCAD, Revit, V-Ray, and university entrance exam preparation.">
     <meta name="keywords" content="workshop center, architecture courses, AutoCAD training, Revit V-Ray course, exam preparation, sketchy chapters">
 
-    <!-- Schema Markup for Educational Organization / Courses -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -21,20 +19,14 @@
     }
     </script>
 
-    <!-- Favicon -->
     <link rel="icon" type="image/png" href="favicon w.png">
-    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;500;700;900&display=swap" rel="stylesheet">
-    <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    <!-- Firebase SDK (accounts, login, students data) -->
     <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore-compat.js"></script>
-    <!-- EmailJS (instant admin notifications) -->
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 
     <style>
@@ -105,8 +97,8 @@
             100% { transform: translateY(-420px) scale(0.4); opacity: 0; }
         }
         .intro-grid-line {
-            stroke: #d4af37; stroke-width: 1; fill: none;
-            stroke-dasharray: 620; stroke-dashoffset: 620; opacity: 0.35;
+            stroke: #d4af37; stroke-width: 0.75; fill: none;
+            stroke-dasharray: 620; stroke-dashoffset: 620; opacity: 0.25;
             animation: introDrawLine 1.7s cubic-bezier(.65,0,.35,1) forwards;
         }
         @keyframes introDrawLine { to { stroke-dashoffset: 0; } }
@@ -227,7 +219,6 @@
         })();
     </script>
 
-
     <!-- ================= HEADER / NAVIGATION ================= -->
     <header class="glass-card fixed top-0 w-full z-50 border-b border-amber-500/15 py-4 px-6 md:px-12 flex items-center justify-between">
         <a href="workshop.html" class="flex items-center space-x-3 rtl:space-x-reverse">
@@ -235,21 +226,17 @@
             <span id="logo-fallback" class="hidden text-xl font-black tracking-wider text-white">SKETCHY <span class="gold-accent">CHAPTERS</span></span>
         </a>
 
-        <!-- Desktop Navigation Links -->
         <nav class="hidden md:flex items-center space-x-6 rtl:space-x-reverse text-xs font-bold">
             <a href="index.html" class="text-gray-300 hover:text-amber-400 transition" data-ar="الرئيسية" data-en="Home">Home</a>
             <a href="workshop.html" class="text-gray-300 hover:text-amber-400 transition" data-ar="ورش العمل" data-en="Workshops">Workshops</a>
-            <a href="offers.html" class="text-gray-300 hover:text-amber-400 transition gold-accent font-bold" data-ar="الباقات الصيفية" data-en="Summer Packages">Summer Packages</a>
         </nav>
 
         <div class="flex items-center space-x-3 rtl:space-x-reverse">
-            <!-- Language Switcher Button -->
             <button onclick="toggleLanguage()" id="lang-btn" class="glass-card text-amber-400 border border-amber-500/30 px-3 py-2 rounded-xl text-xs font-bold hover:bg-amber-500/10 transition flex items-center space-x-1.5 rtl:space-x-reverse">
                 <i class="fa-solid fa-globe text-sm"></i>
                 <span id="langBtnText">العربية</span>
             </button>
 
-            <!-- Login / My Account Button (state-aware) -->
             <div id="authArea" class="hidden md:block">
                 <a href="login.html" class="glass-card text-amber-400 border border-amber-500/30 px-4 py-2 rounded-xl text-xs font-bold hover:bg-amber-500/10 transition flex items-center gap-2">
                     <i class="fa-solid fa-user text-sm"></i>
@@ -257,13 +244,11 @@
                 </a>
             </div>
 
-            <!-- WhatsApp Quick Button (Desktop) -->
             <a href="https://wa.me/96171967714?text=مرحباً، أهتم بالتسجيل والاستفسار عن الدورات" target="_blank" class="hidden md:flex bg-amber-500/10 border border-amber-500/40 text-amber-400 px-4 py-2 rounded-xl text-xs font-bold hover:bg-amber-500/20 transition items-center space-x-2 rtl:space-x-reverse">
                 <i class="fa-brands fa-whatsapp text-sm"></i>
                 <span data-ar="استفسار فوري" data-en="Instant Inquiry">Instant Inquiry</span>
             </a>
 
-            <!-- Mobile Menu Toggle Button -->
             <button onclick="toggleMobileMenu()" class="md:hidden w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-500/40 text-amber-300 flex items-center justify-center text-lg hover:bg-amber-500/20 transition">
                 <i class="fa-solid fa-ellipsis-vertical"></i>
             </button>
@@ -280,16 +265,11 @@
             <span data-ar=" ورش العمل" data-en=" Workshops">Workshops</span>
             <i class="fa-solid fa-arrow-left rtl:rotate-180 text-xs gold-accent"></i>
         </a>
-        <a href="offers.html" onclick="toggleMobileMenu()" class="text-white text-sm font-bold py-2 border-b border-amber-500/10 flex items-center justify-between">
-            <span data-ar="الباقات الصيفية" data-en=" Summer Packages">Summer Packages</span>
-            <i class="fa-solid fa-arrow-left rtl:rotate-180 text-xs gold-accent"></i>
-        </a>
         <a href="oea-courses.html" class="text-white text-sm font-bold py-2 border-b border-amber-500/10 flex items-center justify-between">
             <span data-ar=" دورات نقابة المهندسين" data-en=" OEA Courses">OEA Courses</span>
             <i class="fa-solid fa-arrow-left rtl:rotate-180 text-xs gold-accent"></i>
         </a>
 
-        <!-- Login / My Account (Mobile) -->
         <a href="login.html" id="mobileAuthLink" onclick="toggleMobileMenu()" class="bg-amber-500/10 border border-amber-500/30 text-amber-400 p-3 rounded-xl text-xs font-bold flex items-center justify-center space-x-2 rtl:space-x-reverse">
             <i class="fa-solid fa-user text-base"></i>
             <span data-ar="تسجيل الدخول" data-en="Log In">Log In</span>
@@ -309,70 +289,29 @@
     }
     </script>
 
-    <!-- ================= DYNAMIC PROMO SECTION ================= -->
+    <!-- ================= OEA PARTNERSHIP BANNER ================= -->
     <section class="max-w-7xl mx-auto px-6 pt-32 pb-6">
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
-
-            <!-- 1. Countdown Banner -->
-            <a href="offers.html" class="glass-card rounded-3xl p-5 md:p-6 border border-amber-500/40 bg-gradient-to-r from-amber-500/10 via-black/60 to-black/90 flex flex-col sm:flex-row items-center justify-between group hover:border-amber-500 transition duration-300 relative overflow-hidden">
-                <div class="absolute -right-10 -bottom-10 w-32 h-32 bg-amber-500/10 rounded-full blur-xl"></div>
-                <div class="mb-4 sm:mb-0 text-center sm:text-start rtl:sm:text-right">
-                    <div class="flex items-center justify-center sm:justify-start rtl:sm:justify-end gap-2 mb-1">
-                        <span class="bg-amber-500 text-black text-[10px] font-black px-2 py-0.5 rounded uppercase animate-pulse" data-ar="عرض محدود" data-en="Limited Offer">Limited Offer</span>
-                        <span class="gold-accent text-xs font-bold uppercase" data-ar="انتهاء الباقات الصيفية" data-en="Summer Packages Ending">Summer Packages Ending</span>
-                    </div>
-                    <h4 class="text-white font-black text-lg md:text-xl" data-ar="سارع بحجز باقتك !" data-en="Hurry & Book!">Hurry & Book!</h4>
+        <a href="oea-courses.html" class="glass-card rounded-3xl p-5 md:p-6 border border-amber-500/40 bg-gradient-to-r from-black/90 via-amber-950/20 to-black/90 flex items-center justify-between group hover:border-amber-500 transition duration-300 overflow-hidden relative">
+            <div class="flex items-center space-x-3 rtl:space-x-reverse w-full overflow-hidden">
+                <div class="flex items-center gap-2 flex-shrink-0 bg-black/40 border border-amber-500/30 p-1.5 rounded-xl">
+                    <img src="workshop logo.png" alt="Workshop Logo" class="w-8 h-8 object-contain rounded-lg">
+                    <span class="text-amber-500 font-bold">+</span>
+                    <img src="oea.png" alt="OEA Logo" class="w-8 h-8 object-contain rounded-lg">
                 </div>
 
-                <!-- Countdown Timer Container -->
-                <div id="countdown" class="flex items-center gap-2 text-center">
-                    <div class="bg-black/60 border border-amber-500/30 rounded-xl px-2.5 py-1.5 min-w-[45px]">
-                        <span id="days" class="text-amber-400 font-black text-base block">00</span>
-                        <span class="text-[9px] text-gray-400 uppercase" data-ar="يوم" data-en="Days">Days</span>
-                    </div>
-                    <span class="gold-accent font-bold">:</span>
-                    <div class="bg-black/60 border border-amber-500/30 rounded-xl px-2.5 py-1.5 min-w-[45px]">
-                        <span id="hours" class="text-amber-400 font-black text-base block">00</span>
-                        <span class="text-[9px] text-gray-400 uppercase" data-ar="ساعة" data-en="Hrs">Hrs</span>
-                    </div>
-                    <span class="gold-accent font-bold">:</span>
-                    <div class="bg-black/60 border border-amber-500/30 rounded-xl px-2.5 py-1.5 min-w-[45px]">
-                        <span id="minutes" class="text-amber-400 font-black text-base block">00</span>
-                        <span class="text-[9px] text-gray-400 uppercase" data-ar="دقيقة" data-en="Min">Min</span>
-                    </div>
-                    <span class="gold-accent font-bold">:</span>
-                    <div class="bg-black/60 border border-amber-500/30 rounded-xl px-2.5 py-1.5 min-w-[45px]">
-                        <span id="seconds" class="text-amber-400 font-black text-base block">00</span>
-                        <span class="text-[9px] text-gray-400 uppercase" data-ar="ثانية" data-en="Sec">Sec</span>
+                <div class="relative w-full overflow-hidden whitespace-nowrap" dir="auto">
+                    <div class="inline-block animate-[marquee_14s_linear_infinite] text-xs md:text-sm font-bold text-white group-hover:text-amber-300 transition" dir="ltr">
+                        <span>✨ Joint Courses with the Order of Engineers - Tripoli - Click here to explore ✨ &nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp; ✨ دورات مشتركة مع نقابة المهندسين في طرابلس - اضغط هنا للاستعراض والتسجيل ✨</span>
                     </div>
                 </div>
-            </a>
+            </div>
 
-            <!-- 2. Scrolling Marquee Banner -->
-            <a href="oea-courses.html" class="glass-card rounded-3xl p-5 md:p-6 border border-amber-500/40 bg-gradient-to-r from-black/90 via-amber-950/20 to-black/90 flex items-center justify-between group hover:border-amber-500 transition duration-300 overflow-hidden relative">
-                <div class="flex items-center space-x-3 rtl:space-x-reverse w-full overflow-hidden">
-                    <div class="flex items-center gap-2 flex-shrink-0 bg-black/40 border border-amber-500/30 p-1.5 rounded-xl">
-                        <img src="workshop logo.png" alt="Workshop Logo" class="w-8 h-8 object-contain rounded-lg">
-                        <span class="text-amber-500 font-bold">+</span>
-                        <img src="oea.png" alt="OEA Logo" class="w-8 h-8 object-contain rounded-lg">
-                    </div>
-
-                    <div class="relative w-full overflow-hidden whitespace-nowrap" dir="auto">
-                        <div class="inline-block animate-[marquee_14s_linear_infinite] text-xs md:text-sm font-bold text-white group-hover:text-amber-300 transition" dir="ltr">
-                            <span>✨ Joint Courses with the Order of Engineers - Tripoli - Click here to explore ✨ &nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp; ✨ دورات مشتركة مع نقابة المهندسين في طرابلس - اضغط هنا للاستعراض والتسجيل ✨</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="flex-shrink-0 ms-3">
-                    <i class="fa-solid fa-arrow-left rtl:rotate-180 gold-accent text-sm transform group-hover:-translate-x-1 transition"></i>
-                </div>
-            </a>
-
-        </div>
+            <div class="flex-shrink-0 ms-3">
+                <i class="fa-solid fa-arrow-left rtl:rotate-180 gold-accent text-sm transform group-hover:-translate-x-1 transition"></i>
+            </div>
+        </a>
     </section>
 
-    <!-- CSS Animation for Marquee -->
     <style>
     @keyframes marquee {
         0% { transform: translateX(100%); }
@@ -384,39 +323,6 @@
     }
     </style>
 
-    <!-- JavaScript for Countdown Timer -->
-    <script>
-    function updateCountdown() {
-        const targetDate = new Date('August 28, 2026 23:59:59').getTime();
-        const now = new Date().getTime();
-        const gap = targetDate - now;
-
-        const second = 1000;
-        const minute = second * 60;
-        const hour = minute * 60;
-        const day = hour * 24;
-
-        const d = Math.floor(gap / day);
-        const h = Math.floor((gap % day) / hour);
-        const m = Math.floor((gap % hour) / minute);
-        const s = Math.floor((gap % minute) / second);
-
-        if (gap > 0) {
-            document.getElementById('days').innerText = d < 10 ? '0' + d : d;
-            document.getElementById('hours').innerText = h < 10 ? '0' + h : h;
-            document.getElementById('minutes').innerText = m < 10 ? '0' + m : m;
-            document.getElementById('seconds').innerText = s < 10 ? '0' + s : s;
-        } else {
-            document.getElementById('days').innerText = '00';
-            document.getElementById('hours').innerText = '00';
-            document.getElementById('minutes').innerText = '00';
-            document.getElementById('seconds').innerText = '00';
-        }
-    }
-    setInterval(updateCountdown, 1000);
-    updateCountdown();
-    </script>
-
     <!-- Hero Section -->
     <section class="min-h-[40vh] relative flex items-center justify-center pt-10 px-6 text-center">
         <div class="max-w-4xl z-10">
@@ -424,8 +330,8 @@
                 Engineering & Professional Training Center
             </div>
             <h1 class="text-4xl md:text-6xl font-black mb-6 leading-tight text-white">
-                <span data-en="Training Departments" data-ar="أقسام الدورات ">Training Departments</span> <br>
-                <span class="gold-gradient-text" data-en="& Specialties" data-ar="والتخصصات">& Specialties</span>
+                <span data-en="Training Departments" data-ar="أقسام الدورات والتخصصات">Training Departments</span> <br>
+                <span class="gold-gradient-text" data-en="& Specialties" data-ar="& Specialties">& Specialties</span>
             </h1>
             <p class="text-base md:text-lg text-gray-400 mb-8 max-w-2xl mx-auto font-light leading-relaxed" data-en="Choose your required training department to explore available courses and complete program details." data-ar="اختر القسم التدريبي المطلوب لاستعراض الدورات المتاحة والتفاصيل الكاملة لكل برنامج.">
                 Choose your required training department to explore available courses and complete program details.
@@ -471,24 +377,6 @@
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <!-- 0. Summer Packages -->
-            <a href="offers.html" class="glass-card p-6 rounded-3xl flex flex-col justify-between group border-amber-500/60 bg-gradient-to-b from-amber-500/10 via-black/40 to-black/80 relative overflow-hidden shadow-[0_0_30px_rgba(212,175,55,0.15)]">
-                <div class="absolute -top-12 -left-12 w-32 h-32 bg-amber-500/20 rounded-full blur-2xl group-hover:bg-amber-500/30 transition"></div>
-                <div>
-                    <div class="h-48 rounded-2xl bg-cover bg-center mb-6 border border-amber-500/40 group-hover:scale-[1.02] transition duration-300" style="background-image: url('https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=600');"></div>
-                    <div class="flex items-center space-x-2 rtl:space-x-reverse mb-1">
-                        <span class="bg-gold text-black text-[10px] font-extrabold px-2.5 py-0.5 rounded uppercase">Special Offer</span>
-                        <span class="gold-accent text-xs font-bold uppercase" data-en="Exclusive Offers" data-ar="عروض حصرية">Exclusive Offers</span>
-                    </div>
-                    <h3 class="text-2xl font-black text-white mb-2" data-en="Summer Packages" data-ar="الباقات الصيفية">Summer Packages</h3>
-                    <p class="text-gray-300 text-xs font-light leading-relaxed mb-4" data-en="Comprehensive summer bundle offers for engineering and graphic courses with exceptional discounts." data-ar="باقات التوفير الصيفية المتكاملة للدورات الهندسية والجرافيك بخصومات استثنائية.">Comprehensive summer bundle offers for engineering and graphic courses with exceptional discounts.</p>
-                </div>
-                <div class="flex items-center justify-between pt-4 border-t border-amber-500/30 text-xs font-bold gold-accent">
-                    <span data-en="Explore Bundles & Offers" data-ar="استعراض الباقات والعروض">Explore Bundles & Offers</span>
-                    <i class="fa-solid fa-arrow-right transition transform group-hover:translate-x-1 icon-arrow"></i>
-                </div>
-            </a>
-
             <!-- 1. Architecture & Interior -->
             <a href="arch-courses.html" class="glass-card p-6 rounded-3xl flex flex-col justify-between group">
                 <div>
@@ -577,11 +465,9 @@
                 <p class="text-gray-400 text-xs md:text-sm" data-en="Real feedback and experiences shared by our workshop participants." data-ar="آراء وتجارب حقيقية شاركها معنا طلاب ورش العمل والدورات التدريبية.">Real feedback and experiences shared by our workshop participants.</p>
             </div>
 
-            <!-- Single Slide Carousel Container -->
             <div class="relative w-full max-w-2xl mx-auto">
                 <div id="singleReviewSlider" class="overflow-hidden">
 
-                    <!-- Review 1 -->
                     <div class="review-slide glass-card rounded-3xl p-8 space-y-6 border border-white/10 flex flex-col justify-between">
                         <div class="flex items-center justify-between">
                             <div class="flex text-amber-400 text-sm space-x-1 rtl:space-x-reverse"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
@@ -591,7 +477,6 @@
                         <div class="text-center font-black text-white text-base">Manal A.</div>
                     </div>
 
-                    <!-- Review 2 -->
                     <div class="review-slide glass-card rounded-3xl p-8 space-y-6 border border-white/10 flex flex-col justify-between hidden">
                         <div class="flex items-center justify-between">
                             <div class="flex text-amber-400 text-sm space-x-1 rtl:space-x-reverse"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
@@ -601,7 +486,6 @@
                         <div class="text-center font-black text-white text-base">Sirine D.</div>
                     </div>
 
-                    <!-- Review 3 -->
                     <div class="review-slide glass-card rounded-3xl p-8 space-y-6 border border-white/10 flex flex-col justify-between hidden">
                         <div class="flex items-center justify-between">
                             <div class="flex text-amber-400 text-sm space-x-1 rtl:space-x-reverse"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
@@ -611,7 +495,6 @@
                         <div class="text-center font-black text-white text-base">Ahmad C.</div>
                     </div>
 
-                    <!-- Review 4 -->
                     <div class="review-slide glass-card rounded-3xl p-8 space-y-6 border border-white/10 flex flex-col justify-between hidden">
                         <div class="flex items-center justify-between">
                             <div class="flex text-amber-400 text-sm space-x-1 rtl:space-x-reverse"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
@@ -621,7 +504,6 @@
                         <div class="text-center font-black text-white text-base">Melissa H.</div>
                     </div>
 
-                    <!-- Review 5 -->
                     <div class="review-slide glass-card rounded-3xl p-8 space-y-6 border border-white/10 flex flex-col justify-between hidden">
                         <div class="flex items-center justify-between">
                             <div class="flex text-amber-400 text-sm space-x-1 rtl:space-x-reverse"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
@@ -631,7 +513,6 @@
                         <div class="text-center font-black text-white text-base">Lama K.</div>
                     </div>
 
-                    <!-- Review 6 -->
                     <div class="review-slide glass-card rounded-3xl p-8 space-y-6 border border-white/10 flex flex-col justify-between hidden">
                         <div class="flex items-center justify-between">
                             <div class="flex text-amber-400 text-sm space-x-1 rtl:space-x-reverse"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
@@ -641,7 +522,6 @@
                         <div class="text-center font-black text-white text-base">Saja Z.</div>
                     </div>
 
-                    <!-- Review 7 -->
                     <div class="review-slide glass-card rounded-3xl p-8 space-y-6 border border-white/10 flex flex-col justify-between hidden">
                         <div class="flex items-center justify-between">
                             <div class="flex text-amber-400 text-sm space-x-1 rtl:space-x-reverse"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
@@ -651,7 +531,6 @@
                         <div class="text-center font-black text-white text-base">Clara J.</div>
                     </div>
 
-                    <!-- Review 8 -->
                     <div class="review-slide glass-card rounded-3xl p-8 space-y-6 border border-white/10 flex flex-col justify-between hidden">
                         <div class="flex items-center justify-between">
                             <div class="flex text-amber-400 text-sm space-x-1 rtl:space-x-reverse"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
@@ -661,7 +540,6 @@
                         <div class="text-center font-black text-white text-base">Jad R.</div>
                     </div>
 
-                    <!-- Review 9 -->
                     <div class="review-slide glass-card rounded-3xl p-8 space-y-6 border border-white/10 flex flex-col justify-between hidden">
                         <div class="flex items-center justify-between">
                             <div class="flex text-amber-400 text-sm space-x-1 rtl:space-x-reverse"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
@@ -671,7 +549,6 @@
                         <div class="text-center font-black text-white text-base">Raneem B.</div>
                     </div>
 
-                    <!-- Review 10 -->
                     <div class="review-slide glass-card rounded-3xl p-8 space-y-6 border border-white/10 flex flex-col justify-between hidden">
                         <div class="flex items-center justify-between">
                             <div class="flex text-amber-400 text-sm space-x-1 rtl:space-x-reverse"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
@@ -681,7 +558,6 @@
                         <div class="text-center font-black text-white text-base">Hadi N.</div>
                     </div>
 
-                    <!-- Review 11 -->
                     <div class="review-slide glass-card rounded-3xl p-8 space-y-6 border border-white/10 flex flex-col justify-between hidden">
                         <div class="flex items-center justify-between">
                             <div class="flex text-amber-400 text-sm space-x-1 rtl:space-x-reverse"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
@@ -691,7 +567,6 @@
                         <div class="text-center font-black text-white text-base">Maya S.</div>
                     </div>
 
-                    <!-- Review 12 -->
                     <div class="review-slide glass-card rounded-3xl p-8 space-y-6 border border-white/10 flex flex-col justify-between hidden">
                         <div class="flex items-center justify-between">
                             <div class="flex text-amber-400 text-sm space-x-1 rtl:space-x-reverse"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
@@ -701,7 +576,6 @@
                         <div class="text-center font-black text-white text-base">Karim M.</div>
                     </div>
 
-                    <!-- Review 13 -->
                     <div class="review-slide glass-card rounded-3xl p-8 space-y-6 border border-white/10 flex flex-col justify-between hidden">
                         <div class="flex items-center justify-between">
                             <div class="flex text-amber-400 text-sm space-x-1 rtl:space-x-reverse"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
@@ -711,7 +585,6 @@
                         <div class="text-center font-black text-white text-base">Zeina K.</div>
                     </div>
 
-                    <!-- Review 14 -->
                     <div class="review-slide glass-card rounded-3xl p-8 space-y-6 border border-white/10 flex flex-col justify-between hidden">
                         <div class="flex items-center justify-between">
                             <div class="flex text-amber-400 text-sm space-x-1 rtl:space-x-reverse"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
@@ -721,7 +594,6 @@
                         <div class="text-center font-black text-white text-base">Omar T.</div>
                     </div>
 
-                    <!-- Review 15 -->
                     <div class="review-slide glass-card rounded-3xl p-8 space-y-6 border border-white/10 flex flex-col justify-between hidden">
                         <div class="flex items-center justify-between">
                             <div class="flex text-amber-400 text-sm space-x-1 rtl:space-x-reverse"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
@@ -733,7 +605,6 @@
 
                 </div>
 
-                <!-- Slider Controls Buttons -->
                 <div class="flex justify-center items-center gap-4 mt-6">
                     <button onclick="changeSlide(-1)" class="w-10 h-10 rounded-full border border-amber-500/40 text-amber-400 hover:bg-amber-500 hover:text-black transition flex items-center justify-center">
                         <i class="fa-solid fa-chevron-left rtl:rotate-180"></i>
@@ -755,11 +626,9 @@
 
     <!-- ================= SCRIPTS ================= -->
 
-    <!-- Firebase account logic + email notifications -->
     <script src="firebase-init.js"></script>
     <script src="course-booking.js"></script>
     <script src="booking-ui.js"></script>
-
 
     <script>
         const counters = document.querySelectorAll('.counter');
@@ -875,7 +744,6 @@
             showSlide(currentSlideIndex);
         }
 
-        // Auto-Slide every 4 seconds
         setInterval(() => {
             currentSlideIndex = (currentSlideIndex + 1) % slides.length;
             showSlide(currentSlideIndex);
