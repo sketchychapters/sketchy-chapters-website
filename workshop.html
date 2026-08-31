@@ -350,19 +350,19 @@
            </div>
             <div class="space-y-2">
                <div class="text-3xl md:text-5xl font-black gold-gradient-text">
-                   <span class="counter" data-target="12000">0</span>+
+                   <span id="statHours" class="counter" data-target="12000">0</span>+
                </div>
                 <p class="text-gray-400 text-xs md:text-sm font-medium" data-en="Training Hours" data-ar="ساعة تدريبية">Training Hours</p>
            </div>
             <div class="space-y-2">
                <div class="text-3xl md:text-5xl font-black gold-gradient-text">
-                   <span class="counter" data-target="100">0</span>+
+                   <span id="statCourses" class="counter" data-target="100">0</span>+
                </div>
                 <p class="text-gray-400 text-xs md:text-sm font-medium" data-en="Courses (Online & Offline)" data-ar="دورة تدريبية (حضوري وأونلاين)">Courses (Online & Offline)</p>
            </div>
             <div class="space-y-2">
                <div class="text-3xl md:text-5xl font-black gold-gradient-text">
-                   <span class="counter" data-target="6200">0</span>+
+                   <span id="statStudents" class="counter" data-target="6200">0</span>+
                </div>
                 <p class="text-gray-400 text-xs md:text-sm font-medium" data-en="Students Worldwide" data-ar="طالب حول العالم">Students Worldwide</p>
            </div>
@@ -631,6 +631,45 @@
     <script src="booking-ui.js"></script>
 
     <script>
+        // ==========================================================
+        // حاسبة أرقام الإحصائيات التلقائية — ما بدها أي تحديث يدوي
+        // نقطة الانطلاق (Anchor): 31 آب 2026 = 107 دورة حقيقية (73 أونلاين + 34 خضوري)، 6250 طالب، 12000 ساعة
+        // معدل النمو: +1 دورة أونلاين/شهر، +1 دورة خضوري كل شهرين، +35 طالب لكل دورة، +112.1 ساعة لكل دورة
+        // العرض: الدورات تتقرّب لأقرب 10 - الطلاب لأقرب 100 - الساعات لأقرب 500
+        // ==========================================================
+        (function calculateLiveStats() {
+            const anchorDate = new Date(2026, 7, 31); // 31 آب 2026 (الشهر يبلش من صفر: 7 = آب)
+            const anchorCourses = 107;
+            const anchorStudents = 6250;
+            const anchorHours = 12000;
+            const hoursPerCourse = anchorHours / anchorCourses;
+            const studentsPerCourse = 35;
+
+            const today = new Date();
+            let monthsElapsed = (today.getFullYear() - anchorDate.getFullYear()) * 12 + (today.getMonth() - anchorDate.getMonth());
+            if (today.getDate() < anchorDate.getDate()) monthsElapsed -= 1;
+            if (monthsElapsed < 0) monthsElapsed = 0;
+
+            const newOnlineCourses = monthsElapsed;
+            const newKhoudariCourses = Math.floor(monthsElapsed / 2);
+            const newCoursesTotal = newOnlineCourses + newKhoudariCourses;
+
+            const realCourses = anchorCourses + newCoursesTotal;
+            const realStudents = anchorStudents + (newCoursesTotal * studentsPerCourse);
+            const realHours = anchorHours + (newCoursesTotal * hoursPerCourse);
+
+            const displayCourses = Math.floor(realCourses / 10) * 10;
+            const displayStudents = Math.floor(realStudents / 100) * 100;
+            const displayHours = Math.floor(realHours / 500) * 500;
+
+            const coursesEl = document.getElementById('statCourses');
+            const studentsEl = document.getElementById('statStudents');
+            const hoursEl = document.getElementById('statHours');
+            if (coursesEl) coursesEl.setAttribute('data-target', displayCourses);
+            if (studentsEl) studentsEl.setAttribute('data-target', displayStudents);
+            if (hoursEl) hoursEl.setAttribute('data-target', displayHours);
+        })();
+
         const counters = document.querySelectorAll('.counter');
         let animated = false;
 
