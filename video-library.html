@@ -226,16 +226,35 @@ function closePlayer() {
   document.body.style.overflow = '';
 }
 
+// ==========================================================
+// بحث ذكي: بيقسم الكلمات وبيدوّر على كل وحدة لحالها (بأي ترتيب)،
+// وبيطابق حتى لو الكلمة جزء من كلمة أطول (متل curve بتطابق curved)
+// وبيرتّب النتائج حسب عدد الكلمات المتطابقة، الأقرب بالأول
+// ==========================================================
+function smartSearch(query, videos) {
+  const words = query.toLowerCase().trim().split(/\s+/).filter(Boolean);
+  if (words.length === 0) return videos;
+
+  return videos
+    .map(v => {
+      const titleLower = v.title.toLowerCase();
+      const haystack = titleLower + ' ' + v.description.toLowerCase();
+      const matchedCount = words.filter(w => haystack.includes(w)).length;
+      const titleMatchedCount = words.filter(w => titleLower.includes(w)).length;
+      return { video: v, matchedCount, titleMatchedCount };
+    })
+    .filter(r => r.matchedCount > 0)
+    .sort((a, b) => (b.titleMatchedCount - a.titleMatchedCount) || (b.matchedCount - a.matchedCount))
+    .map(r => r.video);
+}
+
 document.getElementById('searchInput').addEventListener('input', (e) => {
-  const query = e.target.value.trim().toLowerCase();
+  const query = e.target.value.trim();
   if (!query) {
     renderVideos(allVideos);
     return;
   }
-  const filtered = allVideos.filter(v =>
-    v.title.toLowerCase().includes(query) || v.description.toLowerCase().includes(query)
-  );
-  renderVideos(filtered);
+  renderVideos(smartSearch(query, allVideos));
 });
 
 let currentLang = 'en';
@@ -258,7 +277,7 @@ function toggleLanguage() {
     : 'Search videos... e.g. AutoCAD, Revit, rendering';
 
   renderVideos(allVideos.length && searchInput.value.trim()
-    ? allVideos.filter(v => v.title.toLowerCase().includes(searchInput.value.trim().toLowerCase()))
+    ? smartSearch(searchInput.value.trim(), allVideos)
     : allVideos);
 }
 
