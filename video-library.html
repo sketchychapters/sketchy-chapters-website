@@ -48,13 +48,13 @@
        <span data-ar="محتوى تعليمي مجاني" data-en="Free Educational Content">Free Educational Content</span>
     </div>
     <h1 class="text-3xl md:text-5xl font-black text-white mb-3" data-ar="مكتبة الفيديو" data-en="Video Library">Video Library</h1>
-    <p class="text-gray-400 text-sm md:text-base font-light max-w-xl mx-auto" data-ar="ابحث عن أي موضوع من فيديوهاتنا التعليمية على يوتيوب وشاهده مباشرة من هون." data-en="Search any topic from our YouTube educational videos and watch it right here.">Search any topic from our YouTube educational videos and watch it right here.</p>
+    <p class="text-gray-400 text-sm md:text-base font-light max-w-xl mx-auto" data-ar="ابحث عن أي موضوع من فيديوهاتنا التعليمية على يوتيوب وشاهده مباشرة من هنا." data-en="Search any topic from our YouTube educational videos and watch it right here.">Search any topic from our YouTube educational videos and watch it right here.</p>
   </div>
 
   <div class="relative max-w-xl mx-auto mb-10">
     <i class="fa-solid fa-magnifying-glass absolute top-1/2 -translate-y-1/2 left-4 rtl:left-auto rtl:right-4 text-gray-500"></i>
-    <input id="searchInput" type="text" placeholder="Search videos... e.g. AutoCAD, Revit, rendering"
-      data-ar-placeholder="ابحث عن فيديو... مثلاً أوتوكاد، ريفيت، رندر"
+    <input id="searchInput" type="text" placeholder="Search videos... e.g. AutoCAD, Revit, Illustrator"
+      data-ar-placeholder="ابحث عن فيديو... مثلاً AutoCAD, Revit, Illustrator"
       class="w-full rounded-2xl pl-12 rtl:pl-4 rtl:pr-12 pr-4 py-4 text-sm text-white">
   </div>
 
@@ -74,7 +74,7 @@
 
   <div id="emptyState" class="hidden text-center py-20">
     <i class="fa-solid fa-video-slash text-3xl text-gray-600 mb-4"></i>
-    <p class="text-gray-400 text-sm" data-ar="ما لقينا أي فيديو يطابق بحثك." data-en="No videos match your search.">No videos match your search.</p>
+    <p class="text-gray-400 text-sm" data-ar="لا توجد فيديوهات مطابقة لبحثك." data-en="No videos match your search.">No videos match your search.</p>
   </div>
 
 </main>
@@ -99,10 +99,6 @@
 </footer>
 
 <script>
-// ==========================================================
-// إعدادات قناة اليوتيوب — بنجيب كل الفيديوهات مرة وحدة ونخزّنها،
-// والبحث بعدها محلي بالكامل (بدون أي استهلاك إضافي لحصة الـ API)
-// ==========================================================
 const YT_API_KEY = 'AIzaSyBBFIZHSVikZ3eQdjB9xBsUJIQVhH1FBD4';
 const CHANNEL_HANDLE = '@workshopcenter';
 const CACHE_KEY = 'sketchy_video_cache_v1';
