@@ -155,23 +155,45 @@ function renderEstimatorLeads() {
       ? `<span class="text-[10px] font-bold px-2 py-1 rounded-lg bg-teal-500/20 text-teal-300"><i class="fa-solid fa-location-dot"></i> ${locationStr}</span>` : '';
     const whatsappBadge = l.sentViaWhatsapp
       ? `<span class="text-[10px] font-bold px-2 py-1 rounded-lg bg-blue-500/20 text-blue-300">Sent via WhatsApp</span>` : '';
+    const cleanPhone = (l.phone || '').replace(/[^\d]/g, '');
+    const contactLine = (l.name || l.phone)
+      ? `<p class="text-white font-bold text-sm mb-1">${l.name || '—'} ${l.phone ? '· ' + l.phone : ''}</p>` : '';
+    const callBtn = cleanPhone
+      ? `<a href="https://wa.me/${cleanPhone}" target="_blank" class="text-[10px] font-bold px-2.5 py-1.5 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center gap-1"><i class="fa-brands fa-whatsapp"></i> Contact</a>`
+      : '';
 
     return `
-      <div class="bg-black/30 rounded-xl px-4 py-3 text-xs">
+      <div class="bg-black/30 rounded-xl px-4 py-3 text-xs" id="lead-${l.id}">
         <div class="flex items-center justify-between flex-wrap gap-2 mb-1.5">
           <span class="text-white font-bold">${l.countryName || l.country || '—'} · ${l.propertyTypeName || ''}</span>
-          <span class="text-gray-500 text-[10px]">${dateStr}</span>
+          <span class="text-gray-500 text-[10px]"><i class="fa-regular fa-clock"></i> ${dateStr}</span>
         </div>
+        ${contactLine}
         <p class="text-gray-400 mb-2">${l.totalAreaM2 || 0} m² ${l.kitchenAreaM2 ? '(+' + l.kitchenAreaM2 + ' m² kitchen)' : ''} · <span class="gold-accent font-bold">~$${l.totalCostUSD || 0}</span>${spaces ? ' · ' + spaces : ''}</p>
         <div class="flex items-center gap-2 flex-wrap">
           ${locationBadge}
           ${deviceBadge}
           ${referrerBadge}
           ${whatsappBadge}
+          ${callBtn}
+          <button onclick="cancelLeadClick('${l.id}')" class="text-[10px] font-bold px-2.5 py-1.5 rounded-lg bg-red-500/20 text-red-400 flex items-center gap-1 ms-auto"><i class="fa-solid fa-trash"></i> Cancel</button>
         </div>
       </div>
     `;
   }).join('');
+}
+
+async function cancelLeadClick(leadId) {
+  if (!confirm('Cancel and permanently delete this lead? This cannot be undone.')) return;
+  try {
+    await db.collection('estimatorLeads').doc(leadId).delete();
+    allEstimatorLeads = allEstimatorLeads.filter(l => l.id !== leadId);
+    computeLeadStats();
+    renderEstimatorLeads();
+  } catch (err) {
+    console.error('Failed to cancel lead:', err);
+    alert('Something went wrong deleting this lead.');
+  }
 }
 </script>
 </body>
