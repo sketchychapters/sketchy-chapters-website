@@ -43,7 +43,7 @@
 
 <!-- Estimator Leads -->
 <div class="glass-card rounded-2xl p-5 mb-6">
-  <p class="text-gray-400 text-xs mb-4">Every quote calculated on the cost estimator is logged here automatically — even if the visitor never sent it via WhatsApp. Ones with a name/phone are ready to call back directly.</p>
+  <p class="text-gray-400 text-xs mb-4">Every quote calculated on the cost estimator is logged here automatically — fully anonymous, no form or login involved. Device, referral source, and an approximate city are attached silently for context.</p>
 
   <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-4">
     <div class="bg-black/30 rounded-xl p-3 text-center">
@@ -51,8 +51,8 @@
       <p class="text-gray-500 text-[10px] uppercase tracking-wide mt-0.5">Total Leads</p>
     </div>
     <div class="bg-black/30 rounded-xl p-3 text-center">
-      <p id="leadStatWithContact" class="text-lg font-black text-emerald-400">–</p>
-      <p class="text-gray-500 text-[10px] uppercase tracking-wide mt-0.5">Left Contact Info</p>
+      <p id="leadStatTopReferrer" class="text-lg font-black text-indigo-300">–</p>
+      <p class="text-gray-500 text-[10px] uppercase tracking-wide mt-0.5">Top Source</p>
     </div>
     <div class="bg-black/30 rounded-xl p-3 text-center">
       <p id="leadStatWhatsapp" class="text-lg font-black text-blue-300">–</p>
@@ -72,10 +72,10 @@
       <option value="uae">United Arab Emirates</option>
       <option value="qatar">Qatar</option>
     </select>
-    <select id="leadContactFilter" class="rounded-xl px-4 py-2.5 text-sm text-white" onchange="renderEstimatorLeads()">
-      <option value="">All Leads</option>
-      <option value="withContact">With Contact Info Only</option>
-      <option value="noContact">Anonymous Only</option>
+    <select id="leadDeviceFilter" class="rounded-xl px-4 py-2.5 text-sm text-white" onchange="renderEstimatorLeads()">
+      <option value="">📱 All Devices</option>
+      <option value="Mobile">Mobile Only</option>
+      <option value="Desktop">Desktop Only</option>
     </select>
   </div>
 
@@ -109,7 +109,6 @@ async function loadEstimatorLeads() {
 
 function computeLeadStats() {
   const total = allEstimatorLeads.length;
-  const withContact = allEstimatorLeads.filter(l => l.contactProvided).length;
   const viaWhatsapp = allEstimatorLeads.filter(l => l.sentViaWhatsapp).length;
 
   const countryCounts = {};
@@ -118,21 +117,26 @@ function computeLeadStats() {
   });
   const topCountry = Object.entries(countryCounts).sort((a, b) => b[1] - a[1])[0];
 
+  const referrerCounts = {};
+  allEstimatorLeads.forEach(l => {
+    if (l.referrerSource) referrerCounts[l.referrerSource] = (referrerCounts[l.referrerSource] || 0) + 1;
+  });
+  const topReferrer = Object.entries(referrerCounts).sort((a, b) => b[1] - a[1])[0];
+
   document.getElementById('leadStatTotal').innerText = total;
-  document.getElementById('leadStatWithContact').innerText = withContact;
+  document.getElementById('leadStatTopReferrer').innerText = topReferrer ? topReferrer[0] : '–';
   document.getElementById('leadStatWhatsapp').innerText = viaWhatsapp;
   document.getElementById('leadStatTopCountry').innerText = topCountry ? topCountry[0] : '–';
 }
 
 function renderEstimatorLeads() {
   const countryFilter = document.getElementById('leadCountryFilter').value;
-  const contactFilter = document.getElementById('leadContactFilter').value;
+  const deviceFilter = document.getElementById('leadDeviceFilter').value;
   const list = document.getElementById('estimatorLeadsList');
 
   let filtered = allEstimatorLeads;
   if (countryFilter) filtered = filtered.filter(l => l.country === countryFilter);
-  if (contactFilter === 'withContact') filtered = filtered.filter(l => l.contactProvided);
-  if (contactFilter === 'noContact') filtered = filtered.filter(l => !l.contactProvided);
+  if (deviceFilter) filtered = filtered.filter(l => l.deviceType === deviceFilter);
 
   if (filtered.length === 0) {
     list.innerHTML = '<p class="text-gray-500 text-sm">No leads found.</p>';
@@ -142,15 +146,15 @@ function renderEstimatorLeads() {
   list.innerHTML = filtered.map(l => {
     const dateStr = l.createdAt && l.createdAt.toDate ? l.createdAt.toDate().toLocaleString() : '';
     const spaces = (l.selectedFunctions || []).join(', ');
-    const cleanPhone = (l.phone || '').replace(/[^\d]/g, '');
-    const contactBadge = l.contactProvided
-      ? `<span class="text-[10px] font-bold px-2 py-1 rounded-lg bg-emerald-500/20 text-emerald-400">✓ ${l.name || 'Contact left'}</span>`
-      : `<span class="text-[10px] font-bold px-2 py-1 rounded-lg bg-gray-700/30 text-gray-500">Anonymous</span>`;
+    const locationStr = [l.visitorCity, l.visitorCountry].filter(Boolean).join(', ');
+    const deviceBadge = l.deviceType
+      ? `<span class="text-[10px] font-bold px-2 py-1 rounded-lg bg-gray-700/30 text-gray-300"><i class="fa-solid ${l.deviceType === 'Mobile' ? 'fa-mobile-screen' : 'fa-desktop'}"></i> ${l.deviceType}</span>` : '';
+    const referrerBadge = l.referrerSource
+      ? `<span class="text-[10px] font-bold px-2 py-1 rounded-lg bg-indigo-500/20 text-indigo-300">via ${l.referrerSource}</span>` : '';
+    const locationBadge = locationStr
+      ? `<span class="text-[10px] font-bold px-2 py-1 rounded-lg bg-teal-500/20 text-teal-300"><i class="fa-solid fa-location-dot"></i> ${locationStr}</span>` : '';
     const whatsappBadge = l.sentViaWhatsapp
       ? `<span class="text-[10px] font-bold px-2 py-1 rounded-lg bg-blue-500/20 text-blue-300">Sent via WhatsApp</span>` : '';
-    const callBtn = cleanPhone
-      ? `<a href="https://wa.me/${cleanPhone}" target="_blank" class="text-[10px] font-bold px-2.5 py-1.5 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center gap-1"><i class="fa-brands fa-whatsapp"></i> ${l.phone}</a>`
-      : '';
 
     return `
       <div class="bg-black/30 rounded-xl px-4 py-3 text-xs">
@@ -160,9 +164,10 @@ function renderEstimatorLeads() {
         </div>
         <p class="text-gray-400 mb-2">${l.totalAreaM2 || 0} m² ${l.kitchenAreaM2 ? '(+' + l.kitchenAreaM2 + ' m² kitchen)' : ''} · <span class="gold-accent font-bold">~$${l.totalCostUSD || 0}</span>${spaces ? ' · ' + spaces : ''}</p>
         <div class="flex items-center gap-2 flex-wrap">
-          ${contactBadge}
+          ${locationBadge}
+          ${deviceBadge}
+          ${referrerBadge}
           ${whatsappBadge}
-          ${callBtn}
         </div>
       </div>
     `;
