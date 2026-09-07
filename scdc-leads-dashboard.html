@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta name="robots" content="noindex, nofollow">
+<meta charset="UTF-8">
+<meta name="color-scheme" content="dark">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SCDC Leads | Sketchy Chapters</title>
+<link rel="icon" type="image/png" href="favicon.png">
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore-compat.js"></script>
+
+<style>
+  body{color-scheme:dark;font-family:'Tajawal',sans-serif;background:#08080a;color:#e0e6ed;}
+  .gold-accent{color:#d4af37;}
+  .bg-gold{background:linear-gradient(135deg,#d4af37 0%,#aa7c11 100%);}
+  .glass-card{background:rgba(18,18,22,.65);backdrop-filter:blur(16px);border:1px solid rgba(212,175,55,.15);}
+  input,select,textarea{background:rgba(0,0,0,.4);border:1px solid rgba(212,175,55,.25);color:#fff;}
+</style>
+</head>
+<body class="min-h-screen px-6 py-10 max-w-5xl mx-auto">
+
+<div class="flex items-center justify-between mb-8 flex-wrap gap-4">
+  <div>
+    <h1 class="text-2xl md:text-3xl font-black text-white">SCDC Leads</h1>
+    <p class="text-gray-400 text-xs mt-1">Sketchy Chapters Design & Construction — Cost Estimator Inquiries</p>
+  </div>
+  <div class="flex items-center gap-3">
+    <a href="sc-team-dashboard.html" class="text-xs font-bold text-blue-300 border border-blue-500/30 px-4 py-2 rounded-xl hover:bg-blue-500/10 flex items-center gap-2">
+      <i class="fa-solid fa-arrow-right-arrow-left"></i> Switch to Workshop Center
+    </a>
+    <button onclick="auth.signOut().then(()=>location.href='sc-team-login.html')"
+      class="text-xs font-bold gold-accent border border-amber-500/30 px-4 py-2 rounded-xl hover:bg-amber-500/10">
+      Log Out
+    </button>
+  </div>
+</div>
+
+<!-- Estimator Leads -->
+<div class="glass-card rounded-2xl p-5 mb-6">
+  <p class="text-gray-400 text-xs mb-4">Every quote calculated on the cost estimator is logged here automatically — even if the visitor never sent it via WhatsApp. Ones with a name/phone are ready to call back directly.</p>
+
+  <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-4">
+    <div class="bg-black/30 rounded-xl p-3 text-center">
+      <p id="leadStatTotal" class="text-lg font-black gold-accent">–</p>
+      <p class="text-gray-500 text-[10px] uppercase tracking-wide mt-0.5">Total Leads</p>
+    </div>
+    <div class="bg-black/30 rounded-xl p-3 text-center">
+      <p id="leadStatWithContact" class="text-lg font-black text-emerald-400">–</p>
+      <p class="text-gray-500 text-[10px] uppercase tracking-wide mt-0.5">Left Contact Info</p>
+    </div>
+    <div class="bg-black/30 rounded-xl p-3 text-center">
+      <p id="leadStatWhatsapp" class="text-lg font-black text-blue-300">–</p>
+      <p class="text-gray-500 text-[10px] uppercase tracking-wide mt-0.5">Sent via WhatsApp</p>
+    </div>
+    <div class="bg-black/30 rounded-xl p-3 text-center">
+      <p id="leadStatTopCountry" class="text-lg font-black text-white">–</p>
+      <p class="text-gray-500 text-[10px] uppercase tracking-wide mt-0.5">Top Country</p>
+    </div>
+  </div>
+
+  <div class="flex gap-3 mb-4 flex-wrap">
+    <select id="leadCountryFilter" class="rounded-xl px-4 py-2.5 text-sm text-white" onchange="renderEstimatorLeads()">
+      <option value="">🌍 All Countries</option>
+      <option value="lebanon">Lebanon</option>
+      <option value="saudi">Saudi Arabia</option>
+      <option value="uae">United Arab Emirates</option>
+      <option value="qatar">Qatar</option>
+    </select>
+    <select id="leadContactFilter" class="rounded-xl px-4 py-2.5 text-sm text-white" onchange="renderEstimatorLeads()">
+      <option value="">All Leads</option>
+      <option value="withContact">With Contact Info Only</option>
+      <option value="noContact">Anonymous Only</option>
+    </select>
+  </div>
+
+  <div id="estimatorLeadsList" class="space-y-2">
+    <p class="text-gray-500 text-sm">Loading leads...</p>
+  </div>
+</div>
+
+<script src="firebase-init.js"></script>
+<script>
+requireAdmin();
+
+let allEstimatorLeads = [];
+
+auth.onAuthStateChanged(async (user) => {
+  if (!user || user.email !== ADMIN_EMAIL) return;
+  loadEstimatorLeads();
+});
+
+async function loadEstimatorLeads() {
+  try {
+    const snapshot = await db.collection('estimatorLeads').orderBy('createdAt', 'desc').limit(300).get();
+    allEstimatorLeads = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+  } catch (err) {
+    console.error('Failed to load estimator leads:', err);
+    allEstimatorLeads = [];
+  }
+  computeLeadStats();
+  renderEstimatorLeads();
+}
+
+function computeLeadStats() {
+  const total = allEstimatorLeads.length;
+  const withContact = allEstimatorLeads.filter(l => l.contactProvided).length;
+  const viaWhatsapp = allEstimatorLeads.filter(l => l.sentViaWhatsapp).length;
+
+  const countryCounts = {};
+  allEstimatorLeads.forEach(l => {
+    if (l.countryName) countryCounts[l.countryName] = (countryCounts[l.countryName] || 0) + 1;
+  });
+  const topCountry = Object.entries(countryCounts).sort((a, b) => b[1] - a[1])[0];
+
+  document.getElementById('leadStatTotal').innerText = total;
+  document.getElementById('leadStatWithContact').innerText = withContact;
+  document.getElementById('leadStatWhatsapp').innerText = viaWhatsapp;
+  document.getElementById('leadStatTopCountry').innerText = topCountry ? topCountry[0] : '–';
+}
+
+function renderEstimatorLeads() {
+  const countryFilter = document.getElementById('leadCountryFilter').value;
+  const contactFilter = document.getElementById('leadContactFilter').value;
+  const list = document.getElementById('estimatorLeadsList');
+
+  let filtered = allEstimatorLeads;
+  if (countryFilter) filtered = filtered.filter(l => l.country === countryFilter);
+  if (contactFilter === 'withContact') filtered = filtered.filter(l => l.contactProvided);
+  if (contactFilter === 'noContact') filtered = filtered.filter(l => !l.contactProvided);
+
+  if (filtered.length === 0) {
+    list.innerHTML = '<p class="text-gray-500 text-sm">No leads found.</p>';
+    return;
+  }
+
+  list.innerHTML = filtered.map(l => {
+    const dateStr = l.createdAt && l.createdAt.toDate ? l.createdAt.toDate().toLocaleString() : '';
+    const spaces = (l.selectedFunctions || []).join(', ');
+    const cleanPhone = (l.phone || '').replace(/[^\d]/g, '');
+    const contactBadge = l.contactProvided
+      ? `<span class="text-[10px] font-bold px-2 py-1 rounded-lg bg-emerald-500/20 text-emerald-400">✓ ${l.name || 'Contact left'}</span>`
+      : `<span class="text-[10px] font-bold px-2 py-1 rounded-lg bg-gray-700/30 text-gray-500">Anonymous</span>`;
+    const whatsappBadge = l.sentViaWhatsapp
+      ? `<span class="text-[10px] font-bold px-2 py-1 rounded-lg bg-blue-500/20 text-blue-300">Sent via WhatsApp</span>` : '';
+    const callBtn = cleanPhone
+      ? `<a href="https://wa.me/${cleanPhone}" target="_blank" class="text-[10px] font-bold px-2.5 py-1.5 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center gap-1"><i class="fa-brands fa-whatsapp"></i> ${l.phone}</a>`
+      : '';
+
+    return `
+      <div class="bg-black/30 rounded-xl px-4 py-3 text-xs">
+        <div class="flex items-center justify-between flex-wrap gap-2 mb-1.5">
+          <span class="text-white font-bold">${l.countryName || l.country || '—'} · ${l.propertyTypeName || ''}</span>
+          <span class="text-gray-500 text-[10px]">${dateStr}</span>
+        </div>
+        <p class="text-gray-400 mb-2">${l.totalAreaM2 || 0} m² ${l.kitchenAreaM2 ? '(+' + l.kitchenAreaM2 + ' m² kitchen)' : ''} · <span class="gold-accent font-bold">~$${l.totalCostUSD || 0}</span>${spaces ? ' · ' + spaces : ''}</p>
+        <div class="flex items-center gap-2 flex-wrap">
+          ${contactBadge}
+          ${whatsappBadge}
+          ${callBtn}
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+</script>
+</body>
+</html>
