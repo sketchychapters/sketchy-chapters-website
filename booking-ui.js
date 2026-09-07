@@ -6,6 +6,10 @@ let authReadyPromise = new Promise(resolve => {
   const unsub = auth.onAuthStateChanged(user => { unsub(); resolve(user); });
 });
 
+authReadyPromise.then(function (user) {
+  if (user && cart.length > 0) syncCartToFirestore();
+});
+
 async function openBookingModal(courseName, basePrice) {
   const user = await authReadyPromise;
   if (!user || !auth.currentUser) {
@@ -108,6 +112,7 @@ async function addPackageToCart(courseNames, totalPrice, event) {
     }
 
     localStorage.setItem('sketchy_cart', JSON.stringify(cart));
+    syncCartToFirestore();
     renderCartBadge();
     renderCartItems();
 
@@ -165,12 +170,30 @@ async function confirmBooking(type, event) {
 
   cart.push({ courseName: booking.courseName, basePrice: booking.basePrice, type: bookingType, redeemFreeCourse });
   localStorage.setItem('sketchy_cart', JSON.stringify(cart));
+  syncCartToFirestore();
   renderCartBadge();
   renderCartItems();
 
   flyGraduationCapFrom(originX, originY, capIcon, '#cartToggleBtn');
 
   showBookingToast(`🎓 "${booking.courseName}" added to your selections. Open your cart to review and submit.`);
+}
+
+// ==========================================================
+// 🛒 Cart sync — mirrors the local cart onto the student's own Firestore
+// document (pendingCart) so admins can see items sitting in a cart that
+// was never submitted. Login is required before anything can be added to
+// the cart, so auth.currentUser is always available at these call sites.
+// ==========================================================
+function syncCartToFirestore() {
+  const user = auth.currentUser;
+  if (!user) return;
+  db.collection('students').doc(user.uid).set({
+    pendingCart: cart,
+    pendingCartUpdatedAt: firebase.firestore.FieldValue.serverTimestamp()
+  }, { merge: true }).catch(function (err) {
+    console.error('Cart sync to Firestore failed:', err);
+  });
 }
 
 const GRAD_CAP_SVG = `
@@ -408,6 +431,7 @@ function renderCartItems() {
 function removeFromCart(index) {
   cart.splice(index, 1);
   localStorage.setItem('sketchy_cart', JSON.stringify(cart));
+  syncCartToFirestore();
   renderCartBadge();
   renderCartItems();
 }
@@ -435,6 +459,7 @@ async function submitCartClick() {
 
     cart = [];
     localStorage.removeItem('sketchy_cart');
+    syncCartToFirestore();
     renderCartBadge();
     closeCartModal();
 
