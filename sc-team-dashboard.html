@@ -262,6 +262,32 @@
   </div>
 </div>
 
+<!-- Special discount modal -->
+<div id="discountModal" class="hidden fixed inset-0 bg-black/80 z-[60] flex items-center justify-center px-6">
+  <div class="glass-card bg-[#121216] border border-amber-500/40 rounded-3xl p-8 max-w-sm w-full">
+    <h3 class="text-white font-black text-lg mb-1">🏷️ Special Discount</h3>
+    <p id="discountModalStudentName" class="text-gray-400 text-xs mb-5"></p>
+
+    <label class="text-xs text-gray-400 block mb-1">Course Name</label>
+    <input id="discountCourseName" type="text" placeholder="e.g. Revit Architecture (or * for all courses)" class="w-full rounded-xl px-4 py-2.5 text-sm text-white mb-4">
+
+    <label class="text-xs text-gray-400 block mb-1">Discount %</label>
+    <input id="discountPercent" type="number" min="1" max="100" value="10" class="w-full rounded-xl px-4 py-2.5 text-sm text-white mb-4">
+
+    <p class="text-amber-300 text-[10px] mb-4">⚠️ Applies automatically when they add this course to their cart — takes the best discount between this and their level discount. The student gets notified right away. Use "*" as the course name to apply it to any course.</p>
+
+    <div class="flex gap-3 mb-5">
+      <button onclick="submitAddDiscount()" class="flex-1 bg-gold text-black font-bold py-2.5 rounded-xl text-xs">Add Discount</button>
+      <button onclick="closeDiscountModal()" class="flex-1 glass-card text-gray-400 border border-gray-700 py-2.5 rounded-xl text-xs">Cancel</button>
+    </div>
+
+    <div class="border-t border-gray-800 pt-4">
+      <p class="text-gray-400 text-[11px] uppercase tracking-wide mb-2">Active Discounts</p>
+      <div id="discountModalList" class="space-y-2"></div>
+    </div>
+  </div>
+</div>
+
 <!-- Send individual notification -->
 <div id="notifyModal" class="hidden fixed inset-0 bg-black/80 z-[60] flex items-center justify-center px-6">
   <div class="glass-card bg-[#121216] border border-amber-500/40 rounded-3xl p-8 max-w-sm w-full">
@@ -985,6 +1011,10 @@ function renderStudents() {
                 class="text-[10px] text-teal-300 border border-teal-500/30 px-2.5 py-1 rounded-lg hover:bg-teal-500/10">
                 📚 + Library
               </button>
+              <button onclick="openDiscountModal('${s.uid}', '${(s.name || '').replace(/'/g, "")}')"
+                class="text-[10px] text-orange-300 border border-orange-500/30 px-2.5 py-1 rounded-lg hover:bg-orange-500/10">
+                🏷️ Discount${(s.specialDiscounts || []).length ? ' (' + s.specialDiscounts.length + ')' : ''}
+              </button>
               <button onclick="openNotifyModal('${s.uid}', '${(s.name || '').replace(/'/g, "")}')"
                 class="text-[10px] text-purple-300 border border-purple-500/30 px-2.5 py-1 rounded-lg hover:bg-purple-500/10">
                 🔔 Notify
@@ -1424,6 +1454,79 @@ async function deleteLibraryItemClick(uid, itemId, title) {
   if (!(await customConfirm(`Delete the library file "${title}"? This can't be undone.`))) return;
   await deleteResource(uid, itemId);
   allStudents = await getAllStudents();
+  renderStudents();
+}
+
+// ==========================================================
+// 🏷️ Special Discounts — uses setSpecialDiscount/removeSpecialDiscount
+// from firebase-init.js (already applied automatically in submitCart's
+// pricing logic). This just adds the missing admin UI for it, plus a
+// notification so the student actually finds out about it.
+// ==========================================================
+
+function openDiscountModal(uid, name) {
+  activeStudentUid = uid;
+  document.getElementById('discountModalStudentName').innerText = name;
+  document.getElementById('discountCourseName').value = '';
+  document.getElementById('discountPercent').value = 10;
+  renderDiscountList(uid);
+  document.getElementById('discountModal').classList.remove('hidden');
+  document.getElementById('discountModal').classList.add('flex');
+}
+
+function closeDiscountModal() {
+  document.getElementById('discountModal').classList.add('hidden');
+  document.getElementById('discountModal').classList.remove('flex');
+}
+
+function renderDiscountList(uid) {
+  const student = allStudents.find(s => s.uid === uid);
+  const discounts = (student && student.specialDiscounts) || [];
+  const list = document.getElementById('discountModalList');
+
+  if (discounts.length === 0) {
+    list.innerHTML = '<p class="text-gray-500 text-xs">No special discounts yet.</p>';
+    return;
+  }
+
+  list.innerHTML = discounts.map(d => `
+    <div class="flex items-center justify-between bg-black/30 rounded-xl px-3 py-2 text-xs gap-2">
+      <span class="text-white font-bold">${d.courseName === '*' ? 'All Courses' : d.courseName}</span>
+      <div class="flex items-center gap-2 shrink-0">
+        <span class="gold-accent font-bold">${d.discountPercent}% off</span>
+        <button onclick="removeDiscountClick('${uid}', '${(d.courseName || '').replace(/'/g, "")}', ${d.discountPercent})"
+          class="text-[10px] font-bold px-2 py-1 rounded-lg bg-red-500/20 text-red-400">🗑️</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+async function submitAddDiscount() {
+  const courseName = document.getElementById('discountCourseName').value.trim();
+  const discountPercent = parseInt(document.getElementById('discountPercent').value, 10) || 0;
+  if (!courseName || discountPercent <= 0) { await customAlert('Please enter a course name and a discount percent above 0.'); return; }
+
+  const student = allStudents.find(s => s.uid === activeStudentUid);
+
+  await setSpecialDiscount(activeStudentUid, courseName, discountPercent);
+
+  const courseLabel = courseName === '*' ? 'any course' : `"${courseName}"`;
+  await addNotification(
+    activeStudentUid,
+    `🏷️ You've got a special ${discountPercent}% discount on ${courseLabel}! It'll apply automatically when you register.`
+  );
+
+  allStudents = await getAllStudents();
+  renderDiscountList(activeStudentUid);
+  renderStudents();
+  document.getElementById('discountCourseName').value = '';
+}
+
+async function removeDiscountClick(uid, courseName, discountPercent) {
+  if (!(await customConfirm(`Remove the ${discountPercent}% discount on "${courseName === '*' ? 'All Courses' : courseName}"?`))) return;
+  await removeSpecialDiscount(uid, courseName, discountPercent);
+  allStudents = await getAllStudents();
+  renderDiscountList(uid);
   renderStudents();
 }
 
