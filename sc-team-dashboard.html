@@ -86,6 +86,55 @@
   </div>
 </div>
 
+<!-- Estimator Leads -->
+<div class="glass-card rounded-2xl p-5 mb-6">
+  <button onclick="toggleEstimatorLeads()" class="w-full flex items-center justify-between text-white font-bold text-sm">
+    <span>📋 Estimator Leads <span id="estimatorLeadsCount" class="gold-accent"></span></span>
+    <i id="estimatorLeadsChevron" class="fa-solid fa-chevron-down text-xs gold-accent transition-transform"></i>
+  </button>
+  <div id="estimatorLeadsBody" class="hidden mt-5">
+    <p class="text-gray-400 text-xs mb-4">Every quote calculated on the cost estimator is logged here automatically — even if the visitor never sent it via WhatsApp. Ones with a name/phone are ready to call back directly.</p>
+
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-4">
+      <div class="bg-black/30 rounded-xl p-3 text-center">
+        <p id="leadStatTotal" class="text-lg font-black gold-accent">–</p>
+        <p class="text-gray-500 text-[10px] uppercase tracking-wide mt-0.5">Total Leads</p>
+      </div>
+      <div class="bg-black/30 rounded-xl p-3 text-center">
+        <p id="leadStatWithContact" class="text-lg font-black text-emerald-400">–</p>
+        <p class="text-gray-500 text-[10px] uppercase tracking-wide mt-0.5">Left Contact Info</p>
+      </div>
+      <div class="bg-black/30 rounded-xl p-3 text-center">
+        <p id="leadStatWhatsapp" class="text-lg font-black text-blue-300">–</p>
+        <p class="text-gray-500 text-[10px] uppercase tracking-wide mt-0.5">Sent via WhatsApp</p>
+      </div>
+      <div class="bg-black/30 rounded-xl p-3 text-center">
+        <p id="leadStatTopCountry" class="text-lg font-black text-white">–</p>
+        <p class="text-gray-500 text-[10px] uppercase tracking-wide mt-0.5">Top Country</p>
+      </div>
+    </div>
+
+    <div class="flex gap-3 mb-4 flex-wrap">
+      <select id="leadCountryFilter" class="rounded-xl px-4 py-2.5 text-sm text-white" onchange="renderEstimatorLeads()">
+        <option value="">🌍 All Countries</option>
+        <option value="lebanon">Lebanon</option>
+        <option value="saudi">Saudi Arabia</option>
+        <option value="uae">United Arab Emirates</option>
+        <option value="qatar">Qatar</option>
+      </select>
+      <select id="leadContactFilter" class="rounded-xl px-4 py-2.5 text-sm text-white" onchange="renderEstimatorLeads()">
+        <option value="">All Leads</option>
+        <option value="withContact">With Contact Info Only</option>
+        <option value="noContact">Anonymous Only</option>
+      </select>
+    </div>
+
+    <div id="estimatorLeadsList" class="space-y-2">
+      <p class="text-gray-500 text-sm">Loading leads...</p>
+    </div>
+  </div>
+</div>
+
 <!-- Broadcast Announcement -->
 <div class="glass-card rounded-2xl p-5 mb-6">
   <p class="text-white font-bold text-sm mb-1">📢 Send Announcement to All Students</p>
@@ -368,6 +417,8 @@
 </div>
 
 <script src="firebase-init.js"></script>
+<script src="https://unpkg.com/qrcode@1.5.4/build/qrcode.min.js"></script>
+<script src="js/certificates.js"></script>
 <script>
 requireAdmin();
 
@@ -383,6 +434,8 @@ auth.onAuthStateChanged(async (user) => {
   populateCountryFilter();
   renderStudents();
   renderBirthdaysSection();
+  backfillAllCertificateVerifications();
+  loadEstimatorLeads();
 });
 
 function populateCountryFilter() {
@@ -411,6 +464,98 @@ function computeStats() {
   document.getElementById('statRevenue').innerText = '$' + revenue.toFixed(0);
 }
 
+// ==========================================================
+// 📋 Estimator Leads — every quote calculated on estimator.html
+// is logged to the "estimatorLeads" collection automatically.
+// ==========================================================
+
+let allEstimatorLeads = [];
+
+function toggleEstimatorLeads() {
+  const body = document.getElementById('estimatorLeadsBody');
+  const chevron = document.getElementById('estimatorLeadsChevron');
+  const isHidden = body.classList.contains('hidden');
+  body.classList.toggle('hidden');
+  chevron.style.transform = isHidden ? 'rotate(180deg)' : 'rotate(0deg)';
+}
+
+async function loadEstimatorLeads() {
+  try {
+    const snapshot = await db.collection('estimatorLeads').orderBy('createdAt', 'desc').limit(300).get();
+    allEstimatorLeads = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+  } catch (err) {
+    console.error('Failed to load estimator leads:', err);
+    allEstimatorLeads = [];
+  }
+  document.getElementById('estimatorLeadsCount').innerText = allEstimatorLeads.length ? `(${allEstimatorLeads.length})` : '';
+  computeLeadStats();
+  renderEstimatorLeads();
+}
+
+function computeLeadStats() {
+  const total = allEstimatorLeads.length;
+  const withContact = allEstimatorLeads.filter(l => l.contactProvided).length;
+  const viaWhatsapp = allEstimatorLeads.filter(l => l.sentViaWhatsapp).length;
+
+  const countryCounts = {};
+  allEstimatorLeads.forEach(l => {
+    if (l.countryName) countryCounts[l.countryName] = (countryCounts[l.countryName] || 0) + 1;
+  });
+  const topCountry = Object.entries(countryCounts).sort((a, b) => b[1] - a[1])[0];
+
+  document.getElementById('leadStatTotal').innerText = total;
+  document.getElementById('leadStatWithContact').innerText = withContact;
+  document.getElementById('leadStatWhatsapp').innerText = viaWhatsapp;
+  document.getElementById('leadStatTopCountry').innerText = topCountry ? topCountry[0] : '–';
+}
+
+function renderEstimatorLeads() {
+  const countryFilter = document.getElementById('leadCountryFilter').value;
+  const contactFilter = document.getElementById('leadContactFilter').value;
+  const list = document.getElementById('estimatorLeadsList');
+
+  let filtered = allEstimatorLeads;
+  if (countryFilter) filtered = filtered.filter(l => l.country === countryFilter);
+  if (contactFilter === 'withContact') filtered = filtered.filter(l => l.contactProvided);
+  if (contactFilter === 'noContact') filtered = filtered.filter(l => !l.contactProvided);
+
+  if (filtered.length === 0) {
+    list.innerHTML = '<p class="text-gray-500 text-sm">No leads found.</p>';
+    return;
+  }
+
+  list.innerHTML = filtered.map(l => {
+    const dateStr = l.createdAt && l.createdAt.toDate ? l.createdAt.toDate().toLocaleString() : '';
+    const spaces = (l.selectedFunctions || []).join(', ');
+    const cleanPhone = (l.phone || '').replace(/[^\d]/g, '');
+    const contactBadge = l.contactProvided
+      ? `<span class="text-[10px] font-bold px-2 py-1 rounded-lg bg-emerald-500/20 text-emerald-400">✓ ${l.name || 'Contact left'}</span>`
+      : `<span class="text-[10px] font-bold px-2 py-1 rounded-lg bg-gray-700/30 text-gray-500">Anonymous</span>`;
+    const whatsappBadge = l.sentViaWhatsapp
+      ? `<span class="text-[10px] font-bold px-2 py-1 rounded-lg bg-blue-500/20 text-blue-300">Sent via WhatsApp</span>` : '';
+    const callBtn = cleanPhone
+      ? `<a href="https://wa.me/${cleanPhone}" target="_blank" class="text-[10px] font-bold px-2.5 py-1.5 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center gap-1"><i class="fa-brands fa-whatsapp"></i> ${l.phone}</a>`
+      : '';
+
+    return `
+      <div class="bg-black/30 rounded-xl px-4 py-3 text-xs">
+        <div class="flex items-center justify-between flex-wrap gap-2 mb-1.5">
+          <span class="text-white font-bold">${l.countryName || l.country || '—'} · ${l.propertyTypeName || ''}</span>
+          <span class="text-gray-500 text-[10px]">${dateStr}</span>
+        </div>
+        <p class="text-gray-400 mb-2">${l.totalAreaM2 || 0} m² ${l.kitchenAreaM2 ? '(+' + l.kitchenAreaM2 + ' m² kitchen)' : ''} · <span class="gold-accent font-bold">~$${l.totalCostUSD || 0}</span>${spaces ? ' · ' + spaces : ''}</p>
+        <div class="flex items-center gap-2 flex-wrap">
+          ${contactBadge}
+          ${whatsappBadge}
+          ${callBtn}
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+</script>
+<script>
+
 const birthdayDataMap = {};
 
 function renderBirthdaysSection() {
@@ -430,17 +575,9 @@ function renderBirthdaysSection() {
     const name = s.name || 'Student';
     const salutation = s.gender === 'female' ? 'عزيزتي' : 'عزيزي'; // افتراضي "عزيزي" لو الجنس غير محدد بالحساب
 
-    const greetingAr =
-`${salutation} ${name}،
-بمناسبة عيد ميلادكم، تتقدم أسرة Sketchy Chapters بأصدق التهاني وأجمل الأمنيات بموفور الصحة والسعادة والتوفيق في مسيرتكم العلمية والمهنية.
-وعربوناً لتقديرنا لكم، نُهديكم خصماً خاصاً بنسبة ${level.birthdayDiscount}% على أي دورة تدريبية تختارونها، سارياً لمدة سبعة أيام من تاريخ ميلادكم.
-كل عام وأنتم بألف خير 🎂✨`;
+    const greetingAr = `${salutation} ${name}، بمناسبة عيد ميلادكم، تتقدم أسرة Sketchy Chapters بأصدق التهاني وأجمل الأمنيات بموفور الصحة والسعادة والتوفيق في مسيرتكم العلمية والمهنية. وعربوناً لتقديرنا لكم، نُهديكم خصماً خاصاً بنسبة ${level.birthdayDiscount}% على أي دورة تدريبية تختارونها، سارياً لمدة سبعة أيام من تاريخ ميلادكم. كل عام وأنتم بألف خير 🎂✨`;
 
-    const greetingEn =
-`Dear ${name},
-On the occasion of your birthday, the entire Sketchy Chapters family extends our warmest congratulations and best wishes for continued health, happiness, and success in your academic and professional journey.
-As a token of our appreciation, we are delighted to offer you an exclusive ${level.birthdayDiscount}% discount on any course of your choosing, valid for seven days from your birthday.
-Wishing you a joyous celebration and a wonderful year ahead 🎂✨`;
+    const greetingEn = `Dear ${name}, On the occasion of your birthday, the entire Sketchy Chapters family extends our warmest congratulations and best wishes for continued health, happiness, and success in your academic and professional journey. As a token of our appreciation, we are delighted to offer you an exclusive ${level.birthdayDiscount}% discount on any course of your choosing, valid for seven days from your birthday. Wishing you a joyous celebration and a wonderful year ahead 🎂✨`;
 
     birthdayDataMap[s.uid] = { name, level, cleanPhone, greetingAr, greetingEn };
 
@@ -491,7 +628,6 @@ function sendBirthdayGreeting(uid, lang) {
   localStorage.setItem(`sketchy_bday_sent::${uid}::${thisYear}`, 'true');
   renderBirthdaysSection();
 }
-
 
 function generateBirthdayCard(name, levelName, discountPercent) {
   const W = 1080, H = 1350;
@@ -756,6 +892,8 @@ function renderStudents() {
               <span class="text-gray-500 text-[10px] block mt-0.5">${cert.dateIssued ? new Date(cert.dateIssued).toLocaleDateString() : ''}</span>
             </div>
             <div class="flex gap-1.5 shrink-0">
+              <button onclick="generateCertificateQR('${s.uid}', '${(s.name || '').replace(/'/g, "")}', '${certCourseNameSafe}')"
+                class="text-[10px] font-bold px-2.5 py-1.5 rounded-lg bg-amber-500/20 text-amber-300">🔗 QR</button>
               <button onclick="openCertModal('${s.uid}', '${(s.name || '').replace(/'/g, "")}', '${cid}', '${certCourseNameSafe}', '${certUrlSafe}')"
                 class="text-[10px] font-bold px-2.5 py-1.5 rounded-lg bg-blue-500/20 text-blue-300">Edit</button>
               <button onclick="deleteCertificateClick('${s.uid}', '${cid}', '${certCourseNameSafe}')"
@@ -1154,12 +1292,14 @@ async function submitAddEnrollment() {
 
   const startDate = document.getElementById('enrollStartDate').value;
   const endDate = document.getElementById('enrollEndDate').value;
+  const status = document.getElementById('enrollStatus').value;
+  const targetStudentUid = activeStudentUid;
 
   await addManualEnrollment(activeStudentUid, {
     courseName,
     type: document.getElementById('enrollType').value,
     finalPrice: parseFloat(document.getElementById('enrollPrice').value) || 0,
-    status: document.getElementById('enrollStatus').value,
+    status,
     date: startDate || new Date().toISOString().slice(0, 10),
     startDate,
     endDate
@@ -1169,6 +1309,11 @@ async function submitAddEnrollment() {
   allStudents = await getAllStudents();
   computeStats();
   renderStudents();
+
+  if (status === 'completed') {
+    const student = allStudents.find(s => s.uid === targetStudentUid);
+    await generateCertificateQR(targetStudentUid, student ? student.name : '', courseName);
+  }
 }
 
 let activeCertId = null;
@@ -1195,6 +1340,9 @@ async function submitAddCertificate() {
   const url = document.getElementById('certUrl').value.trim();
   if (!courseName || !url) { await customAlert('Please fill in both fields.'); return; }
 
+  const isNewCertificate = !activeCertId;
+  const targetStudentUid = activeStudentUid;
+
   if (activeCertId) {
     await editCertificate(activeStudentUid, activeCertId, { courseName, url });
   } else {
@@ -1203,6 +1351,11 @@ async function submitAddCertificate() {
   closeCertModal();
   allStudents = await getAllStudents();
   renderStudents();
+
+  if (isNewCertificate) {
+    const student = allStudents.find(s => s.uid === targetStudentUid);
+    await generateCertificateQR(targetStudentUid, student ? student.name : '', courseName);
+  }
 }
 
 async function deleteCertificateClick(uid, certId, courseName) {
