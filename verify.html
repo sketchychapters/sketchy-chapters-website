@@ -35,7 +35,24 @@
     border: 1px solid rgba(201, 150, 46, 0.25);
     border-radius: 16px;
     padding: 32px 28px;
+    position: relative;
   }
+  #langBtn {
+    position: absolute;
+    top: 20px;
+    inset-inline-end: 20px;
+    width: auto;
+    margin-top: 0;
+    padding: 6px 12px;
+    border-radius: 20px;
+    background: rgba(201, 150, 46, 0.12);
+    border: 1px solid rgba(201, 150, 46, 0.35);
+    color: var(--gold);
+    font-size: 0.75rem;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  #langBtn:hover { background: rgba(201, 150, 46, 0.22); }
   h1 {
     font-size: 1.3rem;
     margin: 0 0 6px;
@@ -129,33 +146,35 @@
 </head>
 <body>
   <div class="card">
-    <h1>التحقق من صحة الشهادة</h1>
+    <button id="langBtn" type="button">English</button>
+
+    <h1 data-ar="التحقق من صحة الشهادة" data-en="Certificate Verification">التحقق من صحة الشهادة</h1>
     <p class="subtitle">Sketchy Chapters &middot; Workshop Center</p>
 
     <div class="tabs">
-      <div id="tabCode" class="tab tab-active">لدي رمز التحقق</div>
-      <div id="tabLegacy" class="tab">شهادة قديمة (بدون رمز)</div>
+      <div id="tabCode" class="tab tab-active" data-ar="لدي رمز التحقق" data-en="I Have a Verification Code">لدي رمز التحقق</div>
+      <div id="tabLegacy" class="tab" data-ar="شهادة قديمة (بدون رمز)" data-en="Older Certificate (No Code)">شهادة قديمة (بدون رمز)</div>
     </div>
 
     <div id="codeSection">
-      <label for="certInput">الرجاء إدخال رمز التحقق الخاص بالشهادة</label>
+      <label for="certInput" data-ar="الرجاء إدخال رمز التحقق الخاص بالشهادة" data-en="Please enter your certificate's verification code">الرجاء إدخال رمز التحقق الخاص بالشهادة</label>
       <input type="text" id="certInput" placeholder="SCWC-XXXX-XXXX" autocomplete="off" />
-      <button id="checkBtn">تحقّق</button>
+      <button id="checkBtn" data-ar="تحقّق" data-en="Verify">تحقّق</button>
     </div>
 
     <div id="legacySection" hidden>
-      <label for="legacyName">الاسم كما هو مكتوب على الشهادة</label>
+      <label for="legacyName" data-ar="الاسم كما هو مكتوب على الشهادة" data-en="Name as written on the certificate">الاسم كما هو مكتوب على الشهادة</label>
       <input type="text" id="legacyName" autocomplete="off" style="direction: rtl; letter-spacing: normal;" />
-      <label for="legacyStudentNumber" style="margin-top: 14px;">رقم الطالب</label>
+      <label for="legacyStudentNumber" style="margin-top: 14px;" data-ar="رقم الطالب" data-en="Student Number">رقم الطالب</label>
       <input type="text" id="legacyStudentNumber" autocomplete="off" />
-      <label for="legacyCourseName" style="margin-top: 14px;">اسم الدورة</label>
+      <label for="legacyCourseName" style="margin-top: 14px;" data-ar="اسم الدورة" data-en="Course Name">اسم الدورة</label>
       <input type="text" id="legacyCourseName" autocomplete="off" style="direction: rtl; letter-spacing: normal;" />
-      <button id="legacyCheckBtn">تحقّق</button>
+      <button id="legacyCheckBtn" data-ar="تحقّق" data-en="Verify">تحقّق</button>
     </div>
 
     <div id="result"></div>
 
-    <footer>يوجد رمز التحقق على الشهادة الأصلية، ويمكن الوصول لهذه الصفحة مباشرة عبر مسح رمز الاستجابة السريعة الموجود عليها. أما الشهادات القديمة فيمكن التحقق منها بإدخال الاسم ورقم الطالب واسم الدورة.</footer>
+    <footer data-ar="يوجد رمز التحقق على الشهادة الأصلية، ويمكن الوصول لهذه الصفحة مباشرة عبر مسح رمز الاستجابة السريعة الموجود عليها. أما الشهادات القديمة فيمكن التحقق منها بإدخال الاسم ورقم الطالب واسم الدورة." data-en="The verification code appears on the original certificate, and this page can be reached directly by scanning the QR code on it. Older certificates can be verified by entering the name, student number, and course name.">يوجد رمز التحقق على الشهادة الأصلية، ويمكن الوصول لهذه الصفحة مباشرة عبر مسح رمز الاستجابة السريعة الموجود عليها. أما الشهادات القديمة فيمكن التحقق منها بإدخال الاسم ورقم الطالب واسم الدورة.</footer>
   </div>
 
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
