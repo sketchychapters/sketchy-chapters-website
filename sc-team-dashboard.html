@@ -1307,7 +1307,7 @@ async function submitAddEnrollment() {
 
   if (status === 'completed' && typeof generateCertificateQR === 'function') {
     const student = allStudents.find(s => s.uid === targetStudentUid);
-    await generateCertificateQR(targetStudentUid, student ? student.name : '', courseName);
+    await generateCertificateQR(targetStudentUid, student ? student.name : '', courseName, null, endDate || null);
   }
 }
 
