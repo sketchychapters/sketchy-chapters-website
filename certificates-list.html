@@ -30,7 +30,7 @@
 </div>
 
 <div class="flex gap-3 mb-6 flex-wrap">
-  <input id="searchBox" type="text" placeholder="🔍 ابحثي باسم الطالب أو اسم الدورة..."
+  <input id="searchBox" type="text" placeholder="🔍 ابحث باسم الطالب أو اسم الدورة..."
     class="flex-1 min-w-[200px] rounded-xl px-4 py-3 text-sm text-white" oninput="renderAll()">
 </div>
 
@@ -278,7 +278,7 @@ async function submitEditLegacyCert() {
     await loadAll();
   } catch (err) {
     if (err && err.message === 'DUPLICATE') {
-      await customAlert('توجد شهادة قديمة أخرى بنفس البيانات الجديدة (الاسم ورقم الطالب واسم الدورة) — عدّلي بيانات لا تتطابق مع شهادة موجودة أصلاً.');
+      await customAlert('توجد شهادة قديمة أخرى بنفس البيانات الجديدة (الاسم ورقم الطالب واسم الدورة) — عدّل بيانات لا تتطابق مع شهادة موجودة أصلاً.');
     } else {
       console.error('submitEditLegacyCert error:', err);
       await customAlert('حدث خطأ أثناء الحفظ، يرجى المحاولة مرة أخرى.');
