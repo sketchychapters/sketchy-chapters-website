@@ -1315,9 +1315,9 @@ async function submitAddEnrollment() {
   computeStats();
   renderStudents();
 
-  if (status === 'completed' && typeof generateCertificateQR === 'function') {
+  if (status === 'completed' && typeof issueCertificateSilently === 'function') {
     const student = allStudents.find(s => s.uid === targetStudentUid);
-    await generateCertificateQR(targetStudentUid, student ? student.name : '', courseName, null, endDate || null);
+    await issueCertificateSilently(targetStudentUid, student ? student.name : '', courseName, null, endDate || null);
   }
 }
 
@@ -1357,9 +1357,9 @@ async function submitAddCertificate() {
   allStudents = await getAllStudents();
   renderStudents();
 
-  if (isNewCertificate && typeof generateCertificateQR === 'function') {
+  if (isNewCertificate && typeof issueCertificateSilently === 'function') {
     const student = allStudents.find(s => s.uid === targetStudentUid);
-    await generateCertificateQR(targetStudentUid, student ? student.name : '', courseName);
+    await issueCertificateSilently(targetStudentUid, student ? student.name : '', courseName);
   }
 }
 
