@@ -1,5 +1,7 @@
 User-agent: *
 Disallow: /sc-team-login.html
 Disallow: /sc-team-dashboard.html
+Disallow: /certificates-list.html
+Disallow: /scdc-leads-dashboard.html
 
 Sitemap: https://www.sketchychapters.com/sitemap.xml
