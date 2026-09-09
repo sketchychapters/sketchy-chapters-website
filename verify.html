@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>التحقق من صحة الشهادة | Sketchy Chapters - Workshop Center</title>
+<style>
+  :root {
+    --gold: #C9962E;
+    --gold-dark: #8F5F0E;
+    --bg: #171310;
+    --card-bg: #211b16;
+    --text: #f2ede6;
+    --muted: #b8ada0;
+    --green: #3fb950;
+    --red: #f85149;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    min-height: 100vh;
+    background: var(--bg);
+    color: var(--text);
+    font-family: "Segoe UI", Tahoma, Arial, sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+  }
+  .card {
+    width: 100%;
+    max-width: 480px;
+    background: var(--card-bg);
+    border: 1px solid rgba(201, 150, 46, 0.25);
+    border-radius: 16px;
+    padding: 32px 28px;
+  }
+  h1 {
+    font-size: 1.3rem;
+    margin: 0 0 6px;
+    color: var(--gold);
+    text-align: center;
+  }
+  p.subtitle {
+    text-align: center;
+    color: var(--muted);
+    margin: 0 0 24px;
+    font-size: 0.9rem;
+  }
+  label {
+    display: block;
+    font-size: 0.85rem;
+    color: var(--muted);
+    margin-bottom: 6px;
+  }
+  input[type="text"] {
+    width: 100%;
+    padding: 12px 14px;
+    border-radius: 10px;
+    border: 1px solid rgba(255,255,255,0.15);
+    background: #0f0c09;
+    color: var(--text);
+    font-size: 1rem;
+    letter-spacing: 1px;
+    text-align: center;
+    direction: ltr;
+  }
+  input[type="text"]:focus { outline: 2px solid var(--gold); border-color: var(--gold); }
+  button {
+    width: 100%;
+    margin-top: 14px;
+    padding: 12px 14px;
+    border-radius: 10px;
+    border: none;
+    background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+    color: #171310;
+    font-weight: bold;
+    font-size: 1rem;
+    cursor: pointer;
+  }
+  button:disabled { opacity: 0.6; cursor: not-allowed; }
+  #result { margin-top: 24px; }
+  .result-box {
+    border-radius: 12px;
+    padding: 18px;
+    font-size: 0.95rem;
+    line-height: 1.9;
+  }
+  .valid { background: rgba(63, 185, 80, 0.12); border: 1px solid rgba(63, 185, 80, 0.4); }
+  .invalid { background: rgba(248, 81, 73, 0.12); border: 1px solid rgba(248, 81, 73, 0.4); }
+  .status-line { font-weight: bold; margin-bottom: 8px; }
+  .valid .status-line { color: var(--green); }
+  .invalid .status-line { color: var(--red); }
+  .row { display: flex; justify-content: space-between; gap: 12px; }
+  .row .k { color: var(--muted); }
+  .row .v { font-weight: 600; text-align: left; direction: ltr; }
+  footer {
+    text-align: center;
+    margin-top: 24px;
+    color: var(--muted);
+    font-size: 0.75rem;
+  }
+  .tabs {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 20px;
+    background: #0f0c09;
+    border-radius: 10px;
+    padding: 4px;
+  }
+  .tab {
+    flex: 1;
+    text-align: center;
+    padding: 9px 6px;
+    border-radius: 8px;
+    font-size: 0.8rem;
+    color: var(--muted);
+    cursor: pointer;
+    user-select: none;
+  }
+  .tab.tab-active {
+    background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+    color: #171310;
+    font-weight: bold;
+  }
+  [hidden] { display: none !important; }
+</style>
+</head>
+<body>
+  <div class="card">
+    <h1>التحقق من صحة الشهادة</h1>
+    <p class="subtitle">Sketchy Chapters &middot; Workshop Center</p>
+
+    <div class="tabs">
+      <div id="tabCode" class="tab tab-active">لدي رمز التحقق</div>
+      <div id="tabLegacy" class="tab">شهادة قديمة (بدون رمز)</div>
+    </div>
+
+    <div id="codeSection">
+      <label for="certInput">الرجاء إدخال رمز التحقق الخاص بالشهادة</label>
+      <input type="text" id="certInput" placeholder="SCWC-XXXX-XXXX" autocomplete="off" />
+      <button id="checkBtn">تحقّق</button>
+    </div>
+
+    <div id="legacySection" hidden>
+      <label for="legacyName">الاسم كما هو مكتوب على الشهادة</label>
+      <input type="text" id="legacyName" autocomplete="off" style="direction: rtl; letter-spacing: normal;" />
+      <label for="legacyStudentNumber" style="margin-top: 14px;">رقم الطالب القديم</label>
+      <input type="text" id="legacyStudentNumber" autocomplete="off" />
+      <label for="legacyCourseName" style="margin-top: 14px;">اسم الدورة</label>
+      <input type="text" id="legacyCourseName" autocomplete="off" style="direction: rtl; letter-spacing: normal;" />
+      <button id="legacyCheckBtn">تحقّق</button>
+    </div>
+
+    <div id="result"></div>
+
+    <footer>يوجد رمز التحقق على الشهادة الأصلية، ويمكن الوصول لهذه الصفحة مباشرة عبر مسح رمز الاستجابة السريعة الموجود عليها. أما الشهادات القديمة فيمكن التحقق منها بإدخال الاسم ورقم الطالب واسم الدورة.</footer>
+  </div>
+
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+  <script src="js/verify.js"></script>
+</body>
+</html>
