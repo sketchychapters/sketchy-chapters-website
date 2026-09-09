@@ -460,22 +460,37 @@ auth.onAuthStateChanged(async (user) => {
   allStudents = await getAllStudents();
   computeStats();
   populateCountryFilter();
-  try {
-    await loadCertificateCodeMap();
-  } catch (err) {
-    console.error('loadCertificateCodeMap failed (certificate IDs may not show yet):', err);
-  }
   renderStudents();
   renderBirthdaysSection();
-  backfillAllCertificateVerifications().then(async () => {
-    try {
-      await loadCertificateCodeMap();
-      renderStudents();
-    } catch (err) {
-      console.error('post-backfill loadCertificateCodeMap failed:', err);
-    }
-  }).catch(err => console.error('backfillAllCertificateVerifications failed:', err));
+  runCertificateAutomation();
 });
+
+function safeGetCertCode(uid, courseName) {
+  try {
+    if (typeof getCachedCertificateCode === 'function') return getCachedCertificateCode(uid, courseName);
+  } catch (err) {
+    console.error('safeGetCertCode error:', err);
+  }
+  return null;
+}
+
+async function runCertificateAutomation() {
+  try {
+    if (typeof loadCertificateCodeMap === 'function') await loadCertificateCodeMap();
+    renderStudents();
+  } catch (err) {
+    console.error('loadCertificateCodeMap failed (certificate IDs may not show yet — check that js/certificates.js is the latest version):', err);
+  }
+  try {
+    if (typeof backfillAllCertificateVerifications === 'function') {
+      await backfillAllCertificateVerifications();
+      if (typeof loadCertificateCodeMap === 'function') await loadCertificateCodeMap();
+      renderStudents();
+    }
+  } catch (err) {
+    console.error('certificate backfill failed:', err);
+  }
+}
 
 function populateCountryFilter() {
   const select = document.getElementById('countryFilter');
@@ -814,7 +829,7 @@ function renderStudents() {
           const statusTag = en.status === 'pending' ? '⏳ Pending' : (en.status === 'upcoming' ? '✓ Confirmed' : '');
           const noteHtml = en.adminNote ? `<p class="text-blue-300 text-[11px] mt-1">📝 ${en.adminNote}</p>` : '';
           const scheduleHtml = (en.startDate || en.endDate) ? `<p class="text-teal-300 text-[11px] mt-1">📅 ${en.startDate || '?'} → ${en.endDate || '?'}</p>` : '';
-          const enrollVerifyCode = en.status === 'completed' ? getCachedCertificateCode(s.uid, en.courseName) : null;
+          const enrollVerifyCode = en.status === 'completed' ? safeGetCertCode(s.uid, en.courseName) : null;
           const certIdHtml = en.status === 'completed' ? `<p class="gold-accent text-[10px] font-mono mt-1">${enrollVerifyCode ? 'ID: ' + enrollVerifyCode : 'ID: — (بيصدر تلقائياً بأقرب تسجيل دخول)'}</p>` : '';
           return `
           <div class="flex items-center justify-between bg-black/30 rounded-xl px-3 py-2 text-xs gap-2">
@@ -857,7 +872,7 @@ function renderStudents() {
           const cid = cert.id || cert.url;
           const certCourseNameSafe = (cert.courseName || '').replace(/'/g, "");
           const certUrlSafe = (cert.url || '').replace(/'/g, "");
-          const certVerifyCode = getCachedCertificateCode(s.uid, cert.courseName);
+          const certVerifyCode = safeGetCertCode(s.uid, cert.courseName);
           return `
           <div class="flex items-center justify-between bg-black/30 rounded-xl px-3 py-2 text-xs gap-2">
             <div>
@@ -1290,7 +1305,7 @@ async function submitAddEnrollment() {
   computeStats();
   renderStudents();
 
-  if (status === 'completed') {
+  if (status === 'completed' && typeof generateCertificateQR === 'function') {
     const student = allStudents.find(s => s.uid === targetStudentUid);
     await generateCertificateQR(targetStudentUid, student ? student.name : '', courseName);
   }
@@ -1332,7 +1347,7 @@ async function submitAddCertificate() {
   allStudents = await getAllStudents();
   renderStudents();
 
-  if (isNewCertificate) {
+  if (isNewCertificate && typeof generateCertificateQR === 'function') {
     const student = allStudents.find(s => s.uid === targetStudentUid);
     await generateCertificateQR(targetStudentUid, student ? student.name : '', courseName);
   }
