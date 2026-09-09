@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta name="robots" content="noindex, nofollow">
+<meta charset="UTF-8">
+<meta name="color-scheme" content="dark">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>كل الشهادات | Sketchy Chapters</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+  body{color-scheme:dark;font-family:'Tajawal',sans-serif;background:#08080a;color:#e0e6ed;}
+  .gold-accent{color:#d4af37;}
+  .bg-gold{background:linear-gradient(135deg,#d4af37 0%,#aa7c11 100%);}
+  .glass-card{background:rgba(18,18,22,.65);backdrop-filter:blur(16px);border:1px solid rgba(212,175,55,.15);}
+  input,select,textarea{background:rgba(0,0,0,.4);border:1px solid rgba(212,175,55,.25);color:#fff;}
+</style>
+</head>
+<body class="min-h-screen px-6 py-10 max-w-4xl mx-auto">
+
+<div class="flex items-center justify-between mb-8 flex-wrap gap-4">
+  <div>
+    <h1 class="text-2xl md:text-3xl font-black text-white">📋 كل الشهادات</h1>
+    <p class="text-gray-400 text-xs mt-1">كل شهادة صادرة عن Sketchy Chapters — الجديدة (بحساب) والقديمة (بدون حساب) بمكان واحد</p>
+  </div>
+  <a href="sc-team-dashboard.html" class="text-xs font-bold gold-accent border border-amber-500/30 px-4 py-2 rounded-xl hover:bg-amber-500/10 flex items-center gap-2">
+    <i class="fa-solid fa-arrow-right"></i> رجوع للوحة الإدارة
+  </a>
+</div>
+
+<div class="flex gap-3 mb-6 flex-wrap">
+  <input id="searchBox" type="text" placeholder="🔍 ابحثي باسم الطالب أو اسم الدورة..."
+    class="flex-1 min-w-[200px] rounded-xl px-4 py-3 text-sm text-white" oninput="renderAll()">
+</div>
+
+<div class="glass-card rounded-2xl p-5 mb-6">
+  <p class="text-white font-bold text-sm mb-4">🎓 شهادات الطلاب (بحساب)</p>
+  <div id="newCertsList" class="space-y-2">
+    <p class="text-gray-500 text-sm">جارٍ التحميل...</p>
+  </div>
+</div>
+
+<div class="glass-card rounded-2xl p-5 mb-6">
+  <p class="text-white font-bold text-sm mb-4">📜 شهادات قديمة (بدون حساب)</p>
+  <div id="legacyCertsList" class="space-y-2">
+    <p class="text-gray-500 text-sm">جارٍ التحميل...</p>
+  </div>
+</div>
+
+<!-- Edit new certificate modal -->
+<div id="editNewCertModal" class="hidden fixed inset-0 bg-black/80 z-[60] flex items-center justify-center px-6">
+  <div class="glass-card bg-[#121216] border border-amber-500/40 rounded-3xl p-8 max-w-sm w-full">
+    <h3 class="text-white font-black text-lg mb-1">✏️ تعديل شهادة</h3>
+    <p class="text-gray-500 text-[10px] mb-5">رمز التحقق نفسه (<span id="editNewCertCodeLabel" class="font-mono"></span>) لا يتغيّر — هاد بس تعديل البيانات المكتوبة تحته.</p>
+
+    <label class="text-xs text-gray-400 block mb-1">اسم الطالب</label>
+    <input id="editNewCertName" type="text" class="w-full rounded-xl px-4 py-2.5 text-sm text-white mb-4">
+
+    <label class="text-xs text-gray-400 block mb-1">اسم الدورة</label>
+    <input id="editNewCertCourse" type="text" class="w-full rounded-xl px-4 py-2.5 text-sm text-white mb-4">
+
+    <label class="text-xs text-gray-400 block mb-1">تاريخ الإنجاز</label>
+    <input id="editNewCertDate" type="date" class="w-full rounded-xl px-4 py-2.5 text-sm text-white mb-4">
+
+    <label class="text-xs text-gray-400 block mb-1">الفرع</label>
+    <input id="editNewCertBranch" type="text" class="w-full rounded-xl px-4 py-2.5 text-sm text-white mb-6">
+
+    <div class="flex gap-3">
+      <button onclick="submitEditNewCert()" class="flex-1 bg-gold text-black font-bold py-2.5 rounded-xl text-xs">حفظ</button>
+      <button onclick="closeEditNewCertModal()" class="flex-1 glass-card text-gray-400 border border-gray-700 py-2.5 rounded-xl text-xs">إلغاء</button>
+    </div>
+  </div>
+</div>
+
+<!-- Edit legacy certificate modal -->
+<div id="editLegacyCertModal" class="hidden fixed inset-0 bg-black/80 z-[60] flex items-center justify-center px-6">
+  <div class="glass-card bg-[#121216] border border-amber-500/40 rounded-3xl p-8 max-w-sm w-full">
+    <h3 class="text-white font-black text-lg mb-1">✏️ تعديل شهادة قديمة</h3>
+    <p class="text-amber-300 text-[10px] mb-5">⚠️ تغيير الاسم أو رقم الطالب أو اسم الدورة بيغيّر رابط التحقق — إذا كان في QR مطبوع على شهادة ورقية بالبيانات القديمة، لازم يتطبع من جديد.</p>
+
+    <label class="text-xs text-gray-400 block mb-1">اسم الطالب</label>
+    <input id="editLegacyCertName" type="text" class="w-full rounded-xl px-4 py-2.5 text-sm text-white mb-4">
+
+    <label class="text-xs text-gray-400 block mb-1">رقم الطالب القديم</label>
+    <input id="editLegacyCertStudentNumber" type="text" class="w-full rounded-xl px-4 py-2.5 text-sm text-white mb-4">
+
+    <label class="text-xs text-gray-400 block mb-1">اسم الدورة</label>
+    <input id="editLegacyCertCourse" type="text" class="w-full rounded-xl px-4 py-2.5 text-sm text-white mb-4">
+
+    <label class="text-xs text-gray-400 block mb-1">تاريخ الإتمام</label>
+    <input id="editLegacyCertDate" type="date" class="w-full rounded-xl px-4 py-2.5 text-sm text-white mb-4">
+
+    <label class="text-xs text-gray-400 block mb-1">الفرع</label>
+    <input id="editLegacyCertBranch" type="text" class="w-full rounded-xl px-4 py-2.5 text-sm text-white mb-6">
+
+    <div class="flex gap-3">
+      <button onclick="submitEditLegacyCert()" class="flex-1 bg-gold text-black font-bold py-2.5 rounded-xl text-xs">حفظ</button>
+      <button onclick="closeEditLegacyCertModal()" class="flex-1 glass-card text-gray-400 border border-gray-700 py-2.5 rounded-xl text-xs">إلغاء</button>
+    </div>
+  </div>
+</div>
+
+<script src="firebase-init.js"></script>
+<script src="https://unpkg.com/qrcode@1.5.4/build/qrcode.min.js"></script>
+<script src="js/legacy-certificates.js"></script>
+<script src="js/certificates.js"></script>
+<script>
+requireAdmin();
+
+let newCerts = [];
+let legacyCerts = [];
+
+auth.onAuthStateChanged(async (user) => {
+  if (!user || user.email !== ADMIN_EMAIL) return;
+  await loadAll();
+});
+
+async function loadAll() {
+  const [newSnap, legacySnap] = await Promise.all([
+    db.collection('certificates').get(),
+    db.collection('legacyCertificates').get()
+  ]);
+  newCerts = newSnap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+  legacyCerts = legacySnap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+  renderAll();
+}
+
+function renderAll() {
+  renderNewCerts();
+  renderLegacyCerts();
+}
+
+function matchesQuery(text, query) {
+  return !query || text.toLowerCase().includes(query);
+}
+
+function renderNewCerts() {
+  const query = document.getElementById('searchBox').value.toLowerCase();
+  const container = document.getElementById('newCertsList');
+  const rows = newCerts
+    .filter(c => matchesQuery(`${c.studentName || ''} ${c.courseName || ''}`, query))
+    .sort((a, b) => (a.studentName || '').localeCompare(b.studentName || ''));
+
+  if (rows.length === 0) {
+    container.innerHTML = '<p class="text-gray-500 text-xs">لا توجد شهادات مطابقة.</p>';
+    return;
+  }
+
+  container.innerHTML = rows.map(c => `
+    <div class="flex items-center justify-between bg-black/30 rounded-xl px-3 py-2 text-xs gap-2">
+      <div>
+        <span class="text-white font-bold">${escapeHtmlLocal(c.studentName || 'بدون اسم')}</span>
+        <span class="text-gray-400 block mt-0.5">🎓 ${escapeHtmlLocal(c.courseName || '')}</span>
+        <span class="text-gray-500 text-[10px] block mt-0.5">${escapeHtmlLocal(c.completionDate || '')} ${c.branch ? '· ' + escapeHtmlLocal(c.branch) : ''}</span>
+        <span class="gold-accent text-[10px] font-mono block mt-0.5">ID: ${c.id}</span>
+      </div>
+      <div class="flex gap-1.5 shrink-0 flex-wrap justify-end">
+        <button onclick="downloadCertificateQR('${c.id}')" class="text-[10px] font-bold px-2.5 py-1.5 rounded-lg bg-amber-500/20 text-amber-300">🔗 QR</button>
+        <button onclick="openEditNewCertModal('${c.id}')" class="text-[10px] font-bold px-2.5 py-1.5 rounded-lg bg-blue-500/20 text-blue-300">تعديل</button>
+        <button onclick="deleteNewCertClick('${c.id}')" class="text-[10px] font-bold px-2.5 py-1.5 rounded-lg bg-red-500/20 text-red-400">🗑️</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function renderLegacyCerts() {
+  const query = document.getElementById('searchBox').value.toLowerCase();
+  const container = document.getElementById('legacyCertsList');
+  const rows = legacyCerts
+    .filter(c => matchesQuery(`${c.studentName || ''} ${c.courseName || ''} ${c.studentNumber || ''}`, query))
+    .sort((a, b) => (a.studentName || '').localeCompare(b.studentName || ''));
+
+  if (rows.length === 0) {
+    container.innerHTML = '<p class="text-gray-500 text-xs">لا توجد شهادات مطابقة.</p>';
+    return;
+  }
+
+  container.innerHTML = rows.map(c => `
+    <div class="flex items-center justify-between bg-black/30 rounded-xl px-3 py-2 text-xs gap-2">
+      <div>
+        <span class="text-white font-bold">${escapeHtmlLocal(c.studentName || 'بدون اسم')}</span>
+        <span class="text-gray-400 block mt-0.5">📜 ${escapeHtmlLocal(c.courseName || '')}</span>
+        <span class="text-gray-500 text-[10px] block mt-0.5">رقم الطالب: ${escapeHtmlLocal(c.studentNumber || '')} ${c.completionDate ? '· ' + escapeHtmlLocal(c.completionDate) : ''} ${c.branch ? '· ' + escapeHtmlLocal(c.branch) : ''}</span>
+      </div>
+      <div class="flex gap-1.5 shrink-0 flex-wrap justify-end">
+        <button onclick="downloadLegacyCertificateQR('${c.id}')" class="text-[10px] font-bold px-2.5 py-1.5 rounded-lg bg-amber-500/20 text-amber-300">🔗 QR</button>
+        <button onclick="openEditLegacyCertModal('${c.id}')" class="text-[10px] font-bold px-2.5 py-1.5 rounded-lg bg-blue-500/20 text-blue-300">تعديل</button>
+        <button onclick="deleteLegacyCertClick('${c.id}')" class="text-[10px] font-bold px-2.5 py-1.5 rounded-lg bg-red-500/20 text-red-400">🗑️</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function escapeHtmlLocal(value) {
+  const div = document.createElement('div');
+  div.textContent = String(value ?? '');
+  return div.innerHTML;
+}
+
+let activeEditNewCertId = null;
+
+function openEditNewCertModal(id) {
+  const cert = newCerts.find(c => c.id === id);
+  if (!cert) return;
+  activeEditNewCertId = id;
+  document.getElementById('editNewCertCodeLabel').innerText = id;
+  document.getElementById('editNewCertName').value = cert.studentName || '';
+  document.getElementById('editNewCertCourse').value = cert.courseName || '';
+  document.getElementById('editNewCertDate').value = cert.completionDate || '';
+  document.getElementById('editNewCertBranch').value = cert.branch || '';
+  document.getElementById('editNewCertModal').classList.remove('hidden');
+  document.getElementById('editNewCertModal').classList.add('flex');
+}
+
+function closeEditNewCertModal() {
+  document.getElementById('editNewCertModal').classList.add('hidden');
+  document.getElementById('editNewCertModal').classList.remove('flex');
+}
+
+async function submitEditNewCert() {
+  const studentName = document.getElementById('editNewCertName').value.trim();
+  const courseName = document.getElementById('editNewCertCourse').value.trim();
+  const completionDate = document.getElementById('editNewCertDate').value;
+  const branch = document.getElementById('editNewCertBranch').value.trim();
+  if (!studentName || !courseName) { await customAlert('يرجى تعبئة اسم الطالب واسم الدورة على الأقل.'); return; }
+
+  try {
+    await updateCertificateRecord(activeEditNewCertId, { studentName, courseName, completionDate, branch });
+    closeEditNewCertModal();
+    await loadAll();
+  } catch (err) {
+    console.error('submitEditNewCert error:', err);
+    await customAlert('حدث خطأ أثناء الحفظ، يرجى المحاولة مرة أخرى.');
+  }
+}
+
+async function deleteNewCertClick(id) {
+  if (!(await customConfirm('حذف رمز التحقق هذا نهائياً؟ أي QR مطبوع فيه لن يعمل بعدها.'))) return;
+  await deleteCertificateRecord(id);
+  await loadAll();
+}
+
+let activeEditLegacyCertId = null;
+
+function openEditLegacyCertModal(id) {
+  const cert = legacyCerts.find(c => c.id === id);
+  if (!cert) return;
+  activeEditLegacyCertId = id;
+  document.getElementById('editLegacyCertName').value = cert.studentName || '';
+  document.getElementById('editLegacyCertStudentNumber').value = cert.studentNumber || '';
+  document.getElementById('editLegacyCertCourse').value = cert.courseName || '';
+  document.getElementById('editLegacyCertDate').value = cert.completionDate || '';
+  document.getElementById('editLegacyCertBranch').value = cert.branch || '';
+  document.getElementById('editLegacyCertModal').classList.remove('hidden');
+  document.getElementById('editLegacyCertModal').classList.add('flex');
+}
+
+function closeEditLegacyCertModal() {
+  document.getElementById('editLegacyCertModal').classList.add('hidden');
+  document.getElementById('editLegacyCertModal').classList.remove('flex');
+}
+
+async function submitEditLegacyCert() {
+  const studentName = document.getElementById('editLegacyCertName').value.trim();
+  const studentNumber = document.getElementById('editLegacyCertStudentNumber').value.trim();
+  const courseName = document.getElementById('editLegacyCertCourse').value.trim();
+  const completionDate = document.getElementById('editLegacyCertDate').value;
+  const branch = document.getElementById('editLegacyCertBranch').value.trim();
+  if (!studentName || !studentNumber || !courseName) { await customAlert('يرجى تعبئة الاسم ورقم الطالب واسم الدورة على الأقل.'); return; }
+
+  try {
+    await updateLegacyCertificate(activeEditLegacyCertId, studentName, studentNumber, courseName, completionDate, branch);
+    closeEditLegacyCertModal();
+    await loadAll();
+  } catch (err) {
+    if (err && err.message === 'DUPLICATE') {
+      await customAlert('توجد شهادة قديمة أخرى بنفس البيانات الجديدة (الاسم ورقم الطالب واسم الدورة) — عدّلي بيانات لا تتطابق مع شهادة موجودة أصلاً.');
+    } else {
+      console.error('submitEditLegacyCert error:', err);
+      await customAlert('حدث خطأ أثناء الحفظ، يرجى المحاولة مرة أخرى.');
+    }
+  }
+}
+
+async function deleteLegacyCertClick(id) {
+  if (!(await customConfirm('حذف هذه الشهادة القديمة نهائياً؟ أي QR مطبوع فيها لن يعمل بعدها.'))) return;
+  await deleteLegacyCertificate(id);
+  await loadAll();
+}
+</script>
+</body>
+</html>
