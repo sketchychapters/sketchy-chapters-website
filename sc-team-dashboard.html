@@ -5,7 +5,7 @@
 <meta charset="UTF-8">
 <meta name="color-scheme" content="dark">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Admin Dashboard | Workshop Center</title>
+<title>Admin Dashboard | Sketchy Chapters</title>
 <link rel="icon" type="image/png" href="favicon w.png">
 <script src="https://cdn.tailwindcss.com"></script>
 <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;500;700;900&display=swap" rel="stylesheet">
@@ -465,6 +465,16 @@ auth.onAuthStateChanged(async (user) => {
   runCertificateAutomation();
 });
 
+function formatDateDMY(dateStr) {
+  if (!dateStr) return '';
+  const datePart = String(dateStr).slice(0, 10);
+  const parts = datePart.split('-');
+  if (parts.length !== 3) return dateStr;
+  const [y, m, d] = parts;
+  if (!y || !m || !d) return dateStr;
+  return `${d}/${m}/${y}`;
+}
+
 function safeGetCertCode(uid, courseName) {
   try {
     if (typeof getCachedCertificateCode === 'function') return getCachedCertificateCode(uid, courseName);
@@ -828,7 +838,7 @@ function renderStudents() {
 
           const statusTag = en.status === 'pending' ? '⏳ Pending' : (en.status === 'upcoming' ? '✓ Confirmed' : '');
           const noteHtml = en.adminNote ? `<p class="text-blue-300 text-[11px] mt-1">📝 ${en.adminNote}</p>` : '';
-          const scheduleHtml = (en.startDate || en.endDate) ? `<p class="text-teal-300 text-[11px] mt-1">📅 ${en.startDate || '?'} → ${en.endDate || '?'}</p>` : '';
+          const scheduleHtml = (en.startDate || en.endDate) ? `<p class="text-teal-300 text-[11px] mt-1">📅 ${en.startDate ? formatDateDMY(en.startDate) : '?'} → ${en.endDate ? formatDateDMY(en.endDate) : '?'}</p>` : '';
           const enrollVerifyCode = en.status === 'completed' ? safeGetCertCode(s.uid, en.courseName) : null;
           const certIdHtml = en.status === 'completed' ? `<p class="gold-accent text-[10px] font-mono mt-1">${enrollVerifyCode ? 'ID: ' + enrollVerifyCode : 'ID: — (يصدر تلقائياً عند أقرب تسجيل دخول)'}</p>` : '';
           return `
@@ -878,7 +888,7 @@ function renderStudents() {
             <div>
               <span class="text-white font-bold">🎓 ${cert.courseName || '(no course name)'}</span>
               <a href="${cert.url || '#'}" target="_blank" class="text-emerald-400 block mt-0.5 underline break-all">${cert.url || ''}</a>
-              <span class="text-gray-500 text-[10px] block mt-0.5">${cert.dateIssued ? new Date(cert.dateIssued).toLocaleDateString() : ''}</span>
+              <span class="text-gray-500 text-[10px] block mt-0.5">${cert.dateIssued ? formatDateDMY(cert.dateIssued) : ''}</span>
               <span class="gold-accent text-[10px] font-mono block mt-0.5">${certVerifyCode ? 'ID: ' + certVerifyCode : 'ID: — (اضغطي 🔗 QR لتوليده)'}</span>
             </div>
             <div class="flex gap-1.5 shrink-0">
@@ -905,7 +915,7 @@ function renderStudents() {
             <div>
               <span class="text-white font-bold">📚 ${item.title || '(no title)'}</span>
               <a href="${item.url || '#'}" target="_blank" class="text-teal-400 block mt-0.5 underline break-all">${item.url || ''}</a>
-              <span class="text-gray-500 text-[10px] block mt-0.5">${item.dateAdded ? new Date(item.dateAdded).toLocaleDateString() : ''}</span>
+              <span class="text-gray-500 text-[10px] block mt-0.5">${item.dateAdded ? formatDateDMY(item.dateAdded) : ''}</span>
             </div>
             <div class="flex gap-1.5 shrink-0">
               <button onclick="openLibraryModal('${s.uid}', '${(s.name || '').replace(/'/g, "")}', '${lid}', '${libTitleSafe}', '${libUrlSafe}')"
