@@ -525,14 +525,29 @@ auth.onAuthStateChanged(async (user) => {
     pastList.innerHTML = past.map(enrollmentCardHtml).join('');
   }
 
+  // رمز التحقّق (ID) الخاص بكل شهادة — نجيبه من مجموعة certificates حسب studentUid
+  let certCodeByCourse = {};
+  try {
+    const certSnap = await db.collection('certificates').where('studentUid', '==', user.uid).get();
+    certSnap.forEach(doc => {
+      const d = doc.data();
+      if (d.courseName) certCodeByCourse[d.courseName] = doc.id;
+    });
+  } catch (err) {
+    console.error('certificate code fetch error:', err);
+  }
+
   const certificates = data.certificates || [];
   if (certificates.length > 0) {
-    document.getElementById('certificatesList').innerHTML = certificates.slice().reverse().map(cert => `
+    document.getElementById('certificatesList').innerHTML = certificates.slice().reverse().map(cert => {
+      const certId = certCodeByCourse[cert.courseName] || null;
+      return `
       <div class="glass-card rounded-2xl p-4 flex items-center justify-between">
         <div class="flex items-center gap-3">
           <i class="fa-solid fa-certificate gold-accent text-lg"></i>
           <div>
             <p class="text-white font-bold text-sm">${cert.courseName || '(certificate)'}</p>
+            ${certId ? `<p class="gold-accent text-[11px] font-mono mt-0.5">${certId}</p>` : ''}
             <p class="text-gray-500 text-[11px]">${cert.dateIssued ? new Date(cert.dateIssued).toLocaleDateString() : ''}</p>
           </div>
         </div>
@@ -541,7 +556,8 @@ auth.onAuthStateChanged(async (user) => {
           <span data-ar="تحميل" data-en="Download">Download</span>
         </a>
       </div>
-    `).join('');
+    `;
+    }).join('');
   }
 });
 </script>
