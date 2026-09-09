@@ -460,13 +460,21 @@ auth.onAuthStateChanged(async (user) => {
   allStudents = await getAllStudents();
   computeStats();
   populateCountryFilter();
-  await loadCertificateCodeMap();
+  try {
+    await loadCertificateCodeMap();
+  } catch (err) {
+    console.error('loadCertificateCodeMap failed (certificate IDs may not show yet):', err);
+  }
   renderStudents();
   renderBirthdaysSection();
   backfillAllCertificateVerifications().then(async () => {
-    await loadCertificateCodeMap();
-    renderStudents();
-  });
+    try {
+      await loadCertificateCodeMap();
+      renderStudents();
+    } catch (err) {
+      console.error('post-backfill loadCertificateCodeMap failed:', err);
+    }
+  }).catch(err => console.error('backfillAllCertificateVerifications failed:', err));
 });
 
 function populateCountryFilter() {
