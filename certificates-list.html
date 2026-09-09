@@ -5,7 +5,7 @@
 <meta charset="UTF-8">
 <meta name="color-scheme" content="dark">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Certificates | Workshop Center</title>
+<title>Certificates  | Workshop Center</title>
 <link rel="icon" type="image/png" href="favicon w.png">
 <script src="https://cdn.tailwindcss.com"></script>
 <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;500;700;900&display=swap" rel="stylesheet">
@@ -31,7 +31,7 @@
 </div>
 
 <div class="flex gap-3 mb-6 flex-wrap">
-  <input id="searchBox" type="text" placeholder="🔍 ابحث باسم الطالب أو اسم الدورة..."
+  <input id="searchBox" type="text" placeholder="🔍 ابحثي باسم الطالب أو اسم الدورة..."
     class="flex-1 min-w-[200px] rounded-xl px-4 py-3 text-sm text-white" oninput="renderAll()">
 </div>
 
@@ -156,7 +156,7 @@ function renderNewCerts() {
       <div>
         <span class="text-white font-bold">${escapeHtmlLocal(c.studentName || 'بدون اسم')}</span>
         <span class="text-gray-400 block mt-0.5">🎓 ${escapeHtmlLocal(c.courseName || '')}</span>
-        <span class="text-gray-500 text-[10px] block mt-0.5">${escapeHtmlLocal(c.completionDate || '')} ${c.branch ? '· ' + escapeHtmlLocal(c.branch) : ''}</span>
+        <span class="text-gray-500 text-[10px] block mt-0.5">${escapeHtmlLocal(formatDateDMY(c.completionDate))} ${c.branch ? '· ' + escapeHtmlLocal(c.branch) : ''}</span>
         <span class="gold-accent text-[10px] font-mono block mt-0.5">ID: ${c.id}</span>
       </div>
       <div class="flex gap-1.5 shrink-0 flex-wrap justify-end">
@@ -185,7 +185,7 @@ function renderLegacyCerts() {
       <div>
         <span class="text-white font-bold">${escapeHtmlLocal(c.studentName || 'بدون اسم')}</span>
         <span class="text-gray-400 block mt-0.5">📜 ${escapeHtmlLocal(c.courseName || '')}</span>
-        <span class="text-gray-500 text-[10px] block mt-0.5">رقم الطالب: ${escapeHtmlLocal(c.studentNumber || '')} ${c.completionDate ? '· ' + escapeHtmlLocal(c.completionDate) : ''} ${c.branch ? '· ' + escapeHtmlLocal(c.branch) : ''}</span>
+        <span class="text-gray-500 text-[10px] block mt-0.5">رقم الطالب: ${escapeHtmlLocal(c.studentNumber || '')} ${c.completionDate ? '· ' + escapeHtmlLocal(formatDateDMY(c.completionDate)) : ''} ${c.branch ? '· ' + escapeHtmlLocal(c.branch) : ''}</span>
       </div>
       <div class="flex gap-1.5 shrink-0 flex-wrap justify-end">
         <button onclick="downloadLegacyCertificateQR('${c.id}')" class="text-[10px] font-bold px-2.5 py-1.5 rounded-lg bg-amber-500/20 text-amber-300">🔗 QR</button>
@@ -200,6 +200,16 @@ function escapeHtmlLocal(value) {
   const div = document.createElement('div');
   div.textContent = String(value ?? '');
   return div.innerHTML;
+}
+
+function formatDateDMY(dateStr) {
+  if (!dateStr) return '';
+  const datePart = String(dateStr).slice(0, 10);
+  const parts = datePart.split('-');
+  if (parts.length !== 3) return dateStr;
+  const [y, m, d] = parts;
+  if (!y || !m || !d) return dateStr;
+  return `${d}/${m}/${y}`;
 }
 
 let activeEditNewCertId = null;
@@ -279,7 +289,7 @@ async function submitEditLegacyCert() {
     await loadAll();
   } catch (err) {
     if (err && err.message === 'DUPLICATE') {
-      await customAlert('توجد شهادة قديمة أخرى بنفس البيانات الجديدة (الاسم ورقم الطالب واسم الدورة) — عدّل بيانات لا تتطابق مع شهادة موجودة أصلاً.');
+      await customAlert('توجد شهادة قديمة أخرى بنفس البيانات الجديدة (الاسم ورقم الطالب واسم الدورة) — عدّلي بيانات لا تتطابق مع شهادة موجودة أصلاً.');
     } else {
       console.error('submitEditLegacyCert error:', err);
       await customAlert('حدث خطأ أثناء الحفظ، يرجى المحاولة مرة أخرى.');
