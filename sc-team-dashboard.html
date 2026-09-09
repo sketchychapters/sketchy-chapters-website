@@ -830,7 +830,7 @@ function renderStudents() {
           const noteHtml = en.adminNote ? `<p class="text-blue-300 text-[11px] mt-1">📝 ${en.adminNote}</p>` : '';
           const scheduleHtml = (en.startDate || en.endDate) ? `<p class="text-teal-300 text-[11px] mt-1">📅 ${en.startDate || '?'} → ${en.endDate || '?'}</p>` : '';
           const enrollVerifyCode = en.status === 'completed' ? safeGetCertCode(s.uid, en.courseName) : null;
-          const certIdHtml = en.status === 'completed' ? `<p class="gold-accent text-[10px] font-mono mt-1">${enrollVerifyCode ? 'ID: ' + enrollVerifyCode : 'ID: — (بيصدر تلقائياً بأقرب تسجيل دخول)'}</p>` : '';
+          const certIdHtml = en.status === 'completed' ? `<p class="gold-accent text-[10px] font-mono mt-1">${enrollVerifyCode ? 'ID: ' + enrollVerifyCode : 'ID: — (يصدر تلقائياً عند أقرب تسجيل دخول)'}</p>` : '';
           return `
           <div class="flex items-center justify-between bg-black/30 rounded-xl px-3 py-2 text-xs gap-2">
             <div>
