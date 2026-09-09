@@ -104,6 +104,21 @@
     class="w-full rounded-xl px-4 py-2.5 text-sm text-white">
 </div>
 
+<div class="glass-card rounded-2xl p-5 mb-6">
+  <p class="text-white font-bold text-sm mb-1">📜 إضافة شهادة قديمة (طالب بدون حساب)</p>
+  <p class="text-gray-400 text-xs mb-3">لطلاب حصلوا على شهادتهم قبل وجود حساب لهم في النظام. بعد الإضافة، يستطيع الطالب التحقق من شهادته عبر صفحة التحقق العامة باستخدام الاسم ورقم الطالب واسم الدورة، دون الحاجة لأي رمز.</p>
+  <button onclick="openLegacyCertModal()" class="bg-gold text-black font-bold px-5 py-2.5 rounded-xl text-xs">إضافة شهادة قديمة</button>
+</div>
+
+<!-- All certificates, across every student — opens its own page -->
+<a href="certificates-list.html" class="glass-card rounded-2xl p-5 mb-6 flex items-center justify-between hover:bg-amber-500/5">
+  <div>
+    <p class="text-white font-bold text-sm mb-1">📋 كل الشهادات</p>
+    <p class="text-gray-400 text-xs">افتحي صفحة كل الشهادات (الجديدة والقديمة) بمكان واحد، للتعديل أو تنزيل QR لأي وحدة.</p>
+  </div>
+  <i class="fa-solid fa-arrow-left gold-accent"></i>
+</a>
+
 <!-- Search + Filter -->
 <div class="flex gap-3 mb-6 flex-wrap">
   <input id="searchBox" type="text" placeholder="🔍 Search by name, ID, email, or course..."
@@ -199,6 +214,34 @@
   </div>
 </div>
 
+<!-- Add legacy (no-account) certificate modal -->
+<div id="legacyCertModal" class="hidden fixed inset-0 bg-black/80 z-[60] flex items-center justify-center px-6">
+  <div class="glass-card bg-[#121216] border border-amber-500/40 rounded-3xl p-8 max-w-sm w-full">
+    <h3 class="text-white font-black text-lg mb-1">📜 إضافة شهادة قديمة</h3>
+    <p class="text-gray-400 text-xs mb-5">للطلاب الذين ليس لديهم حساب في النظام. يرجى إدخال البيانات كما هي مكتوبة على الشهادة تماماً.</p>
+
+    <label class="text-xs text-gray-400 block mb-1">الاسم كما هو مكتوب على الشهادة</label>
+    <input id="legacyCertName" type="text" class="w-full rounded-xl px-4 py-2.5 text-sm text-white mb-4">
+
+    <label class="text-xs text-gray-400 block mb-1">رقم الطالب القديم</label>
+    <input id="legacyCertStudentNumber" type="text" class="w-full rounded-xl px-4 py-2.5 text-sm text-white mb-4">
+
+    <label class="text-xs text-gray-400 block mb-1">اسم الدورة</label>
+    <input id="legacyCertCourseName" type="text" class="w-full rounded-xl px-4 py-2.5 text-sm text-white mb-4">
+
+    <label class="text-xs text-gray-400 block mb-1">تاريخ الإتمام (اختياري)</label>
+    <input id="legacyCertDate" type="date" class="w-full rounded-xl px-4 py-2.5 text-sm text-white mb-4">
+
+    <label class="text-xs text-gray-400 block mb-1">الفرع (اختياري)</label>
+    <input id="legacyCertBranch" type="text" placeholder="Sketchy Chapters" class="w-full rounded-xl px-4 py-2.5 text-sm text-white mb-6">
+
+    <div class="flex gap-3">
+      <button onclick="submitLegacyCertificate()" id="legacyCertSubmitBtn" class="flex-1 bg-gold text-black font-bold py-2.5 rounded-xl text-xs">إضافة</button>
+      <button onclick="closeLegacyCertModal()" class="flex-1 glass-card text-gray-400 border border-gray-700 py-2.5 rounded-xl text-xs">إلغاء</button>
+    </div>
+  </div>
+</div>
+
 <!-- Add library item modal -->
 <div id="libraryModal" class="hidden fixed inset-0 bg-black/80 z-[60] flex items-center justify-center px-6">
   <div class="glass-card bg-[#121216] border border-amber-500/40 rounded-3xl p-8 max-w-sm w-full">
@@ -225,12 +268,14 @@
     <p id="discountModalStudentName" class="text-gray-400 text-xs mb-5"></p>
 
     <label class="text-xs text-gray-400 block mb-1">Course Name</label>
-    <input id="discountCourseName" type="text" placeholder="e.g. Revit Architecture (or * for all courses)" class="w-full rounded-xl px-4 py-2.5 text-sm text-white mb-4">
+    <select id="discountCourseName" class="w-full rounded-xl px-4 py-2.5 text-sm text-white mb-4">
+      <option value="*">🌐 All Courses</option>
+    </select>
 
     <label class="text-xs text-gray-400 block mb-1">Discount %</label>
     <input id="discountPercent" type="number" min="1" max="100" value="10" class="w-full rounded-xl px-4 py-2.5 text-sm text-white mb-4">
 
-    <p class="text-amber-300 text-[10px] mb-4">⚠️ Applies automatically when they add this course to their cart — takes the best discount between this and their level discount. The student gets notified right away. Use "*" as the course name to apply it to any course.</p>
+    <p class="text-amber-300 text-[10px] mb-4">⚠️ Applies automatically when they add this course to their cart — takes the best discount between this and their level discount. The student gets notified right away. Pick "All Courses" to apply it to any course.</p>
 
     <div class="flex gap-3 mb-5">
       <button onclick="submitAddDiscount()" class="flex-1 bg-gold text-black font-bold py-2.5 rounded-xl text-xs">Add Discount</button>
@@ -400,6 +445,7 @@
 
 <script src="firebase-init.js"></script>
 <script src="https://unpkg.com/qrcode@1.5.4/build/qrcode.min.js"></script>
+<script src="js/legacy-certificates.js"></script>
 <script src="js/certificates.js"></script>
 <script>
 requireAdmin();
@@ -414,9 +460,13 @@ auth.onAuthStateChanged(async (user) => {
   allStudents = await getAllStudents();
   computeStats();
   populateCountryFilter();
+  await loadCertificateCodeMap();
   renderStudents();
   renderBirthdaysSection();
-  backfillAllCertificateVerifications();
+  backfillAllCertificateVerifications().then(async () => {
+    await loadCertificateCodeMap();
+    renderStudents();
+  });
 });
 
 function populateCountryFilter() {
@@ -756,6 +806,8 @@ function renderStudents() {
           const statusTag = en.status === 'pending' ? '⏳ Pending' : (en.status === 'upcoming' ? '✓ Confirmed' : '');
           const noteHtml = en.adminNote ? `<p class="text-blue-300 text-[11px] mt-1">📝 ${en.adminNote}</p>` : '';
           const scheduleHtml = (en.startDate || en.endDate) ? `<p class="text-teal-300 text-[11px] mt-1">📅 ${en.startDate || '?'} → ${en.endDate || '?'}</p>` : '';
+          const enrollVerifyCode = en.status === 'completed' ? getCachedCertificateCode(s.uid, en.courseName) : null;
+          const certIdHtml = en.status === 'completed' ? `<p class="gold-accent text-[10px] font-mono mt-1">${enrollVerifyCode ? 'ID: ' + enrollVerifyCode : 'ID: — (بيصدر تلقائياً بأقرب تسجيل دخول)'}</p>` : '';
           return `
           <div class="flex items-center justify-between bg-black/30 rounded-xl px-3 py-2 text-xs gap-2">
             <div>
@@ -763,6 +815,7 @@ function renderStudents() {
               <span class="text-gray-400 block mt-0.5">${en.type === 'private' ? '👤 Private' : '👥 Group'} · $${en.finalPrice}${en.discountApplied ? ` (${en.discountApplied}% off)` : ''} · +${en.pointsEarned || 0} pts ${statusTag ? '· ' + statusTag : ''}</span>
               ${scheduleHtml}
               ${noteHtml}
+              ${certIdHtml}
             </div>
             <div class="flex gap-1.5 shrink-0 flex-wrap justify-end">${actionsHtml}</div>
           </div>
@@ -796,12 +849,14 @@ function renderStudents() {
           const cid = cert.id || cert.url;
           const certCourseNameSafe = (cert.courseName || '').replace(/'/g, "");
           const certUrlSafe = (cert.url || '').replace(/'/g, "");
+          const certVerifyCode = getCachedCertificateCode(s.uid, cert.courseName);
           return `
           <div class="flex items-center justify-between bg-black/30 rounded-xl px-3 py-2 text-xs gap-2">
             <div>
               <span class="text-white font-bold">🎓 ${cert.courseName || '(no course name)'}</span>
               <a href="${cert.url || '#'}" target="_blank" class="text-emerald-400 block mt-0.5 underline break-all">${cert.url || ''}</a>
               <span class="text-gray-500 text-[10px] block mt-0.5">${cert.dateIssued ? new Date(cert.dateIssued).toLocaleDateString() : ''}</span>
+              <span class="gold-accent text-[10px] font-mono block mt-0.5">${certVerifyCode ? 'ID: ' + certVerifyCode : 'ID: — (اضغطي 🔗 QR لتوليده)'}</span>
             </div>
             <div class="flex gap-1.5 shrink-0">
               <button onclick="generateCertificateQR('${s.uid}', '${(s.name || '').replace(/'/g, "")}', '${certCourseNameSafe}')"
@@ -1275,6 +1330,47 @@ async function submitAddCertificate() {
   }
 }
 
+function openLegacyCertModal() {
+  document.getElementById('legacyCertName').value = '';
+  document.getElementById('legacyCertStudentNumber').value = '';
+  document.getElementById('legacyCertCourseName').value = '';
+  document.getElementById('legacyCertDate').value = '';
+  document.getElementById('legacyCertBranch').value = '';
+  document.getElementById('legacyCertModal').classList.remove('hidden');
+  document.getElementById('legacyCertModal').classList.add('flex');
+}
+
+function closeLegacyCertModal() {
+  document.getElementById('legacyCertModal').classList.remove('flex');
+  document.getElementById('legacyCertModal').classList.add('hidden');
+}
+
+async function submitLegacyCertificate() {
+  const name = document.getElementById('legacyCertName').value.trim();
+  const studentNumber = document.getElementById('legacyCertStudentNumber').value.trim();
+  const courseName = document.getElementById('legacyCertCourseName').value.trim();
+  const completionDate = document.getElementById('legacyCertDate').value;
+  const branch = document.getElementById('legacyCertBranch').value.trim();
+
+  if (!name || !studentNumber || !courseName) {
+    await customAlert('يرجى تعبئة الاسم ورقم الطالب واسم الدورة على الأقل.');
+    return;
+  }
+
+  try {
+    const result = await addLegacyCertificate(name, studentNumber, courseName, completionDate, branch);
+    closeLegacyCertModal();
+    if (result.alreadyExisted) {
+      await customAlert('توجد شهادة مطابقة لهذه البيانات مسبقاً، ويمكن للطالب التحقق منها الآن على صفحة التحقق.');
+    } else {
+      await customAlert('تمت إضافة الشهادة بنجاح. يمكن للطالب الآن التحقق منها على صفحة التحقق باستخدام الاسم نفسه ورقم الطالب نفسه واسم الدورة نفسه، تماماً كما أُدخلت هنا.');
+    }
+  } catch (err) {
+    console.error('submitLegacyCertificate error:', err);
+    await customAlert('حدث خطأ أثناء إضافة الشهادة، يرجى المحاولة مرة أخرى.');
+  }
+}
+
 async function deleteCertificateClick(uid, certId, courseName) {
   if (!(await customConfirm(`Delete the certificate for "${courseName}"? This can't be undone.`))) return;
   await deleteCertificate(uid, certId);
@@ -1330,10 +1426,27 @@ async function deleteLibraryItemClick(uid, itemId, title) {
 // notification so the student actually finds out about it.
 // ==========================================================
 
+function getAllKnownCourseNames() {
+  const names = new Set();
+  allStudents.forEach(s => {
+    (s.enrollments || []).forEach(en => { if (en.courseName) names.add(en.courseName); });
+    (s.certificates || []).forEach(c => { if (c.courseName) names.add(c.courseName); });
+  });
+  return [...names].sort();
+}
+
+function populateDiscountCourseOptions() {
+  const select = document.getElementById('discountCourseName');
+  const courseNames = getAllKnownCourseNames();
+  select.innerHTML = '<option value="*">🌐 All Courses</option>' +
+    courseNames.map(name => `<option value="${name.replace(/"/g, '&quot;')}">${name}</option>`).join('');
+}
+
 function openDiscountModal(uid, name) {
   activeStudentUid = uid;
   document.getElementById('discountModalStudentName').innerText = name;
-  document.getElementById('discountCourseName').value = '';
+  populateDiscountCourseOptions();
+  document.getElementById('discountCourseName').value = '*';
   document.getElementById('discountPercent').value = 10;
   renderDiscountList(uid);
   document.getElementById('discountModal').classList.remove('hidden');
@@ -1385,7 +1498,7 @@ async function submitAddDiscount() {
   allStudents = await getAllStudents();
   renderDiscountList(activeStudentUid);
   renderStudents();
-  document.getElementById('discountCourseName').value = '';
+  document.getElementById('discountCourseName').value = '*';
 }
 
 async function removeDiscountClick(uid, courseName, discountPercent) {
