@@ -22,20 +22,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 
     <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        gold: '#d4af37',
-                        'gold-light': '#f3e5ab',
-                    },
-                    fontFamily: {
-                        cairo: ['Cairo', 'sans-serif'],
-                        inter: ['Inter', 'sans-serif'],
-                    }
-                }
-            }
-        }
+        tailwind.config={theme:{extend:{colors:{gold:"#d4af37","gold-light":"#f3e5ab"},fontFamily:{cairo:["Cairo","sans-serif"],inter:["Inter","sans-serif"]}}}};
     </script>
     <style>
         body {color-scheme:dark; font-family: 'Inter', sans-serif; background-color: #0b0b0e; color: #f3f4f6; transition: font-family 0.3s ease; }
@@ -54,7 +41,7 @@
             <img src="workshop.png" alt="Workshop Logo" class="h-10 md:h-12 w-auto object-contain" onerror="this.style.display='none'; document.getElementById('logo-fallback').style.display='block';">
             <span id="logo-fallback" class="hidden text-xl font-black tracking-wider text-white">SKETCHY <span class="gold-accent">CHAPTERS</span></span>
         </a>
-    
+
         <!-- Desktop Navigation Links -->
         <nav class="hidden md:flex items-center space-x-6 rtl:space-x-reverse text-xs font-bold">
             <a href="index.html" class="text-gray-300 hover:text-amber-400 transition" data-ar="الرئيسية" data-en="Home">Home</a>
@@ -65,7 +52,7 @@
             <!-- Language Switcher Button -->
             <button onclick="toggleLanguage()" id="lang-btn" class="glass-card text-amber-400 border border-amber-500/30 px-3 py-2 rounded-xl text-xs font-bold hover:bg-amber-500/10 transition flex items-center space-x-1.5 rtl:space-x-reverse">
                 <i class="fa-solid fa-globe text-sm"></i>
-                <span id="langBtnText">العربية</span>
+                <span id="langBtnText" class="hidden md:inline">EN</span>
             </button>
 
             <!-- Login / My Account Button (state-aware) -->
@@ -115,7 +102,7 @@
             <span data-ar="تواصل واتساب (Contact Us)" data-en="Contact Us (WhatsApp)">Contact Us (WhatsApp)</span>
         </a>
     </div>
-    
+
     <!-- ================= MAIN CONTENT ================= -->
     <main class="flex-grow container mx-auto px-4 py-12 max-w-6xl mt-16">
         <!-- Title Section -->
@@ -129,7 +116,7 @@
 
         <!-- Courses Grid -->
         <div id="courses" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            
+
 <!-- 1. AutoCAD Card -->
             <div class="glass-card rounded-2xl p-6 flex flex-col justify-between hover:border-amber-500/40 transition group">
                 <div>
@@ -166,18 +153,8 @@
 
 <!-- سكربت حساب نسبة الخصم تلقائياً بناءً على السعر الأصلي 270$ والسعر الحالي -->
 <script>
-  function updateAutoCADCardDiscount() {
-    let originalPrice = 270;
-    let curP = parseFloat(document.getElementById('autocad-card-price')?.innerText);
-    let discEl = document.getElementById('autocad-card-discount');
-
-    if (originalPrice > 0 && curP > 0 && originalPrice > curP && discEl) {
-        let discount = Math.round(((originalPrice - curP) / originalPrice) * 100);
-        discEl.innerText = discount;
-    }
-  }
-  updateAutoCADCardDiscount();
-</script>
+        function updateAutoCADCardDiscount(){let t=270,e=parseFloat(document.getElementById("autocad-card-price")?.innerText),d=document.getElementById("autocad-card-discount");if(e>0&&t>e&&d){let n=Math.round((t-e)/t*100);d.innerText=n}}updateAutoCADCardDiscount();
+    </script>
 
 <!-- 2. Revit Architecture Card -->
             <div class="glass-card rounded-2xl p-6 flex flex-col justify-between hover:border-amber-500/40 transition group">
@@ -215,18 +192,8 @@
 
 <!-- سكربت حساب نسبة الخصم تلقائياً لكارت Revit Architecture -->
 <script>
-  function updateRevit1CardDiscount() {
-    let originalPrice = 270;
-    let curP = parseFloat(document.getElementById('revit1-card-price')?.innerText);
-    let discEl = document.getElementById('revit1-card-discount');
-
-    if (originalPrice > 0 && curP > 0 && originalPrice > curP && discEl) {
-        let discount = Math.round(((originalPrice - curP) / originalPrice) * 100);
-        discEl.innerText = discount;
-    }
-  }
-  updateRevit1CardDiscount();
-</script>
+        function updateRevit1CardDiscount(){let e=270,t=parseFloat(document.getElementById("revit1-card-price")?.innerText),n=document.getElementById("revit1-card-discount");if(t>0&&e>t&&n){let d=Math.round((e-t)/e*100);n.innerText=d}}updateRevit1CardDiscount();
+    </script>
 
 <!-- 3. Revit Architecture Advanced + V-Ray Card -->
             <div class="glass-card rounded-2xl p-6 flex flex-col justify-between hover:border-amber-500/40 transition group">
@@ -264,18 +231,8 @@
 
 <!-- سكربت حساب نسبة الخصم تلقائياً كارت Revit Architecture Advanced + V-Ray -->
 <script>
-  function updateRevit2CardDiscount() {
-    let originalPrice = 270;
-    let curP = parseFloat(document.getElementById('revit2-card-price')?.innerText);
-    let discEl = document.getElementById('revit2-card-discount');
-
-    if (originalPrice > 0 && curP > 0 && originalPrice > curP && discEl) {
-        let discount = Math.round(((originalPrice - curP) / originalPrice) * 100);
-        discEl.innerText = discount;
-    }
-  }
-  updateRevit2CardDiscount();
-</script>
+        function updateRevit2CardDiscount(){let e=270,t=parseFloat(document.getElementById("revit2-card-price")?.innerText),n=document.getElementById("revit2-card-discount");if(t>0&&e>t&&n){let d=Math.round((e-t)/e*100);n.innerText=d}}updateRevit2CardDiscount();
+    </script>
 
 <!-- 4. Photoshop Rendering Card -->
             <div class="glass-card rounded-2xl p-6 flex flex-col justify-between hover:border-amber-500/40 transition group">
@@ -313,18 +270,8 @@
 
 <!-- سكربت حساب نسبة الخصم تلقائياً كارت Photoshop Rendering -->
 <script>
-  function updatePSCardDiscount() {
-    let originalPrice = 120;
-    let curP = parseFloat(document.getElementById('ps-card-price')?.innerText);
-    let discEl = document.getElementById('ps-card-discount');
-
-    if (originalPrice > 0 && curP > 0 && originalPrice > curP && discEl) {
-        let discount = Math.round(((originalPrice - curP) / originalPrice) * 100);
-        discEl.innerText = discount;
-    }
-  }
-  updatePSCardDiscount();
-</script>
+        function updatePSCardDiscount(){let e=120,t=parseFloat(document.getElementById("ps-card-price")?.innerText),n=document.getElementById("ps-card-discount");if(t>0&&e>t&&n){let d=Math.round((e-t)/e*100);n.innerText=d}}updatePSCardDiscount();
+    </script>
 
 <!-- 5. Lumion Card -->
             <div class="glass-card rounded-2xl p-6 flex flex-col justify-between hover:border-amber-500/40 transition group">
@@ -362,18 +309,8 @@
 
 <!-- سكربت حساب نسبة الخصم تلقائياً كارت Lumion -->
 <script>
-  function updateLumionCardDiscount() {
-    let originalPrice = 120;
-    let curP = parseFloat(document.getElementById('lumion-card-price')?.innerText);
-    let discEl = document.getElementById('lumion-card-discount');
-
-    if (originalPrice > 0 && curP > 0 && originalPrice > curP && discEl) {
-        let discount = Math.round(((originalPrice - curP) / originalPrice) * 100);
-        discEl.innerText = discount;
-    }
-  }
-  updateLumionCardDiscount();
-</script>
+        function updateLumionCardDiscount(){let e=120,n=parseFloat(document.getElementById("lumion-card-price")?.innerText),t=document.getElementById("lumion-card-discount");if(n>0&&e>n&&t){let u=Math.round((e-n)/e*100);t.innerText=u}}updateLumionCardDiscount();
+    </script>
 
         </div>
     </main>
@@ -388,7 +325,6 @@
             </div>
             <div class="flex space-x-4 rtl:space-x-reverse">
                 <a href="https://wa.me/96171967714?text=مرحباً، أهتم بالتسجيل والاستفسار عن دورات العمارة" target="_blank" class="hover:text-amber-400 transition"><i class="fa-brands fa-whatsapp text-sm"></i> <span data-ar="واتساب" data-en="WhatsApp">WhatsApp</span></a>
-                <a href="https://forms.gle/ShVDMvXgE9sNeSxz8" target="_blank" class="hover:text-amber-400 transition"><i class="fa-solid fa-file-lines text-sm"></i> <span data-ar="استمارة التسجيل" data-en="Registration Form">Registration Form</span></a>
             </div>
         </div>
     </footer>
@@ -400,7 +336,7 @@
     <div id="autocadModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md hidden p-4">
         <div class="glass-card bg-[#121216] border border-amber-500/40 rounded-3xl max-w-lg w-full p-6 relative max-h-[90vh] overflow-y-auto text-left rtl:text-right ltr:text-left">
             <button onclick="closeModal('autocadModal')" class="absolute top-4 right-4 rtl:left-4 ltr:right-4 text-gray-400 hover:text-white text-xl"><i class="fa-solid fa-xmark"></i></button>
-            
+
             <div class="flex items-center space-x-3 rtl:space-x-reverse mb-4">
                <div class="w-12 h-12 rounded-xl glass-card flex items-center justify-center p-2 border border-amber-500/30">
                     <img src="autocad.png" alt="AutoCAD" class="w-full h-full object-contain">
@@ -425,7 +361,7 @@
                     <div>
                         <span class="text-gray-500 block text-[10px]" data-ar="التكلفة" data-en="Price">Price</span>
                         <strong class="text-amber-400 text-sm">
-                            <span id="modal-price">149</span>$ 
+                            <span id="modal-price">149</span>$
                             <span class="text-[10px] text-emerald-400 font-bold block">
                                 <span id="discount-percent">45</span>% Off
                             </span>
@@ -476,63 +412,15 @@
 
 <!-- سكربت حساب التاريخ ونسبة الحسم تلقائياً -->
 <script>
-  function getFirstMonday(year, month) {
-    let date = new Date(year, month, 1);
-    let day = date.getDay();
-    let diff = (1 - day + 7) % 7;
-    date.setDate(1 + diff);
-    return date;
-  }
-
-  function updateDynamicCourseInfo() {
-    let today = new Date();
-    let year = today.getFullYear();
-    let month = today.getMonth();
-
-    let targetDate = getFirstMonday(year, month);
-
-    if (today > targetDate) {
-      month++;
-      if (month > 11) {
-        month = 0;
-        year++;
-      }
-      targetDate = getFirstMonday(year, month);
-    }
-
-    let dayNum = String(targetDate.getDate()).padStart(2, '0');
-    let monthNum = String(targetDate.getMonth() + 1).padStart(2, '0');
-    let formattedShortDate = `${dayNum}/${monthNum}`;
-
-    let modalDateEl = document.getElementById('modal-course-date');
-    if (modalDateEl) {
-        modalDateEl.innerText = formattedShortDate;
-    }
-
-    let currentPriceEl = document.getElementById('modal-price');
-    let originalPriceEl = document.getElementById('original-price');
-    let discountPercentEl = document.getElementById('discount-percent');
-
-    if (currentPriceEl && originalPriceEl && discountPercentEl) {
-        let currentPrice = parseFloat(currentPriceEl.innerText);
-        let originalPrice = parseFloat(originalPriceEl.innerText);
-
-        if (originalPrice > 0 && originalPrice > currentPrice) {
-            let discount = Math.round(((originalPrice - currentPrice) / originalPrice) * 100);
-            discountPercentEl.innerText = discount;
-        }
-    }
-  }
-
-  updateDynamicCourseInfo();
-</script>
+        function getFirstMonday(e,t){let n=new Date(e,t,1),a=(1-n.getDay()+7)%7;return n.setDate(1+a),n}function updateDynamicCourseInfo(){let e=new Date,t=e.getFullYear(),n=e.getMonth(),a=getFirstMonday(t,n);e>a&&(n++,n>11&&(n=0,t++),a=getFirstMonday(t,n));let r=`${String(a.getDate()).padStart(2,"0")}/${String(a.getMonth()+1).padStart(2,"0")}`,o=document.getElementById("modal-course-date");o&&(o.innerText=r);let d=document.getElementById("modal-price"),i=document.getElementById("original-price"),l=document.getElementById("discount-percent");if(d&&i&&l){let e=parseFloat(d.innerText),t=parseFloat(i.innerText);if(t>0&&t>e){let n=Math.round((t-e)/t*100);l.innerText=n}}}updateDynamicCourseInfo();
+    </script>
 
 
 <!-- 2. Revit Architecture Modal -->
     <div id="revit1Modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md hidden p-4">
         <div class="glass-card bg-[#121216] border border-amber-500/40 rounded-3xl max-w-lg w-full p-6 relative max-h-[90vh] overflow-y-auto text-left rtl:text-right ltr:text-left">
             <button onclick="closeModal('revit1Modal')" class="absolute top-4 right-4 rtl:left-4 ltr:right-4 text-gray-400 hover:text-white text-xl"><i class="fa-solid fa-xmark"></i></button>
-            
+
             <div class="flex items-center space-x-3 rtl:space-x-reverse mb-4">
                <div class="w-12 h-12 rounded-xl glass-card flex items-center justify-center p-2 border border-amber-500/30">
                     <img src="revit.png" alt="Revit" class="w-full h-full object-contain">
@@ -557,7 +445,7 @@
                     <div>
                         <span class="text-gray-500 block text-[10px]" data-ar="التكلفة" data-en="Price">Price</span>
                         <strong class="text-amber-400 text-sm">
-                            <span id="revit1-price">149</span>$ 
+                            <span id="revit1-price">149</span>$
                             <span class="text-[10px] text-emerald-400 font-bold block">
                                 <span id="revit1-discount">45</span>% Off
                             </span>
@@ -603,52 +491,15 @@
 
 <!-- سكربت التحديث -->
 <script>
-  function updateRevit1Info() {
-    let today = new Date();
-    let year = today.getFullYear();
-    let month = today.getMonth();
+        function updateRevit1Info(){let e=new Date,t=e.getFullYear(),n=e.getMonth(),a=new Date(t,n,1),i=a.getDay(),r=(1-i+7)%7;a.setDate(1+r),e>a&&(n++,n>11&&(n=0,t++),a=new Date(t,n,1),i=a.getDay(),r=(1-i+7)%7,a.setDate(1+r));let d=String(a.getDate()).padStart(2,"0"),o=String(a.getMonth()+1).padStart(2,"0"),g=document.getElementById("revit1-date");g&&(g.innerText=`${d}/${o}`);let l=parseFloat(document.getElementById("revit1-price")?.innerText),u=parseFloat(document.getElementById("revit1-original")?.innerText),m=document.getElementById("revit1-discount");if(u>0&&u>l&&m){let e=Math.round((u-l)/u*100);m.innerText=e}}updateRevit1Info();
+    </script>
 
-    let targetDate = new Date(year, month, 1);
-    let day = targetDate.getDay();
-    let diff = (1 - day + 7) % 7;
-    targetDate.setDate(1 + diff);
 
-    if (today > targetDate) {
-      month++;
-      if (month > 11) { month = 0; year++; }
-      targetDate = new Date(year, month, 1);
-      day = targetDate.getDay();
-      diff = (1 - day + 7) % 7;
-      targetDate.setDate(1 + diff);
-    }
-
-    let dayNum = String(targetDate.getDate()).padStart(2, '0');
-    let monthNum = String(targetDate.getMonth() + 1).padStart(2, '0');
-    
-    let dateEl = document.getElementById('revit1-date');
-    if (dateEl) {
-        dateEl.innerText = `${dayNum}/${monthNum}`;
-    }
-
-    let curP = parseFloat(document.getElementById('revit1-price')?.innerText);
-    let orgP = parseFloat(document.getElementById('revit1-original')?.innerText);
-    let discEl = document.getElementById('revit1-discount');
-
-    if (orgP > 0 && orgP > curP && discEl) {
-        let discount = Math.round(((orgP - curP) / orgP) * 100);
-        discEl.innerText = discount;
-    }
-  }
-
-  updateRevit1Info();
-</script>
-            
-    
 <!-- 3. Revit Architecture Advanced + V-Ray Modal -->
     <div id="revit2Modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md hidden p-4">
         <div class="glass-card bg-[#121216] border border-amber-500/40 rounded-3xl max-w-lg w-full p-6 relative max-h-[90vh] overflow-y-auto text-left rtl:text-right ltr:text-left">
             <button onclick="closeModal('revit2Modal')" class="absolute top-4 right-4 rtl:left-4 ltr:right-4 text-gray-400 hover:text-white text-xl"><i class="fa-solid fa-xmark"></i></button>
-            
+
             <div class="flex items-center space-x-3 rtl:space-x-reverse mb-4">
                <div class="w-12 h-12 rounded-xl glass-card flex items-center justify-center p-2 border border-amber-500/30">
                     <img src="revit.png" alt="Revit + Vray" class="w-full h-full object-contain">
@@ -668,7 +519,7 @@
                     <div>
                         <span class="text-gray-500 block text-[10px]" data-ar="التكلفة" data-en="Price">Price</span>
                         <strong class="text-amber-400 text-sm">
-                            <span id="revit2-price">149</span>$ 
+                            <span id="revit2-price">149</span>$
                             <span class="text-[10px] text-emerald-400 font-bold block">
                                 <span id="revit2-discount">45</span>% Off
                             </span>
@@ -714,52 +565,15 @@
 
 <!-- سكربت تحديث تاريخ أول اثنين ونسبة الخصم لهذا المودال -->
 <script>
-  function updateRevit2Info() {
-    let today = new Date();
-    let year = today.getFullYear();
-    let month = today.getMonth();
-
-    let targetDate = new Date(year, month, 1);
-    let day = targetDate.getDay();
-    let diff = (1 - day + 7) % 7;
-    targetDate.setDate(1 + diff);
-
-    if (today > targetDate) {
-      month++;
-      if (month > 11) { month = 0; year++; }
-      targetDate = new Date(year, month, 1);
-      day = targetDate.getDay();
-      diff = (1 - day + 7) % 7;
-      targetDate.setDate(1 + diff);
-    }
-
-    let dayNum = String(targetDate.getDate()).padStart(2, '0');
-    let monthNum = String(targetDate.getMonth() + 1).padStart(2, '0');
-    
-    let dateEl = document.getElementById('revit2-date');
-    if (dateEl) {
-        dateEl.innerText = `${dayNum}/${monthNum}`;
-    }
-
-    let curP = parseFloat(document.getElementById('revit2-price')?.innerText);
-    let orgP = parseFloat(document.getElementById('revit2-original')?.innerText);
-    let discEl = document.getElementById('revit2-discount');
-
-    if (orgP > 0 && orgP > curP && discEl) {
-        let discount = Math.round(((orgP - curP) / orgP) * 100);
-        discEl.innerText = discount;
-    }
-  }
-
-  updateRevit2Info();
-</script>
+        function updateRevit2Info(){let e=new Date,t=e.getFullYear(),n=e.getMonth(),a=new Date(t,n,1),i=a.getDay(),r=(1-i+7)%7;a.setDate(1+r),e>a&&(n++,n>11&&(n=0,t++),a=new Date(t,n,1),i=a.getDay(),r=(1-i+7)%7,a.setDate(1+r));let d=String(a.getDate()).padStart(2,"0"),o=String(a.getMonth()+1).padStart(2,"0"),g=document.getElementById("revit2-date");g&&(g.innerText=`${d}/${o}`);let l=parseFloat(document.getElementById("revit2-price")?.innerText),u=parseFloat(document.getElementById("revit2-original")?.innerText),m=document.getElementById("revit2-discount");if(u>0&&u>l&&m){let e=Math.round((u-l)/u*100);m.innerText=e}}updateRevit2Info();
+    </script>
 
 
 <!-- 4. Photoshop Rendering Modal -->
     <div id="psModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md hidden p-4">
         <div class="glass-card bg-[#121216] border border-amber-500/40 rounded-3xl max-w-lg w-full p-6 relative max-h-[90vh] overflow-y-auto text-left rtl:text-right ltr:text-left">
             <button onclick="closeModal('psModal')" class="absolute top-4 right-4 rtl:left-4 ltr:right-4 text-gray-400 hover:text-white text-xl"><i class="fa-solid fa-xmark"></i></button>
-            
+
             <div class="flex items-center space-x-3 rtl:space-x-reverse mb-4">
                <div class="w-12 h-12 rounded-xl glass-card flex items-center justify-center p-2 border border-amber-500/30">
                     <img src="photoshop.png" alt="Photoshop" class="w-full h-full object-contain">
@@ -779,7 +593,7 @@
                     <div>
                         <span class="text-gray-500 block text-[10px]" data-ar="التكلفة" data-en="Price">Price</span>
                         <strong class="text-amber-400 text-sm">
-                            <span id="ps-price">99</span>$ 
+                            <span id="ps-price">99</span>$
                             <span class="text-[10px] text-emerald-400 font-bold block">
                                 <span id="ps-discount">17.5</span>% Off
                             </span>
@@ -791,7 +605,7 @@
                         <strong class="text-amber-400 text-sm" id="ps-date">جاري التحميل...</strong>
                     </div>
                </div>
-    
+
                <div>
                     <h4 class="font-bold text-white mb-1.5 flex items-center"><i class="fa-solid fa-circle-info gold-accent mr-1.5 rtl:ml-1.5 ltr:mr-1.5"></i> <span data-ar="نظرة عامة عن البرنامج:" data-en="Program Overview:">Program Overview:</span></h4>
                     <p class="text-gray-400 font-light leading-relaxed" data-ar="يعتبر برنامج أدوبي فوتوشوب (Adobe Photoshop) الأداة الأقوى لمعالجة الصور والإخراج المعماري البصري. في هذه الدورة ستتعلم كيفية تحويل المساقط والواجهات والقطاعات الهندسية الخام إلى لوحات فنية تنبض بالحياة، وإنشاء المخططات التوضيحية (Diagrams)، وتصميم لوحات العرض التقديمية الاحترافية (Presentation Boards) للمشاريع الأكاديمية والمهنية." data-en="Adobe Photoshop is the most powerful tool for image editing and architectural visual presentation. In this course, you will learn how to transform raw engineering floor plans, elevations, and sections into vibrant artistic plates, create architectural diagrams, and design professional presentation boards for academic and professional projects.">
@@ -825,52 +639,15 @@
 
 <!-- سكربت تحديث تاريخ أول اثنين ونسبة الخصم لهذا المودال -->
 <script>
-  function updatePsInfo() {
-    let today = new Date();
-    let year = today.getFullYear();
-    let month = today.getMonth();
-
-    let targetDate = new Date(year, month, 1);
-    let day = targetDate.getDay();
-    let diff = (1 - day + 7) % 7;
-    targetDate.setDate(1 + diff);
-
-    if (today > targetDate) {
-      month++;
-      if (month > 11) { month = 0; year++; }
-      targetDate = new Date(year, month, 1);
-      day = targetDate.getDay();
-      diff = (1 - day + 7) % 7;
-      targetDate.setDate(1 + diff);
-    }
-
-    let dayNum = String(targetDate.getDate()).padStart(2, '0');
-    let monthNum = String(targetDate.getMonth() + 1).padStart(2, '0');
-    
-    let dateEl = document.getElementById('ps-date');
-    if (dateEl) {
-        dateEl.innerText = `${dayNum}/${monthNum}`;
-    }
-
-    let curP = parseFloat(document.getElementById('ps-price')?.innerText);
-    let orgP = parseFloat(document.getElementById('ps-original')?.innerText);
-    let discEl = document.getElementById('ps-discount');
-
-    if (orgP > 0 && orgP > curP && discEl) {
-        let discount = Math.round(((orgP - curP) / orgP) * 100);
-        discEl.innerText = discount;
-    }
-  }
-
-  updatePsInfo();
-</script>
+        function updatePsInfo(){let e=new Date,t=e.getFullYear(),n=e.getMonth(),a=new Date(t,n,1),d=a.getDay(),o=(1-d+7)%7;a.setDate(1+o),e>a&&(n++,n>11&&(n=0,t++),a=new Date(t,n,1),d=a.getDay(),o=(1-d+7)%7,a.setDate(1+o));let r=String(a.getDate()).padStart(2,"0"),g=String(a.getMonth()+1).padStart(2,"0"),l=document.getElementById("ps-date");l&&(l.innerText=`${r}/${g}`);let i=parseFloat(document.getElementById("ps-price")?.innerText),p=parseFloat(document.getElementById("ps-original")?.innerText),s=document.getElementById("ps-discount");if(p>0&&p>i&&s){let e=Math.round((p-i)/p*100);s.innerText=e}}updatePsInfo();
+    </script>
 
 
 <!-- 5. Lumion Modal -->
     <div id="lumionModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md hidden p-4">
         <div class="glass-card bg-[#121216] border border-amber-500/40 rounded-3xl max-w-lg w-full p-6 relative max-h-[90vh] overflow-y-auto text-left rtl:text-right ltr:text-left">
             <button onclick="closeModal('lumionModal')" class="absolute top-4 right-4 rtl:left-4 ltr:right-4 text-gray-400 hover:text-white text-xl"><i class="fa-solid fa-xmark"></i></button>
-            
+
             <div class="flex items-center space-x-3 rtl:space-x-reverse mb-4">
                <div class="w-12 h-12 rounded-xl glass-card flex items-center justify-center p-2 border border-amber-500/30">
                     <img src="lumion.png" alt="Lumion" class="w-full h-full object-contain">
@@ -890,7 +667,7 @@
                     <div>
                         <span class="text-gray-500 block text-[10px]" data-ar="التكلفة" data-en="Price">Price</span>
                         <strong class="text-amber-400 text-sm">
-                            <span id="lumion-price">89</span>$ 
+                            <span id="lumion-price">89</span>$
                             <span class="text-[10px] text-emerald-400 font-bold block">
                                 <span id="lumion-discount">25.5</span>% Off
                             </span>
@@ -936,45 +713,8 @@
 
 <!-- سكربت تحديث تاريخ أول اثنين ونسبة الخصم لهذا المودال -->
 <script>
-  function updateLumionInfo() {
-    let today = new Date();
-    let year = today.getFullYear();
-    let month = today.getMonth();
-
-    let targetDate = new Date(year, month, 1);
-    let day = targetDate.getDay();
-    let diff = (1 - day + 7) % 7;
-    targetDate.setDate(1 + diff);
-
-    if (today > targetDate) {
-      month++;
-      if (month > 11) { month = 0; year++; }
-      targetDate = new Date(year, month, 1);
-      day = targetDate.getDay();
-      diff = (1 - day + 7) % 7;
-      targetDate.setDate(1 + diff);
-    }
-
-    let dayNum = String(targetDate.getDate()).padStart(2, '0');
-    let monthNum = String(targetDate.getMonth() + 1).padStart(2, '0');
-    
-    let dateEl = document.getElementById('lumion-date');
-    if (dateEl) {
-        dateEl.innerText = `${dayNum}/${monthNum}`;
-    }
-
-    let curP = parseFloat(document.getElementById('lumion-price')?.innerText);
-    let orgP = parseFloat(document.getElementById('lumion-original')?.innerText);
-    let discEl = document.getElementById('lumion-discount');
-
-    if (orgP > 0 && orgP > curP && discEl) {
-        let discount = Math.round(((orgP - curP) / orgP) * 100);
-        discEl.innerText = discount;
-    }
-  }
-
-  updateLumionInfo();
-</script>
+        function updateLumionInfo(){let e=new Date,t=e.getFullYear(),n=e.getMonth(),a=new Date(t,n,1),o=a.getDay(),i=(1-o+7)%7;a.setDate(1+i),e>a&&(n++,n>11&&(n=0,t++),a=new Date(t,n,1),o=a.getDay(),i=(1-o+7)%7,a.setDate(1+i));let l=String(a.getDate()).padStart(2,"0"),u=String(a.getMonth()+1).padStart(2,"0"),d=document.getElementById("lumion-date");d&&(d.innerText=`${l}/${u}`);let m=parseFloat(document.getElementById("lumion-price")?.innerText),r=parseFloat(document.getElementById("lumion-original")?.innerText),g=document.getElementById("lumion-discount");if(r>0&&r>m&&g){let e=Math.round((r-m)/r*100);g.innerText=e}}updateLumionInfo();
+    </script>
 
     <!-- ================= BOOKING MODAL (Group / Private) ================= -->
     <div id="bookingModal" class="hidden fixed inset-0 bg-black/80 z-[60] flex items-center justify-center px-6">
@@ -1017,77 +757,7 @@
     </div>
 
     <script>
-        function detectDefaultLang() {
-            const saved = localStorage.getItem('sketchy_lang');
-            if (saved === 'ar' || saved === 'en') return saved;
-            const gulfTZ = ['Asia/Riyadh', 'Asia/Dubai', 'Asia/Kuwait', 'Asia/Qatar', 'Asia/Bahrain', 'Asia/Muscat'];
-            try {
-                const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
-                if (gulfTZ.includes(tz)) return 'ar';
-            } catch (e) {}
-            return 'en';
-        }
-
-        function toggleLanguage() {
-            const htmlRoot = document.getElementById('htmlRoot');
-            const bodyEl = document.getElementById('bodyEl');
-            const langBtnText = document.getElementById('langBtnText');
-            
-            if (htmlRoot.getAttribute('dir') === 'ltr') {
-                htmlRoot.setAttribute('dir', 'rtl');
-                htmlRoot.setAttribute('lang', 'ar');
-                bodyEl.classList.remove('en-lang');
-                bodyEl.classList.add('ar-lang');
-                langBtnText.innerText = 'English';
-                localStorage.setItem('sketchy_lang', 'ar');
-                
-                document.querySelectorAll('[data-ar]').forEach(el => {
-                    if (el.hasAttribute('data-ar')) {
-                        el.innerText = el.getAttribute('data-ar');
-                    }
-                });
-            } else {
-                htmlRoot.setAttribute('dir', 'ltr');
-                htmlRoot.setAttribute('lang', 'en');
-                bodyEl.classList.remove('ar-lang');
-                bodyEl.classList.add('en-lang');
-                langBtnText.innerText = 'العربية';
-                localStorage.setItem('sketchy_lang', 'en');
-                
-                document.querySelectorAll('[data-en]').forEach(el => {
-                    if (el.hasAttribute('data-en')) {
-                        el.innerText = el.getAttribute('data-en');
-                    }
-                });
-            }
-        }
-
-        if (detectDefaultLang() === 'ar') { toggleLanguage(); }
-
-        function toggleMobileMenu() {
-            const mobileMenu = document.getElementById('mobileMenu');
-            if (mobileMenu.classList.contains('hidden')) {
-                mobileMenu.classList.remove('hidden');
-                mobileMenu.classList.add('flex');
-            } else {
-                mobileMenu.classList.remove('flex');
-                mobileMenu.classList.add('hidden');
-            }
-        }
-
-        function openModal(modalId) {
-            const modal = document.getElementById(modalId);
-            if (modal) {
-                modal.classList.remove('hidden');
-            }
-        }
-
-        function closeModal(modalId) {
-            const modal = document.getElementById(modalId);
-            if (modal) {
-                modal.classList.add('hidden');
-            }
-        }
+        function detectDefaultLang(){const t=localStorage.getItem("sketchy_lang");if("ar"===t||"en"===t)return t;const e=["Asia/Riyadh","Asia/Dubai","Asia/Kuwait","Asia/Qatar","Asia/Bahrain","Asia/Muscat"];try{const t=Intl.DateTimeFormat().resolvedOptions().timeZone;if(e.includes(t))return"ar"}catch(t){}return"en"}function toggleLanguage(){const t=document.getElementById("htmlRoot"),e=document.getElementById("bodyEl"),a=document.getElementById("langBtnText");"ltr"===t.getAttribute("dir")?(t.setAttribute("dir","rtl"),t.setAttribute("lang","ar"),e.classList.remove("en-lang"),e.classList.add("ar-lang"),a.innerText="AR",localStorage.setItem("sketchy_lang","ar"),document.querySelectorAll("[data-ar]").forEach(t=>{t.hasAttribute("data-ar")&&(t.innerText=t.getAttribute("data-ar"))})):(t.setAttribute("dir","ltr"),t.setAttribute("lang","en"),e.classList.remove("ar-lang"),e.classList.add("en-lang"),a.innerText="EN",localStorage.setItem("sketchy_lang","en"),document.querySelectorAll("[data-en]").forEach(t=>{t.hasAttribute("data-en")&&(t.innerText=t.getAttribute("data-en"))}))}function toggleMobileMenu(){const t=document.getElementById("mobileMenu");t.classList.contains("hidden")?(t.classList.remove("hidden"),t.classList.add("flex")):(t.classList.remove("flex"),t.classList.add("hidden"))}function openModal(t){const e=document.getElementById(t);e&&e.classList.remove("hidden")}function closeModal(t){const e=document.getElementById(t);e&&e.classList.add("hidden")}"ar"===detectDefaultLang()&&toggleLanguage();
     </script>
 
     <!-- Firebase account logic + email notifications + booking UI -->
