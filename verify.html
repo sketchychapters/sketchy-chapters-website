@@ -1,8 +1,8 @@
 <!doctype html>
-<html lang="ar" dir="rtl" id="htmlRoot" style="color-scheme: dark;">
+<html lang="ar" dir="rtl" id="htmlRoot" style="color-scheme: only dark;">
 <head>
 <meta charset="UTF-8" />
-<meta name="color-scheme" content="dark">
+<meta name="color-scheme" content="only dark">
 <meta name="theme-color" content="#0b0b0e">
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>التحقق من صحة الشهادة | Sketchy Chapters - Workshop Center</title>
@@ -11,7 +11,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <style>
   :root {
-    color-scheme: dark;
+    color-scheme: only dark;
     --gold: #d4af37;
     --gold-light: #f3e5ab;
     --gold-dark: #aa7c11;
@@ -26,7 +26,7 @@
   body {
     margin: 0;
     min-height: 100vh;
-    color-scheme: dark;
+    color-scheme: only dark;
     background: radial-gradient(circle at 50% 0%, rgba(212, 175, 55, 0.10), transparent 55%), var(--bg);
     color: var(--text);
     font-family: "Cairo", "Inter", sans-serif;
@@ -145,8 +145,75 @@
   }
   select:focus { outline: 2px solid var(--gold); border-color: var(--gold); }
   .phone-row { display: flex; gap: 8px; }
-  .phone-row select { flex: 0 0 108px; }
   .phone-row input[type="text"] { flex: 1 1 0; min-width: 0; }
+  .cc-native-select { display: none; }
+  .cc-picker { position: relative; flex: 0 0 92px; }
+  .cc-button {
+    width: 100%;
+    margin-top: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    padding: 12px 4px;
+    border-radius: 12px;
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    background: rgba(0, 0, 0, 0.35);
+    color: var(--text);
+    font-weight: 600;
+    font-size: 0.85rem;
+    direction: ltr;
+    font-family: inherit;
+    cursor: pointer;
+    transition: border-color 0.2s ease;
+  }
+  .cc-button:hover, .cc-button:focus { outline: 2px solid var(--gold); border-color: var(--gold); filter: none; }
+  .cc-caret { font-size: 0.6rem; color: var(--muted); }
+  .cc-dropdown {
+    position: absolute;
+    top: calc(100% + 6px);
+    inset-inline-start: 0;
+    width: max(230px, 100%);
+    max-width: 82vw;
+    background: #131318;
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    border-radius: 14px;
+    box-shadow: 0 20px 45px -15px rgba(0, 0, 0, 0.6);
+    padding: 8px;
+    z-index: 30;
+    direction: ltr;
+  }
+  input.cc-search {
+    width: 100%;
+    margin-top: 0;
+    padding: 9px 10px;
+    border-radius: 9px;
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    background: rgba(0, 0, 0, 0.35);
+    color: var(--text);
+    font-size: 0.85rem;
+    letter-spacing: normal;
+    text-align: left;
+    direction: ltr;
+    font-family: inherit;
+    margin-bottom: 6px;
+  }
+  input.cc-search:focus { outline: 2px solid var(--gold); border-color: var(--gold); }
+  .cc-list { max-height: 220px; overflow-y: auto; }
+  .cc-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    cursor: pointer;
+    color: var(--text);
+  }
+  .cc-item:hover { background: rgba(212, 175, 55, 0.15); }
+  .cc-item-dial { color: var(--gold-light); font-weight: 600; min-width: 42px; }
+  .cc-item-name { color: var(--muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .cc-empty { padding: 10px; text-align: center; color: var(--muted); font-size: 0.8rem; }
   button {
     width: 100%;
     margin-top: 14px;
@@ -241,7 +308,17 @@
       <input type="text" id="legacyName" autocomplete="off" style="direction: rtl; letter-spacing: normal;" />
       <label for="legacyStudentNumber" style="margin-top: 14px;" data-ar="رقم الهاتف الذي سجّلت فيه (اختر رمز الدولة ثم أدخل الرقم بدون رمز الدولة)" data-en="Phone Number Used at Registration (pick your country code, then enter the number without it)">رقم الهاتف الذي سجّلت فيه (اختر رمز الدولة ثم أدخل الرقم بدون رمز الدولة)</label>
       <div class="phone-row">
-        <select id="legacyCountryCode">
+        <div class="cc-picker" id="ccPicker">
+          <button type="button" id="ccButton" class="cc-button" aria-haspopup="listbox" aria-expanded="false">
+            <span id="ccFlag">🇱🇧</span><span id="ccDial">+961</span><i class="fa-solid fa-chevron-down cc-caret"></i>
+          </button>
+          <div id="ccDropdown" class="cc-dropdown" hidden>
+            <input type="text" id="ccSearch" class="cc-search" placeholder="Search country or code" autocomplete="off" />
+            <div id="ccList" class="cc-list" role="listbox"></div>
+            <div id="ccEmpty" class="cc-empty" hidden>No results</div>
+          </div>
+        </div>
+        <select id="legacyCountryCode" class="cc-native-select" tabindex="-1" aria-hidden="true">
           <option value="961" selected>🇱🇧 +961 — Lebanon</option>
           <option value="93">🇦🇫 +93 — Afghanistan</option>
           <option value="355">🇦🇱 +355 — Albania</option>
@@ -442,6 +519,8 @@
 
     <footer data-ar="يوجد رمز التحقق على الشهادة الأصلية، ويمكن الوصول لهذه الصفحة مباشرة عبر مسح رمز الاستجابة السريعة الموجود عليها. أما الشهادات القديمة فيمكن التحقق منها بإدخال الاسم ورقم الهاتف واسم الدورة." data-en="The verification code appears on the original certificate, and this page can be reached directly by scanning the QR code on it. Older certificates can be verified by entering the name, phone number, and course name.">يوجد رمز التحقق على الشهادة الأصلية، ويمكن الوصول لهذه الصفحة مباشرة عبر مسح رمز الاستجابة السريعة الموجود عليها. أما الشهادات القديمة فيمكن التحقق منها بإدخال الاسم ورقم الهاتف واسم الدورة.</footer>
   </div>
+
+  <script>!function(){var n=[{v:"961",f:"🇱🇧",n:"Lebanon"},{v:"93",f:"🇦🇫",n:"Afghanistan"},{v:"355",f:"🇦🇱",n:"Albania"},{v:"213",f:"🇩🇿",n:"Algeria"},{v:"376",f:"🇦🇩",n:"Andorra"},{v:"244",f:"🇦🇴",n:"Angola"},{v:"54",f:"🇦🇷",n:"Argentina"},{v:"374",f:"🇦🇲",n:"Armenia"},{v:"61",f:"🇦🇺",n:"Australia"},{v:"43",f:"🇦🇹",n:"Austria"},{v:"994",f:"🇦🇿",n:"Azerbaijan"},{v:"1",f:"🇧🇸",n:"Bahamas"},{v:"973",f:"🇧🇭",n:"Bahrain"},{v:"880",f:"🇧🇩",n:"Bangladesh"},{v:"1",f:"🇧🇧",n:"Barbados"},{v:"375",f:"🇧🇾",n:"Belarus"},{v:"32",f:"🇧🇪",n:"Belgium"},{v:"501",f:"🇧🇿",n:"Belize"},{v:"229",f:"🇧🇯",n:"Benin"},{v:"975",f:"🇧🇹",n:"Bhutan"},{v:"591",f:"🇧🇴",n:"Bolivia"},{v:"387",f:"🇧🇦",n:"Bosnia and Herzegovina"},{v:"267",f:"🇧🇼",n:"Botswana"},{v:"55",f:"🇧🇷",n:"Brazil"},{v:"673",f:"🇧🇳",n:"Brunei"},{v:"359",f:"🇧🇬",n:"Bulgaria"},{v:"226",f:"🇧🇫",n:"Burkina Faso"},{v:"257",f:"🇧🇮",n:"Burundi"},{v:"855",f:"🇰🇭",n:"Cambodia"},{v:"237",f:"🇨🇲",n:"Cameroon"},{v:"1",f:"🇨🇦",n:"Canada"},{v:"238",f:"🇨🇻",n:"Cape Verde"},{v:"236",f:"🇨🇫",n:"Central African Republic"},{v:"235",f:"🇹🇩",n:"Chad"},{v:"56",f:"🇨🇱",n:"Chile"},{v:"86",f:"🇨🇳",n:"China"},{v:"57",f:"🇨🇴",n:"Colombia"},{v:"269",f:"🇰🇲",n:"Comoros"},{v:"242",f:"🇨🇬",n:"Congo"},{v:"243",f:"🇨🇩",n:"Congo (DRC)"},{v:"506",f:"🇨🇷",n:"Costa Rica"},{v:"385",f:"🇭🇷",n:"Croatia"},{v:"53",f:"🇨🇺",n:"Cuba"},{v:"357",f:"🇨🇾",n:"Cyprus"},{v:"420",f:"🇨🇿",n:"Czechia"},{v:"45",f:"🇩🇰",n:"Denmark"},{v:"253",f:"🇩🇯",n:"Djibouti"},{v:"1",f:"🇩🇲",n:"Dominica"},{v:"1",f:"🇩🇴",n:"Dominican Republic"},{v:"593",f:"🇪🇨",n:"Ecuador"},{v:"20",f:"🇪🇬",n:"Egypt"},{v:"503",f:"🇸🇻",n:"El Salvador"},{v:"240",f:"🇬🇶",n:"Equatorial Guinea"},{v:"291",f:"🇪🇷",n:"Eritrea"},{v:"372",f:"🇪🇪",n:"Estonia"},{v:"268",f:"🇸🇿",n:"Eswatini"},{v:"251",f:"🇪🇹",n:"Ethiopia"},{v:"679",f:"🇫🇯",n:"Fiji"},{v:"358",f:"🇫🇮",n:"Finland"},{v:"33",f:"🇫🇷",n:"France"},{v:"241",f:"🇬🇦",n:"Gabon"},{v:"220",f:"🇬🇲",n:"Gambia"},{v:"995",f:"🇬🇪",n:"Georgia"},{v:"49",f:"🇩🇪",n:"Germany"},{v:"233",f:"🇬🇭",n:"Ghana"},{v:"30",f:"🇬🇷",n:"Greece"},{v:"1",f:"🇬🇩",n:"Grenada"},{v:"502",f:"🇬🇹",n:"Guatemala"},{v:"224",f:"🇬🇳",n:"Guinea"},{v:"245",f:"🇬🇼",n:"Guinea-Bissau"},{v:"592",f:"🇬🇾",n:"Guyana"},{v:"509",f:"🇭🇹",n:"Haiti"},{v:"504",f:"🇭🇳",n:"Honduras"},{v:"36",f:"🇭🇺",n:"Hungary"},{v:"354",f:"🇮🇸",n:"Iceland"},{v:"91",f:"🇮🇳",n:"India"},{v:"62",f:"🇮🇩",n:"Indonesia"},{v:"98",f:"🇮🇷",n:"Iran"},{v:"964",f:"🇮🇶",n:"Iraq"},{v:"353",f:"🇮🇪",n:"Ireland"},{v:"39",f:"🇮🇹",n:"Italy"},{v:"225",f:"🇨🇮",n:"Ivory Coast"},{v:"1",f:"🇯🇲",n:"Jamaica"},{v:"81",f:"🇯🇵",n:"Japan"},{v:"962",f:"🇯🇴",n:"Jordan"},{v:"7",f:"🇰🇿",n:"Kazakhstan"},{v:"254",f:"🇰🇪",n:"Kenya"},{v:"686",f:"🇰🇮",n:"Kiribati"},{v:"383",f:"🇽🇰",n:"Kosovo"},{v:"965",f:"🇰🇼",n:"Kuwait"},{v:"996",f:"🇰🇬",n:"Kyrgyzstan"},{v:"856",f:"🇱🇦",n:"Laos"},{v:"371",f:"🇱🇻",n:"Latvia"},{v:"266",f:"🇱🇸",n:"Lesotho"},{v:"231",f:"🇱🇷",n:"Liberia"},{v:"218",f:"🇱🇾",n:"Libya"},{v:"423",f:"🇱🇮",n:"Liechtenstein"},{v:"370",f:"🇱🇹",n:"Lithuania"},{v:"352",f:"🇱🇺",n:"Luxembourg"},{v:"261",f:"🇲🇬",n:"Madagascar"},{v:"265",f:"🇲🇼",n:"Malawi"},{v:"60",f:"🇲🇾",n:"Malaysia"},{v:"960",f:"🇲🇻",n:"Maldives"},{v:"223",f:"🇲🇱",n:"Mali"},{v:"356",f:"🇲🇹",n:"Malta"},{v:"222",f:"🇲🇷",n:"Mauritania"},{v:"230",f:"🇲🇺",n:"Mauritius"},{v:"52",f:"🇲🇽",n:"Mexico"},{v:"373",f:"🇲🇩",n:"Moldova"},{v:"377",f:"🇲🇨",n:"Monaco"},{v:"976",f:"🇲🇳",n:"Mongolia"},{v:"382",f:"🇲🇪",n:"Montenegro"},{v:"212",f:"🇲🇦",n:"Morocco"},{v:"258",f:"🇲🇿",n:"Mozambique"},{v:"95",f:"🇲🇲",n:"Myanmar"},{v:"264",f:"🇳🇦",n:"Namibia"},{v:"977",f:"🇳🇵",n:"Nepal"},{v:"31",f:"🇳🇱",n:"Netherlands"},{v:"64",f:"🇳🇿",n:"New Zealand"},{v:"505",f:"🇳🇮",n:"Nicaragua"},{v:"227",f:"🇳🇪",n:"Niger"},{v:"234",f:"🇳🇬",n:"Nigeria"},{v:"850",f:"🇰🇵",n:"North Korea"},{v:"389",f:"🇲🇰",n:"North Macedonia"},{v:"47",f:"🇳🇴",n:"Norway"},{v:"968",f:"🇴🇲",n:"Oman"},{v:"92",f:"🇵🇰",n:"Pakistan"},{v:"680",f:"🇵🇼",n:"Palau"},{v:"970",f:"🇵🇸",n:"Palestine"},{v:"507",f:"🇵🇦",n:"Panama"},{v:"675",f:"🇵🇬",n:"Papua New Guinea"},{v:"595",f:"🇵🇾",n:"Paraguay"},{v:"51",f:"🇵🇪",n:"Peru"},{v:"63",f:"🇵🇭",n:"Philippines"},{v:"48",f:"🇵🇱",n:"Poland"},{v:"351",f:"🇵🇹",n:"Portugal"},{v:"974",f:"🇶🇦",n:"Qatar"},{v:"40",f:"🇷🇴",n:"Romania"},{v:"7",f:"🇷🇺",n:"Russia"},{v:"250",f:"🇷🇼",n:"Rwanda"},{v:"685",f:"🇼🇸",n:"Samoa"},{v:"378",f:"🇸🇲",n:"San Marino"},{v:"966",f:"🇸🇦",n:"Saudi Arabia"},{v:"221",f:"🇸🇳",n:"Senegal"},{v:"381",f:"🇷🇸",n:"Serbia"},{v:"248",f:"🇸🇨",n:"Seychelles"},{v:"232",f:"🇸🇱",n:"Sierra Leone"},{v:"65",f:"🇸🇬",n:"Singapore"},{v:"421",f:"🇸🇰",n:"Slovakia"},{v:"386",f:"🇸🇮",n:"Slovenia"},{v:"677",f:"🇸🇧",n:"Solomon Islands"},{v:"252",f:"🇸🇴",n:"Somalia"},{v:"27",f:"🇿🇦",n:"South Africa"},{v:"82",f:"🇰🇷",n:"South Korea"},{v:"211",f:"🇸🇸",n:"South Sudan"},{v:"34",f:"🇪🇸",n:"Spain"},{v:"94",f:"🇱🇰",n:"Sri Lanka"},{v:"249",f:"🇸🇩",n:"Sudan"},{v:"597",f:"🇸🇷",n:"Suriname"},{v:"46",f:"🇸🇪",n:"Sweden"},{v:"41",f:"🇨🇭",n:"Switzerland"},{v:"963",f:"🇸🇾",n:"Syria"},{v:"886",f:"🇹🇼",n:"Taiwan"},{v:"992",f:"🇹🇯",n:"Tajikistan"},{v:"255",f:"🇹🇿",n:"Tanzania"},{v:"66",f:"🇹🇭",n:"Thailand"},{v:"670",f:"🇹🇱",n:"Timor-Leste"},{v:"228",f:"🇹🇬",n:"Togo"},{v:"676",f:"🇹🇴",n:"Tonga"},{v:"1",f:"🇹🇹",n:"Trinidad and Tobago"},{v:"216",f:"🇹🇳",n:"Tunisia"},{v:"90",f:"🇹🇷",n:"Turkey"},{v:"993",f:"🇹🇲",n:"Turkmenistan"},{v:"688",f:"🇹🇻",n:"Tuvalu"},{v:"256",f:"🇺🇬",n:"Uganda"},{v:"380",f:"🇺🇦",n:"Ukraine"},{v:"971",f:"🇦🇪",n:"United Arab Emirates"},{v:"44",f:"🇬🇧",n:"United Kingdom"},{v:"1",f:"🇺🇸",n:"United States"},{v:"598",f:"🇺🇾",n:"Uruguay"},{v:"998",f:"🇺🇿",n:"Uzbekistan"},{v:"678",f:"🇻🇺",n:"Vanuatu"},{v:"39",f:"🇻🇦",n:"Vatican City"},{v:"58",f:"🇻🇪",n:"Venezuela"},{v:"84",f:"🇻🇳",n:"Vietnam"},{v:"967",f:"🇾🇪",n:"Yemen"},{v:"260",f:"🇿🇲",n:"Zambia"},{v:"263",f:"🇿🇼",n:"Zimbabwe"}],a=document.getElementById("legacyCountryCode"),e=document.getElementById("ccPicker"),v=document.getElementById("ccButton"),f=document.getElementById("ccFlag"),i=document.getElementById("ccDial"),t=document.getElementById("ccDropdown"),o=document.getElementById("ccSearch"),r=document.getElementById("ccList"),d=document.getElementById("ccEmpty"),u=[];function c(e){var v=n[e];a.value=v.v,f.textContent=v.f,i.textContent="+"+v.v,a.dispatchEvent(new Event("change",{bubbles:!0})),a.dispatchEvent(new Event("input",{bubbles:!0})),s()}function l(){var a=o.value.trim().toLowerCase(),e=a.replace(/[^0-9]/g,""),v=0;u.forEach(function(f,i){var t=n[i],o=""===a||-1!==t.n.toLowerCase().indexOf(a)||""!==e&&0===t.v.indexOf(e);f.hidden=!o,o&&v++}),d.hidden=0!==v}function s(){t.hidden=!0,v.setAttribute("aria-expanded","false")}n.forEach(function(n,a){var e=document.createElement("div");e.className="cc-item",e.setAttribute("role","option"),e.dataset.index=a;var v=document.createElement("span");v.className="cc-item-dial",v.textContent=n.f+" +"+n.v;var f=document.createElement("span");f.className="cc-item-name",f.textContent=n.n,e.appendChild(v),e.appendChild(f),e.addEventListener("click",function(){c(a)}),r.appendChild(e),u.push(e)}),v.addEventListener("click",function(n){n.preventDefault(),t.hidden?(t.hidden=!1,v.setAttribute("aria-expanded","true"),o.value="",l(),setTimeout(function(){o.focus()},0)):s()}),o.addEventListener("input",l),o.addEventListener("keydown",function(n){if("Escape"===n.key&&(s(),v.focus()),"Enter"===n.key){n.preventDefault();for(var a=null,e=0;e<u.length;e++)if(!u[e].hidden){a=u[e];break}a&&c(parseInt(a.dataset.index,10))}}),document.addEventListener("click",function(n){e.contains(n.target)||s()});for(var m=null,g=0;g<n.length;g++)if(n[g].v===a.value){m=n[g];break}m||(m=n[0]),f.textContent=m.f,i.textContent="+"+m.v}();</script>
 
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
