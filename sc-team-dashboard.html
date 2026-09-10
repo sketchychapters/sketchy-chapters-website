@@ -5,7 +5,7 @@
 <meta charset="UTF-8">
 <meta name="color-scheme" content="dark">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Admin Dashboard | Workshop Center</title>
+<title>Admin Dashboard | Sketchy Chapters</title>
 <link rel="icon" type="image/png" href="favicon w.png">
 <script src="https://cdn.tailwindcss.com"></script>
 <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;500;700;900&display=swap" rel="stylesheet">
@@ -106,7 +106,7 @@
 
 <div class="glass-card rounded-2xl p-5 mb-6">
   <p class="text-white font-bold text-sm mb-1">📜 إضافة شهادة قديمة (طالب بدون حساب)</p>
-  <p class="text-gray-400 text-xs mb-3">لطلاب حصلوا على شهادتهم قبل وجود حساب لهم في النظام. بعد الإضافة، يستطيع الطالب التحقق من شهادته عبر صفحة التحقق العامة باستخدام الاسم ورقم الطالب واسم الدورة، دون الحاجة لأي رمز.</p>
+  <p class="text-gray-400 text-xs mb-3">لطلاب حصلوا على شهادتهم قبل وجود حساب لهم في النظام. بعد الإضافة، يستطيع الطالب التحقق من شهادته عبر صفحة التحقق العامة باستخدام الاسم ورقم الهاتف واسم الدورة، دون الحاجة لأي رمز.</p>
   <button onclick="openLegacyCertModal()" class="bg-gold text-black font-bold px-5 py-2.5 rounded-xl text-xs">إضافة شهادة قديمة</button>
 </div>
 
@@ -223,8 +223,8 @@
     <label class="text-xs text-gray-400 block mb-1">الاسم كما هو مكتوب على الشهادة</label>
     <input id="legacyCertName" type="text" class="w-full rounded-xl px-4 py-2.5 text-sm text-white mb-4">
 
-    <label class="text-xs text-gray-400 block mb-1">رقم الطالب القديم</label>
-    <input id="legacyCertStudentNumber" type="text" class="w-full rounded-xl px-4 py-2.5 text-sm text-white mb-4">
+    <label class="text-xs text-gray-400 block mb-1">رقم الهاتف الذي سجّل فيه الطالب</label>
+    <input id="legacyCertStudentNumber" type="tel" class="w-full rounded-xl px-4 py-2.5 text-sm text-white mb-4">
 
     <label class="text-xs text-gray-400 block mb-1">اسم الدورة</label>
     <input id="legacyCertCourseName" type="text" class="w-full rounded-xl px-4 py-2.5 text-sm text-white mb-4">
@@ -1386,7 +1386,7 @@ async function submitLegacyCertificate() {
   const branch = document.getElementById('legacyCertBranch').value.trim();
 
   if (!name || !studentNumber || !courseName) {
-    await customAlert('يرجى تعبئة الاسم ورقم الطالب واسم الدورة على الأقل.');
+    await customAlert('يرجى تعبئة الاسم ورقم الهاتف واسم الدورة على الأقل.');
     return;
   }
 
@@ -1396,7 +1396,7 @@ async function submitLegacyCertificate() {
     if (result.alreadyExisted) {
       await customAlert('توجد شهادة مطابقة لهذه البيانات مسبقاً، ويمكن للطالب التحقق منها الآن على صفحة التحقق.');
     } else {
-      await customAlert('تمت إضافة الشهادة بنجاح. يمكن للطالب الآن التحقق منها على صفحة التحقق باستخدام الاسم نفسه ورقم الطالب نفسه واسم الدورة نفسه، تماماً كما أُدخلت هنا.');
+      await customAlert('تمت إضافة الشهادة بنجاح. يمكن للطالب الآن التحقق منها على صفحة التحقق باستخدام الاسم نفسه ورقم الهاتف نفسه واسم الدورة نفسه، تماماً كما أُدخلت هنا.');
     }
   } catch (err) {
     console.error('submitLegacyCertificate error:', err);
