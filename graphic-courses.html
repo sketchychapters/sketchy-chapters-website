@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
 <meta name="color-scheme" content="dark">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title data-ar="دورات الجرافيكديزاين والفنون المعتمدة | Sketchy Chapters" data-en="Certified Graphic Design & Arts Courses | Sketchy Chapters">Certified Graphic Design & Arts Courses | Sketchy Chapters</title>
+    <title data-ar="دورات الجرافيك ديزاين والفنون الاحترافية | Workshop Center" data-en="Professional Graphic Design & Arts Courses | Sketchy Chapters">Professional Graphic Design & Arts Courses | Sketchy Chapters</title>
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="favicon w.png">
     <!-- Tailwind CSS -->
@@ -21,22 +21,7 @@
     <!-- EmailJS (instant admin notifications) -->
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        gold: '#d4af37',
-                        'gold-light': '#f3e5ab',
-                    },
-                    fontFamily: {
-                        cairo: ['Cairo', 'sans-serif'],
-                        inter: ['Inter', 'sans-serif'],
-                    }
-                }
-            }
-        }
-    </script>
+    <script>tailwind.config={theme:{extend:{colors:{gold:"#d4af37","gold-light":"#f3e5ab"},fontFamily:{cairo:["Cairo","sans-serif"],inter:["Inter","sans-serif"]}}}};</script>
     <style>
         body {color-scheme:dark; font-family: 'Inter', sans-serif; background-color: #0b0b0e; color: #f3f4f6; transition: font-family 0.3s ease; }
         body.ar-lang { font-family: 'Cairo', sans-serif; }
@@ -54,7 +39,7 @@
             <img src="workshop.png" alt="Workshop Logo" class="h-10 md:h-12 w-auto object-contain" onerror="this.style.display='none'; document.getElementById('logo-fallback').style.display='block';">
             <span id="logo-fallback" class="hidden text-xl font-black tracking-wider text-white">SKETCHY <span class="gold-accent">CHAPTERS</span></span>
         </a>
-    
+
         <!-- Desktop Navigation Links -->
         <nav class="hidden md:flex items-center space-x-6 rtl:space-x-reverse text-xs font-bold">
             <a href="index.html" class="text-gray-300 hover:text-amber-400 transition" data-ar="الرئيسية" data-en="Home">Home</a>
@@ -65,7 +50,7 @@
             <!-- Language Switcher Button -->
             <button onclick="toggleLanguage()" id="lang-btn" class="glass-card text-amber-400 border border-amber-500/30 px-3 py-2 rounded-xl text-xs font-bold hover:bg-amber-500/10 transition flex items-center space-x-1.5 rtl:space-x-reverse">
                 <i class="fa-solid fa-globe text-sm"></i>
-                <span id="langBtnText">العربية</span>
+                <span id="langBtnText" class="hidden md:inline">EN</span>
             </button>
 
             <!-- Login / My Account Button (state-aware) -->
@@ -115,21 +100,21 @@
             <span data-ar="تواصل واتساب (Contact Us)" data-en="Contact Us (WhatsApp)">Contact Us (WhatsApp)</span>
         </a>
     </div>
-    
+
     <!-- ================= MAIN CONTENT ================= -->
     <main class="flex-grow container mx-auto px-4 py-12 max-w-6xl mt-16">
         <!-- Title Section -->
         <div class="text-center mb-12">
-            <span class="text-xs gold-accent font-extrabold tracking-widest uppercase bg-amber-500/10 px-3 py-1 rounded-full border border-amber-500/20 inline-block mb-3" data-ar="برامج التصميم والإنتاج المعتمدة (Certified)" data-en="Certified Design & Production Programs">Certified Design & Production Programs</span>
+            <span class="text-xs gold-accent font-extrabold tracking-widest uppercase bg-amber-500/10 px-3 py-1 rounded-full border border-amber-500/20 inline-block mb-3" data-ar="برامج التصميم والإنتاج الاحترافية" data-en="Professional Design & Production Programs">Professional Design & Production Programs</span>
             <h2 class="text-3xl md:text-4xl font-black text-white mb-3" data-ar="أطلق العنان لإبداعك البصري والمهني" data-en="Unleash Your Visual & Professional Creativity">Unleash Your Visual & Professional Creativity</h2>
-            <p class="text-gray-400 text-sm max-w-2xl mx-auto font-light" data-ar="مجموعة متكاملة من الدورات التدريبية المعتمدة مع حسومات خاصة. اختر دورتك واكتشف التفاصيل الكامل." data-en="A comprehensive suite of certified training courses with special discounts. Choose your course and explore full details.">
+            <p class="text-gray-400 text-sm max-w-2xl mx-auto font-light" data-ar="مجموعة متكاملة من الدورات التدريبية الاحترافية مع حسومات خاصة. اختر دورتك واكتشف التفاصيل الكامل." data-en="A comprehensive suite of professional training courses with special discounts. Choose your course and explore full details.">
                 A comprehensive suite of certified training courses with special discounts. Choose your course and explore full details.
             </p>
         </div>
 
         <!-- Courses Grid -->
         <div id="courses" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            
+
 <!-- 1. Adobe Illustrator Card -->
             <div class="glass-card rounded-2xl p-6 flex flex-col justify-between hover:border-amber-500/40 transition group">
                 <div>
@@ -148,7 +133,7 @@
                         </div>
                    </div>
                    <div class="flex items-center gap-2 mb-2 flex-wrap">
-                        <span class="text-[10px] bg-amber-500/20 text-amber-300 px-2 py-0.5 rounded font-bold">Certified Course</span>
+                        <span class="text-[10px] bg-amber-500/20 text-amber-300 px-2 py-0.5 rounded font-bold">Training Course</span>
                         <span class="text-[9px] bg-blue-500/20 text-blue-300 px-2 py-0.5 rounded font-bold flex items-center gap-1">
                             <i class="fa-solid fa-video text-[8px]"></i> Online via Zoom
                         </span>
@@ -165,19 +150,7 @@
             </div>
 
 <!-- سكربت حساب نسبة الخصم تلقائياً كارت Adobe Illustrator -->
-<script>
-  function updateAICardDiscount() {
-    let originalPrice = 120;
-    let curP = parseFloat(document.getElementById('ai-card-price')?.innerText);
-    let discEl = document.getElementById('ai-card-discount');
-
-    if (originalPrice > 0 && curP > 0 && originalPrice > curP && discEl) {
-        let discount = Math.round(((originalPrice - curP) / originalPrice) * 100);
-        discEl.innerText = discount;
-    }
-  }
-  updateAICardDiscount();
-</script>
+<script>function updateAICardDiscount(){let e=120,t=parseFloat(document.getElementById("ai-card-price")?.innerText),n=document.getElementById("ai-card-discount");if(t>0&&e>t&&n){let d=Math.round((e-t)/e*100);n.innerText=d}}updateAICardDiscount();</script>
 
 <!-- 2. Adobe Photoshop Card -->
             <div class="glass-card rounded-2xl p-6 flex flex-col justify-between hover:border-amber-500/40 transition group">
@@ -197,7 +170,7 @@
                         </div>
                    </div>
                    <div class="flex items-center gap-2 mb-2 flex-wrap">
-                        <span class="text-[10px] bg-amber-500/20 text-amber-300 px-2 py-0.5 rounded font-bold">Certified Course</span>
+                        <span class="text-[10px] bg-amber-500/20 text-amber-300 px-2 py-0.5 rounded font-bold">Training Course</span>
                         <span class="text-[9px] bg-blue-500/20 text-blue-300 px-2 py-0.5 rounded font-bold flex items-center gap-1">
                             <i class="fa-solid fa-video text-[8px]"></i> Online via Zoom
                         </span>
@@ -214,19 +187,7 @@
             </div>
 
 <!-- سكربت حساب نسبة الخصم تلقائياً كارت Adobe Photoshop -->
-<script>
-  function updatePSCardDiscount() {
-    let originalPrice = 120;
-    let curP = parseFloat(document.getElementById('ps-card-price')?.innerText);
-    let discEl = document.getElementById('ps-card-discount');
-
-    if (originalPrice > 0 && curP > 0 && originalPrice > curP && discEl) {
-        let discount = Math.round(((originalPrice - curP) / originalPrice) * 100);
-        discEl.innerText = discount;
-    }
-  }
-  updatePSCardDiscount();
-</script>
+<script>function updatePSCardDiscount(){let e=120,t=parseFloat(document.getElementById("ps-card-price")?.innerText),n=document.getElementById("ps-card-discount");if(t>0&&e>t&&n){let d=Math.round((e-t)/e*100);n.innerText=d}}updatePSCardDiscount();</script>
 
 <!-- 3. Adobe Lightroom Card -->
             <div class="glass-card rounded-2xl p-6 flex flex-col justify-between hover:border-amber-500/40 transition group">
@@ -246,7 +207,7 @@
                         </div>
                    </div>
                    <div class="flex items-center gap-2 mb-2 flex-wrap">
-                        <span class="text-[10px] bg-amber-500/20 text-amber-300 px-2 py-0.5 rounded font-bold">Certified Course</span>
+                        <span class="text-[10px] bg-amber-500/20 text-amber-300 px-2 py-0.5 rounded font-bold">Training Course</span>
                         <span class="text-[9px] bg-blue-500/20 text-blue-300 px-2 py-0.5 rounded font-bold flex items-center gap-1">
                             <i class="fa-solid fa-video text-[8px]"></i> Online via Zoom
                         </span>
@@ -263,19 +224,7 @@
             </div>
 
 <!-- سكربت حساب نسبة الخصم تلقائياً كارت Adobe Lightroom -->
-<script>
-  function updateLRCardDiscount() {
-    let originalPrice = 80;
-    let curP = parseFloat(document.getElementById('lr-card-price')?.innerText);
-    let discEl = document.getElementById('lr-card-discount');
-
-    if (originalPrice > 0 && curP > 0 && originalPrice > curP && discEl) {
-        let discount = Math.round(((originalPrice - curP) / originalPrice) * 100);
-        discEl.innerText = discount;
-    }
-  }
-  updateLRCardDiscount();
-</script>
+<script>function updateLRCardDiscount(){let e=parseFloat(document.getElementById("lr-card-price")?.innerText),t=document.getElementById("lr-card-discount");if(e>0&&80>e&&t){let n=Math.round((80-e)/80*100);t.innerText=n}}updateLRCardDiscount();</script>
 
 <!-- 4. Adobe Premiere Pro Card -->
             <div class="glass-card rounded-2xl p-6 flex flex-col justify-between hover:border-amber-500/40 transition group">
@@ -295,7 +244,7 @@
                         </div>
                    </div>
                    <div class="flex items-center gap-2 mb-2 flex-wrap">
-                        <span class="text-[10px] bg-amber-500/20 text-amber-300 px-2 py-0.5 rounded font-bold">Certified Course</span>
+                        <span class="text-[10px] bg-amber-500/20 text-amber-300 px-2 py-0.5 rounded font-bold">Training Course</span>
                         <span class="text-[9px] bg-blue-500/20 text-blue-300 px-2 py-0.5 rounded font-bold flex items-center gap-1">
                             <i class="fa-solid fa-video text-[8px]"></i> Online via Zoom
                         </span>
@@ -312,19 +261,7 @@
             </div>
 
 <!-- سكربت حساب نسبة الخصم تلقائياً كارت Adobe Premiere Pro -->
-<script>
-  function updatePRCardDiscount() {
-    let originalPrice = 120;
-    let curP = parseFloat(document.getElementById('pr-card-price')?.innerText);
-    let discEl = document.getElementById('pr-card-discount');
-
-    if (originalPrice > 0 && curP > 0 && originalPrice > curP && discEl) {
-        let discount = Math.round(((originalPrice - curP) / originalPrice) * 100);
-        discEl.innerText = discount;
-    }
-  }
-  updatePRCardDiscount();
-</script>
+<script>function updatePRCardDiscount(){let e=120,t=parseFloat(document.getElementById("pr-card-price")?.innerText),n=document.getElementById("pr-card-discount");if(t>0&&e>t&&n){let d=Math.round((e-t)/e*100);n.innerText=d}}updatePRCardDiscount();</script>
 
 <!-- 5. Scriptwriting Card -->
             <div class="glass-card rounded-2xl p-6 flex flex-col justify-between hover:border-amber-500/40 transition group">
@@ -344,7 +281,7 @@
                         </div>
                    </div>
                    <div class="flex items-center gap-2 mb-2 flex-wrap">
-                        <span class="text-[10px] bg-amber-500/20 text-amber-300 px-2 py-0.5 rounded font-bold">Certified Course</span>
+                        <span class="text-[10px] bg-amber-500/20 text-amber-300 px-2 py-0.5 rounded font-bold">Training Course</span>
                         <span class="text-[9px] bg-blue-500/20 text-blue-300 px-2 py-0.5 rounded font-bold flex items-center gap-1">
                             <i class="fa-solid fa-video text-[8px]"></i> Online via Zoom
                         </span>
@@ -361,19 +298,7 @@
             </div>
 
 <!-- سكربت حساب نسبة الخصم تلقائياً كارت Scriptwriting -->
-<script>
-  function updateSCCardDiscount() {
-    let originalPrice = 240;
-    let curP = parseFloat(document.getElementById('sc-card-price')?.innerText);
-    let discEl = document.getElementById('sc-card-discount');
-
-    if (originalPrice > 0 && curP > 0 && originalPrice > curP && discEl) {
-        let discount = Math.round(((originalPrice - curP) / originalPrice) * 100);
-        discEl.innerText = discount;
-    }
-  }
-  updateSCCardDiscount();
-</script>
+<script>function updateSCCardDiscount(){let e=240,t=parseFloat(document.getElementById("sc-card-price")?.innerText),n=document.getElementById("sc-card-discount");if(t>0&&e>t&&n){let d=Math.round((e-t)/e*100);n.innerText=d}}updateSCCardDiscount();</script>
 
         </div>
     </main>
@@ -388,7 +313,6 @@
             </div>
             <div class="flex space-x-4 rtl:space-x-reverse">
                 <a href="https://wa.me/96171967714?text=مرحباً، أهتم بالتسجيل والاستفسار عن الدورات التدريبية" target="_blank" class="hover:text-amber-400 transition"><i class="fa-brands fa-whatsapp text-sm"></i> <span data-ar="واتساب" data-en="WhatsApp">WhatsApp</span></a>
-                <a href="https://forms.gle/ShVDMvXgE9sNeSxz8" target="_blank" class="hover:text-amber-400 transition"><i class="fa-solid fa-file-lines text-sm"></i> <span data-ar="استمارة التسجيل" data-en="Registration Form">Registration Form</span></a>
             </div>
         </div>
     </footer>
@@ -400,14 +324,14 @@
     <div id="aiModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md hidden p-4">
         <div class="glass-card bg-[#121216] border border-amber-500/40 rounded-3xl max-w-lg w-full p-6 relative max-h-[90vh] overflow-y-auto text-left rtl:text-right ltr:text-left">
             <button onclick="closeModal('aiModal')" class="absolute top-4 right-4 rtl:left-4 ltr:right-4 text-gray-400 hover:text-white text-xl"><i class="fa-solid fa-xmark"></i></button>
-            
+
             <div class="flex items-center space-x-3 rtl:space-x-reverse mb-4">
                <div class="w-12 h-12 rounded-xl glass-card flex items-center justify-center p-2 border border-amber-500/30 overflow-hidden">
                     <img src="illustrator.png" alt="Adobe Illustrator" class="w-full h-full object-contain">
                </div>
                <div>
                     <div class="flex items-center gap-2 mb-1 flex-wrap">
-                        <span class="text-[10px] gold-accent font-bold uppercase" data-ar="دورات معتمدة" data-en="Certified Course">Certified Course</span>
+                        <span class="text-[10px] gold-accent font-bold uppercase" data-ar="دورة تدريبية" data-en="Training Course">Training Course</span>
                         <span class="text-[9px] bg-blue-500/20 text-blue-300 px-2 py-0.5 rounded font-bold flex items-center gap-1">
                             <i class="fa-solid fa-video text-[8px]"></i> Online via Zoom
                         </span>
@@ -425,7 +349,7 @@
                     <div>
                         <span class="text-gray-500 block text-[10px]" data-ar="التكلفة" data-en="Price">Price</span>
                         <strong class="text-amber-400 text-sm">
-                            <span id="ai-price">99</span>$ 
+                            <span id="ai-price">99</span>$
                             <span class="text-[10px] text-emerald-400 font-bold block">
                                 <span id="ai-discount">17.5</span>% Off
                             </span>
@@ -471,59 +395,20 @@
     </div>
 
 <!-- سكربت حساب تاريخ البدء (أول ثلاثاء بالشهر) ونسبة الحسم تلقائياً كارت Illustrator Modal -->
-<script>
-  function updateAiModalInfo() {
-    let today = new Date();
-    let year = today.getFullYear();
-    let month = today.getMonth();
-
-    let targetDate = new Date(year, month, 1);
-    let day = targetDate.getDay();
-    let diff = (2 - day + 7) % 7;
-    targetDate.setDate(1 + diff);
-
-    if (today > targetDate) {
-      month++;
-      if (month > 11) { month = 0; year++; }
-      targetDate = new Date(year, month, 1);
-      day = targetDate.getDay();
-      diff = (2 - day + 7) % 7;
-      targetDate.setDate(1 + diff);
-    }
-
-    let dayNum = String(targetDate.getDate()).padStart(2, '0');
-    let monthNum = String(targetDate.getMonth() + 1).padStart(2, '0');
-    
-    let dateEl = document.getElementById('ai-date');
-    if (dateEl) {
-        dateEl.innerText = `${dayNum}/${monthNum}`;
-    }
-
-    let curP = parseFloat(document.getElementById('ai-price')?.innerText);
-    let orgP = parseFloat(document.getElementById('ai-original')?.innerText);
-    let discEl = document.getElementById('ai-discount');
-
-    if (orgP > 0 && curP > 0 && orgP > curP && discEl) {
-        let discount = Math.round(((orgP - curP) / orgP) * 100);
-        discEl.innerText = discount;
-    }
-  }
-
-  updateAiModalInfo();
-</script>
+<script>function updateAiModalInfo(){let e=new Date,t=e.getFullYear(),n=e.getMonth(),a=new Date(t,n,1),i=a.getDay(),d=(2-i+7)%7;a.setDate(1+d),e>a&&(n++,n>11&&(n=0,t++),a=new Date(t,n,1),i=a.getDay(),d=(2-i+7)%7,a.setDate(1+d));let o=String(a.getDate()).padStart(2,"0"),l=String(a.getMonth()+1).padStart(2,"0"),r=document.getElementById("ai-date");r&&(r.innerText=`${o}/${l}`);let g=parseFloat(document.getElementById("ai-price")?.innerText),u=parseFloat(document.getElementById("ai-original")?.innerText),m=document.getElementById("ai-discount");if(u>0&&g>0&&u>g&&m){let e=Math.round((u-g)/u*100);m.innerText=e}}updateAiModalInfo();</script>
 
 <!-- 2. Photoshop Modal -->
     <div id="psModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md hidden p-4">
         <div class="glass-card bg-[#121216] border border-amber-500/40 rounded-3xl max-w-lg w-full p-6 relative max-h-[90vh] overflow-y-auto text-left rtl:text-right ltr:text-left">
             <button onclick="closeModal('psModal')" class="absolute top-4 right-4 rtl:left-4 ltr:right-4 text-gray-400 hover:text-white text-xl"><i class="fa-solid fa-xmark"></i></button>
-            
+
             <div class="flex items-center space-x-3 rtl:space-x-reverse mb-4">
                <div class="w-12 h-12 rounded-xl glass-card flex items-center justify-center p-2 border border-amber-500/30 overflow-hidden">
                     <img src="photoshop.png" alt="Adobe Photoshop" class="w-full h-full object-contain">
                </div>
                <div>
                     <div class="flex items-center gap-2 mb-1 flex-wrap">
-                        <span class="text-[10px] gold-accent font-bold uppercase" data-ar="دورات معتمدة" data-en="Certified Course">Certified Course</span>
+                        <span class="text-[10px] gold-accent font-bold uppercase" data-ar="دورة تدريبية" data-en="Training Course">Training Course</span>
                         <span class="text-[9px] bg-blue-500/20 text-blue-300 px-2 py-0.5 rounded font-bold flex items-center gap-1">
                             <i class="fa-solid fa-video text-[8px]"></i> Online via Zoom
                         </span>
@@ -541,7 +426,7 @@
                     <div>
                         <span class="text-gray-500 block text-[10px]" data-ar="التكلفة" data-en="Price">Price</span>
                         <strong class="text-amber-400 text-sm">
-                            <span id="ps-price">99</span>$ 
+                            <span id="ps-price">99</span>$
                             <span class="text-[10px] text-emerald-400 font-bold block">
                                 <span id="ps-discount">17.5</span>% Off
                             </span>
@@ -586,59 +471,20 @@
     </div>
 
 <!-- سكربت حساب تاريخ البدء (أول ثلاثاء بالشهر) ونسبة الحسم تلقائياً كارت Photoshop Modal -->
-<script>
-  function updatePsModalInfo() {
-    let today = new Date();
-    let year = today.getFullYear();
-    let month = today.getMonth();
-
-    let targetDate = new Date(year, month, 1);
-    let day = targetDate.getDay();
-    let diff = (2 - day + 7) % 7;
-    targetDate.setDate(1 + diff);
-
-    if (today > targetDate) {
-      month++;
-      if (month > 11) { month = 0; year++; }
-      targetDate = new Date(year, month, 1);
-      day = targetDate.getDay();
-      diff = (2 - day + 7) % 7;
-      targetDate.setDate(1 + diff);
-    }
-
-    let dayNum = String(targetDate.getDate()).padStart(2, '0');
-    let monthNum = String(targetDate.getMonth() + 1).padStart(2, '0');
-    
-    let dateEl = document.getElementById('ps-date');
-    if (dateEl) {
-        dateEl.innerText = `${dayNum}/${monthNum}`;
-    }
-
-    let curP = parseFloat(document.getElementById('ps-price')?.innerText);
-    let orgP = parseFloat(document.getElementById('ps-original')?.innerText);
-    let discEl = document.getElementById('ps-discount');
-
-    if (orgP > 0 && curP > 0 && orgP > curP && discEl) {
-        let discount = Math.round(((orgP - curP) / orgP) * 100);
-        discEl.innerText = discount;
-    }
-  }
-
-  updatePsModalInfo();
-</script>
+<script>function updatePsModalInfo(){let e=new Date,t=e.getFullYear(),n=e.getMonth(),a=new Date(t,n,1),d=a.getDay(),o=(2-d+7)%7;a.setDate(1+o),e>a&&(n++,n>11&&(n=0,t++),a=new Date(t,n,1),d=a.getDay(),o=(2-d+7)%7,a.setDate(1+o));let l=String(a.getDate()).padStart(2,"0"),r=String(a.getMonth()+1).padStart(2,"0"),g=document.getElementById("ps-date");g&&(g.innerText=`${l}/${r}`);let i=parseFloat(document.getElementById("ps-price")?.innerText),p=parseFloat(document.getElementById("ps-original")?.innerText),s=document.getElementById("ps-discount");if(p>0&&i>0&&p>i&&s){let e=Math.round((p-i)/p*100);s.innerText=e}}updatePsModalInfo();</script>
 
 <!-- 3. Lightroom Modal -->
     <div id="lrModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md hidden p-4">
         <div class="glass-card bg-[#121216] border border-amber-500/40 rounded-3xl max-w-lg w-full p-6 relative max-h-[90vh] overflow-y-auto text-left rtl:text-right ltr:text-left">
             <button onclick="closeModal('lrModal')" class="absolute top-4 right-4 rtl:left-4 ltr:right-4 text-gray-400 hover:text-white text-xl"><i class="fa-solid fa-xmark"></i></button>
-            
+
             <div class="flex items-center space-x-3 rtl:space-x-reverse mb-4">
                <div class="w-12 h-12 rounded-xl glass-card flex items-center justify-center p-2 border border-amber-500/30 overflow-hidden">
                     <img src="lightroom.png" alt="Adobe Lightroom" class="w-full h-full object-contain">
                </div>
                <div>
                     <div class="flex items-center gap-2 mb-1 flex-wrap">
-                        <span class="text-[10px] gold-accent font-bold uppercase" data-ar="دورات معتمدة" data-en="Certified Course">Certified Course</span>
+                        <span class="text-[10px] gold-accent font-bold uppercase" data-ar="دورة تدريبية" data-en="Training Course">Training Course</span>
                         <span class="text-[9px] bg-blue-500/20 text-blue-300 px-2 py-0.5 rounded font-bold flex items-center gap-1">
                             <i class="fa-solid fa-video text-[8px]"></i> Online via Zoom
                         </span>
@@ -656,7 +502,7 @@
                     <div>
                         <span class="text-gray-500 block text-[10px]" data-ar="التكلفة" data-en="Price">Price</span>
                         <strong class="text-amber-400 text-sm">
-                            <span id="lr-price">69</span>$ 
+                            <span id="lr-price">69</span>$
                             <span class="text-[10px] text-emerald-400 font-bold block">
                                 <span id="lr-discount">14</span>% Off
                             </span>
@@ -700,59 +546,20 @@
     </div>
 
 <!-- سكربت حساب تاريخ البدء (أول ثلاثاء بالشهر) ونسبة الحسم تلقائياً كارت Lightroom Modal -->
-<script>
-  function updateLrModalInfo() {
-    let today = new Date();
-    let year = today.getFullYear();
-    let month = today.getMonth();
-
-    let targetDate = new Date(year, month, 1);
-    let day = targetDate.getDay();
-    let diff = (2 - day + 7) % 7;
-    targetDate.setDate(1 + diff);
-
-    if (today > targetDate) {
-      month++;
-      if (month > 11) { month = 0; year++; }
-      targetDate = new Date(year, month, 1);
-      day = targetDate.getDay();
-      diff = (2 - day + 7) % 7;
-      targetDate.setDate(1 + diff);
-    }
-
-    let dayNum = String(targetDate.getDate()).padStart(2, '0');
-    let monthNum = String(targetDate.getMonth() + 1).padStart(2, '0');
-    
-    let dateEl = document.getElementById('lr-date');
-    if (dateEl) {
-        dateEl.innerText = `${dayNum}/${monthNum}`;
-    }
-
-    let curP = parseFloat(document.getElementById('lr-price')?.innerText);
-    let orgP = parseFloat(document.getElementById('lr-original')?.innerText);
-    let discEl = document.getElementById('lr-discount');
-
-    if (orgP > 0 && curP > 0 && orgP > curP && discEl) {
-        let discount = Math.round(((orgP - curP) / orgP) * 100);
-        discEl.innerText = discount;
-    }
-  }
-
-  updateLrModalInfo();
-</script>
+<script>function updateLrModalInfo(){let e=new Date,t=e.getFullYear(),n=e.getMonth(),a=new Date(t,n,1),r=a.getDay(),l=(2-r+7)%7;a.setDate(1+l),e>a&&(n++,n>11&&(n=0,t++),a=new Date(t,n,1),r=a.getDay(),l=(2-r+7)%7,a.setDate(1+l));let d=String(a.getDate()).padStart(2,"0"),o=String(a.getMonth()+1).padStart(2,"0"),g=document.getElementById("lr-date");g&&(g.innerText=`${d}/${o}`);let i=parseFloat(document.getElementById("lr-price")?.innerText),u=parseFloat(document.getElementById("lr-original")?.innerText),m=document.getElementById("lr-discount");if(u>0&&i>0&&u>i&&m){let e=Math.round((u-i)/u*100);m.innerText=e}}updateLrModalInfo();</script>
 
 <!-- 4. Premiere Pro Modal -->
     <div id="prModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md hidden p-4">
         <div class="glass-card bg-[#121216] border border-amber-500/40 rounded-3xl max-w-lg w-full p-6 relative max-h-[90vh] overflow-y-auto text-left rtl:text-right ltr:text-left">
             <button onclick="closeModal('prModal')" class="absolute top-4 right-4 rtl:left-4 ltr:right-4 text-gray-400 hover:text-white text-xl"><i class="fa-solid fa-xmark"></i></button>
-            
+
             <div class="flex items-center space-x-3 rtl:space-x-reverse mb-4">
                <div class="w-12 h-12 rounded-xl glass-card flex items-center justify-center p-2 border border-amber-500/30 overflow-hidden">
                     <img src="premiere.png" alt="Adobe Premiere" class="w-full h-full object-contain">
                </div>
                <div>
                     <div class="flex items-center gap-2 mb-1 flex-wrap">
-                        <span class="text-[10px] gold-accent font-bold uppercase" data-ar="دورات معتمدة" data-en="Certified Course">Certified Course</span>
+                        <span class="text-[10px] gold-accent font-bold uppercase" data-ar="دورة تدريبية" data-en="Training Course">Training Course</span>
                         <span class="text-[9px] bg-blue-500/20 text-blue-300 px-2 py-0.5 rounded font-bold flex items-center gap-1">
                             <i class="fa-solid fa-video text-[8px]"></i> Online via Zoom
                         </span>
@@ -770,7 +577,7 @@
                     <div>
                         <span class="text-gray-500 block text-[10px]" data-ar="التكلفة" data-en="Price">Price</span>
                         <strong class="text-amber-400 text-sm">
-                            <span id="pr-price">99</span>$ 
+                            <span id="pr-price">99</span>$
                             <span class="text-[10px] text-emerald-400 font-bold block">
                                 <span id="pr-discount">17.5</span>% Off
                             </span>
@@ -814,59 +621,20 @@
     </div>
 
 <!-- سكربت حساب تاريخ البدء (أول ثلاثاء بالشهر) ونسبة الحسم تلقائياً كارت Premiere Pro Modal -->
-<script>
-  function updatePrModalInfo() {
-    let today = new Date();
-    let year = today.getFullYear();
-    let month = today.getMonth();
-
-    let targetDate = new Date(year, month, 1);
-    let day = targetDate.getDay();
-    let diff = (2 - day + 7) % 7;
-    targetDate.setDate(1 + diff);
-
-    if (today > targetDate) {
-      month++;
-      if (month > 11) { month = 0; year++; }
-      targetDate = new Date(year, month, 1);
-      day = targetDate.getDay();
-      diff = (2 - day + 7) % 7;
-      targetDate.setDate(1 + diff);
-    }
-
-    let dayNum = String(targetDate.getDate()).padStart(2, '0');
-    let monthNum = String(targetDate.getMonth() + 1).padStart(2, '0');
-    
-    let dateEl = document.getElementById('pr-date');
-    if (dateEl) {
-        dateEl.innerText = `${dayNum}/${monthNum}`;
-    }
-
-    let curP = parseFloat(document.getElementById('pr-price')?.innerText);
-    let orgP = parseFloat(document.getElementById('pr-original')?.innerText);
-    let discEl = document.getElementById('pr-discount');
-
-    if (orgP > 0 && curP > 0 && orgP > curP && discEl) {
-        let discount = Math.round(((orgP - curP) / orgP) * 100);
-        discEl.innerText = discount;
-    }
-  }
-
-  updatePrModalInfo();
-</script>
+<script>function updatePrModalInfo(){let e=new Date,t=e.getFullYear(),n=e.getMonth(),a=new Date(t,n,1),r=a.getDay(),d=(2-r+7)%7;a.setDate(1+d),e>a&&(n++,n>11&&(n=0,t++),a=new Date(t,n,1),r=a.getDay(),d=(2-r+7)%7,a.setDate(1+d));let o=String(a.getDate()).padStart(2,"0"),l=String(a.getMonth()+1).padStart(2,"0"),g=document.getElementById("pr-date");g&&(g.innerText=`${o}/${l}`);let i=parseFloat(document.getElementById("pr-price")?.innerText),p=parseFloat(document.getElementById("pr-original")?.innerText),u=document.getElementById("pr-discount");if(p>0&&i>0&&p>i&&u){let e=Math.round((p-i)/p*100);u.innerText=e}}updatePrModalInfo();</script>
 
 <!-- 5. Scriptwriting Modal -->
     <div id="scModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md hidden p-4">
         <div class="glass-card bg-[#121216] border border-amber-500/40 rounded-3xl max-w-lg w-full p-6 relative max-h-[90vh] overflow-y-auto text-left rtl:text-right ltr:text-left">
             <button onclick="closeModal('scModal')" class="absolute top-4 right-4 rtl:left-4 ltr:right-4 text-gray-400 hover:text-white text-xl"><i class="fa-solid fa-xmark"></i></button>
-            
+
             <div class="flex items-center space-x-3 rtl:space-x-reverse mb-4">
                <div class="w-12 h-12 rounded-xl glass-card flex items-center justify-center p-2 border border-amber-500/30 overflow-hidden">
                     <img src="script.png" alt="Scriptwriting" class="w-full h-full object-contain">
                </div>
                <div>
                     <div class="flex items-center gap-2 mb-1 flex-wrap">
-                        <span class="text-[10px] gold-accent font-bold uppercase" data-ar="دورات معتمدة" data-en="Certified Course">Certified Course</span>
+                        <span class="text-[10px] gold-accent font-bold uppercase" data-ar="دورة تدريبية" data-en="Training Course">Training Course</span>
                         <span class="text-[9px] bg-blue-500/20 text-blue-300 px-2 py-0.5 rounded font-bold flex items-center gap-1">
                             <i class="fa-solid fa-video text-[8px]"></i> Online via Zoom
                         </span>
@@ -884,7 +652,7 @@
                     <div>
                         <span class="text-gray-500 block text-[10px]" data-ar="التكلفة" data-en="Price">Price</span>
                         <strong class="text-amber-400 text-sm">
-                            <span id="sc-price">199</span>$ 
+                            <span id="sc-price">199</span>$
                             <span class="text-[10px] text-emerald-400 font-bold block">
                                 <span id="sc-discount">17</span>% Off
                             </span>
@@ -928,46 +696,7 @@
     </div>
 
 <!-- سكربت حساب تاريخ البدء (أول ثلاثاء بالشهر) ونسبة الحسم تلقائياً كارت Scriptwriting Modal -->
-<script>
-  function updateScModalInfo() {
-    let today = new Date();
-    let year = today.getFullYear();
-    let month = today.getMonth();
-
-    let targetDate = new Date(year, month, 1);
-    let day = targetDate.getDay();
-    let diff = (2 - day + 7) % 7;
-    targetDate.setDate(1 + diff);
-
-    if (today > targetDate) {
-      month++;
-      if (month > 11) { month = 0; year++; }
-      targetDate = new Date(year, month, 1);
-      day = targetDate.getDay();
-      diff = (2 - day + 7) % 7;
-      targetDate.setDate(1 + diff);
-    }
-
-    let dayNum = String(targetDate.getDate()).padStart(2, '0');
-    let monthNum = String(targetDate.getMonth() + 1).padStart(2, '0');
-    
-    let dateEl = document.getElementById('sc-date');
-    if (dateEl) {
-        dateEl.innerText = `${dayNum}/${monthNum}`;
-    }
-
-    let curP = parseFloat(document.getElementById('sc-price')?.innerText);
-    let orgP = parseFloat(document.getElementById('sc-original')?.innerText);
-    let discEl = document.getElementById('sc-discount');
-
-    if (orgP > 0 && curP > 0 && orgP > curP && discEl) {
-        let discount = Math.round(((orgP - curP) / orgP) * 100);
-        discEl.innerText = discount;
-    }
-  }
-
-  updateScModalInfo();
-</script>
+<script>function updateScModalInfo(){let e=new Date,t=e.getFullYear(),n=e.getMonth(),a=new Date(t,n,1),d=a.getDay(),o=(2-d+7)%7;a.setDate(1+o),e>a&&(n++,n>11&&(n=0,t++),a=new Date(t,n,1),d=a.getDay(),o=(2-d+7)%7,a.setDate(1+o));let l=String(a.getDate()).padStart(2,"0"),r=String(a.getMonth()+1).padStart(2,"0"),c=document.getElementById("sc-date");c&&(c.innerText=`${l}/${r}`);let g=parseFloat(document.getElementById("sc-price")?.innerText),i=parseFloat(document.getElementById("sc-original")?.innerText),u=document.getElementById("sc-discount");if(i>0&&g>0&&i>g&&u){let e=Math.round((i-g)/i*100);u.innerText=e}}updateScModalInfo();</script>
 
     <!-- ================= BOOKING MODAL (Group / Private) ================= -->
     <div id="bookingModal" class="hidden fixed inset-0 bg-black/80 z-[60] flex items-center justify-center px-6">
@@ -1010,77 +739,7 @@
     </div>
 
     <!-- ================= JAVASCRIPT ================= -->
-    <script>
-        function detectDefaultLang() {
-            const saved = localStorage.getItem('sketchy_lang');
-            if (saved === 'ar' || saved === 'en') return saved;
-            const gulfTZ = ['Asia/Riyadh', 'Asia/Dubai', 'Asia/Kuwait', 'Asia/Qatar', 'Asia/Bahrain', 'Asia/Muscat'];
-            try {
-                const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
-                if (gulfTZ.includes(tz)) return 'ar';
-            } catch (e) {}
-            return 'en';
-        }
-        let currentLang = 'en';
-
-        function toggleLanguage() {
-            currentLang = currentLang === 'en' ? 'ar' : 'en';
-            localStorage.setItem('sketchy_lang', currentLang);
-            const htmlRoot = document.getElementById('htmlRoot');
-            const bodyEl = document.getElementById('bodyEl');
-            const langBtnText = document.getElementById('langBtnText');
-
-            if (currentLang === 'ar') {
-                htmlRoot.setAttribute('dir', 'rtl');
-                htmlRoot.setAttribute('lang', 'ar');
-                bodyEl.classList.remove('en-lang');
-                bodyEl.classList.add('ar-lang');
-                langBtnText.textContent = 'English';
-            } else {
-                htmlRoot.setAttribute('dir', 'ltr');
-                htmlRoot.setAttribute('lang', 'en');
-                bodyEl.classList.remove('ar-lang');
-                bodyEl.classList.add('en-lang');
-                langBtnText.textContent = 'العربية';
-            }
-
-            document.querySelectorAll('[data-ar]').forEach(el => {
-                const arText = el.getAttribute('data-ar');
-                const enText = el.getAttribute('data-en');
-                if (currentLang === 'ar') {
-                    if (arText) el.textContent = arText;
-                } else {
-                    if (enText) el.textContent = enText;
-                }
-            });
-        }
-
-        if (detectDefaultLang() === 'ar') { toggleLanguage(); }
-
-        function toggleMobileMenu() {
-            const menu = document.getElementById('mobileMenu');
-            menu.classList.toggle('hidden');
-            menu.classList.toggle('flex');
-        }
-
-        function openModal(modalId) {
-            document.getElementById(modalId).classList.remove('hidden');
-        }
-
-        function closeModal(modalId) {
-            document.getElementById(modalId).classList.add('hidden');
-        }
-
-        // Close modal when clicking outside the content box
-        window.onclick = function(event) {
-            ['aiModal', 'psModal', 'lrModal', 'prModal', 'scModal'].forEach(id => {
-                let modal = document.getElementById(id);
-                if (event.target === modal) {
-                    modal.classList.add('hidden');
-                }
-            });
-        }
-    </script>
+    <script>function detectDefaultLang(){const t=localStorage.getItem("sketchy_lang");if("ar"===t||"en"===t)return t;const e=["Asia/Riyadh","Asia/Dubai","Asia/Kuwait","Asia/Qatar","Asia/Bahrain","Asia/Muscat"];try{const t=Intl.DateTimeFormat().resolvedOptions().timeZone;if(e.includes(t))return"ar"}catch(t){}return"en"}let currentLang="en";function toggleLanguage(){currentLang="en"===currentLang?"ar":"en",localStorage.setItem("sketchy_lang",currentLang);const t=document.getElementById("htmlRoot"),e=document.getElementById("bodyEl"),n=document.getElementById("langBtnText");"ar"===currentLang?(t.setAttribute("dir","rtl"),t.setAttribute("lang","ar"),e.classList.remove("en-lang"),e.classList.add("ar-lang"),n.textContent="AR"):(t.setAttribute("dir","ltr"),t.setAttribute("lang","en"),e.classList.remove("ar-lang"),e.classList.add("en-lang"),n.textContent="EN"),document.querySelectorAll("[data-ar]").forEach(t=>{const e=t.getAttribute("data-ar"),n=t.getAttribute("data-en");"ar"===currentLang?e&&(t.textContent=e):n&&(t.textContent=n)})}function toggleMobileMenu(){const t=document.getElementById("mobileMenu");t.classList.toggle("hidden"),t.classList.toggle("flex")}function openModal(t){document.getElementById(t).classList.remove("hidden")}function closeModal(t){document.getElementById(t).classList.add("hidden")}"ar"===detectDefaultLang()&&toggleLanguage(),window.onclick=function(t){["aiModal","psModal","lrModal","prModal","scModal"].forEach(e=>{let n=document.getElementById(e);t.target===n&&n.classList.add("hidden")})};</script>
 
     <!-- Firebase account logic + email notifications + booking UI -->
     <script src="firebase-init.js"></script>
