@@ -84,6 +84,19 @@
     direction: ltr;
   }
   input[type="text"]:focus { outline: 2px solid var(--gold); border-color: var(--gold); }
+  select {
+    padding: 12px 8px;
+    border-radius: 10px;
+    border: 1px solid rgba(255,255,255,0.15);
+    background: #0f0c09;
+    color: var(--text);
+    font-size: 0.95rem;
+    direction: ltr;
+  }
+  select:focus { outline: 2px solid var(--gold); border-color: var(--gold); }
+  .phone-row { display: flex; gap: 8px; }
+  .phone-row select { flex: 0 0 108px; }
+  .phone-row input[type="text"] { flex: 1 1 0; min-width: 0; }
   button {
     width: 100%;
     margin-top: 14px;
@@ -165,8 +178,31 @@
     <div id="legacySection" hidden>
       <label for="legacyName" data-ar="الاسم كما هو مكتوب على الشهادة" data-en="Name as written on the certificate">الاسم كما هو مكتوب على الشهادة</label>
       <input type="text" id="legacyName" autocomplete="off" style="direction: rtl; letter-spacing: normal;" />
-      <label for="legacyStudentNumber" style="margin-top: 14px;" data-ar="رقم الهاتف الذي سجّلت فيه" data-en="Phone Number Used at Registration">رقم الهاتف الذي سجّلت فيه</label>
-      <input type="text" id="legacyStudentNumber" autocomplete="off" />
+      <label for="legacyStudentNumber" style="margin-top: 14px;" data-ar="رقم الهاتف الذي سجّلت فيه (اختر رمز الدولة ثم أدخل الرقم بدون رمز الدولة)" data-en="Phone Number Used at Registration (pick your country code, then enter the number without it)">رقم الهاتف الذي سجّلت فيه (اختر رمز الدولة ثم أدخل الرقم بدون رمز الدولة)</label>
+      <div class="phone-row">
+        <select id="legacyCountryCode">
+          <option value="961" selected>🇱🇧 +961</option>
+          <option value="963">🇸🇾 +963</option>
+          <option value="962">🇯🇴 +962</option>
+          <option value="964">🇮🇶 +964</option>
+          <option value="966">🇸🇦 +966</option>
+          <option value="971">🇦🇪 +971</option>
+          <option value="974">🇶🇦 +974</option>
+          <option value="965">🇰🇼 +965</option>
+          <option value="973">🇧🇭 +973</option>
+          <option value="968">🇴🇲 +968</option>
+          <option value="20">🇪🇬 +20</option>
+          <option value="970">🇵🇸 +970</option>
+          <option value="90">🇹🇷 +90</option>
+          <option value="357">🇨🇾 +357</option>
+          <option value="33">🇫🇷 +33</option>
+          <option value="49">🇩🇪 +49</option>
+          <option value="44">🇬🇧 +44</option>
+          <option value="1">🇺🇸 +1</option>
+          <option value="61">🇦🇺 +61</option>
+        </select>
+        <input type="text" id="legacyStudentNumber" placeholder="71 123 456" autocomplete="off" />
+      </div>
       <label for="legacyCourseName" style="margin-top: 14px;" data-ar="اسم الدورة" data-en="Course Name">اسم الدورة</label>
       <input type="text" id="legacyCourseName" autocomplete="off" style="direction: rtl; letter-spacing: normal;" />
       <button id="legacyCheckBtn" data-ar="تحقّق" data-en="Verify">تحقّق</button>
