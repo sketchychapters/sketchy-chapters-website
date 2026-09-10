@@ -224,7 +224,7 @@
     <input id="legacyCertName" type="text" class="w-full rounded-xl px-4 py-2.5 text-sm text-white mb-4">
 
     <label class="text-xs text-gray-400 block mb-1">رقم الهاتف الذي سجّل فيه الطالب</label>
-    <input id="legacyCertStudentNumber" type="tel" class="w-full rounded-xl px-4 py-2.5 text-sm text-white mb-4">
+    <input id="legacyCertStudentNumber" type="tel" oninput="handleLegacyPhoneInput(this.value)" class="w-full rounded-xl px-4 py-2.5 text-sm text-white mb-4">
 
     <label class="text-xs text-gray-400 block mb-1">اسم الدورة</label>
     <input id="legacyCertCourseName" type="text" class="w-full rounded-xl px-4 py-2.5 text-sm text-white mb-4">
@@ -499,6 +499,11 @@ async function runCertificateAutomation() {
     }
   } catch (err) {
     console.error('certificate backfill failed:', err);
+  }
+  try {
+    if (typeof loadLegacyCertsCache === 'function') await loadLegacyCertsCache();
+  } catch (err) {
+    console.error('loadLegacyCertsCache failed:', err);
   }
   try {
     if (typeof migrateLegacyCertificateHashes === 'function') {
@@ -1385,6 +1390,19 @@ function closeLegacyCertModal() {
   document.getElementById('legacyCertModal').classList.add('hidden');
 }
 
+function handleLegacyPhoneInput(value) {
+  try {
+    if (typeof findLegacyCertByPhone !== 'function') return;
+    const match = findLegacyCertByPhone(value);
+    if (match) {
+      document.getElementById('legacyCertName').value = match.studentName || '';
+      if (match.branch) document.getElementById('legacyCertBranch').value = match.branch;
+    }
+  } catch (err) {
+    console.error('handleLegacyPhoneInput error:', err);
+  }
+}
+
 async function submitLegacyCertificate() {
   const name = document.getElementById('legacyCertName').value.trim();
   const studentNumber = document.getElementById('legacyCertStudentNumber').value.trim();
@@ -1400,6 +1418,9 @@ async function submitLegacyCertificate() {
   try {
     const result = await addLegacyCertificate(name, studentNumber, courseName, completionDate, branch);
     closeLegacyCertModal();
+    if (!result.alreadyExisted && typeof legacyCertsCache !== 'undefined') {
+      legacyCertsCache.push({ id: result.hash, studentName: name, studentNumber, courseName, completionDate, branch });
+    }
     if (result.alreadyExisted) {
       await customAlert('توجد شهادة مطابقة لهذه البيانات مسبقاً، ويمكن للطالب التحقق منها الآن على صفحة التحقق.');
     } else {
