@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
 <meta name="color-scheme" content="dark">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title data-ar="دورات الطاقة الشمسية والتحكم الكلاسيكي | Sketchy Chapters" data-en="Solar Systems & Classic Control Courses | Sketchy Chapters">Solar Systems & Classic Control Courses | Sketchy Chapters</title>
+    <title data-ar="دورات الطاقة الشمسية والتحكم الكلاسيكي | Workshop Center" data-en="Solar Systems & Classic Control Courses | Sketchy Chapters">Solar Systems & Classic Control Courses | Sketchy Chapters</title>
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="favicon w.png">
     <!-- Tailwind CSS -->
@@ -21,22 +21,7 @@
     <!-- EmailJS (instant admin notifications) -->
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        gold: '#d4af37',
-                        'gold-light': '#f3e5ab',
-                    },
-                    fontFamily: {
-                        cairo: ['Cairo', 'sans-serif'],
-                        inter: ['Inter', 'sans-serif'],
-                    }
-                }
-            }
-        }
-    </script>
+    <script>tailwind.config={theme:{extend:{colors:{gold:"#d4af37","gold-light":"#f3e5ab"},fontFamily:{cairo:["Cairo","sans-serif"],inter:["Inter","sans-serif"]}}}};</script>
     <style>
         body {color-scheme:dark; font-family: 'Inter', sans-serif; background-color: #0b0b0e; color: #f3f4f6; transition: font-family 0.3s ease; }
         body.ar-lang { font-family: 'Cairo', sans-serif; }
@@ -54,7 +39,7 @@
             <img src="workshop.png" alt="Workshop Logo" class="h-10 md:h-12 w-auto object-contain" onerror="this.style.display='none'; document.getElementById('logo-fallback').style.display='block';">
             <span id="logo-fallback" class="hidden text-xl font-black tracking-wider text-white">SKETCHY <span class="gold-accent">CHAPTERS</span></span>
         </a>
-    
+
         <!-- Desktop Navigation Links -->
         <nav class="hidden md:flex items-center space-x-6 rtl:space-x-reverse text-xs font-bold">
             <a href="index.html" class="text-gray-300 hover:text-amber-400 transition" data-ar="الرئيسية" data-en="Home">Home</a>
@@ -65,7 +50,7 @@
             <!-- Language Switcher Button -->
             <button onclick="toggleLanguage()" id="lang-btn" class="glass-card text-amber-400 border border-amber-500/30 px-3 py-2 rounded-xl text-xs font-bold hover:bg-amber-500/10 transition flex items-center space-x-1.5 rtl:space-x-reverse">
                 <i class="fa-solid fa-globe text-sm"></i>
-                <span id="langBtnText">العربية</span>
+                <span id="langBtnText" class="hidden md:inline">EN</span>
             </button>
 
             <!-- Login / My Account Button (state-aware) -->
@@ -129,7 +114,7 @@
 
         <!-- Courses Grid -->
         <div id="courses" class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-            
+
 <!-- 1. Solar System Card -->
             <div class="glass-card rounded-2xl p-6 flex flex-col justify-between hover:border-amber-500/40 transition group">
                 <div>
@@ -165,19 +150,7 @@
             </div>
 
 <!-- سكربت حساب نسبة الخصم تلقائياً كارت Solar System -->
-<script>
-  function updateSolarCardDiscount() {
-    let originalPrice = 135;
-    let curP = parseFloat(document.getElementById('solar-card-price')?.innerText);
-    let discEl = document.getElementById('solar-card-discount');
-
-    if (originalPrice > 0 && curP > 0 && originalPrice > curP && discEl) {
-        let discount = Math.round(((originalPrice - curP) / originalPrice) * 100);
-        discEl.innerText = discount;
-    }
-  }
-  updateSolarCardDiscount();
-</script>
+<script>function updateSolarCardDiscount(){let e=135,t=parseFloat(document.getElementById("solar-card-price")?.innerText),n=document.getElementById("solar-card-discount");if(t>0&&e>t&&n){let a=Math.round((e-t)/e*100);n.innerText=a}}updateSolarCardDiscount();</script>
 
 <!-- 2. Classic Control Card -->
             <div class="glass-card rounded-2xl p-6 flex flex-col justify-between hover:border-amber-500/40 transition group">
@@ -214,19 +187,7 @@
             </div>
 
 <!-- سكربت حساب نسبة الخصم تلقائياً كارت Classic Control -->
-<script>
-  function updateClassicCardDiscount() {
-    let originalPrice = 300;
-    let curP = parseFloat(document.getElementById('classic-card-price')?.innerText);
-    let discEl = document.getElementById('classic-card-discount');
-
-    if (originalPrice > 0 && curP > 0 && originalPrice > curP && discEl) {
-        let discount = Math.round(((originalPrice - curP) / originalPrice) * 100);
-        discEl.innerText = discount;
-    }
-  }
-  updateClassicCardDiscount();
-</script>
+<script>function updateClassicCardDiscount(){let e=300,t=parseFloat(document.getElementById("classic-card-price")?.innerText),c=document.getElementById("classic-card-discount");if(t>0&&e>t&&c){let n=Math.round((e-t)/e*100);c.innerText=n}}updateClassicCardDiscount();</script>
 
         </div>
     </main>
@@ -241,7 +202,6 @@
             </div>
             <div class="flex space-x-4 rtl:space-x-reverse">
                 <a href="https://wa.me/96171967714?text=مرحباً، أهتم بالتسجيل والاستفسار عن الدورات الهندسية" target="_blank" class="hover:text-amber-400 transition"><i class="fa-brands fa-whatsapp text-sm"></i> <span data-ar="واتساب" data-en="WhatsApp">WhatsApp</span></a>
-                <a href="https://forms.gle/ShVDMvXgE9sNeSxz8" target="_blank" class="hover:text-amber-400 transition"><i class="fa-solid fa-file-lines text-sm"></i> <span data-ar="استمارة التسجيل" data-en="Registration Form">Registration Form</span></a>
             </div>
         </div>
     </footer>
@@ -252,7 +212,7 @@
     <div id="solarModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md hidden p-4">
         <div class="glass-card bg-[#121216] border border-amber-500/40 rounded-3xl max-w-2xl w-full p-6 relative max-h-[90vh] overflow-y-auto text-left rtl:text-right ltr:text-left">
             <button onclick="closeModal('solarModal')" class="absolute top-4 right-4 rtl:left-4 ltr:right-4 text-gray-400 hover:text-white text-xl"><i class="fa-solid fa-xmark"></i></button>
-            
+
             <div class="flex items-center space-x-3 rtl:space-x-reverse mb-4">
                <div class="w-12 h-12 rounded-xl glass-card flex items-center justify-center border border-amber-500/30 text-amber-400 text-xl">
                     <i class="fa-solid fa-sun"></i>
@@ -277,7 +237,7 @@
                     <div>
                         <span class="text-gray-500 block text-[10px]" data-ar="التكلفة" data-en="Price">Price</span>
                         <strong class="text-amber-400 text-sm">
-                            <span id="solar-price">99</span>$ 
+                            <span id="solar-price">99</span>$
                             <span class="text-[10px] text-emerald-400 font-bold block">
                                 <span id="solar-discount">27</span>% Off
                             </span>
@@ -326,52 +286,13 @@
     </div>
 
 <!-- سكربت حساب تاريخ البدء (أول اثنين بالشهر) ونسبة الحسم تلقائياً كارت Solar Modal -->
-<script>
-  function updateSolarModalInfo() {
-    let today = new Date();
-    let year = today.getFullYear();
-    let month = today.getMonth();
-
-    let targetDate = new Date(year, month, 1);
-    let day = targetDate.getDay();
-    let diff = (1 - day + 7) % 7;
-    targetDate.setDate(1 + diff);
-
-    if (today > targetDate) {
-      month++;
-      if (month > 11) { month = 0; year++; }
-      targetDate = new Date(year, month, 1);
-      day = targetDate.getDay();
-      diff = (1 - day + 7) % 7;
-      targetDate.setDate(1 + diff);
-    }
-
-    let dayNum = String(targetDate.getDate()).padStart(2, '0');
-    let monthNum = String(targetDate.getMonth() + 1).padStart(2, '0');
-    
-    let dateEl = document.getElementById('solar-date');
-    if (dateEl) {
-        dateEl.innerText = `${dayNum}/${monthNum}`;
-    }
-
-    let curP = parseFloat(document.getElementById('solar-price')?.innerText);
-    let orgP = parseFloat(document.getElementById('solar-original')?.innerText);
-    let discEl = document.getElementById('solar-discount');
-
-    if (orgP > 0 && curP > 0 && orgP > curP && discEl) {
-        let discount = Math.round(((orgP - curP) / orgP) * 100);
-        discEl.innerText = discount;
-    }
-  }
-
-  updateSolarModalInfo();
-</script>
+<script>function updateSolarModalInfo(){let e=new Date,t=e.getFullYear(),a=e.getMonth(),n=new Date(t,a,1),o=n.getDay(),l=(1-o+7)%7;n.setDate(1+l),e>n&&(a++,a>11&&(a=0,t++),n=new Date(t,a,1),o=n.getDay(),l=(1-o+7)%7,n.setDate(1+l));let r=String(n.getDate()).padStart(2,"0"),d=String(n.getMonth()+1).padStart(2,"0"),g=document.getElementById("solar-date");g&&(g.innerText=`${r}/${d}`);let i=parseFloat(document.getElementById("solar-price")?.innerText),u=parseFloat(document.getElementById("solar-original")?.innerText),s=document.getElementById("solar-discount");if(u>0&&i>0&&u>i&&s){let e=Math.round((u-i)/u*100);s.innerText=e}}updateSolarModalInfo();</script>
 
 <!-- 2. Classic Control Modal -->
     <div id="classicModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md hidden p-4">
         <div class="glass-card bg-[#121216] border border-amber-500/40 rounded-3xl max-w-2xl w-full p-6 relative max-h-[90vh] overflow-y-auto text-left rtl:text-right ltr:text-left">
             <button onclick="closeModal('classicModal')" class="absolute top-4 right-4 rtl:left-4 ltr:right-4 text-gray-400 hover:text-white text-xl"><i class="fa-solid fa-xmark"></i></button>
-            
+
             <div class="flex items-center space-x-3 rtl:space-x-reverse mb-4">
                <div class="w-12 h-12 rounded-xl glass-card flex items-center justify-center border border-amber-500/30 text-amber-400 text-xl">
                     <i class="fa-solid fa-gears"></i>
@@ -396,7 +317,7 @@
                     <div>
                         <span class="text-gray-500 block text-[10px]" data-ar="التكلفة" data-en="Price">Price</span>
                         <strong class="text-amber-400 text-sm">
-                            <span id="classic-price">225</span>$ 
+                            <span id="classic-price">225</span>$
                             <span class="text-[10px] text-emerald-400 font-bold block">
                                 <span id="classic-discount">25</span>% Off
                             </span>
@@ -445,46 +366,7 @@
     </div>
 
 <!-- سكربت حساب تاريخ البدء (أول اثنين بالشهر) ونسبة الحسم تلقائياً كارت Classic Modal -->
-<script>
-  function updateClassicModalInfo() {
-    let today = new Date();
-    let year = today.getFullYear();
-    let month = today.getMonth();
-
-    let targetDate = new Date(year, month, 1);
-    let day = targetDate.getDay();
-    let diff = (1 - day + 7) % 7;
-    targetDate.setDate(1 + diff);
-
-    if (today > targetDate) {
-      month++;
-      if (month > 11) { month = 0; year++; }
-      targetDate = new Date(year, month, 1);
-      day = targetDate.getDay();
-      diff = (1 - day + 7) % 7;
-      targetDate.setDate(1 + diff);
-    }
-
-    let dayNum = String(targetDate.getDate()).padStart(2, '0');
-    let monthNum = String(targetDate.getMonth() + 1).padStart(2, '0');
-    
-    let dateEl = document.getElementById('classic-date');
-    if (dateEl) {
-        dateEl.innerText = `${dayNum}/${monthNum}`;
-    }
-
-    let curP = parseFloat(document.getElementById('classic-price')?.innerText);
-    let orgP = parseFloat(document.getElementById('classic-original')?.innerText);
-    let discEl = document.getElementById('classic-discount');
-
-    if (orgP > 0 && curP > 0 && orgP > curP && discEl) {
-        let discount = Math.round(((orgP - curP) / orgP) * 100);
-        discEl.innerText = discount;
-    }
-  }
-
-  updateClassicModalInfo();
-</script>
+<script>function updateClassicModalInfo(){let e=new Date,t=e.getFullYear(),a=e.getMonth(),n=new Date(t,a,1),l=n.getDay(),i=(1-l+7)%7;n.setDate(1+i),e>n&&(a++,a>11&&(a=0,t++),n=new Date(t,a,1),l=n.getDay(),i=(1-l+7)%7,n.setDate(1+i));let c=String(n.getDate()).padStart(2,"0"),d=String(n.getMonth()+1).padStart(2,"0"),s=document.getElementById("classic-date");s&&(s.innerText=`${c}/${d}`);let o=parseFloat(document.getElementById("classic-price")?.innerText),r=parseFloat(document.getElementById("classic-original")?.innerText),g=document.getElementById("classic-discount");if(r>0&&o>0&&r>o&&g){let e=Math.round((r-o)/r*100);g.innerText=e}}updateClassicModalInfo();</script>
 
     <!-- ================= BOOKING MODAL (Group / Private) ================= -->
     <div id="bookingModal" class="hidden fixed inset-0 bg-black/80 z-[60] flex items-center justify-center px-6">
@@ -527,72 +409,7 @@
     </div>
 
     <!-- JavaScript for Modals, Mobile Menu & Language Switcher -->
-    <script>
-        function openModal(modalId) {
-            document.getElementById(modalId).classList.remove('hidden');
-            document.body.style.overflow = 'hidden';
-        }
-        function closeModal(modalId) {
-            document.getElementById(modalId).classList.add('hidden');
-            document.body.style.overflow = 'auto';
-        }
-
-        function toggleMobileMenu() {
-            const mobileMenu = document.getElementById('mobileMenu');
-            const mobileMenuIcon = document.getElementById('mobileMenuIcon');
-            mobileMenu.classList.toggle('hidden');
-            if (mobileMenu.classList.contains('hidden')) {
-                mobileMenuIcon.classList.remove('fa-xmark');
-                mobileMenuIcon.classList.add('fa-ellipsis-vertical');
-            } else {
-                mobileMenuIcon.classList.remove('fa-ellipsis-vertical');
-                mobileMenuIcon.classList.add('fa-xmark');
-            }
-        }
-
-        function detectDefaultLang() {
-            const saved = localStorage.getItem('sketchy_lang');
-            if (saved === 'ar' || saved === 'en') return saved;
-            const gulfTZ = ['Asia/Riyadh', 'Asia/Dubai', 'Asia/Kuwait', 'Asia/Qatar', 'Asia/Bahrain', 'Asia/Muscat'];
-            try {
-                const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
-                if (gulfTZ.includes(tz)) return 'ar';
-            } catch (e) {}
-            return 'en';
-        }
-        let currentLang = 'en';
-        function toggleLanguage() {
-            currentLang = currentLang === 'en' ? 'ar' : 'en';
-            localStorage.setItem('sketchy_lang', currentLang);
-            const htmlRoot = document.getElementById('htmlRoot');
-            const bodyEl = document.getElementById('bodyEl');
-            const langBtnText = document.getElementById('langBtnText');
-
-            if (currentLang === 'ar') {
-                htmlRoot.setAttribute('dir', 'rtl');
-                htmlRoot.setAttribute('lang', 'ar');
-                bodyEl.classList.remove('en-lang');
-                bodyEl.classList.add('ar-lang');
-                langBtnText.innerText = 'English';
-            } else {
-                htmlRoot.setAttribute('dir', 'ltr');
-                htmlRoot.setAttribute('lang', 'en');
-                bodyEl.classList.remove('ar-lang');
-                bodyEl.classList.add('en-lang');
-                langBtnText.innerText = 'العربية';
-            }
-
-            document.querySelectorAll('[data-ar]').forEach(el => {
-                const arText = el.getAttribute('data-ar');
-                const enText = el.getAttribute('data-en');
-                if (arText && enText) {
-                    el.innerText = currentLang === 'ar' ? arText : enText;
-                }
-            });
-        }
-
-        if (detectDefaultLang() === 'ar') { toggleLanguage(); }
-    </script>
+    <script>function openModal(e){document.getElementById(e).classList.remove("hidden"),document.body.style.overflow="hidden"}function closeModal(e){document.getElementById(e).classList.add("hidden"),document.body.style.overflow="auto"}function toggleMobileMenu(){const e=document.getElementById("mobileMenu"),t=document.getElementById("mobileMenuIcon");e.classList.toggle("hidden"),e.classList.contains("hidden")?(t.classList.remove("fa-xmark"),t.classList.add("fa-ellipsis-vertical")):(t.classList.remove("fa-ellipsis-vertical"),t.classList.add("fa-xmark"))}function detectDefaultLang(){const e=localStorage.getItem("sketchy_lang");if("ar"===e||"en"===e)return e;const t=["Asia/Riyadh","Asia/Dubai","Asia/Kuwait","Asia/Qatar","Asia/Bahrain","Asia/Muscat"];try{const e=Intl.DateTimeFormat().resolvedOptions().timeZone;if(t.includes(e))return"ar"}catch(e){}return"en"}let currentLang="en";function toggleLanguage(){currentLang="en"===currentLang?"ar":"en",localStorage.setItem("sketchy_lang",currentLang);const e=document.getElementById("htmlRoot"),t=document.getElementById("bodyEl"),n=document.getElementById("langBtnText");"ar"===currentLang?(e.setAttribute("dir","rtl"),e.setAttribute("lang","ar"),t.classList.remove("en-lang"),t.classList.add("ar-lang"),n.innerText="AR"):(e.setAttribute("dir","ltr"),e.setAttribute("lang","en"),t.classList.remove("ar-lang"),t.classList.add("en-lang"),n.innerText="EN"),document.querySelectorAll("[data-ar]").forEach(e=>{const t=e.getAttribute("data-ar"),n=e.getAttribute("data-en");t&&n&&(e.innerText="ar"===currentLang?t:n)})}"ar"===detectDefaultLang()&&toggleLanguage();</script>
 
     <!-- Firebase account logic + email notifications + booking UI -->
     <script src="firebase-init.js"></script>
