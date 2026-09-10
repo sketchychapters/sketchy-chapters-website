@@ -22,7 +22,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 
     <!-- Packages have fixed bundle prices already discounted - no birthday stacking -->
-    <script>window.DISABLE_BIRTHDAY_DISCOUNT = true;</script>
+    <script>window.DISABLE_BIRTHDAY_DISCOUNT=!0;</script>
 
     <style>
         body {color-scheme:dark;
@@ -93,7 +93,7 @@
             <!-- Language Switcher Button -->
             <button onclick="toggleLanguage()" id="lang-btn" class="glass-card text-amber-400 border border-amber-500/30 px-3 py-2 rounded-xl text-xs font-bold hover:bg-amber-500/10 transition flex items-center space-x-1.5 rtl:space-x-reverse">
                 <i class="fa-solid fa-globe text-sm"></i>
-                <span id="langBtnText">العربية</span>
+                <span id="langBtnText" class="hidden md:inline">EN</span>
             </button>
 
             <!-- Login / My Account Button (state-aware) -->
@@ -331,209 +331,7 @@
     </footer>
  
     <!-- Scripts -->
-    <script>
-        const packageData = {
-            pkg1: {
-                titleEn: "Engineer's Package",
-                titleAr: "باقة المهندس",
-                valueEn: "$340 Value",
-                valueAr: "$340 القيمة الأساسية",
-                price: "$219",
-                priceNum: 219,
-                splitCourses: ["AutoCAD 2D/3D", "Revit Architecture", "Lumion"],
-                descEn: "Comprehensive package covering everything from 2D drafts to 3D modeling, animation, and rendering.",
-                descAr: "باقة شاملة لكل شي من الـ 2D إلى الـ 3D، الـ Animation، والـ Render.",
-                courses: [
-                    { code: "CAD", colorClass: "red", titleEn: "AutoCAD Course (2D & 3D)", titleAr: "كورس أوتوكاد (2D & 3D)", descEn: "Precise architectural and technical drawing preparation.", descAr: "رسم المخططات الهندسية المعمارية بدقة متناهية وإخراج المساقط التنفيذية." },
-                    { code: "RVT", colorClass: "blue", titleEn: "Revit Architecture (Level 1)", titleAr: "كورس ريفيت المعماري (المستوى 1)", descEn: "BIM fundamentals, walls, floors, and 3D components creation.", descAr: "أساسيات نمذجة معلومات المباني BIM، الجدران، الأبواب، النوافذ، والكتل ثلاثية الأبعاد." },
-                    { code: "LUM", colorClass: "emerald", titleEn: "Lumion Animation & Render", titleAr: "كورس لوميون للإخراج المعماري والتحريك", descEn: "Photorealistic rendering, lighting, materials, and motion walkthroughs.", descAr: "صنع فيديوهات الحركة (Animation)، اللقطات الواقعية السريعة (Render)، وإضافة البيئة والمواد." }
-                ]
-            },
-            pkg2: {
-                titleEn: "Full Revit & V-Ray Package",
-                titleAr: "باقة ريفيت المتكاملة",
-                valueEn: "$300 Value",
-                valueAr: "$300 القيمة الأساسية",
-                price: "$199",
-                priceNum: 199,
-                splitCourses: ["Revit Architecture", "Revit Architecture Advanced + V-Ray"],
-                descEn: "Advanced architectural modeling and photorealistic rendering combo.",
-                descAr: "لتغطية النمذجة المتقدمة والإخراج الواقعي بدقة عالية.",
-                courses: [
-                    { code: "RVT", colorClass: "blue", titleEn: "Full Revit Architecture (L1 & L2)", titleAr: "كورس ريفيت المعماري المتكامل (L1 & L2)", descEn: "Advanced BIM modeling, custom families, schedules, and construction documents.", descAr: "النمذجة المتقدمة، إنشاء العائلات الخاصة (Families)، جدول الكميات، وإصدار المخططات التنفيذية." },
-                    { code: "VRAY", colorClass: "orange", titleEn: "V-Ray Rendering Course", titleAr: "كورس فيراي (V-Ray for Revit)", descEn: "Photorealistic rendering, advanced lighting, materials, and environment settings.", descAr: "صنع الإضاءات الواقعية، الخامات المتقدمة، وتقديم صور معمارية فوتوغرافية مبهرة." }
-                ]
-            },
-            pkg3: {
-                titleEn: "CAD, Revit 1 & Photoshop Pack",
-                titleAr: "باقة CAD, Revit 1 & Photoshop",
-                valueEn: "$340 Value",
-                valueAr: "$340 القيمة الأساسية",
-                price: "$219",
-                priceNum: 219,
-                splitCourses: ["AutoCAD 2D/3D", "Revit Architecture", "Photoshop Rendering"],
-                descEn: "Essential software combo for technical drawings, BIM foundation, and architectural board post-production.",
-                descAr: "الدمج المثالي بين الرسم الهندسي، أساسيات البيم، ومعالجة اللوحات المعمارية.",
-                courses: [
-                    { code: "CAD", colorClass: "red", titleEn: "AutoCAD Technical Course", titleAr: "كورس أوتوكاد الهندسي", descEn: "Mastering 2D drafting and executive drawing creation.", descAr: "إتقان الأوامر الهندسية وإنشاء المخططات التنفيذية للمشاريع السكنية." },
-                    { code: "RVT", colorClass: "blue", titleEn: "Revit Architecture (Level 1)", titleAr: "كورس ريفيت المعماري (المستوى 1)", descEn: "Transitioning to 3D BIM modeling and design workflow.", descAr: "التحول من الرسم التقليدي إلى النمذجة ثلاثية الأبعاد ببرمجيات البيم." },
-                    { code: "PS", colorClass: "cyan", titleEn: "Photoshop for Architects", titleAr: "كورس فوتوشوب للمعماريين", descEn: "Architectural board post-production, color grading, and rendering enhancement.", descAr: "إخراج لوحات العرض المعمارية (Presentations)، إضافة الفراغات والتشجير، ومعالجة الصور." }
-                ]
-            },
-            pkg4: {
-                titleEn: "The Designer's Package",
-                titleAr: "باقة المصمم",
-                valueEn: "$340 Value",
-                valueAr: "$340 القيمة الأساسية",
-                price: "$219",
-                priceNum: 219,
-                splitCourses: ["Adobe Illustrator", "Adobe Photoshop", "Adobe Premiere Pro"],
-                descEn: "Complete package for graphic design, visual branding, and professional video editing.",
-                descAr: "باقة المصمم المتكاملة للـ Branding، التصميم الجرافيكي، والمونتاج الاحترافي.",
-                courses: [
-                    { code: "AI", colorClass: "amber", titleEn: "Adobe Illustrator Course", titleAr: "كورس أدوبي إيليستريتور", descEn: "Vector graphics, branding creation, logos, and typography design.", descAr: "تصميم الشعارات، الهويات البصرية (Branding)، والرسوم المتجهية (Vector Graphics)." },
-                    { code: "PS", colorClass: "cyan", titleEn: "Adobe Photoshop Course", titleAr: "كورس أدوبي فوتوشوب المتكامل", descEn: "Advanced image manipulation, digital painting, and composition.", descAr: "تعديل الصور، دمج العناصر البصرية، والتصميم الإعلاني الرقمي." },
-                    { code: "PR", colorClass: "purple", titleEn: "Adobe Premiere Pro Course", titleAr: "كورس أدوبي بريمير برو للمونتاج", descEn: "Professional video editing, color grading, sound mixing, and content creation.", descAr: "مونتاج الفيديوهات الاحترافية، المؤثرات البصرية، وهندسة الصوت لوسائل التواصل الاجتماعي." }
-                ]
-            },
-            pkg5: {
-                titleEn: "The Complete Architecture & Interior Package",
-                titleAr: "باقة العمارة والتصميم الداخلي المتكاملة",
-                valueEn: "$635 Value",
-                valueAr: "$635 القيمة الأساسية",
-                price: "$499",
-                priceNum: 499,
-                splitCourses: ["AutoCAD 2D/3D", "Revit Architecture", "Revit Architecture Advanced + V-Ray", "Photoshop Rendering", "Lumion"],
-                descEn: "Every essential architecture & interior design software in one complete path — from technical drafting to photorealistic rendering and cinematic walkthroughs.",
-                descAr: "كل برامج العمارة والتصميم الداخلي الأساسية بمسار واحد متكامل — من الرسم الهندسي إلى الإخراج الواقعي والفيديوهات السينمائية.",
-                courses: [
-                    { code: "CAD", colorClass: "red", titleEn: "AutoCAD Course (2D & 3D)", titleAr: "كورس أوتوكاد (2D & 3D)", descEn: "Precise architectural and technical drawing preparation.", descAr: "رسم المخططات الهندسية المعمارية بدقة متناهية وإخراج المساقط التنفيذية." },
-                    { code: "RVT", colorClass: "blue", titleEn: "Revit Architecture", titleAr: "كورس ريفيت المعماري", descEn: "BIM fundamentals, walls, floors, and 3D components creation.", descAr: "أساسيات نمذجة معلومات المباني BIM، الجدران، الأبواب، النوافذ، والكتل ثلاثية الأبعاد." },
-                    { code: "ADV", colorClass: "orange", titleEn: "Revit Architecture Advanced + V-Ray", titleAr: "كورس ريفيت المعماري المتقدم + فيراي", descEn: "Advanced BIM modeling, custom families, schedules, and photorealistic V-Ray rendering.", descAr: "النمذجة المتقدمة، إنشاء العائلات الخاصة (Families)، جدول الكميات، والإخراج الواقعي بفيراي." },
-                    { code: "PS", colorClass: "cyan", titleEn: "Photoshop for Architects", titleAr: "كورس فوتوشوب للمعماريين", descEn: "Architectural board post-production, color grading, and rendering enhancement.", descAr: "إخراج لوحات العرض المعمارية (Presentations)، إضافة الفراغات والتشجير، ومعالجة الصور." },
-                    { code: "LUM", colorClass: "emerald", titleEn: "Lumion Animation & Render", titleAr: "كورس لوميون للإخراج المعماري والتحريك", descEn: "Photorealistic rendering, lighting, materials, and motion walkthroughs.", descAr: "صنع فيديوهات الحركة (Animation)، اللقطات الواقعية السريعة (Render)، وإضافة البيئة والمواد." }
-                ]
-            }
-        };
- 
-        // خريطة ألوان ثابتة لتجنب مشاكل توليد Tailwind الديناميكي في المتصفح
-        const colorStyles = {
-            red: { bg: 'bg-red-950/40', border: 'border-red-500/30', text: 'text-red-400' },
-            blue: { bg: 'bg-blue-950/40', border: 'border-blue-500/30', text: 'text-blue-400' },
-            emerald: { bg: 'bg-emerald-950/40', border: 'border-emerald-500/30', text: 'text-emerald-400' },
-            orange: { bg: 'bg-orange-950/40', border: 'border-orange-500/30', text: 'text-orange-400' },
-            cyan: { bg: 'bg-cyan-950/40', border: 'border-cyan-500/30', text: 'text-cyan-400' },
-            amber: { bg: 'bg-amber-950/40', border: 'border-amber-500/30', text: 'text-amber-400' },
-            purple: { bg: 'bg-purple-950/40', border: 'border-purple-500/30', text: 'text-purple-400' }
-        };
- 
-        let currentLang = 'en';
-        let activePkgId = null;
- 
-        function openModal(pkgId) {
-           activePkgId = pkgId;
-            const data = packageData[pkgId];
-            const modal = document.getElementById('package-modal');
-            const content = document.getElementById('modal-content');
- 
-            let coursesHtml = '';
-           data.courses.forEach(c => {
-                const colors = colorStyles[c.colorClass] || colorStyles.amber;
-               coursesHtml += `
-                    <div class="flex items-start space-x-3 rtl:space-x-reverse bg-black/40 border border-amber-500/10 p-3 rounded-xl">
-                        <div class="w-9 h-9 rounded-lg ${colors.bg} border ${colors.border} flex items-center justify-center shrink-0 ${colors.text} font-black text-xs">${c.code}</div>
-                        <div>
-                            <h4 class="font-bold text-white text-sm">${currentLang === 'ar' ? c.titleAr : c.titleEn}</h4>
-                            <p class="text-gray-400 text-xs mt-0.5">${currentLang === 'ar' ? c.descAr : c.descEn}</p>
-                       </div>
-                    </div>
-                `;
-            });
- 
-            const pkgTitleText = currentLang === 'ar' ? data.titleAr : data.titleEn;
-            const waMessage = encodeURIComponent(currentLang === 'ar' ? `مرحباً، أود الاستفسار عن تفاصيل والاشتراك في ${pkgTitleText}` : `Hello, I would like to inquire about details and registration for ${pkgTitleText}`);
-            const waLink = `https://wa.me/96171967714?text=${waMessage}`;
- 
-           content.innerHTML = `
-                <div class="mb-4">
-                    <span class="gold-accent text-xs font-bold uppercase tracking-wider">${currentLang === 'ar' ? 'تفاصيل الباقة التدريبية' : 'Package Training Details'}</span>
-                    <h2 class="text-2xl md:text-3xl font-black text-white mt-1">${currentLang === 'ar' ? data.titleAr : data.titleEn}</h2>
-                    <p class="text-gray-400 text-xs mt-2">${currentLang === 'ar' ? data.descAr : data.descEn}</p>
-               </div>
- 
-                <div class="space-y-2 mb-6">
-                    <h3 class="text-xs font-bold text-amber-400 uppercase tracking-widest mb-3">${currentLang === 'ar' ? 'الكورسات المضمنة في هذه الباقة:' : 'Included Courses in this Package:'}</h3>
-                    ${coursesHtml}
-               </div>
- 
-                <div class="pt-4 border-t border-gray-800 flex justify-between items-center mb-6">
-                    <div>
-                        <span class="text-xs text-gray-500 line-through block">${currentLang === 'ar' ? data.valueAr : data.valueEn}</span>
-                        <span class="text-3xl font-black gold-accent">${data.price}</span>
-                   </div>
-               </div>
- 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-                    <button onclick="addPackageToCart(${JSON.stringify(data.splitCourses).replace(/"/g, '&quot;')}, ${data.priceNum}, event)" class="bg-gold text-black font-bold py-3.5 rounded-xl text-center text-xs hover:opacity-95 transition shadow-lg shadow-amber-500/20 flex items-center justify-center space-x-2 rtl:space-x-reverse">
-                        <i class="fa-solid fa-bolt text-sm"></i>
-                        <span>${currentLang === 'ar' ? 'سجل الآن' : 'Register Now'}</span>
-                   </button>
-                    <a href="${waLink}" target="_blank" class="glass-card text-amber-400 border border-amber-500/30 py-3.5 rounded-xl text-center text-xs font-bold hover:bg-amber-500/10 transition flex items-center justify-center space-x-2 rtl:space-x-reverse">
-                        <i class="fa-brands fa-whatsapp text-sm"></i>
-                        <span>${currentLang === 'ar' ? 'استفسر عبر الواتساب' : 'WhatsApp Inquiry'}</span>
-                   </a>
-               </div>
-            `;
- 
-           modal.classList.remove('hidden');
-        }
- 
-        function closeModal() {
-           document.getElementById('package-modal').classList.add('hidden');
-           activePkgId = null;
-        }
-
-        function toggleMobileMenu() {
-            const menu = document.getElementById('mobileMenu');
-            menu.classList.toggle('hidden');
-            menu.classList.toggle('flex');
-        }
- 
-        window.onclick = function(event) {
-            const modal = document.getElementById('package-modal');
-            if (event.target === modal) {
-                closeModal();
-            }
-        }
- 
-        function toggleLanguage() {
-            const html = document.documentElement;
-            const langBtnText = document.getElementById('langBtnText');
-            
-            if (currentLang === 'en') {
-                currentLang = 'ar';
-                html.setAttribute('dir', 'rtl');
-                html.setAttribute('lang', 'ar');
-                langBtnText.innerText = 'English';
-            } else {
-                currentLang = 'en';
-                html.setAttribute('dir', 'ltr');
-                html.setAttribute('lang', 'en');
-                langBtnText.innerText = 'العربية';
-            }
- 
-            document.querySelectorAll('[data-ar]').forEach(el => {
-                const targetText = currentLang === 'ar' ? el.getAttribute('data-ar') : el.getAttribute('data-en');
-                if (targetText) {
-                    el.innerText = targetText;
-                }
-            });
- 
-            if (activePkgId) {
-                openModal(activePkgId);
-            }
-        }
-    </script>
+    <script>const packageData={pkg1:{titleEn:"Engineer's Package",titleAr:"باقة المهندس",valueEn:"$340 Value",valueAr:"$340 القيمة الأساسية",price:"$219",priceNum:219,splitCourses:["AutoCAD 2D/3D","Revit Architecture","Lumion"],descEn:"Comprehensive package covering everything from 2D drafts to 3D modeling, animation, and rendering.",descAr:"باقة شاملة لكل شي من الـ 2D إلى الـ 3D، الـ Animation، والـ Render.",courses:[{code:"CAD",colorClass:"red",titleEn:"AutoCAD Course (2D & 3D)",titleAr:"كورس أوتوكاد (2D & 3D)",descEn:"Precise architectural and technical drawing preparation.",descAr:"رسم المخططات الهندسية المعمارية بدقة متناهية وإخراج المساقط التنفيذية."},{code:"RVT",colorClass:"blue",titleEn:"Revit Architecture (Level 1)",titleAr:"كورس ريفيت المعماري (المستوى 1)",descEn:"BIM fundamentals, walls, floors, and 3D components creation.",descAr:"أساسيات نمذجة معلومات المباني BIM، الجدران، الأبواب، النوافذ، والكتل ثلاثية الأبعاد."},{code:"LUM",colorClass:"emerald",titleEn:"Lumion Animation & Render",titleAr:"كورس لوميون للإخراج المعماري والتحريك",descEn:"Photorealistic rendering, lighting, materials, and motion walkthroughs.",descAr:"صنع فيديوهات الحركة (Animation)، اللقطات الواقعية السريعة (Render)، وإضافة البيئة والمواد."}]},pkg2:{titleEn:"Full Revit & V-Ray Package",titleAr:"باقة ريفيت المتكاملة",valueEn:"$300 Value",valueAr:"$300 القيمة الأساسية",price:"$199",priceNum:199,splitCourses:["Revit Architecture","Revit Architecture Advanced + V-Ray"],descEn:"Advanced architectural modeling and photorealistic rendering combo.",descAr:"لتغطية النمذجة المتقدمة والإخراج الواقعي بدقة عالية.",courses:[{code:"RVT",colorClass:"blue",titleEn:"Full Revit Architecture (L1 & L2)",titleAr:"كورس ريفيت المعماري المتكامل (L1 & L2)",descEn:"Advanced BIM modeling, custom families, schedules, and construction documents.",descAr:"النمذجة المتقدمة، إنشاء العائلات الخاصة (Families)، جدول الكميات، وإصدار المخططات التنفيذية."},{code:"VRAY",colorClass:"orange",titleEn:"V-Ray Rendering Course",titleAr:"كورس فيراي (V-Ray for Revit)",descEn:"Photorealistic rendering, advanced lighting, materials, and environment settings.",descAr:"صنع الإضاءات الواقعية، الخامات المتقدمة، وتقديم صور معمارية فوتوغرافية مبهرة."}]},pkg3:{titleEn:"CAD, Revit 1 & Photoshop Pack",titleAr:"باقة CAD, Revit 1 & Photoshop",valueEn:"$340 Value",valueAr:"$340 القيمة الأساسية",price:"$219",priceNum:219,splitCourses:["AutoCAD 2D/3D","Revit Architecture","Photoshop Rendering"],descEn:"Essential software combo for technical drawings, BIM foundation, and architectural board post-production.",descAr:"الدمج المثالي بين الرسم الهندسي، أساسيات البيم، ومعالجة اللوحات المعمارية.",courses:[{code:"CAD",colorClass:"red",titleEn:"AutoCAD Technical Course",titleAr:"كورس أوتوكاد الهندسي",descEn:"Mastering 2D drafting and executive drawing creation.",descAr:"إتقان الأوامر الهندسية وإنشاء المخططات التنفيذية للمشاريع السكنية."},{code:"RVT",colorClass:"blue",titleEn:"Revit Architecture (Level 1)",titleAr:"كورس ريفيت المعماري (المستوى 1)",descEn:"Transitioning to 3D BIM modeling and design workflow.",descAr:"التحول من الرسم التقليدي إلى النمذجة ثلاثية الأبعاد ببرمجيات البيم."},{code:"PS",colorClass:"cyan",titleEn:"Photoshop for Architects",titleAr:"كورس فوتوشوب للمعماريين",descEn:"Architectural board post-production, color grading, and rendering enhancement.",descAr:"إخراج لوحات العرض المعمارية (Presentations)، إضافة الفراغات والتشجير، ومعالجة الصور."}]},pkg4:{titleEn:"The Designer's Package",titleAr:"باقة المصمم",valueEn:"$340 Value",valueAr:"$340 القيمة الأساسية",price:"$219",priceNum:219,splitCourses:["Adobe Illustrator","Adobe Photoshop","Adobe Premiere Pro"],descEn:"Complete package for graphic design, visual branding, and professional video editing.",descAr:"باقة المصمم المتكاملة للـ Branding، التصميم الجرافيكي، والمونتاج الاحترافي.",courses:[{code:"AI",colorClass:"amber",titleEn:"Adobe Illustrator Course",titleAr:"كورس أدوبي إيليستريتور",descEn:"Vector graphics, branding creation, logos, and typography design.",descAr:"تصميم الشعارات، الهويات البصرية (Branding)، والرسوم المتجهية (Vector Graphics)."},{code:"PS",colorClass:"cyan",titleEn:"Adobe Photoshop Course",titleAr:"كورس أدوبي فوتوشوب المتكامل",descEn:"Advanced image manipulation, digital painting, and composition.",descAr:"تعديل الصور، دمج العناصر البصرية، والتصميم الإعلاني الرقمي."},{code:"PR",colorClass:"purple",titleEn:"Adobe Premiere Pro Course",titleAr:"كورس أدوبي بريمير برو للمونتاج",descEn:"Professional video editing, color grading, sound mixing, and content creation.",descAr:"مونتاج الفيديوهات الاحترافية، المؤثرات البصرية، وهندسة الصوت لوسائل التواصل الاجتماعي."}]},pkg5:{titleEn:"The Complete Architecture & Interior Package",titleAr:"باقة العمارة والتصميم الداخلي المتكاملة",valueEn:"$635 Value",valueAr:"$635 القيمة الأساسية",price:"$499",priceNum:499,splitCourses:["AutoCAD 2D/3D","Revit Architecture","Revit Architecture Advanced + V-Ray","Photoshop Rendering","Lumion"],descEn:"Every essential architecture & interior design software in one complete path — from technical drafting to photorealistic rendering and cinematic walkthroughs.",descAr:"كل برامج العمارة والتصميم الداخلي الأساسية بمسار واحد متكامل — من الرسم الهندسي إلى الإخراج الواقعي والفيديوهات السينمائية.",courses:[{code:"CAD",colorClass:"red",titleEn:"AutoCAD Course (2D & 3D)",titleAr:"كورس أوتوكاد (2D & 3D)",descEn:"Precise architectural and technical drawing preparation.",descAr:"رسم المخططات الهندسية المعمارية بدقة متناهية وإخراج المساقط التنفيذية."},{code:"RVT",colorClass:"blue",titleEn:"Revit Architecture",titleAr:"كورس ريفيت المعماري",descEn:"BIM fundamentals, walls, floors, and 3D components creation.",descAr:"أساسيات نمذجة معلومات المباني BIM، الجدران، الأبواب، النوافذ، والكتل ثلاثية الأبعاد."},{code:"ADV",colorClass:"orange",titleEn:"Revit Architecture Advanced + V-Ray",titleAr:"كورس ريفيت المعماري المتقدم + فيراي",descEn:"Advanced BIM modeling, custom families, schedules, and photorealistic V-Ray rendering.",descAr:"النمذجة المتقدمة، إنشاء العائلات الخاصة (Families)، جدول الكميات، والإخراج الواقعي بفيراي."},{code:"PS",colorClass:"cyan",titleEn:"Photoshop for Architects",titleAr:"كورس فوتوشوب للمعماريين",descEn:"Architectural board post-production, color grading, and rendering enhancement.",descAr:"إخراج لوحات العرض المعمارية (Presentations)، إضافة الفراغات والتشجير، ومعالجة الصور."},{code:"LUM",colorClass:"emerald",titleEn:"Lumion Animation & Render",titleAr:"كورس لوميون للإخراج المعماري والتحريك",descEn:"Photorealistic rendering, lighting, materials, and motion walkthroughs.",descAr:"صنع فيديوهات الحركة (Animation)، اللقطات الواقعية السريعة (Render)، وإضافة البيئة والمواد."}]}},colorStyles={red:{bg:"bg-red-950/40",border:"border-red-500/30",text:"text-red-400"},blue:{bg:"bg-blue-950/40",border:"border-blue-500/30",text:"text-blue-400"},emerald:{bg:"bg-emerald-950/40",border:"border-emerald-500/30",text:"text-emerald-400"},orange:{bg:"bg-orange-950/40",border:"border-orange-500/30",text:"text-orange-400"},cyan:{bg:"bg-cyan-950/40",border:"border-cyan-500/30",text:"text-cyan-400"},amber:{bg:"bg-amber-950/40",border:"border-amber-500/30",text:"text-amber-400"},purple:{bg:"bg-purple-950/40",border:"border-purple-500/30",text:"text-purple-400"}};let currentLang="en",activePkgId=null;function openModal(e){activePkgId=e;const t=packageData[e],r=document.getElementById("package-modal"),n=document.getElementById("modal-content");let a="";t.courses.forEach(e=>{const t=colorStyles[e.colorClass]||colorStyles.amber;a+=`\n                    <div class="flex items-start space-x-3 rtl:space-x-reverse bg-black/40 border border-amber-500/10 p-3 rounded-xl">\n                        <div class="w-9 h-9 rounded-lg ${t.bg} border ${t.border} flex items-center justify-center shrink-0 ${t.text} font-black text-xs">${e.code}</div>\n                        <div>\n                            <h4 class="font-bold text-white text-sm">${"ar"===currentLang?e.titleAr:e.titleEn}</h4>\n                            <p class="text-gray-400 text-xs mt-0.5">${"ar"===currentLang?e.descAr:e.descEn}</p>\n                       </div>\n                    </div>\n                `});const o="ar"===currentLang?t.titleAr:t.titleEn,i=`https://wa.me/96171967714?text=${encodeURIComponent("ar"===currentLang?`مرحباً، أود الاستفسار عن تفاصيل والاشتراك في ${o}`:`Hello, I would like to inquire about details and registration for ${o}`)}`;n.innerHTML=`\n                <div class="mb-4">\n                    <span class="gold-accent text-xs font-bold uppercase tracking-wider">${"ar"===currentLang?"تفاصيل الباقة التدريبية":"Package Training Details"}</span>\n                    <h2 class="text-2xl md:text-3xl font-black text-white mt-1">${"ar"===currentLang?t.titleAr:t.titleEn}</h2>\n                    <p class="text-gray-400 text-xs mt-2">${"ar"===currentLang?t.descAr:t.descEn}</p>\n               </div>\n \n                <div class="space-y-2 mb-6">\n                    <h3 class="text-xs font-bold text-amber-400 uppercase tracking-widest mb-3">${"ar"===currentLang?"الكورسات المضمنة في هذه الباقة:":"Included Courses in this Package:"}</h3>\n                    ${a}\n               </div>\n \n                <div class="pt-4 border-t border-gray-800 flex justify-between items-center mb-6">\n                    <div>\n                        <span class="text-xs text-gray-500 line-through block">${"ar"===currentLang?t.valueAr:t.valueEn}</span>\n                        <span class="text-3xl font-black gold-accent">${t.price}</span>\n                   </div>\n               </div>\n \n                <div class="grid grid-cols-1 md:grid-cols-2 gap-3">\n                    <button onclick="addPackageToCart(${JSON.stringify(t.splitCourses).replace(/"/g,"&quot;")}, ${t.priceNum}, event)" class="bg-gold text-black font-bold py-3.5 rounded-xl text-center text-xs hover:opacity-95 transition shadow-lg shadow-amber-500/20 flex items-center justify-center space-x-2 rtl:space-x-reverse">\n                        <i class="fa-solid fa-bolt text-sm"></i>\n                        <span>${"ar"===currentLang?"سجل الآن":"Register Now"}</span>\n                   </button>\n                    <a href="${i}" target="_blank" class="glass-card text-amber-400 border border-amber-500/30 py-3.5 rounded-xl text-center text-xs font-bold hover:bg-amber-500/10 transition flex items-center justify-center space-x-2 rtl:space-x-reverse">\n                        <i class="fa-brands fa-whatsapp text-sm"></i>\n                        <span>${"ar"===currentLang?"استفسر عبر الواتساب":"WhatsApp Inquiry"}</span>\n                   </a>\n               </div>\n            `,r.classList.remove("hidden")}function closeModal(){document.getElementById("package-modal").classList.add("hidden"),activePkgId=null}function toggleMobileMenu(){const e=document.getElementById("mobileMenu");e.classList.toggle("hidden"),e.classList.toggle("flex")}function toggleLanguage(){const e=document.documentElement,t=document.getElementById("langBtnText");"en"===currentLang?(currentLang="ar",e.setAttribute("dir","rtl"),e.setAttribute("lang","ar"),t.innerText="AR"):(currentLang="en",e.setAttribute("dir","ltr"),e.setAttribute("lang","en"),t.innerText="EN"),document.querySelectorAll("[data-ar]").forEach(e=>{const t="ar"===currentLang?e.getAttribute("data-ar"):e.getAttribute("data-en");t&&(e.innerText=t)}),activePkgId&&openModal(activePkgId)}window.onclick=function(e){const t=document.getElementById("package-modal");e.target===t&&closeModal()};</script>
 
     <!-- Firebase account logic + email notifications + booking UI -->
     <script src="firebase-init.js"></script>
