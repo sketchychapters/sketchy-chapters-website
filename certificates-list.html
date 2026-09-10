@@ -5,7 +5,7 @@
 <meta charset="UTF-8">
 <meta name="color-scheme" content="dark">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Certificates  | Workshop Center</title>
+<title>Certificates | Workshop Center</title>
 <link rel="icon" type="image/png" href="favicon w.png">
 <script src="https://cdn.tailwindcss.com"></script>
 <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;500;700;900&display=swap" rel="stylesheet">
@@ -78,13 +78,13 @@
 <div id="editLegacyCertModal" class="hidden fixed inset-0 bg-black/80 z-[60] flex items-center justify-center px-6">
   <div class="glass-card bg-[#121216] border border-amber-500/40 rounded-3xl p-8 max-w-sm w-full">
     <h3 class="text-white font-black text-lg mb-1">✏️ تعديل شهادة قديمة</h3>
-    <p class="text-amber-300 text-[10px] mb-5">⚠️ تغيير الاسم أو رقم الطالب أو اسم الدورة يُغيّر رابط التحقق تلقائياً — إذا كان هناك رمز استجابة سريعة مطبوع على شهادة ورقية بالبيانات القديمة، يجب طباعة رمز جديد بعد التعديل.</p>
+    <p class="text-amber-300 text-[10px] mb-5">⚠️ تغيير الاسم أو رقم الهاتف أو اسم الدورة يُغيّر رابط التحقق تلقائياً — إذا كان هناك رمز استجابة سريعة مطبوع على شهادة ورقية بالبيانات القديمة، يجب طباعة رمز جديد بعد التعديل.</p>
 
     <label class="text-xs text-gray-400 block mb-1">اسم الطالب</label>
     <input id="editLegacyCertName" type="text" class="w-full rounded-xl px-4 py-2.5 text-sm text-white mb-4">
 
-    <label class="text-xs text-gray-400 block mb-1">رقم الطالب القديم</label>
-    <input id="editLegacyCertStudentNumber" type="text" class="w-full rounded-xl px-4 py-2.5 text-sm text-white mb-4">
+    <label class="text-xs text-gray-400 block mb-1">رقم الهاتف الذي سجّل فيه الطالب</label>
+    <input id="editLegacyCertStudentNumber" type="tel" class="w-full rounded-xl px-4 py-2.5 text-sm text-white mb-4">
 
     <label class="text-xs text-gray-400 block mb-1">اسم الدورة</label>
     <input id="editLegacyCertCourse" type="text" class="w-full rounded-xl px-4 py-2.5 text-sm text-white mb-4">
@@ -185,7 +185,7 @@ function renderLegacyCerts() {
       <div>
         <span class="text-white font-bold">${escapeHtmlLocal(c.studentName || 'بدون اسم')}</span>
         <span class="text-gray-400 block mt-0.5">📜 ${escapeHtmlLocal(c.courseName || '')}</span>
-        <span class="text-gray-500 text-[10px] block mt-0.5">رقم الطالب: ${escapeHtmlLocal(c.studentNumber || '')} ${c.completionDate ? '· ' + escapeHtmlLocal(formatDateDMY(c.completionDate)) : ''} ${c.branch ? '· ' + escapeHtmlLocal(c.branch) : ''}</span>
+        <span class="text-gray-500 text-[10px] block mt-0.5">رقم الهاتف: ${escapeHtmlLocal(c.studentNumber || '')} ${c.completionDate ? '· ' + escapeHtmlLocal(formatDateDMY(c.completionDate)) : ''} ${c.branch ? '· ' + escapeHtmlLocal(c.branch) : ''}</span>
       </div>
       <div class="flex gap-1.5 shrink-0 flex-wrap justify-end">
         <button onclick="downloadLegacyCertificateQR('${c.id}')" class="text-[10px] font-bold px-2.5 py-1.5 rounded-lg bg-amber-500/20 text-amber-300">🔗 QR</button>
@@ -281,7 +281,7 @@ async function submitEditLegacyCert() {
   const courseName = document.getElementById('editLegacyCertCourse').value.trim();
   const completionDate = document.getElementById('editLegacyCertDate').value;
   const branch = document.getElementById('editLegacyCertBranch').value.trim();
-  if (!studentName || !studentNumber || !courseName) { await customAlert('يرجى تعبئة الاسم ورقم الطالب واسم الدورة على الأقل.'); return; }
+  if (!studentName || !studentNumber || !courseName) { await customAlert('يرجى تعبئة الاسم ورقم الهاتف واسم الدورة على الأقل.'); return; }
 
   try {
     await updateLegacyCertificate(activeEditLegacyCertId, studentName, studentNumber, courseName, completionDate, branch);
@@ -289,7 +289,7 @@ async function submitEditLegacyCert() {
     await loadAll();
   } catch (err) {
     if (err && err.message === 'DUPLICATE') {
-      await customAlert('توجد شهادة قديمة أخرى بنفس البيانات الجديدة (الاسم ورقم الطالب واسم الدورة) — عدّلي بيانات لا تتطابق مع شهادة موجودة أصلاً.');
+      await customAlert('توجد شهادة قديمة أخرى بنفس البيانات الجديدة (الاسم ورقم الهاتف واسم الدورة) — عدّلي بيانات لا تتطابق مع شهادة موجودة أصلاً.');
     } else {
       console.error('submitEditLegacyCert error:', err);
       await customAlert('حدث خطأ أثناء الحفظ، يرجى المحاولة مرة أخرى.');
