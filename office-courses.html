@@ -21,22 +21,7 @@
     <!-- EmailJS (instant admin notifications) -->
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        gold: '#d4af37',
-                        'gold-light': '#f3e5ab',
-                    },
-                    fontFamily: {
-                        cairo: ['Cairo', 'sans-serif'],
-                        inter: ['Inter', 'sans-serif'],
-                    }
-                }
-            }
-        }
-    </script>
+    <script>tailwind.config={theme:{extend:{colors:{gold:"#d4af37","gold-light":"#f3e5ab"},fontFamily:{cairo:["Cairo","sans-serif"],inter:["Inter","sans-serif"]}}}};</script>
     <style>
         body {color-scheme:dark; font-family: 'Inter', sans-serif; background-color: #0b0b0e; color: #f3f4f6; transition: font-family 0.3s ease; }
         body.ar-lang { font-family: 'Cairo', sans-serif; }
@@ -65,7 +50,7 @@
             <!-- Language Switcher Button -->
             <button onclick="toggleLanguage()" id="lang-btn" class="glass-card text-amber-400 border border-amber-500/30 px-3 py-2 rounded-xl text-xs font-bold hover:bg-amber-500/10 transition flex items-center space-x-1.5 rtl:space-x-reverse">
                 <i class="fa-solid fa-globe text-sm"></i>
-                <span id="langBtnText">العربية</span>
+                <span id="langBtnText" class="hidden md:inline">EN</span>
             </button>
 
             <!-- Login / My Account Button (state-aware) -->
@@ -165,19 +150,7 @@
             </div>
 
 <!-- سكربت حساب نسبة الخصم تلقائياً كارت Microsoft Word -->
-<script>
-  function updateWordCardDiscount() {
-    let originalPrice = 45;
-    let curP = parseFloat(document.getElementById('word-card-price')?.innerText);
-    let discEl = document.getElementById('word-card-discount');
-
-    if (originalPrice > 0 && curP > 0 && originalPrice > curP && discEl) {
-        let discount = Math.round(((originalPrice - curP) / originalPrice) * 100);
-        discEl.innerText = discount;
-    }
-  }
-  updateWordCardDiscount();
-</script>
+<script>function updateWordCardDiscount(){let e=parseFloat(document.getElementById("word-card-price")?.innerText),t=document.getElementById("word-card-discount");if(e>0&&45>e&&t){let d=Math.round((45-e)/45*100);t.innerText=d}}updateWordCardDiscount();</script>
 
 <!-- 2. Microsoft PowerPoint Card -->
             <div class="glass-card rounded-2xl p-6 pt-7 flex flex-col justify-between hover:border-amber-500/40 transition group">
@@ -214,19 +187,7 @@
             </div>
 
 <!-- سكربت حساب نسبة الخصم تلقائياً كارت Microsoft PowerPoint -->
-<script>
-  function updatePowerpointCardDiscount() {
-    let originalPrice = 45;
-    let curP = parseFloat(document.getElementById('powerpoint-card-price')?.innerText);
-    let discEl = document.getElementById('powerpoint-card-discount');
-
-    if (originalPrice > 0 && curP > 0 && originalPrice > curP && discEl) {
-        let discount = Math.round(((originalPrice - curP) / originalPrice) * 100);
-        discEl.innerText = discount;
-    }
-  }
-  updatePowerpointCardDiscount();
-</script>
+<script>function updatePowerpointCardDiscount(){let e=parseFloat(document.getElementById("powerpoint-card-price")?.innerText),t=document.getElementById("powerpoint-card-discount");if(e>0&&45>e&&t){let n=Math.round((45-e)/45*100);t.innerText=n}}updatePowerpointCardDiscount();</script>
 
 <!-- 3. Microsoft Excel Card -->
             <div class="glass-card rounded-2xl p-6 pt-7 flex flex-col justify-between hover:border-amber-500/40 transition group">
@@ -263,19 +224,7 @@
             </div>
 
 <!-- سكربت حساب نسبة الخصم تلقائياً كارت Microsoft Excel -->
-<script>
-  function updateExcelCardDiscount() {
-    let originalPrice = 45;
-    let curP = parseFloat(document.getElementById('excel-card-price')?.innerText);
-    let discEl = document.getElementById('excel-card-discount');
-
-    if (originalPrice > 0 && curP > 0 && originalPrice > curP && discEl) {
-        let discount = Math.round(((originalPrice - curP) / originalPrice) * 100);
-        discEl.innerText = discount;
-    }
-  }
-  updateExcelCardDiscount();
-</script>
+<script>function updateExcelCardDiscount(){let e=parseFloat(document.getElementById("excel-card-price")?.innerText),t=document.getElementById("excel-card-discount");if(e>0&&45>e&&t){let n=Math.round((45-e)/45*100);t.innerText=n}}updateExcelCardDiscount();</script>
 
         </div>
     </main>
@@ -290,7 +239,6 @@
             </div>
             <div class="flex space-x-4 rtl:space-x-reverse">
                 <a href="https://wa.me/96171967714?text=مرحباً، أهتم بالتسجيل والاستفسار عن دورات مايكروسوفت أوفيس" target="_blank" class="hover:text-amber-400 transition"><i class="fa-brands fa-whatsapp text-sm"></i> <span data-ar="واتساب" data-en="WhatsApp">WhatsApp</span></a>
-                <a href="https://forms.gle/ShVDMvXgE9sNeSxz8" target="_blank" class="hover:text-amber-400 transition"><i class="fa-solid fa-file-lines text-sm"></i> <span data-ar="استمارة التسجيل" data-en="Registration Form">Registration Form</span></a>
             </div>
         </div>
         <p class="text-center text-[10px] text-gray-600 mt-3" data-ar="جميع محتويات وأكواد وتصميم هذا الموقع ملكية خاصة بمركز سكتشي تشابترز." data-en="All site content, code, and design are proprietary to Sketchy Chapters.">All site content, code, and design are proprietary to Sketchy Chapters.</p>
@@ -535,86 +483,7 @@
     </div>
 
     <!-- ================= JAVASCRIPT ================= -->
-    <script>
-        function toggleMobileMenu() {
-            const menu = document.getElementById('mobileMenu');
-            menu.classList.toggle('hidden');
-            menu.classList.toggle('flex');
-        }
-
-        function openModal(modalId) {
-            document.getElementById(modalId).classList.remove('hidden');
-            document.body.style.overflow = 'hidden';
-        }
-
-        function closeModal(modalId) {
-            document.getElementById(modalId).classList.add('hidden');
-            document.body.style.overflow = 'auto';
-        }
-
-        // Close modal on background click
-        window.onclick = function(event) {
-            ['wordModal', 'powerpointModal', 'excelModal'].forEach(modalId => {
-                const modal = document.getElementById(modalId);
-                if (event.target === modal) {
-                    closeModal(modalId);
-                }
-            });
-        }
-
-        function detectDefaultLang() {
-            const saved = localStorage.getItem('sketchy_lang');
-            if (saved === 'ar' || saved === 'en') return saved;
-            const gulfTZ = ['Asia/Riyadh', 'Asia/Dubai', 'Asia/Kuwait', 'Asia/Qatar', 'Asia/Bahrain', 'Asia/Muscat'];
-            try {
-                const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
-                if (gulfTZ.includes(tz)) return 'ar';
-            } catch (e) {}
-            return 'en';
-        }
-
-        function toggleLanguage() {
-            const htmlRoot = document.getElementById('htmlRoot');
-            const bodyEl = document.getElementById('bodyEl');
-            const langBtnText = document.getElementById('langBtnText');
-            
-            const isRTL = htmlRoot.getAttribute('dir') === 'rtl';
-
-            if (isRTL) {
-                htmlRoot.setAttribute('dir', 'ltr');
-                htmlRoot.setAttribute('lang', 'en');
-                bodyEl.classList.remove('ar-lang');
-                bodyEl.classList.add('en-lang');
-                langBtnText.innerText = 'العربية';
-                localStorage.setItem('sketchy_lang', 'en');
-                
-                document.querySelectorAll('[data-en]').forEach(el => {
-                    if(el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
-                        el.placeholder = el.getAttribute('data-en');
-                    } else {
-                        el.innerText = el.getAttribute('data-en');
-                    }
-                });
-            } else {
-                htmlRoot.setAttribute('dir', 'rtl');
-                htmlRoot.setAttribute('lang', 'ar');
-                bodyEl.classList.remove('en-lang');
-                bodyEl.classList.add('ar-lang');
-                langBtnText.innerText = 'English';
-                localStorage.setItem('sketchy_lang', 'ar');
-                
-                document.querySelectorAll('[data-ar]').forEach(el => {
-                    if(el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
-                        el.placeholder = el.getAttribute('data-ar');
-                    } else {
-                        el.innerText = el.getAttribute('data-ar');
-                    }
-                });
-            }
-        }
-
-        if (detectDefaultLang() === 'ar') { toggleLanguage(); }
-    </script>
+    <script>function toggleMobileMenu(){const t=document.getElementById("mobileMenu");t.classList.toggle("hidden"),t.classList.toggle("flex")}function openModal(t){document.getElementById(t).classList.remove("hidden"),document.body.style.overflow="hidden"}function closeModal(t){document.getElementById(t).classList.add("hidden"),document.body.style.overflow="auto"}function detectDefaultLang(){const t=localStorage.getItem("sketchy_lang");if("ar"===t||"en"===t)return t;const e=["Asia/Riyadh","Asia/Dubai","Asia/Kuwait","Asia/Qatar","Asia/Bahrain","Asia/Muscat"];try{const t=Intl.DateTimeFormat().resolvedOptions().timeZone;if(e.includes(t))return"ar"}catch(t){}return"en"}function toggleLanguage(){const t=document.getElementById("htmlRoot"),e=document.getElementById("bodyEl"),a=document.getElementById("langBtnText");"rtl"===t.getAttribute("dir")?(t.setAttribute("dir","ltr"),t.setAttribute("lang","en"),e.classList.remove("ar-lang"),e.classList.add("en-lang"),a.innerText="EN",localStorage.setItem("sketchy_lang","en"),document.querySelectorAll("[data-en]").forEach(t=>{"INPUT"===t.tagName||"TEXTAREA"===t.tagName?t.placeholder=t.getAttribute("data-en"):t.innerText=t.getAttribute("data-en")})):(t.setAttribute("dir","rtl"),t.setAttribute("lang","ar"),e.classList.remove("en-lang"),e.classList.add("ar-lang"),a.innerText="AR",localStorage.setItem("sketchy_lang","ar"),document.querySelectorAll("[data-ar]").forEach(t=>{"INPUT"===t.tagName||"TEXTAREA"===t.tagName?t.placeholder=t.getAttribute("data-ar"):t.innerText=t.getAttribute("data-ar")}))}window.onclick=function(t){["wordModal","powerpointModal","excelModal"].forEach(e=>{const a=document.getElementById(e);t.target===a&&closeModal(e)})},"ar"===detectDefaultLang()&&toggleLanguage();</script>
 
     <!-- Firebase account logic + email notifications + booking UI -->
     <script src="firebase-init.js"></script>
