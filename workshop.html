@@ -186,39 +186,7 @@
     </div>
 
     <script>
-        (function () {
-            var seen = sessionStorage.getItem('sketchy_intro_seen');
-            var overlay = document.getElementById('introOverlay');
-            if (seen === 'true') {
-                overlay.classList.add('intro-hidden');
-                return;
-            }
-            document.body.style.overflow = 'hidden';
-            var dismissed = false;
-            function endIntro() {
-                if (dismissed) return;
-                dismissed = true;
-                sessionStorage.setItem('sketchy_intro_seen', 'true');
-                overlay.classList.add('intro-exit');
-                document.body.style.overflow = '';
-                setTimeout(function () { overlay.classList.add('intro-hidden'); }, 1600);
-            }
-            window.skipIntro = endIntro;
-            setTimeout(endIntro, 4000);
-
-            var particlesWrap = document.getElementById('introParticles');
-            if (particlesWrap) {
-                for (var i = 0; i < 26; i++) {
-                    var p = document.createElement('div');
-                    p.className = 'intro-particle';
-                    p.style.left = Math.random() * 100 + '%';
-                    p.style.bottom = '0';
-                    p.style.animationDuration = (3 + Math.random() * 3) + 's';
-                    p.style.animationDelay = (Math.random() * 2.5) + 's';
-                    particlesWrap.appendChild(p);
-                }
-            }
-        })();
+        !function(){var t=sessionStorage.getItem("sketchy_intro_seen"),e=document.getElementById("introOverlay");if("true"!==t){document.body.style.overflow="hidden";var n=!1;window.skipIntro=a,setTimeout(a,4e3);var o=document.getElementById("introParticles");if(o)for(var i=0;i<26;i++){var s=document.createElement("div");s.className="intro-particle",s.style.left=100*Math.random()+"%",s.style.bottom="0",s.style.animationDuration=3+3*Math.random()+"s",s.style.animationDelay=2.5*Math.random()+"s",o.appendChild(s)}}else e.classList.add("intro-hidden");function a(){n||(n=!0,sessionStorage.setItem("sketchy_intro_seen","true"),e.classList.add("intro-exit"),document.body.style.overflow="",setTimeout(function(){e.classList.add("intro-hidden")},1600))}}();
     </script>
 
     <!-- ================= HEADER / NAVIGATION ================= -->
@@ -237,7 +205,7 @@
         <div class="flex items-center space-x-3 rtl:space-x-reverse">
             <button onclick="toggleLanguage()" id="lang-btn" class="glass-card text-amber-400 border border-amber-500/30 px-3 py-2 rounded-xl text-xs font-bold hover:bg-amber-500/10 transition flex items-center space-x-1.5 rtl:space-x-reverse">
                 <i class="fa-solid fa-globe text-sm"></i>
-                <span id="langBtnText">العربية</span>
+                <span id="langBtnText" class="hidden md:inline">EN</span>
             </button>
 
             <div id="authArea" class="hidden md:block">
@@ -289,11 +257,7 @@
     </div>
 
     <script>
-    function toggleMobileMenu() {
-        const menu = document.getElementById('mobileMenu');
-        menu.classList.toggle('hidden');
-        menu.classList.toggle('flex');
-    }
+    function toggleMobileMenu(){const e=document.getElementById("mobileMenu");e.classList.toggle("hidden"),e.classList.toggle("flex")}
     </script>
 
     <!-- ================= OEA PARTNERSHIP BANNER ================= -->
@@ -629,7 +593,7 @@
     <footer class="py-12 text-center text-gray-500 text-xs border-t border-gray-900 mt-20">
         <a href="verify.html" class="inline-flex items-center gap-2 gold-accent hover:text-amber-300 transition font-bold mb-4">
             <i class="fa-solid fa-shield-halved text-sm"></i>
-            <span data-ar="التحقق من صحة الشهادة" data-en="Verify a Certificate">Verify a Certificate</span>
+            <span data-ar="التحقق من صحة الشهادة" data-en="Certificate Verification">Certificate Verification</span>
         </a>
         <p data-en="&copy; 2026 Sketchy Chapters Workshop Center. All rights reserved." data-ar="&copy; 2026 مركز ورش عمل سكتشي تشابترز. جميع الحقوق محفوظة.">&copy; 2026 Sketchy Chapters Workshop Center. All rights reserved.</p>
         <p class="mt-1 text-[10px] text-gray-600" data-en="All site content, code, and design are proprietary to Sketchy Chapters." data-ar="جميع محتويات وأكواد وتصميم هذا الموقع ملكية خاصة بمركز سكتشي تشابترز.">All site content, code, and design are proprietary to Sketchy Chapters.</p>
@@ -642,162 +606,7 @@
     <script src="booking-ui.js"></script>
 
     <script>
-        // ==========================================================
-        // حاسبة أرقام الإحصائيات التلقائية — ما بدها أي تحديث يدوي
-        // نقطة الانطلاق (Anchor): 31 آب 2026 = 107 دورة حقيقية (73 أونلاين + 34 خضوري)، 6250 طالب، 12000 ساعة
-        // معدل النمو: +1 دورة أونلاين/شهر، +1 دورة خضوري كل شهرين، +35 طالب لكل دورة، +112.1 ساعة لكل دورة
-        // العرض: الدورات تتقرّب لأقرب 10 - الطلاب لأقرب 100 - الساعات لأقرب 500
-        // ==========================================================
-        (function calculateLiveStats() {
-            const anchorDate = new Date(2026, 7, 31); // 31 آب 2026 (الشهر يبلش من صفر: 7 = آب)
-            const anchorCourses = 107;
-            const anchorStudents = 6250;
-            const anchorHours = 12000;
-            const hoursPerCourse = anchorHours / anchorCourses;
-            const studentsPerCourse = 35;
-
-            const today = new Date();
-            let monthsElapsed = (today.getFullYear() - anchorDate.getFullYear()) * 12 + (today.getMonth() - anchorDate.getMonth());
-            if (today.getDate() < anchorDate.getDate()) monthsElapsed -= 1;
-            if (monthsElapsed < 0) monthsElapsed = 0;
-
-            const newOnlineCourses = monthsElapsed;
-            const newKhoudariCourses = Math.floor(monthsElapsed / 2);
-            const newCoursesTotal = newOnlineCourses + newKhoudariCourses;
-
-            const realCourses = anchorCourses + newCoursesTotal;
-            const realStudents = anchorStudents + (newCoursesTotal * studentsPerCourse);
-            const realHours = anchorHours + (newCoursesTotal * hoursPerCourse);
-
-            const displayCourses = Math.floor(realCourses / 10) * 10;
-            const displayStudents = Math.floor(realStudents / 100) * 100;
-            const displayHours = Math.floor(realHours / 500) * 500;
-
-            const coursesEl = document.getElementById('statCourses');
-            const studentsEl = document.getElementById('statStudents');
-            const hoursEl = document.getElementById('statHours');
-            if (coursesEl) coursesEl.setAttribute('data-target', displayCourses);
-            if (studentsEl) studentsEl.setAttribute('data-target', displayStudents);
-            if (hoursEl) hoursEl.setAttribute('data-target', displayHours);
-        })();
-
-        const counters = document.querySelectorAll('.counter');
-        let animated = false;
-
-        function runCounters() {
-            counters.forEach(counter => {
-                const target = +counter.getAttribute('data-target');
-                let count = 0;
-                const speed = target / 50;
-
-                function updateCount() {
-                    count += speed;
-                    if (count < target) {
-                        counter.innerText = Math.ceil(count);
-                        setTimeout(updateCount, 30);
-                    } else {
-                        counter.innerText = target;
-                    }
-                }
-                updateCount();
-            });
-        }
-
-        window.addEventListener('scroll', () => {
-            const statsSection = document.getElementById('stats');
-            const sectionPos = statsSection.getBoundingClientRect().top;
-            const screenHeight = window.innerHeight;
-
-            if (sectionPos < screenHeight && !animated) {
-                runCounters();
-                animated = true;
-            }
-        });
-
-        // Fixed Language Toggle Function
-        function detectDefaultLang() {
-            const saved = localStorage.getItem('sketchy_lang');
-            if (saved === 'ar' || saved === 'en') return saved;
-            const gulfTZ = ['Asia/Riyadh', 'Asia/Dubai', 'Asia/Kuwait', 'Asia/Qatar', 'Asia/Bahrain', 'Asia/Muscat'];
-            try {
-                const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
-                if (gulfTZ.includes(tz)) return 'ar';
-            } catch (e) {}
-            return 'en';
-        }
-        let currentLang = 'en';
-
-        function toggleLanguage() {
-            const html = document.documentElement;
-            const langBtn = document.getElementById('lang-btn');
-
-            if (currentLang === 'en') {
-                currentLang = 'ar';
-                html.setAttribute('dir', 'rtl');
-                html.setAttribute('lang', 'ar');
-                langBtn.innerHTML = '<i class="fa-solid fa-globe text-sm"></i> <span>English</span>';
-                localStorage.setItem('sketchy_lang', 'ar');
-
-                document.querySelectorAll('[data-ar]').forEach(el => {
-                    if (el.hasAttribute('data-ar')) {
-                        el.innerText = el.getAttribute('data-ar');
-                    }
-                });
-
-                document.querySelectorAll('.icon-arrow').forEach(icon => {
-                    icon.classList.remove('fa-arrow-right', 'group-hover:translate-x-1');
-                    icon.classList.add('fa-arrow-left', 'group-hover:-translate-x-1');
-                });
-            } else {
-                currentLang = 'en';
-                html.setAttribute('dir', 'ltr');
-                html.setAttribute('lang', 'en');
-                langBtn.innerHTML = '<i class="fa-solid fa-globe text-sm"></i> <span>العربية</span>';
-                localStorage.setItem('sketchy_lang', 'en');
-
-                document.querySelectorAll('[data-en]').forEach(el => {
-                    if (el.hasAttribute('data-en')) {
-                        el.innerText = el.getAttribute('data-en');
-                    }
-                });
-
-                document.querySelectorAll('.icon-arrow').forEach(icon => {
-                    icon.classList.remove('fa-arrow-left', 'group-hover:-translate-x-1');
-                    icon.classList.add('fa-arrow-right', 'group-hover:translate-x-1');
-                });
-            }
-        }
-
-        if (detectDefaultLang() === 'ar') { toggleLanguage(); }
-
-        // Single Slide Carousel Logic
-        let currentSlideIndex = 0;
-        const slides = document.querySelectorAll('.review-slide');
-
-        function showSlide(index) {
-            slides.forEach((slide, i) => {
-                if (i === index) {
-                    slide.classList.remove('hidden');
-                } else {
-                    slide.classList.add('hidden');
-                }
-            });
-        }
-
-        function changeSlide(direction) {
-            currentSlideIndex += direction;
-            if (currentSlideIndex >= slides.length) {
-                currentSlideIndex = 0;
-            } else if (currentSlideIndex < 0) {
-                currentSlideIndex = slides.length - 1;
-            }
-            showSlide(currentSlideIndex);
-        }
-
-        setInterval(() => {
-            currentSlideIndex = (currentSlideIndex + 1) % slides.length;
-            showSlide(currentSlideIndex);
-        }, 4000);
+        !function(){const e=new Date(2026,7,31),t=12e3/107,n=new Date;let a=12*(n.getFullYear()-e.getFullYear())+(n.getMonth()-e.getMonth());n.getDate()<e.getDate()&&(a-=1),a<0&&(a=0);const r=a+Math.floor(a/2),l=107+r,o=6250+35*r,s=12e3+r*t,i=10*Math.floor(l/10),d=100*Math.floor(o/100),c=500*Math.floor(s/500),u=document.getElementById("statCourses"),g=document.getElementById("statStudents"),h=document.getElementById("statHours");u&&u.setAttribute("data-target",i),g&&g.setAttribute("data-target",d),h&&h.setAttribute("data-target",c)}();const counters=document.querySelectorAll(".counter");let animated=!1;function runCounters(){counters.forEach(e=>{const t=+e.getAttribute("data-target");let n=0;const a=t/50;!function r(){n+=a,n<t?(e.innerText=Math.ceil(n),setTimeout(r,30)):e.innerText=t}()})}function detectDefaultLang(){const e=localStorage.getItem("sketchy_lang");if("ar"===e||"en"===e)return e;const t=["Asia/Riyadh","Asia/Dubai","Asia/Kuwait","Asia/Qatar","Asia/Bahrain","Asia/Muscat"];try{const e=Intl.DateTimeFormat().resolvedOptions().timeZone;if(t.includes(e))return"ar"}catch(e){}return"en"}window.addEventListener("scroll",()=>{document.getElementById("stats").getBoundingClientRect().top<window.innerHeight&&!animated&&(runCounters(),animated=!0)});let currentLang="en";function toggleLanguage(){const e=document.documentElement,t=document.getElementById("lang-btn");"en"===currentLang?(currentLang="ar",e.setAttribute("dir","rtl"),e.setAttribute("lang","ar"),t.innerHTML='<i class="fa-solid fa-globe text-sm"></i> <span class="hidden md:inline">AR</span>',localStorage.setItem("sketchy_lang","ar"),document.querySelectorAll("[data-ar]").forEach(e=>{e.hasAttribute("data-ar")&&(e.innerText=e.getAttribute("data-ar"))}),document.querySelectorAll(".icon-arrow").forEach(e=>{e.classList.remove("fa-arrow-right","group-hover:translate-x-1"),e.classList.add("fa-arrow-left","group-hover:-translate-x-1")})):(currentLang="en",e.setAttribute("dir","ltr"),e.setAttribute("lang","en"),t.innerHTML='<i class="fa-solid fa-globe text-sm"></i> <span class="hidden md:inline">EN</span>',localStorage.setItem("sketchy_lang","en"),document.querySelectorAll("[data-en]").forEach(e=>{e.hasAttribute("data-en")&&(e.innerText=e.getAttribute("data-en"))}),document.querySelectorAll(".icon-arrow").forEach(e=>{e.classList.remove("fa-arrow-left","group-hover:-translate-x-1"),e.classList.add("fa-arrow-right","group-hover:translate-x-1")}))}"ar"===detectDefaultLang()&&toggleLanguage();let currentSlideIndex=0;const slides=document.querySelectorAll(".review-slide");function showSlide(e){slides.forEach((t,n)=>{n===e?t.classList.remove("hidden"):t.classList.add("hidden")})}function changeSlide(e){currentSlideIndex+=e,currentSlideIndex>=slides.length?currentSlideIndex=0:currentSlideIndex<0&&(currentSlideIndex=slides.length-1),showSlide(currentSlideIndex)}setInterval(()=>{currentSlideIndex=(currentSlideIndex+1)%slides.length,showSlide(currentSlideIndex)},4e3);
     </script>
 </body>
 </html>
