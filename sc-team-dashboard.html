@@ -572,6 +572,38 @@ function attentionRow(iconClass, colorClass, text, studentName) {
   `;
 }
 
+function reviewAttentionRow(studentUid, platform, dateStr, studentName) {
+  const safeName = (studentName || '').replace(/'/g, "");
+  const platformLabel = platform === 'google' ? 'Google' : 'Facebook';
+  const iconClass = platform === 'google' ? 'fa-google' : 'fa-facebook';
+  return `
+    <div class="w-full flex items-center gap-2.5 bg-black/30 rounded-xl px-3 py-2.5">
+      <button onclick="jumpToStudent('${safeName}')" class="flex items-center gap-2.5 flex-1 text-left">
+        <i class="fa-brands ${iconClass} text-emerald-400 text-sm shrink-0"></i>
+        <span class="text-white text-xs">Clicked to leave a ${platformLabel} review — <strong>${studentName}</strong>. Check if posted, then award points if applicable.</span>
+      </button>
+      <button onclick="dismissReviewRequestClick('${studentUid}', '${platform}', '${dateStr}')"
+        class="text-[10px] font-bold px-2.5 py-1.5 rounded-lg bg-gray-500/20 text-gray-400 shrink-0">Dismiss</button>
+    </div>
+  `;
+}
+
+async function dismissReviewRequestClick(uid, platform, dateStr) {
+  try {
+    const docRef = db.collection('students').doc(uid);
+    const docSnap = await docRef.get();
+    const data = docSnap.data();
+    const reviewRequests = (data.reviewRequests || []).map(rr =>
+      (rr.platform === platform && rr.date === dateStr) ? { ...rr, dismissed: true } : rr
+    );
+    await docRef.update({ reviewRequests });
+    allStudents = await getAllStudents();
+    renderAttentionSection();
+  } catch (err) {
+    console.error('dismissReviewRequestClick error:', err);
+  }
+}
+
 function renderAttentionSection() {
   const container = document.getElementById('attentionList');
   const items = [];
@@ -598,6 +630,12 @@ function renderAttentionSection() {
       items.push(attentionRow('fa-link', 'text-blue-400',
         `Pending referral claim — <strong>${name}</strong> · "${s.referralClaim.inputText || ''}"`, name));
     }
+
+    (s.reviewRequests || []).forEach(rr => {
+      if (!rr.dismissed) {
+        items.push(reviewAttentionRow(s.uid, rr.platform, rr.date, name));
+      }
+    });
   });
 
   const card = document.getElementById('attentionCard');
