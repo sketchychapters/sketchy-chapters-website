@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" id="htmlRoot">
+<head>
+<meta charset="UTF-8">
+<meta name="color-scheme" content="only dark">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title data-ar="نظام النقاط والمستويات | Workshop Center" data-en="Points & Levels System | Workshop Center">Points & Levels System | Sketchy Chapters</title>
+<link rel="icon" type="image/png" href="favicon w.png">
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+  body{color-scheme: only dark;font-family:'Tajawal',sans-serif;background:#08080a;color:#e0e6ed;overflow-x:hidden;}
+  .gold-accent{color:#d4af37;}
+  .gold-gradient-text{background:linear-gradient(135deg,#bf953f,#fcf6ba,#b38728,#fbf5b7);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+  .bg-gold{background:linear-gradient(135deg,#d4af37 0%,#aa7c11 100%);}
+  .glass-card{background:rgba(18,18,22,.65);backdrop-filter:blur(16px);border:1px solid rgba(212,175,55,.15);transition:all .3s ease;}
+  .glass-card:hover{border-color:rgba(212,175,55,.35);}
+  [lang="ar"] .lang-en, [lang="ar"] [data-en]{}
+  .level-card.basic{border-color:rgba(156,163,175,.3);}
+  .level-card.classic{border-color:rgba(212,175,55,.25);}
+  .level-card.gold{border-color:rgba(212,175,55,.5);}
+  .level-card.platinum{border-color:rgba(212,175,55,.7);box-shadow:0 0 30px rgba(212,175,55,.1);}
+</style>
+</head>
+<body class="min-h-screen">
+
+<header class="glass-card border-b border-amber-500/15 py-4 px-6 md:px-12 flex items-center justify-between">
+  <a href="workshop.html" class="flex items-center space-x-3 rtl:space-x-reverse">
+    <img src="workshop.png" alt="Workshop Logo" class="h-10 w-auto object-contain" onerror="this.style.display='none'; document.getElementById('logo-fallback').style.display='block';">
+    <span id="logo-fallback" class="hidden text-lg font-black tracking-wider text-white">SKETCHY <span class="gold-accent">CHAPTERS</span></span>
+  </a>
+  <a href="account.html" class="glass-card text-amber-400 border border-amber-500/30 px-4 py-2 rounded-xl text-xs font-bold hover:bg-amber-500/10 transition flex items-center gap-2">
+    <i class="fa-solid fa-arrow-left rtl:rotate-180 text-sm"></i>
+    <span data-ar="الرجوع لحسابي" data-en="Back to My Account">Back to My Account</span>
+  </a>
+  <button onclick="toggleLanguage()" id="lang-btn" class="glass-card text-amber-400 border border-amber-500/30 px-3 py-2 rounded-xl text-xs font-bold hover:bg-amber-500/10 transition flex items-center gap-1.5">
+    <i class="fa-solid fa-globe text-sm"></i>
+    <span id="langBtnText">العربية</span>
+  </button>
+</header>
+
+<main class="max-w-5xl mx-auto px-6 py-14">
+
+  <!-- Hero -->
+  <div class="text-center mb-14">
+    <div class="inline-block px-4 py-1.5 rounded-full glass-card text-xs font-bold gold-accent mb-5 uppercase tracking-widest border border-amber-500/30" data-ar="برنامج المكافآت" data-en="Rewards Program">Rewards Program</div>
+    <h1 class="text-3xl md:text-5xl font-black text-white mb-4" data-ar="نظام النقاط والمستويات" data-en="Points & Levels System">Points & Levels System</h1>
+    <p class="text-gray-400 text-sm md:text-base max-w-2xl mx-auto font-light leading-relaxed" data-ar="كل تفاعل لك مع مركز ورش العمل يقرّبك من مستوى أعلى ومزايا أوسع. هذه الصفحة تشرح كيف يعمل النظام بالكامل." data-en="Every interaction you have with Workshop Center brings you closer to a higher level and wider perks. This page explains exactly how the system works.">Every interaction you have with Workshop Center brings you closer to a higher level and wider perks. This page explains exactly how the system works.</p>
+  </div>
+
+  <!-- How to Earn Points -->
+  <div class="mb-16">
+    <h2 class="text-xl md:text-2xl font-black text-white mb-2 text-center" data-ar="كيف تكسب النقاط؟" data-en="How Do You Earn Points?">How Do You Earn Points?</h2>
+    <p class="text-gray-500 text-xs text-center mb-8 max-w-xl mx-auto" data-ar="ببساطة: كل تسجيل لك في دورة يتحوّل تلقائياً إلى نقاط تُضاف لرصيدك بمجرد اعتماد إتمامك للدورة من الإدارة." data-en="Simply put: every course you register for automatically converts into points, added to your balance once your completion is approved by the team.">Simply put: every course you register for automatically converts into points, added to your balance once your completion is approved by the team.</p>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div class="glass-card rounded-3xl p-6 text-center">
+        <div class="w-14 h-14 rounded-2xl bg-gold text-black flex items-center justify-center text-xl mx-auto mb-4"><i class="fa-solid fa-graduation-cap"></i></div>
+        <h3 class="text-white font-bold text-sm mb-2" data-ar="إتمام دورة" data-en="Complete a Course">Complete a Course</h3>
+        <p class="text-gray-400 text-xs font-light leading-relaxed" data-ar="بمجرد اعتماد إتمامك لأي دورة، تُضاف النقاط تلقائياً إلى رصيدك." data-en="Once your course completion is approved, points are added to your balance automatically.">Once your course completion is approved, points are added to your balance automatically.</p>
+      </div>
+      <div class="glass-card rounded-3xl p-6 text-center">
+        <div class="w-14 h-14 rounded-2xl bg-gold text-black flex items-center justify-center text-xl mx-auto mb-4"><i class="fa-solid fa-user-plus"></i></div>
+        <h3 class="text-white font-bold text-sm mb-2" data-ar="إحالة صديق" data-en="Refer a Friend">Refer a Friend</h3>
+        <p class="text-gray-400 text-xs font-light leading-relaxed" data-ar="عرّف صديقك على مركزنا. عند تسجيله والتحقق من الإحالة، تحصل على نقاط إضافية." data-en="Introduce a friend to our center. Once they register and the referral is verified, you earn bonus points.">Introduce a friend to our center. Once they register and the referral is verified, you earn bonus points.</p>
+      </div>
+      <div class="glass-card rounded-3xl p-6 text-center">
+        <div class="w-14 h-14 rounded-2xl bg-gold text-black flex items-center justify-center text-xl mx-auto mb-4"><i class="fa-solid fa-comment-dots"></i></div>
+        <h3 class="text-white font-bold text-sm mb-2" data-ar="مشاركة رأيك" data-en="Share Your Feedback">Share Your Feedback</h3>
+        <p class="text-gray-400 text-xs font-light leading-relaxed" data-ar="شارِكنا رأيك بعد إتمام أي دورة، وستحصل على نقاط تقديراً لوقتك." data-en="Share your feedback after completing a course, and receive points as a thank-you for your time.">Share your feedback after completing a course, and receive points as a thank-you for your time.</p>
+      </div>
+      <div class="glass-card rounded-3xl p-6 text-center">
+        <div class="w-14 h-14 rounded-2xl bg-gold text-black flex items-center justify-center text-xl mx-auto mb-4"><i class="fa-solid fa-star"></i></div>
+        <h3 class="text-white font-bold text-sm mb-2" data-ar="تقييمنا على جوجل وفيسبوك" data-en="Review Us on Google & Facebook">Review Us on Google & Facebook</h3>
+        <p class="text-gray-400 text-xs font-light leading-relaxed" data-ar="انشر تقييمك، وأرسل لنا صورة منه — وسنضيف النقاط لحسابك بعد المراجعة." data-en="Post your review, send us a screenshot of it — and we'll add the points to your account after review.">Post your review, send us a screenshot of it — and we'll add the points to your account after review.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Levels & Perks -->
+  <div class="mb-10">
+    <h2 class="text-xl md:text-2xl font-black text-white mb-2 text-center" data-ar="المستويات والمزايا" data-en="Levels & Perks">Levels & Perks</h2>
+    <p class="text-gray-500 text-xs text-center mb-8 max-w-xl mx-auto" data-ar="كل ما ارتفع رصيدك من النقاط، انتقلت تلقائياً لمستوى أعلى بمزايا أوسع." data-en="As your point balance grows, you automatically move up to a higher level with wider perks.">As your point balance grows, you automatically move up to a higher level with wider perks.</p>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+
+      <div class="glass-card level-card basic rounded-3xl p-6">
+        <span class="inline-block bg-gray-500/20 text-gray-300 text-[10px] font-black uppercase px-3 py-1 rounded-full mb-4">Basic</span>
+        <h3 class="text-white font-black text-lg mb-1" data-ar="أساسي" data-en="Basic">Basic</h3>
+        <p class="text-gray-500 text-[11px] mb-5" data-ar="نقطة البداية لكل طالب جديد." data-en="The starting point for every new student.">The starting point for every new student.</p>
+        <ul class="space-y-2 text-xs text-gray-400">
+          <li class="flex justify-between"><span data-ar="خصم الدورات" data-en="Course Discount">Course Discount</span><span class="text-white font-bold">0%</span></li>
+          <li class="flex justify-between"><span data-ar="خصم الإحالة" data-en="Referral Discount">Referral Discount</span><span class="text-white font-bold">0%</span></li>
+          <li class="flex justify-between"><span data-ar="خصم عيد الميلاد" data-en="Birthday Discount">Birthday Discount</span><span class="text-white font-bold">—</span></li>
+        </ul>
+      </div>
+
+      <div class="glass-card level-card classic rounded-3xl p-6">
+        <span class="inline-block bg-amber-500/15 gold-accent text-[10px] font-black uppercase px-3 py-1 rounded-full mb-4">Classic</span>
+        <h3 class="text-white font-black text-lg mb-1" data-ar="كلاسيك" data-en="Classic">Classic</h3>
+        <p class="text-gray-500 text-[11px] mb-5" data-ar="يبدأ من ١٬٠٠٠ نقطة." data-en="Starts from 1,000 points.">Starts from 1,000 points.</p>
+        <ul class="space-y-2 text-xs text-gray-400">
+          <li class="flex justify-between"><span data-ar="خصم الدورات" data-en="Course Discount">Course Discount</span><span class="text-white font-bold">10%</span></li>
+          <li class="flex justify-between"><span data-ar="خصم الإحالة" data-en="Referral Discount">Referral Discount</span><span class="text-white font-bold">5%</span></li>
+          <li class="flex justify-between"><span data-ar="خصم عيد الميلاد" data-en="Birthday Discount">Birthday Discount</span><span class="text-white font-bold">30%</span></li>
+        </ul>
+      </div>
+
+      <div class="glass-card level-card gold rounded-3xl p-6">
+        <span class="inline-block bg-gold text-black text-[10px] font-black uppercase px-3 py-1 rounded-full mb-4">Gold</span>
+        <h3 class="text-white font-black text-lg mb-1" data-ar="ذهبي" data-en="Gold">Gold</h3>
+        <p class="text-gray-500 text-[11px] mb-5" data-ar="يبدأ من ٢٬٥٠٠ نقطة." data-en="Starts from 2,500 points.">Starts from 2,500 points.</p>
+        <ul class="space-y-2 text-xs text-gray-400">
+          <li class="flex justify-between"><span data-ar="خصم الدورات" data-en="Course Discount">Course Discount</span><span class="text-white font-bold">15%</span></li>
+          <li class="flex justify-between"><span data-ar="خصم الإحالة" data-en="Referral Discount">Referral Discount</span><span class="text-white font-bold">10%</span></li>
+          <li class="flex justify-between"><span data-ar="خصم عيد الميلاد" data-en="Birthday Discount">Birthday Discount</span><span class="text-white font-bold">40%</span></li>
+        </ul>
+      </div>
+
+      <div class="glass-card level-card platinum rounded-3xl p-6">
+        <span class="inline-block bg-gradient-to-r from-amber-300 to-yellow-500 text-black text-[10px] font-black uppercase px-3 py-1 rounded-full mb-4">Platinum</span>
+        <h3 class="text-white font-black text-lg mb-1" data-ar="بلاتيني" data-en="Platinum">Platinum</h3>
+        <p class="text-gray-500 text-[11px] mb-5" data-ar="يبدأ من ٥٬٠٠٠ نقطة." data-en="Starts from 5,000 points.">Starts from 5,000 points.</p>
+        <ul class="space-y-2 text-xs text-gray-400">
+          <li class="flex justify-between"><span data-ar="خصم الدورات" data-en="Course Discount">Course Discount</span><span class="text-white font-bold">20%</span></li>
+          <li class="flex justify-between"><span data-ar="خصم الإحالة" data-en="Referral Discount">Referral Discount</span><span class="text-white font-bold">15%</span></li>
+          <li class="flex justify-between"><span data-ar="خصم عيد الميلاد" data-en="Birthday Discount">Birthday Discount</span><span class="text-white font-bold">50%</span></li>
+          <li class="flex justify-between pt-2 border-t border-amber-500/20 mt-2"><span class="gold-accent font-bold" data-ar="دورة مجانية سنوياً" data-en="Free Course Yearly">Free Course Yearly</span><span class="gold-accent font-bold"><i class="fa-solid fa-check"></i></span></li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="glass-card rounded-3xl p-8 text-center border-amber-500/30">
+    <h3 class="text-white font-black text-lg mb-2" data-ar="جاهز تبدأ تجمع نقاطك؟" data-en="Ready to Start Earning?">Ready to Start Earning?</h3>
+    <p class="text-gray-400 text-xs mb-6" data-ar="تصفّح دوراتنا، سجّل، وابدأ رحلتك نحو مستوى أعلى." data-en="Browse our courses, register, and start your journey toward a higher level.">Browse our courses, register, and start your journey toward a higher level.</p>
+    <a href="workshop.html" class="inline-block bg-gold text-black font-bold text-sm px-8 py-3 rounded-xl" data-ar="تصفّح الدورات" data-en="Browse Courses">Browse Courses</a>
+  </div>
+
+</main>
+
+<footer class="py-10 text-center text-gray-600 text-[11px] border-t border-gray-900 mt-10">
+  <span data-ar="© 2026 مركز ورش عمل سكتشي تشابترز" data-en="© 2026 Sketchy Chapters Workshop Center">© 2026 Sketchy Chapters Workshop Center</span>
+</footer>
+
+<script>
+let currentLang = "en";
+function toggleLanguage() {
+  currentLang = currentLang === "en" ? "ar" : "en";
+  const htmlRoot = document.getElementById("htmlRoot");
+  const langBtnText = document.getElementById("langBtnText");
+  htmlRoot.setAttribute("dir", currentLang === "ar" ? "rtl" : "ltr");
+  htmlRoot.setAttribute("lang", currentLang);
+  langBtnText.innerText = currentLang === "ar" ? "English" : "العربية";
+  document.querySelectorAll("[data-ar]").forEach(el => {
+    const t = currentLang === "ar" ? el.getAttribute("data-ar") : el.getAttribute("data-en");
+    if (t) el.innerText = t;
+  });
+}
+</script>
+</body>
+</html>
