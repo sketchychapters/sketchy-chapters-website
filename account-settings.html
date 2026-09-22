@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" id="htmlRoot">
+<head>
+<meta charset="UTF-8">
+<meta name="color-scheme" content="only dark">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title data-ar="الإعدادات | Workshop Center" data-en="Settings | Workshop Center">Settings | Sketchy Chapters</title>
+<link rel="icon" type="image/png" href="favicon w.png">
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore-compat.js"></script>
+
+<style>
+  body{color-scheme: only dark;font-family:'Tajawal',sans-serif;background:#08080a;color:#e0e6ed;overflow-x:hidden;}
+  .gold-accent{color:#d4af37;}
+  .bg-gold{background:linear-gradient(135deg,#d4af37 0%,#aa7c11 100%);}
+  .glass-card{background:rgba(18,18,22,.65);backdrop-filter:blur(16px);border:1px solid rgba(212,175,55,.15);}
+  input,select{background:rgba(0,0,0,.4);border:1px solid rgba(212,175,55,.25);color:#fff;}
+  input:focus,select:focus{outline:none;border-color:#d4af37;}
+</style>
+</head>
+<body class="min-h-screen">
+
+<header class="glass-card border-b border-amber-500/15 py-4 px-6 md:px-12 flex items-center justify-between">
+  <a href="account.html" class="flex items-center space-x-3 rtl:space-x-reverse">
+    <img src="workshop.png" alt="Workshop Logo" class="h-10 w-auto object-contain" onerror="this.style.display='none'; document.getElementById('logo-fallback').style.display='block';">
+    <span id="logo-fallback" class="hidden text-lg font-black tracking-wider text-white">SKETCHY <span class="gold-accent">CHAPTERS</span></span>
+  </a>
+  <a href="account.html" class="glass-card text-amber-400 border border-amber-500/30 px-4 py-2 rounded-xl text-xs font-bold hover:bg-amber-500/10 transition flex items-center gap-2">
+    <i class="fa-solid fa-arrow-left rtl:rotate-180 text-sm"></i>
+    <span data-ar="الرجوع لحسابي" data-en="Back to My Account">Back to My Account</span>
+  </a>
+  <button onclick="toggleLanguage()" id="lang-btn" class="glass-card text-amber-400 border border-amber-500/30 px-3 py-2 rounded-xl text-xs font-bold hover:bg-amber-500/10 transition flex items-center gap-1.5">
+    <i class="fa-solid fa-globe text-sm"></i>
+    <span id="langBtnText" class="hidden md:inline">EN</span>
+  </button>
+</header>
+
+<main class="max-w-2xl mx-auto px-6 py-12">
+
+  <h1 class="text-2xl font-black text-white mb-8" data-ar="إعدادات الحساب" data-en="Account Settings">Account Settings</h1>
+
+  <!-- Edit Profile -->
+  <div class="glass-card rounded-3xl p-8 mb-8">
+    <h2 class="text-white font-black text-lg mb-1" data-ar="تعديل بياناتي" data-en="Edit My Info">Edit My Info</h2>
+    <p class="text-gray-500 text-[11px] mb-6" data-ar="تعديل بيانات العرض فقط — ما بيغيّر إيميل أو كلمة سر الدخول." data-en="Editing display info only — this does not change your login email/password.">Editing display info only — this does not change your login email/password.</p>
+
+    <label class="text-xs text-gray-400 block mb-1" data-ar="الاسم الكامل" data-en="Full Name">Full Name</label>
+    <input id="editName" type="text" class="w-full rounded-xl px-4 py-2.5 text-sm text-white mb-4">
+
+    <label class="text-xs text-gray-400 block mb-1" data-ar="رقم الهاتف" data-en="Phone">Phone</label>
+    <input id="editPhone" type="text" class="w-full rounded-xl px-4 py-2.5 text-sm text-white mb-4">
+
+    <label class="text-xs text-gray-400 block mb-1" data-ar="الجنس" data-en="Gender">Gender</label>
+    <select id="editGender" class="w-full rounded-xl px-4 py-2.5 text-sm text-white mb-4">
+      <option value="male" data-ar="ذكر" data-en="Male">Male</option>
+      <option value="female" data-ar="أنثى" data-en="Female">Female</option>
+    </select>
+
+    <label class="text-xs text-gray-400 block mb-1" data-ar="تاريخ الميلاد" data-en="Date of Birth">Date of Birth</label>
+    <input id="editBirthDate" type="date" class="w-full rounded-xl px-4 py-2.5 text-sm text-white mb-4">
+
+    <label class="text-xs text-gray-400 block mb-1" data-ar="التخصص" data-en="Specialization / Major">Specialization / Major</label>
+    <input id="editSpecialization" type="text" class="w-full rounded-xl px-4 py-2.5 text-sm text-white mb-4">
+
+    <label class="text-xs text-gray-400 block mb-1" data-ar="البلد" data-en="Country">Country</label>
+    <input id="editCountry" type="text" class="w-full rounded-xl px-4 py-2.5 text-sm text-white mb-4">
+
+    <label class="text-xs text-gray-400 block mb-1" data-ar="المنطقة" data-en="Region / Area">Region / Area</label>
+    <input id="editRegion" type="text" class="w-full rounded-xl px-4 py-2.5 text-sm text-white mb-6">
+
+    <p id="saveMsg" class="text-emerald-400 text-xs hidden mb-4" data-ar="✅ تم الحفظ بنجاح." data-en="✅ Saved successfully.">✅ Saved successfully.</p>
+
+    <button onclick="submitEditProfile()" class="w-full bg-gold text-black font-bold py-3 rounded-xl text-sm" data-ar="حفظ التغييرات" data-en="Save Changes">Save Changes</button>
+  </div>
+
+  <!-- Delete Account -->
+  <div class="glass-card rounded-3xl p-8 border-red-500/30">
+    <h2 class="text-red-400 font-black text-lg mb-1">
+      <i class="fa-solid fa-triangle-exclamation"></i>
+      <span data-ar="حذف الحساب" data-en="Delete Account">Delete Account</span>
+    </h2>
+    <p class="text-gray-400 text-xs mb-4" data-ar="عند تقديم طلب حذف الحساب، يُحدَّد موعد الحذف الفعلي بعد ثلاثين يوماً من تاريخ الطلب. خلال هذه المدة، يمكنك إلغاء الطلب في أي وقت في حال تغيير رأيك. وبعد حلول الموعد المحدد، يتم مسح جميع بيانات حسابك (النقاط، الدورات، الشهادات، وكافة المعلومات) بشكل نهائي، ولا يمكن استرجاعها بعد ذلك." data-en="When you request deletion, the actual deletion is scheduled 30 days from now. During that time you can cancel any time you change your mind. Once the date passes, everything in your account (points, courses, certificates, everything) is permanently wiped with no way to recover it.">When you request deletion, the actual deletion is scheduled 30 days from now. During that time you can cancel any time you change your mind. Once the date passes, everything in your account is permanently wiped with no way to recover it.</p>
+
+    <div id="deletionStatusBox" class="hidden bg-red-500/10 border border-red-500/30 rounded-xl p-4 mb-4 text-center">
+      <p id="deletionStatusText" class="text-red-300 text-xs font-bold mb-3"></p>
+      <button onclick="cancelDeletionRequest()" class="bg-white text-red-600 font-bold px-6 py-2.5 rounded-xl text-xs" data-ar="إلغاء طلب الحذف" data-en="Cancel Deletion Request">Cancel Deletion Request</button>
+    </div>
+
+    <button id="deleteAccountBtn" onclick="requestAccountDeletion()" class="w-full border-2 border-red-500/50 text-red-400 font-bold py-3 rounded-xl text-sm hover:bg-red-500/10" data-ar="طلب حذف حسابي" data-en="Request Account Deletion">Request Account Deletion</button>
+  </div>
+
+</main>
+
+<footer class="py-10 text-center text-gray-600 text-[11px] border-t border-gray-900 mt-10">
+  <span data-ar="© 2026 مركز ورش عمل سكتشي تشابترز" data-en="© 2026 Sketchy Chapters Workshop Center">© 2026 Sketchy Chapters Workshop Center</span>
+</footer>
+
+<script src="firebase-init.js"></script>
+<script>
+requireLogin();
+let currentLang = "en";
+
+function toggleLanguage() {
+  currentLang = currentLang === "en" ? "ar" : "en";
+  const htmlRoot = document.getElementById("htmlRoot");
+  const langBtnText = document.getElementById("langBtnText");
+  htmlRoot.setAttribute("dir", currentLang === "ar" ? "rtl" : "ltr");
+  htmlRoot.setAttribute("lang", currentLang);
+  langBtnText.innerText = currentLang === "ar" ? "AR" : "EN";
+  document.querySelectorAll("[data-ar]").forEach(el => {
+    const t = currentLang === "ar" ? el.getAttribute("data-ar") : el.getAttribute("data-en");
+    if (t) el.innerText = t;
+  });
+}
+
+let currentStudentData = null;
+
+async function submitEditProfile() {
+  const user = auth.currentUser;
+  if (!user) return;
+
+  const updates = {
+    name: document.getElementById("editName").value.trim(),
+    phone: document.getElementById("editPhone").value.trim(),
+    gender: document.getElementById("editGender").value,
+    birthDate: document.getElementById("editBirthDate").value,
+    specialization: document.getElementById("editSpecialization").value.trim(),
+    country: document.getElementById("editCountry").value.trim(),
+    region: document.getElementById("editRegion").value.trim()
+  };
+
+  try {
+    await db.collection("students").doc(user.uid).update(updates);
+    const msg = document.getElementById("saveMsg");
+    msg.classList.remove("hidden");
+    setTimeout(() => msg.classList.add("hidden"), 3000);
+  } catch (err) {
+    console.error("submitEditProfile error:", err);
+  }
+}
+
+// ==========================================================
+// حذف الحساب — جدولة 30 يوم، بدون تنفيذ فوري
+// ==========================================================
+function renderDeletionStatus() {
+  const box = document.getElementById("deletionStatusBox");
+  const btn = document.getElementById("deleteAccountBtn");
+  const isAr = document.documentElement.getAttribute("lang") === "ar";
+
+  if (currentStudentData && currentStudentData.deletionScheduledAt) {
+    const scheduledDate = new Date(currentStudentData.deletionScheduledAt);
+    const dateStr = scheduledDate.toLocaleDateString(isAr ? "ar" : "en", { year: "numeric", month: "long", day: "numeric" });
+    document.getElementById("deletionStatusText").textContent = isAr
+      ? `سيتم حذف حسابك نهائياً بتاريخ ${dateStr}.`
+      : `Your account will be permanently deleted on ${dateStr}.`;
+    box.classList.remove("hidden");
+    btn.classList.add("hidden");
+  } else {
+    box.classList.add("hidden");
+    btn.classList.remove("hidden");
+  }
+}
+
+async function requestAccountDeletion() {
+  const isAr = document.documentElement.getAttribute("lang") === "ar";
+  const confirmMsg = isAr
+    ? "هل أنت متأكد من رغبتك في حذف حسابك؟ سيتم حذفه نهائياً بعد ثلاثين يوماً من تاريخ اليوم، ولن يكون بالإمكان استرجاعه بعد ذلك. يمكنك إلغاء هذا الطلب في أي وقت قبل حلول هذا التاريخ."
+    : "Are you sure you want to delete your account? It will be permanently deleted 30 days from now, and cannot be recovered after that. You can cancel any time before then.";
+
+  const confirmed = typeof customConfirm === 'function' ? await customConfirm(confirmMsg) : confirm(confirmMsg);
+  if (!confirmed) return;
+
+  const user = auth.currentUser;
+  if (!user) return;
+
+  const scheduledDate = new Date();
+  scheduledDate.setDate(scheduledDate.getDate() + 30);
+
+  try {
+    await db.collection("students").doc(user.uid).update({
+      deletionScheduledAt: scheduledDate.toISOString()
+    });
+    currentStudentData.deletionScheduledAt = scheduledDate.toISOString();
+    renderDeletionStatus();
+  } catch (err) {
+    console.error("requestAccountDeletion error:", err);
+  }
+}
+
+async function cancelDeletionRequest() {
+  const user = auth.currentUser;
+  if (!user) return;
+
+  try {
+    await db.collection("students").doc(user.uid).update({ deletionScheduledAt: null });
+    currentStudentData.deletionScheduledAt = null;
+    renderDeletionStatus();
+  } catch (err) {
+    console.error("cancelDeletionRequest error:", err);
+  }
+}
+
+auth.onAuthStateChanged(async (user) => {
+  if (!user) return;
+  const data = await getCurrentStudentData();
+  if (!data) return;
+
+  currentStudentData = data;
+
+  document.getElementById("editName").value = data.name || "";
+  document.getElementById("editPhone").value = data.phone || "";
+  document.getElementById("editGender").value = data.gender || "male";
+  document.getElementById("editBirthDate").value = data.birthDate || "";
+  document.getElementById("editSpecialization").value = data.specialization || "";
+  document.getElementById("editCountry").value = data.country || "";
+  document.getElementById("editRegion").value = data.region || "";
+
+  renderDeletionStatus();
+});
+</script>
+</body>
+</html>
