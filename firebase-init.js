@@ -702,7 +702,7 @@ async function addManualEnrollment(studentUid, { courseName, type, finalPrice, s
   await db.collection("students").doc(studentUid).set(updates, { merge: true });
 }
 
-async function editEnrollmentDetails(studentUid, enrollmentId, { courseName, type, finalPrice }) {
+async function editEnrollmentDetails(studentUid, enrollmentId, { courseName, type, finalPrice, date, endDate }) {
   const ref = db.collection("students").doc(studentUid);
   const doc = await ref.get();
   let pointsDiff = 0;
@@ -713,7 +713,10 @@ async function editEnrollmentDetails(studentUid, enrollmentId, { courseName, typ
       if (en.status === "completed") {
         pointsDiff = newPointsEarned - (en.pointsEarned || 0);
       }
-      return { ...en, courseName, type, basePrice: finalPrice, finalPrice, pointsEarned: newPointsEarned };
+      const updated = { ...en, courseName, type, basePrice: finalPrice, finalPrice, pointsEarned: newPointsEarned };
+      if (date) updated.date = new Date(date).toISOString();
+      if (endDate !== undefined) updated.endDate = endDate || "";
+      return updated;
     }
     return en;
   });
