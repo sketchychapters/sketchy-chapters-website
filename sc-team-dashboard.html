@@ -63,6 +63,13 @@
 </div>
 
 <!-- Birthdays This Week -->
+<!-- Needs Your Attention -->
+<div id="attentionCard" class="glass-card rounded-2xl p-5 mb-6 border-red-500/30">
+  <p class="text-white font-bold text-sm mb-1">🔔 Needs Your Attention</p>
+  <p class="text-gray-400 text-xs mb-4">A summary of everything new that requires a decision or an action from you. Click any item to jump to that student.</p>
+  <div id="attentionList" class="space-y-2"></div>
+</div>
+
 <div id="birthdaysCard" class="glass-card rounded-2xl p-5 mb-6 border-amber-500/40">
   <p class="text-white font-bold text-sm mb-1">🎂 Birthdays This Week</p>
   <p class="text-gray-400 text-xs mb-4">Tap "Send Greeting" to open WhatsApp with a ready message — edit it if you like, then hit send yourself.</p>
@@ -362,7 +369,13 @@
     </select>
 
     <label class="text-xs text-gray-400 block mb-1">Final Price ($)</label>
-    <input id="editEnrollPrice" type="number" class="w-full rounded-xl px-4 py-2.5 text-sm text-white mb-6">
+    <input id="editEnrollPrice" type="number" class="w-full rounded-xl px-4 py-2.5 text-sm text-white mb-4">
+
+    <label class="text-xs text-gray-400 block mb-1">Registration Date</label>
+    <input id="editEnrollDate" type="date" class="w-full rounded-xl px-4 py-2.5 text-sm text-white mb-4">
+
+    <label class="text-xs text-gray-400 block mb-1">Course End Date</label>
+    <input id="editEnrollEndDate" type="date" class="w-full rounded-xl px-4 py-2.5 text-sm text-white mb-6">
 
     <div class="flex gap-3">
       <button onclick="submitEditEnrollment()" class="flex-1 bg-gold text-black font-bold py-2.5 rounded-xl text-xs">Save Changes</button>
@@ -462,6 +475,7 @@ auth.onAuthStateChanged(async (user) => {
   populateCountryFilter();
   renderStudents();
   renderBirthdaysSection();
+  renderAttentionSection();
   runCertificateAutomation();
 });
 
@@ -490,15 +504,6 @@ async function runCertificateAutomation() {
     renderStudents();
   } catch (err) {
     console.error('loadCertificateCodeMap failed (certificate IDs may not show yet — check that js/certificates.js is the latest version):', err);
-  }
-  try {
-    if (typeof backfillAllCertificateVerifications === 'function') {
-      await backfillAllCertificateVerifications();
-      if (typeof loadCertificateCodeMap === 'function') await loadCertificateCodeMap();
-      renderStudents();
-    }
-  } catch (err) {
-    console.error('certificate backfill failed:', err);
   }
   try {
     if (typeof loadLegacyCertsCache === 'function') await loadLegacyCertsCache();
@@ -544,6 +549,68 @@ function computeStats() {
 <script>
 
 const birthdayDataMap = {};
+
+// ==========================================================
+// 🔔 يحتاج انتباهك — ملخّص لكل ما هو جديد ويحتاج قراراً أو إجراءً:
+// تسجيلات بانتظار الموافقة، طلبات إعادة تفعيل شهادات، وطلبات إحالة معلّقة.
+// ==========================================================
+function jumpToStudent(name) {
+  const searchBox = document.getElementById('searchBox');
+  searchBox.value = name;
+  renderStudents();
+  document.getElementById('studentsList').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function attentionRow(iconClass, colorClass, text, studentName) {
+  const safeName = (studentName || '').replace(/'/g, "");
+  return `
+    <button onclick="jumpToStudent('${safeName}')" class="w-full text-left flex items-center gap-2.5 bg-black/30 rounded-xl px-3 py-2.5 hover:bg-black/50 transition">
+      <i class="fa-solid ${iconClass} ${colorClass} text-sm shrink-0"></i>
+      <span class="text-white text-xs flex-1">${text}</span>
+      <i class="fa-solid fa-arrow-left rtl:rotate-180 text-gray-600 text-[10px]"></i>
+    </button>
+  `;
+}
+
+function renderAttentionSection() {
+  const container = document.getElementById('attentionList');
+  const items = [];
+
+  allStudents.forEach(s => {
+    const name = s.name || 'Unnamed';
+
+    (s.enrollments || []).forEach(en => {
+      if (en.status === 'pending') {
+        items.push(attentionRow('fa-clock', 'text-amber-400',
+          `Pending enrollment approval — <strong>${name}</strong> · ${en.courseName || '(no course name)'}`, name));
+      }
+    });
+
+    (s.certificates || []).forEach(cert => {
+      const downloadCount = cert.downloadCount || 0;
+      if (cert.requestedAt && downloadCount >= 2) {
+        items.push(attentionRow('fa-rotate', 'text-purple-400',
+          `Certificate reactivation requested — <strong>${name}</strong> · ${cert.courseName || '(no course name)'}`, name));
+      }
+    });
+
+    if (s.referralClaim && s.referralClaim.status === 'pending') {
+      items.push(attentionRow('fa-link', 'text-blue-400',
+        `Pending referral claim — <strong>${name}</strong> · "${s.referralClaim.inputText || ''}"`, name));
+    }
+  });
+
+  const card = document.getElementById('attentionCard');
+  if (items.length === 0) {
+    container.innerHTML = '<p class="text-gray-500 text-xs">Nothing new right now — you\'re all caught up.</p>';
+    card.classList.add('border-gray-800');
+    card.classList.remove('border-red-500/30');
+  } else {
+    container.innerHTML = items.join('');
+    card.classList.remove('border-gray-800');
+    card.classList.add('border-red-500/30');
+  }
+}
 
 function renderBirthdaysSection() {
   const container = document.getElementById('birthdaysList');
@@ -601,16 +668,13 @@ function sendBirthdayGreeting(uid, lang) {
   const info = birthdayDataMap[uid];
   if (!info || !info.cleanPhone) return;
 
-  // خطوة 1: نولّد الصورة ونحمّلها أول شي، حتى تكون جاهزة يرفقها الأدمن بالواتساب
   generateBirthdayCard(info.name, info.level.name, info.level.birthdayDiscount);
 
-  // خطوة 2: نفتح واتساب بالرسالة الجاهزة (بعد لحظة بسيطة حتى التحميل يبلش صح)
   const message = lang === 'ar' ? info.greetingAr : info.greetingEn;
   setTimeout(() => {
     window.open(`https://wa.me/${info.cleanPhone}?text=${encodeURIComponent(message)}`, '_blank');
   }, 400);
 
-  // خطوة 3: نعلّمها "Sent" حتى ما ننسى ولا نبعت مرتين
   const thisYear = new Date().getFullYear();
   localStorage.setItem(`sketchy_bday_sent::${uid}::${thisYear}`, 'true');
   renderBirthdaysSection();
@@ -623,21 +687,18 @@ function generateBirthdayCard(name, levelName, discountPercent) {
   canvas.height = H;
   const ctx = canvas.getContext('2d');
 
-  // خلفية متدرجة داكنة تطابق هوية الموقع
   const bgGrad = ctx.createLinearGradient(0, 0, 0, H);
   bgGrad.addColorStop(0, '#0d0d10');
   bgGrad.addColorStop(1, '#08080a');
   ctx.fillStyle = bgGrad;
   ctx.fillRect(0, 0, W, H);
 
-  // توهج ذهبي خلف المنتصف
   const glow = ctx.createRadialGradient(W / 2, H * 0.38, 40, W / 2, H * 0.38, 480);
   glow.addColorStop(0, 'rgba(212,175,55,0.28)');
   glow.addColorStop(1, 'rgba(212,175,55,0)');
   ctx.fillStyle = glow;
   ctx.fillRect(0, 0, W, H);
 
-  // إطار ذهبي مزدوج
   ctx.strokeStyle = 'rgba(212,175,55,0.9)';
   ctx.lineWidth = 4;
   ctx.strokeRect(36, 36, W - 72, H - 72);
@@ -647,7 +708,6 @@ function generateBirthdayCard(name, levelName, discountPercent) {
 
   ctx.textAlign = 'center';
 
-  // شعار مصغّر
   ctx.fillStyle = '#d4af37';
   ctx.font = '700 32px Arial';
   ctx.fillText('SKETCHY CHAPTERS', W / 2, 150);
@@ -655,11 +715,9 @@ function generateBirthdayCard(name, levelName, discountPercent) {
   ctx.font = '400 22px Arial';
   ctx.fillText('WORKSHOP CENTER', W / 2, 186);
 
-  // إيموجي احتفالي
   ctx.font = '110px Arial';
   ctx.fillText('🎉🎂🎉', W / 2, 340);
 
-  // عيد ميلاد سعيد (عربي وإنجليزي)
   const titleGrad = ctx.createLinearGradient(0, 400, 0, 460);
   titleGrad.addColorStop(0, '#fcf6ba');
   titleGrad.addColorStop(1, '#d4af37');
@@ -670,12 +728,10 @@ function generateBirthdayCard(name, levelName, discountPercent) {
   ctx.fillStyle = '#e6c766';
   ctx.fillText('Happy Birthday', W / 2, 512);
 
-  // اسم الطالب
   ctx.fillStyle = '#ffffff';
   ctx.font = '700 46px Arial';
   ctx.fillText(name, W / 2, 600);
 
-  // خط فاصل
   ctx.strokeStyle = 'rgba(212,175,55,0.5)';
   ctx.lineWidth = 1.5;
   ctx.beginPath();
@@ -683,7 +739,6 @@ function generateBirthdayCard(name, levelName, discountPercent) {
   ctx.lineTo(W / 2 + 140, 630);
   ctx.stroke();
 
-  // شارة المستوى
   ctx.fillStyle = 'rgba(212,175,55,0.12)';
   ctx.strokeStyle = 'rgba(212,175,55,0.6)';
   ctx.lineWidth = 2;
@@ -696,7 +751,6 @@ function generateBirthdayCard(name, levelName, discountPercent) {
   ctx.font = '700 34px Arial';
   ctx.fillText(levelName.toUpperCase() + ' LEVEL', W / 2, badgeY + 58);
 
-  // نسبة الخصم الكبيرة
   const discGrad = ctx.createLinearGradient(0, 850, 0, 990);
   discGrad.addColorStop(0, '#fcf6ba');
   discGrad.addColorStop(1, '#d4af37');
@@ -711,7 +765,6 @@ function generateBirthdayCard(name, levelName, discountPercent) {
   ctx.fillStyle = 'rgba(255,255,255,0.6)';
   ctx.fillText('on any course of your choice', W / 2, 1076);
 
-  // مدة الصلاحية
   ctx.fillStyle = 'rgba(212,175,55,0.9)';
   ctx.font = '700 28px Arial';
   ctx.fillText('⏳ ساري لمدة 7 أيام من تاريخ ميلادك', W / 2, 1150);
@@ -719,7 +772,6 @@ function generateBirthdayCard(name, levelName, discountPercent) {
   ctx.fillStyle = 'rgba(255,255,255,0.55)';
   ctx.fillText('Valid for 7 days from your birthday', W / 2, 1182);
 
-  // تذييل
   ctx.font = '400 20px Arial';
   ctx.fillStyle = 'rgba(255,255,255,0.35)';
   ctx.fillText('sketchychapters.com', W / 2, 1270);
@@ -839,7 +891,7 @@ function renderStudents() {
             actionsHtml = `<span class="text-[10px] font-bold px-2.5 py-1.5 rounded-lg bg-emerald-500/20 text-emerald-400">✓ Completed</span>`;
           }
           actionsHtml += `
-              <button onclick="openEditEnrollmentModal('${s.uid}', '${eid}', '${enCourseNameSafe}', '${en.type}', ${en.finalPrice})"
+              <button onclick="openEditEnrollmentModal('${s.uid}', '${eid}', '${enCourseNameSafe}', '${en.type}', ${en.finalPrice}, '${(en.date || '').slice(0, 10)}', '${en.endDate || ''}')"
                 class="text-[10px] font-bold px-2.5 py-1.5 rounded-lg bg-indigo-500/20 text-indigo-300">✏️</button>
               <button onclick="openScheduleModal('${s.uid}', '${eid}', '${enCourseNameSafe}', '${en.startDate || ''}', '${en.endDate || ''}')"
                 class="text-[10px] font-bold px-2.5 py-1.5 rounded-lg bg-teal-500/20 text-teal-300">📅${(en.startDate || en.endDate) ? ' •' : ''}</button>
@@ -852,7 +904,13 @@ function renderStudents() {
           const noteHtml = en.adminNote ? `<p class="text-blue-300 text-[11px] mt-1">📝 ${en.adminNote}</p>` : '';
           const scheduleHtml = (en.startDate || en.endDate) ? `<p class="text-teal-300 text-[11px] mt-1">📅 ${en.startDate ? formatDateDMY(en.startDate) : '?'} → ${en.endDate ? formatDateDMY(en.endDate) : '?'}</p>` : '';
           const enrollVerifyCode = en.status === 'completed' ? safeGetCertCode(s.uid, en.courseName) : null;
-          const certIdHtml = en.status === 'completed' ? `<p class="gold-accent text-[10px] font-mono mt-1">${enrollVerifyCode ? 'ID: ' + enrollVerifyCode : 'ID: — (يصدر تلقائياً عند أقرب تسجيل دخول)'}</p>` : '';
+          const enCourseNameForId = (en.courseName || '').replace(/'/g, "");
+          const certIdHtml = en.status === 'completed'
+            ? (enrollVerifyCode
+                ? `<p class="gold-accent text-[10px] font-mono mt-1">ID: ${enrollVerifyCode}</p>`
+                : `<button onclick="requestCertificateIdClick('${s.uid}', '${(s.name || '').replace(/'/g, "")}', '${enCourseNameForId}')"
+                    class="text-[10px] font-bold px-2.5 py-1 mt-1 rounded-lg bg-amber-500/20 text-amber-300 hover:bg-amber-500/30">🔗 طلب ID + QR</button>`)
+            : '';
           return `
           <div class="flex items-center justify-between bg-black/30 rounded-xl px-3 py-2 text-xs gap-2">
             <div>
@@ -888,6 +946,9 @@ function renderStudents() {
       `;
     })() : '';
 
+    // ==========================================================
+    // 🎓 الشهادات — عرض حالة التحميل (٠/٢، ١/٢، أو مخفية) وزر الاسترجاع
+    // ==========================================================
     const certificates = s.certificates || [];
     const certificatesHtml = certificates.length
       ? certificates.map(cert => {
@@ -895,6 +956,22 @@ function renderStudents() {
           const certCourseNameSafe = (cert.courseName || '').replace(/'/g, "");
           const certUrlSafe = (cert.url || '').replace(/'/g, "");
           const certVerifyCode = safeGetCertCode(s.uid, cert.courseName);
+          const downloadCount = cert.downloadCount || 0;
+
+          let downloadStatusHtml;
+          if (downloadCount >= 2) {
+            downloadStatusHtml = `<span class="text-red-400 text-[10px] font-bold block mt-0.5"><i class="fa-solid fa-eye-slash"></i> Hidden from student (2/2 downloads used)</span>`;
+          } else if (downloadCount === 1) {
+            downloadStatusHtml = `<span class="text-amber-300 text-[10px] font-bold block mt-0.5"><i class="fa-solid fa-download"></i> 1/2 downloads used</span>`;
+          } else {
+            downloadStatusHtml = `<span class="text-gray-500 text-[10px] block mt-0.5"><i class="fa-solid fa-download"></i> 0/2 downloads used</span>`;
+          }
+
+          const resetBtnHtml = downloadCount > 0
+            ? `<button onclick="resetCertificateDownloadsClick('${s.uid}', '${certCourseNameSafe}')"
+                class="text-[10px] font-bold px-2.5 py-1.5 rounded-lg bg-purple-500/20 text-purple-300" title="Reset download count so it reappears for the student">🔄 Reset</button>`
+            : '';
+
           return `
           <div class="flex items-center justify-between bg-black/30 rounded-xl px-3 py-2 text-xs gap-2">
             <div>
@@ -902,8 +979,10 @@ function renderStudents() {
               <a href="${cert.url || '#'}" target="_blank" class="text-emerald-400 block mt-0.5 underline break-all">${cert.url || ''}</a>
               <span class="text-gray-500 text-[10px] block mt-0.5">${cert.dateIssued ? formatDateDMY(cert.dateIssued) : ''}</span>
               <span class="gold-accent text-[10px] font-mono block mt-0.5">${certVerifyCode ? 'ID: ' + certVerifyCode : 'ID: — (اضغطي 🔗 QR لتوليده)'}</span>
+              ${downloadStatusHtml}
             </div>
-            <div class="flex gap-1.5 shrink-0">
+            <div class="flex gap-1.5 shrink-0 flex-wrap justify-end">
+              ${resetBtnHtml}
               <button onclick="generateCertificateQR('${s.uid}', '${(s.name || '').replace(/'/g, "")}', '${certCourseNameSafe}')"
                 class="text-[10px] font-bold px-2.5 py-1.5 rounded-lg bg-amber-500/20 text-amber-300">🔗 QR</button>
               <button onclick="openCertModal('${s.uid}', '${(s.name || '').replace(/'/g, "")}', '${cid}', '${certCourseNameSafe}', '${certUrlSafe}')"
@@ -1092,6 +1171,7 @@ async function dismissReferralClick(studentUid) {
   await db.collection("students").doc(studentUid).update({ "referralClaim.status": "dismissed" });
   allStudents = await getAllStudents();
   renderStudents();
+  renderAttentionSection();
 }
 
 function openEditReferralModal(uid, currentText) {
@@ -1157,6 +1237,7 @@ async function approveEnrollmentClick(uid, enrollmentId) {
   await approveEnrollment(uid, enrollmentId);
   allStudents = await getAllStudents();
   renderStudents();
+  renderAttentionSection();
 }
 
 async function rejectEnrollmentClick(uid, enrollmentId, courseName) {
@@ -1165,6 +1246,7 @@ async function rejectEnrollmentClick(uid, enrollmentId, courseName) {
   allStudents = await getAllStudents();
   computeStats();
   renderStudents();
+  renderAttentionSection();
 }
 
 let activeEnrollmentId = null;
@@ -1222,12 +1304,14 @@ async function submitSchedule() {
   renderStudents();
 }
 
-function openEditEnrollmentModal(uid, enrollmentId, courseName, type, finalPrice) {
+function openEditEnrollmentModal(uid, enrollmentId, courseName, type, finalPrice, date, endDate) {
   activeStudentUid = uid;
   activeEnrollmentId = enrollmentId;
   document.getElementById('editEnrollCourseName').value = courseName;
   document.getElementById('editEnrollType').value = type;
   document.getElementById('editEnrollPrice').value = finalPrice;
+  document.getElementById('editEnrollDate').value = date || '';
+  document.getElementById('editEnrollEndDate').value = endDate || '';
   document.getElementById('editEnrollmentModal').classList.remove('hidden');
   document.getElementById('editEnrollmentModal').classList.add('flex');
 }
@@ -1241,9 +1325,11 @@ async function submitEditEnrollment() {
   const courseName = document.getElementById('editEnrollCourseName').value.trim();
   const type = document.getElementById('editEnrollType').value;
   const finalPrice = parseFloat(document.getElementById('editEnrollPrice').value) || 0;
+  const date = document.getElementById('editEnrollDate').value;
+  const endDate = document.getElementById('editEnrollEndDate').value;
   if (!courseName) { await customAlert('Please enter a course name.'); return; }
 
-  await editEnrollmentDetails(activeStudentUid, activeEnrollmentId, { courseName, type, finalPrice });
+  await editEnrollmentDetails(activeStudentUid, activeEnrollmentId, { courseName, type, finalPrice, date, endDate });
   closeEditEnrollmentModal();
   allStudents = await getAllStudents();
   computeStats();
@@ -1310,7 +1396,6 @@ async function submitAddEnrollment() {
   const startDate = document.getElementById('enrollStartDate').value;
   const endDate = document.getElementById('enrollEndDate').value;
   const status = document.getElementById('enrollStatus').value;
-  const targetStudentUid = activeStudentUid;
 
   await addManualEnrollment(activeStudentUid, {
     courseName,
@@ -1326,10 +1411,31 @@ async function submitAddEnrollment() {
   allStudents = await getAllStudents();
   computeStats();
   renderStudents();
+  // ملاحظة: لم يعد يُولَّد رمز تحقق للشهادة تلقائياً هنا — يقتصر هذا القسم على تسجيل حالة الدورة "مكتملة".
+  // يتم توليد رمز التحقق فقط عند رفع شهادة فعلية عبر زر "+ Certificate" (الدالة submitAddCertificate أدناه)،
+  // أو يدوياً عبر زر "🔗 طلب ID + QR" أدناه (لمن يرغب بالحصول على الرمز قبل رفع ملف الشهادة النهائي لاستخدامه في التصميم).
+}
 
-  if (status === 'completed' && typeof issueCertificateSilently === 'function') {
-    const student = allStudents.find(s => s.uid === targetStudentUid);
-    await issueCertificateSilently(targetStudentUid, student ? student.name : '', courseName, null, endDate || null);
+// ==========================================================
+// 🔗 طلب رمز تحقق ورمز QR لدورة مكتملة، قبل رفع ملف الشهادة الفعلي —
+// مفيد لمن يرغب بإدراج الرمز والـQR ضمن تصميم الشهادة قبل تصديرها نهائياً.
+// ==========================================================
+async function requestCertificateIdClick(uid, name, courseName) {
+  try {
+    if (typeof issueCertificateSilently === 'function') {
+      await issueCertificateSilently(uid, name, courseName);
+    }
+    if (typeof loadCertificateCodeMap === 'function') {
+      await loadCertificateCodeMap();
+    }
+    allStudents = await getAllStudents();
+    renderStudents();
+    if (typeof generateCertificateQR === 'function') {
+      generateCertificateQR(uid, name, courseName);
+    }
+  } catch (err) {
+    console.error('requestCertificateIdClick error:', err);
+    await customAlert('حدث خطأ أثناء توليد رمز التحقق، يرجى المحاولة مرة أخرى.');
   }
 }
 
@@ -1369,9 +1475,37 @@ async function submitAddCertificate() {
   allStudents = await getAllStudents();
   renderStudents();
 
+  // يتم توليد رمز التحقق في هذه اللحظة فقط — عند رفع شهادة فعلية برابط حقيقي
   if (isNewCertificate && typeof issueCertificateSilently === 'function') {
     const student = allStudents.find(s => s.uid === targetStudentUid);
     await issueCertificateSilently(targetStudentUid, student ? student.name : '', courseName);
+  }
+}
+
+// ==========================================================
+// 🔄 استرجاع الشهادة — يُعيد تصفير عداد التحميل بحيث تظهر الشهادة من جديد لدى الطالب
+// ==========================================================
+async function resetCertificateDownloadsClick(uid, courseName) {
+  if (!(await customConfirm(`Reset the download count for "${courseName}"? This will make the certificate reappear for the student.`))) return;
+
+  try {
+    const docRef = db.collection('students').doc(uid);
+    const docSnap = await docRef.get();
+    const data = docSnap.data();
+    const certs = data.certificates || [];
+    const idx = certs.findIndex(c => c.courseName === courseName);
+    if (idx === -1) return;
+
+    certs[idx].downloadCount = 0;
+    certs[idx].requestedAt = null;
+    await docRef.update({ certificates: certs });
+
+    allStudents = await getAllStudents();
+    renderStudents();
+    renderAttentionSection();
+  } catch (err) {
+    console.error('resetCertificateDownloadsClick error:', err);
+    await customAlert('Something went wrong resetting the download count.');
   }
 }
 
@@ -1479,13 +1613,6 @@ async function deleteLibraryItemClick(uid, itemId, title) {
   allStudents = await getAllStudents();
   renderStudents();
 }
-
-// ==========================================================
-// 🏷️ Special Discounts — uses setSpecialDiscount/removeSpecialDiscount
-// from firebase-init.js (already applied automatically in submitCart's
-// pricing logic). This just adds the missing admin UI for it, plus a
-// notification so the student actually finds out about it.
-// ==========================================================
 
 function getAllKnownCourseNames() {
   const names = new Set();
