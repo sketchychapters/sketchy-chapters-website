@@ -182,11 +182,11 @@
     </div>
     <p class="text-gray-400 text-xs mb-4" data-ar="بعد نشر تقييمكم، تواصلوا معنا عبر واتساب مع صورة (سكرين شوت) منه، وسنقوم بإضافة النقاط إلى حسابكم بعد المراجعة." data-en="After posting your review, contact us on WhatsApp with a screenshot of it, and we'll add the points to your account after review.">After posting your review, contact us on WhatsApp with a screenshot of it, and we'll add the points to your account after review.</p>
     <div class="flex flex-wrap gap-3">
-      <a href="https://g.page/r/Ccu76PjE_9rqEAE/review" target="_blank" class="flex-1 min-w-[160px] bg-gold text-black font-bold text-xs px-4 py-3 rounded-xl text-center flex items-center justify-center gap-2">
+      <a href="https://g.page/r/Ccu76PjE_9rqEAI/review" target="_blank" onclick="trackReviewClick('google')" class="flex-1 min-w-[160px] bg-gold text-black font-bold text-xs px-4 py-3 rounded-xl text-center flex items-center justify-center gap-2">
         <i class="fa-brands fa-google"></i>
         <span data-ar="قيّمونا على جوجل" data-en="Review Us on Google">Review Us on Google</span>
       </a>
-      <a href="https://www.facebook.com/workshop.center.by.sc" target="_blank" class="flex-1 min-w-[160px] border border-blue-500/40 text-blue-300 font-bold text-xs px-4 py-3 rounded-xl text-center flex items-center justify-center gap-2 hover:bg-blue-500/10">
+      <a href="https://www.facebook.com/workshop.center.by.sc" target="_blank" onclick="trackReviewClick('facebook')" class="flex-1 min-w-[160px] border border-blue-500/40 text-blue-300 font-bold text-xs px-4 py-3 rounded-xl text-center flex items-center justify-center gap-2 hover:bg-blue-500/10">
         <i class="fa-brands fa-facebook"></i>
         <span data-ar="قيّمونا على فيسبوك" data-en="Review Us on Facebook">Review Us on Facebook</span>
       </a>
@@ -554,6 +554,26 @@ async function downloadCertificateSecure(courseName, url) {
   } catch (err) {
     console.error("Certificate download tracking error:", err);
     window.open(url, "_blank");
+  }
+}
+
+// ==========================================================
+// تتبّع نقر أزرار التقييم — يسجّل الحدث فقط لإظهاره للإدارة
+// ضمن قسم "يحتاج انتباهك"، دون التأثير على فتح الرابط نفسه.
+// ==========================================================
+function trackReviewClick(platform) {
+  const user = auth.currentUser;
+  if (!user) return;
+  try {
+    db.collection("students").doc(user.uid).update({
+      reviewRequests: firebase.firestore.FieldValue.arrayUnion({
+        platform,
+        date: new Date().toISOString(),
+        dismissed: false
+      })
+    });
+  } catch (err) {
+    console.error("trackReviewClick error:", err);
   }
 }
 
