@@ -83,6 +83,16 @@
 
 <main class="max-w-4xl mx-auto px-6 py-12">
 
+  <!-- Deletion scheduled banner -->
+  <div id="deletionBanner" class="hidden glass-card rounded-3xl p-5 mb-6 border-red-500/50 bg-red-500/5 text-center">
+    <p class="text-red-400 font-black text-sm mb-1">
+      <i class="fa-solid fa-triangle-exclamation"></i>
+      <span data-ar="طلب حذف حسابك قيد التنفيذ" data-en="Your account deletion is scheduled">Your account deletion is scheduled</span>
+    </p>
+    <p id="deletionDateText" class="text-gray-400 text-xs mb-4"></p>
+    <button onclick="cancelDeletionClick()" class="bg-white text-red-600 font-bold px-6 py-2.5 rounded-xl text-xs" data-ar="إلغاء طلب الحذف" data-en="Cancel Deletion Request">Cancel Deletion Request</button>
+  </div>
+
   <!-- Profile Card -->
   <div class="glass-card rounded-3xl p-8 mb-6 flex flex-col md:flex-row items-center md:items-start gap-6 text-center md:text-left rtl:md:text-right">
     <div id="avatarRing" class="w-20 h-20 rounded-full p-[3px] shrink-0">
@@ -98,6 +108,11 @@
       <p class="text-gray-500 text-[11px] mt-1 font-mono" id="profileStudentId"></p>
     </div>
     <div class="flex flex-col gap-2 shrink-0">
+      <a href="account-settings.html"
+        class="text-xs font-bold text-teal-300 border border-teal-500/30 px-4 py-2 rounded-xl hover:bg-teal-500/10 transition flex items-center justify-center gap-2" data-ar="الإعدادات" data-en="Settings">
+        <i class="fa-solid fa-gear"></i>
+        <span data-ar="الإعدادات" data-en="Settings">Settings</span>
+      </a>
       <button onclick="openChangePasswordModal()"
         class="text-xs font-bold text-blue-300 border border-blue-500/30 px-4 py-2 rounded-xl hover:bg-blue-500/10 transition" data-ar="تغيير كلمة السر" data-en="Change Password">
         Change Password
@@ -194,7 +209,7 @@
     <h2 class="text-lg font-black text-white" data-ar="شهاداتي" data-en="My Certificates">My Certificates</h2>
     <i class="fa-solid fa-award gold-accent"></i>
   </div>
-  <p class="text-gray-500 text-[11px] mb-3" data-ar="يمكن تحميل كل شهادة مرتين فقط، بعدها تختفي من هذه القائمة." data-en="Each certificate can be downloaded twice, then it disappears from this list.">Each certificate can be downloaded twice, then it disappears from this list.</p>
+  <p class="text-gray-500 text-[11px] mb-3" data-ar="حفاظاً على أمان شهادتك، يمكن تحميلها مرتين فقط، وذلك لمنع بقاء رابطها متاحاً على شبكة الإنترنت بشكل دائم. في حال استنفاد عدد مرات التحميل المسموح بها، يمكنك تقديم طلب لإعادة تفعيلها، وستتم الاستجابة لطلبك خلال وقت قصير." data-en="For your certificate's security, it can be downloaded twice only — this keeps its link from staying open on the internet forever. Used both downloads? Request it again and it'll be reactivated shortly.">For your certificate's security, it can be downloaded twice only — this keeps its link from staying open on the internet forever. Used both downloads? Request it again and it'll be reactivated shortly.</p>
   <div id="certificatesList" class="space-y-3">
     <div class="glass-card rounded-2xl p-6 text-center">
       <p class="text-gray-500 text-sm" data-ar="لا توجد شهادات بعد. ستظهر هنا فور استلامها من الإدارة." data-en="No certificates yet. They'll appear here once you complete a course.">No certificates yet. They'll appear here once you complete a course.</p>
@@ -420,51 +435,72 @@ function libraryItemHtml(item) {
   `;
 }
 
+// ==========================================================
+// الشهادات — يُسمح بتحميلها مرتين فقط حفاظاً على أمانها. بعد استنفاد الحد المسموح،
+// يمكن للطالب تقديم طلب لإعادة إصدارها، ويظهر هذا الطلب لدى الإدارة للموافقة عليه (زر Reset).
+// ==========================================================
 const MAX_CERT_DOWNLOADS = 2;
 let cachedCodeMap = {};
 
 function certificateCardHtml(cert, code) {
-  const remaining = MAX_CERT_DOWNLOADS - (cert.downloadCount || 0);
   const isAr = document.documentElement.getAttribute("lang") === "ar";
-  const remainingText = isAr
-    ? `متبقي ${remaining} تحميل${remaining !== 1 ? "ات" : ""}`
-    : `${remaining} download${remaining !== 1 ? "s" : ""} remaining`;
+  const downloadCount = cert.downloadCount || 0;
+  const exhausted = downloadCount >= MAX_CERT_DOWNLOADS;
+  const alreadyRequested = !!cert.requestedAt;
   const safeCourseName = (cert.courseName || "").replace(/'/g, "\\'").replace(/"/g, "&quot;");
   const safeUrl = (cert.url || "#").replace(/'/g, "\\'");
 
+  let statusHtml, actionHtml;
+  if (!exhausted) {
+    const remaining = MAX_CERT_DOWNLOADS - downloadCount;
+    statusHtml = `<p class="text-amber-300/70 text-[10px] mt-1">${isAr ? `متبقي ${remaining} تحميل${remaining !== 1 ? "ات" : ""}` : `${remaining} download${remaining !== 1 ? "s" : ""} remaining`}</p>`;
+    actionHtml = `
+      <button onclick="downloadCertificateSecure('${safeCourseName}', '${safeUrl}')" class="bg-gold text-black text-xs font-bold px-4 py-2 rounded-xl shrink-0">
+        <i class="fa-solid fa-download"></i>
+        <span data-ar="تحميل" data-en="Download">Download</span>
+      </button>`;
+  } else if (alreadyRequested) {
+    statusHtml = `<p class="text-emerald-400 text-[10px] mt-1"><i class="fa-solid fa-clock"></i> ${isAr ? "طلبك قيد المراجعة، وستتمكن من تحميلها مجدداً في وقت قريب." : "Your request is being reviewed — you'll be able to download it again soon."}</p>`;
+    actionHtml = `<span class="text-[10px] text-gray-500 shrink-0 px-4 py-2">${isAr ? "بانتظار الموافقة" : "Pending review"}</span>`;
+  } else {
+    statusHtml = `<p class="text-gray-500 text-[10px] mt-1">${isAr ? "انتهت مرات التحميل المسموحة." : "You've used both downloads."}</p>`;
+    actionHtml = `
+      <button onclick="requestCertificateAgain('${safeCourseName}')" class="border border-amber-500/40 text-amber-300 text-xs font-bold px-4 py-2 rounded-xl shrink-0 hover:bg-amber-500/10">
+        <i class="fa-solid fa-paper-plane"></i>
+        <span data-ar="اطلبها من جديد" data-en="Request Again">Request Again</span>
+      </button>`;
+  }
+
   return `
-    <div class="glass-card rounded-2xl p-4 flex items-center justify-between" id="certCard-${btoa(unescape(encodeURIComponent(cert.courseName || ""))).replace(/[^a-zA-Z0-9]/g, "")}">
+    <div class="glass-card rounded-2xl p-4 flex items-center justify-between">
       <div class="flex items-center gap-3">
         <i class="fa-solid fa-certificate gold-accent text-lg"></i>
         <div>
           <p class="text-white font-bold text-sm">${cert.courseName || "(certificate)"}</p>
           ${code ? `<p class="gold-accent text-[11px] font-mono mt-0.5">${code}</p>` : ""}
           <p class="text-gray-500 text-[11px]">${cert.dateIssued ? new Date(cert.dateIssued).toLocaleDateString() : ""}</p>
-          <p class="text-amber-300/70 text-[10px] mt-1">${remainingText}</p>
+          ${statusHtml}
         </div>
       </div>
-      <button onclick="downloadCertificateSecure('${safeCourseName}', '${safeUrl}')" class="bg-gold text-black text-xs font-bold px-4 py-2 rounded-xl shrink-0">
-        <i class="fa-solid fa-download"></i>
-        <span data-ar="تحميل" data-en="Download">Download</span>
-      </button>
+      ${actionHtml}
     </div>
   `;
 }
 
 function renderCertificates(certificates) {
-  const visible = (certificates || []).filter(c => (c.downloadCount || 0) < MAX_CERT_DOWNLOADS);
+  const list = certificates || [];
   const listEl = document.getElementById("certificatesList");
 
-  if (visible.length === 0) {
+  if (list.length === 0) {
     listEl.innerHTML = `
       <div class="glass-card rounded-2xl p-6 text-center">
-        <p class="text-gray-500 text-sm" data-ar="لا توجد شهادات متاحة للتحميل حالياً." data-en="No certificates currently available to download.">No certificates currently available to download.</p>
+        <p class="text-gray-500 text-sm" data-ar="لا توجد شهادات بعد. ستظهر هنا فور استلامها من الإدارة." data-en="No certificates yet. They'll appear here once you complete a course.">No certificates yet. They'll appear here once you complete a course.</p>
       </div>
     `;
     return;
   }
 
-  listEl.innerHTML = visible.slice().reverse().map(c => certificateCardHtml(c, cachedCodeMap[c.courseName] || null)).join("");
+  listEl.innerHTML = list.slice().reverse().map(c => certificateCardHtml(c, cachedCodeMap[c.courseName] || null)).join("");
 }
 
 async function downloadCertificateSecure(courseName, url) {
@@ -499,6 +535,88 @@ async function downloadCertificateSecure(courseName, url) {
   }
 }
 
+async function requestCertificateAgain(courseName) {
+  const user = auth.currentUser;
+  if (!user) return;
+
+  try {
+    const docRef = db.collection("students").doc(user.uid);
+    const docSnap = await docRef.get();
+    const data = docSnap.data();
+    const certs = data.certificates || [];
+    const idx = certs.findIndex(c => c.courseName === courseName);
+    if (idx === -1) return;
+
+    certs[idx].requestedAt = new Date().toISOString();
+    await docRef.update({ certificates: certs });
+    renderCertificates(certs);
+
+    const isAr = document.documentElement.getAttribute("lang") === "ar";
+    if (window.showBookingToast) {
+      showBookingToast(isAr ? "✅ تم إرسال طلبك بنجاح، وسيُعاد تفعيل إمكانية التحميل قريباً." : "✅ Your request was sent — we'll restore access shortly.");
+    }
+  } catch (err) {
+    console.error("requestCertificateAgain error:", err);
+  }
+}
+
+// ==========================================================
+// حذف الحساب — يُنفَّذ فعلياً بعد مرور ثلاثين يوماً على تقديم الطلب، ولا يمكن التراجع عنه بعد ذلك
+// ==========================================================
+async function checkAndProcessScheduledDeletion(user, data) {
+  if (!data.deletionScheduledAt) return false;
+
+  const scheduledDate = new Date(data.deletionScheduledAt);
+  const now = new Date();
+
+  if (now >= scheduledDate) {
+    // انقضى الموعد المحدد — يتم تنفيذ الحذف الفعلي الآن
+    try {
+      await db.collection("students").doc(user.uid).update({
+        name: "", phone: "", birthDate: "", gender: "", specialization: "",
+        country: "", region: "", points: 0, enrollments: [], certificates: [],
+        resources: [], notifications: [], pointsLog: [], specialDiscounts: [],
+        referralClaim: null, studentId: "", accountDeleted: true, deletionScheduledAt: null
+      });
+    } catch (err) {
+      console.error("Account wipe error:", err);
+    }
+    try {
+      await user.delete();
+    } catch (err) {
+      console.error("Auth delete error (data was still wiped):", err);
+    }
+    const isAr = document.documentElement.getAttribute("lang") === "ar";
+    if (typeof customAlert === 'function') {
+      await customAlert(isAr ? "تم حذف حسابك بالكامل بنجاح." : "Your account has been fully deleted.");
+    } else {
+      alert(isAr ? "تم حذف حسابك بالكامل بنجاح." : "Your account has been fully deleted.");
+    }
+    location.href = "login.html";
+    return true;
+  } else {
+    // لم يحن الموعد المحدد بعد — يُعرض إشعار بعدد الأيام المتبقية
+    const isAr = document.documentElement.getAttribute("lang") === "ar";
+    const dateStr = scheduledDate.toLocaleDateString(isAr ? "ar" : "en", { year: "numeric", month: "long", day: "numeric" });
+    document.getElementById("deletionDateText").textContent = isAr
+      ? `سيتم حذف حسابك نهائياً بتاريخ ${dateStr}. في حال تغيير رأيك، يمكنك إلغاء هذا الطلب في أي وقت قبل حلول هذا التاريخ.`
+      : `Your account will be permanently deleted on ${dateStr}. You can cancel this request any time before then.`;
+    document.getElementById("deletionBanner").classList.remove("hidden");
+    return false;
+  }
+}
+
+async function cancelDeletionClick() {
+  const user = auth.currentUser;
+  if (!user) return;
+  await db.collection("students").doc(user.uid).update({ deletionScheduledAt: null });
+  document.getElementById("deletionBanner").classList.add("hidden");
+  if (window.showBookingToast) {
+    const isAr = document.documentElement.getAttribute("lang") === "ar";
+    showBookingToast(isAr ? "✅ تم إلغاء طلب الحذف." : "✅ Deletion request cancelled.");
+  }
+}
+
 auth.onAuthStateChanged(async (user) => {
   if (!user) return;
   const data = await getCurrentStudentData();
@@ -511,6 +629,9 @@ auth.onAuthStateChanged(async (user) => {
     console.error("account.html: no Firestore document found for uid", user.uid);
     return;
   }
+
+  const wasDeleted = await checkAndProcessScheduledDeletion(user, data);
+  if (wasDeleted) return;
 
   document.getElementById("profileName").innerText = data.name || "";
   document.getElementById("profileEmail").innerText = data.email || "";
@@ -591,7 +712,6 @@ auth.onAuthStateChanged(async (user) => {
     pastList.innerHTML = past.map(enrollmentCardHtml).join("");
   }
 
-  // خريطة رموز التحقق (لو موجودة بمجموعة certificates المستقلة)
   try {
     const codeSnap = await db.collection("certificates").where("studentUid", "==", user.uid).get();
     codeSnap.forEach(doc => {
