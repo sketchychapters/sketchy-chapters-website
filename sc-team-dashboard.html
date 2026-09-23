@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="en" dir="ltr" id="htmlRoot">
 <head>
 <meta name="robots" content="noindex, nofollow">
 <meta charset="UTF-8">
 <meta name="color-scheme" content="dark">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Admin Dashboard | Workshop Center</title>
+<title data-ar="لوحة تحكم الإدارة | مركز الورش" data-en="Admin Dashboard | Workshop Center">Admin Dashboard | Workshop Center</title>
 <link rel="icon" type="image/png" href="favicon w.png">
 <script src="https://cdn.tailwindcss.com"></script>
 <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;500;700;900&display=swap" rel="stylesheet">
@@ -28,71 +28,73 @@
 
 <div class="flex items-center justify-between mb-8 flex-wrap gap-4">
   <div>
-    <h1 class="text-2xl md:text-3xl font-black text-white">Workshop Center Admin</h1>
-    <p class="text-gray-400 text-xs mt-1">Sketchy Chapters — Students, Points & Enrollments</p>
+    <h1 class="text-2xl md:text-3xl font-black text-white" data-ar="لوحة تحكم مركز الورش" data-en="Workshop Center Admin">Workshop Center Admin</h1>
+    <p class="text-gray-400 text-xs mt-1" data-ar="سكتشي تشابترز — الطلاب والنقاط والتسجيلات" data-en="Sketchy Chapters — Students, Points & Enrollments">Sketchy Chapters — Students, Points & Enrollments</p>
   </div>
-  <div class="flex items-center gap-3">
+  <div class="flex items-center gap-3 flex-wrap">
+    <button onclick="toggleLanguage()" id="lang-btn" class="text-xs font-bold text-white border border-gray-600 px-3 py-2 rounded-xl hover:bg-white/10 flex items-center gap-2">
+      <i class="fa-solid fa-globe"></i> <span id="langBtnText">العربية</span>
+    </button>
+    <a href="course-roster.html" class="text-xs font-bold text-teal-300 border border-teal-500/30 px-4 py-2 rounded-xl hover:bg-teal-500/10 flex items-center gap-2">
+      <i class="fa-solid fa-layer-group"></i> <span data-ar="سجل الدورات حسب الدفعة" data-en="Course Roster by Session">Course Roster by Session</span>
+    </a>
     <a href="scdc-leads-dashboard.html" class="text-xs font-bold text-blue-300 border border-blue-500/30 px-4 py-2 rounded-xl hover:bg-blue-500/10 flex items-center gap-2">
-      <i class="fa-solid fa-arrow-right-arrow-left"></i> Switch to SCDC Leads
+      <i class="fa-solid fa-arrow-right-arrow-left"></i> <span data-ar="التحويل إلى عملاء SCDC" data-en="Switch to SCDC Leads">Switch to SCDC Leads</span>
     </a>
     <button onclick="logoutStudent().then(()=>location.href='sc-team-login.html')"
       class="text-xs font-bold gold-accent border border-amber-500/30 px-4 py-2 rounded-xl hover:bg-amber-500/10">
-      Log Out
+      <span data-ar="تسجيل خروج" data-en="Log Out">Log Out</span>
     </button>
   </div>
 </div>
 
 <!-- Stats -->
-<div id="statsRow" class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+<div id="statsRow" class="grid grid-cols-2 md:grid-cols-3 gap-4 mb-8">
   <div class="glass-card rounded-2xl p-5 text-center">
     <p id="statStudents" class="text-2xl font-black gold-accent">–</p>
-    <p class="text-gray-400 text-[11px] uppercase tracking-wide mt-1">Total Students</p>
+    <p class="text-gray-400 text-[11px] uppercase tracking-wide mt-1" data-ar="إجمالي الطلاب" data-en="Total Students">Total Students</p>
   </div>
   <div class="glass-card rounded-2xl p-5 text-center">
     <p id="statEnrollments" class="text-2xl font-black gold-accent">–</p>
-    <p class="text-gray-400 text-[11px] uppercase tracking-wide mt-1">Total Enrollments</p>
+    <p class="text-gray-400 text-[11px] uppercase tracking-wide mt-1" data-ar="إجمالي التسجيلات" data-en="Total Enrollments">Total Enrollments</p>
   </div>
   <div class="glass-card rounded-2xl p-5 text-center">
     <p id="statPrivate" class="text-2xl font-black gold-accent">–</p>
-    <p class="text-gray-400 text-[11px] uppercase tracking-wide mt-1">Private Bookings</p>
-  </div>
-  <div class="glass-card rounded-2xl p-5 text-center">
-    <p id="statRevenue" class="text-2xl font-black gold-accent">–</p>
-    <p class="text-gray-400 text-[11px] uppercase tracking-wide mt-1">Total Revenue ($)</p>
+    <p class="text-gray-400 text-[11px] uppercase tracking-wide mt-1" data-ar="حجوزات خاصة" data-en="Private Bookings">Private Bookings</p>
   </div>
 </div>
 
 <!-- Birthdays This Week -->
 <!-- Needs Your Attention -->
 <div id="attentionCard" class="glass-card rounded-2xl p-5 mb-6 border-red-500/30">
-  <p class="text-white font-bold text-sm mb-1">🔔 Needs Your Attention</p>
-  <p class="text-gray-400 text-xs mb-4">A summary of everything new that requires a decision or an action from you. Click any item to jump to that student.</p>
+  <p class="text-white font-bold text-sm mb-1" data-ar="🔔 يحتاج انتباهك" data-en="🔔 Needs Your Attention">🔔 Needs Your Attention</p>
+  <p class="text-gray-400 text-xs mb-4" data-ar="ملخّص لكل ما هو جديد ويحتاج قراراً أو إجراءً منك. اضغط على أي عنصر للانتقال مباشرة إلى ذلك الطالب." data-en="A summary of everything new that requires a decision or an action from you. Click any item to jump to that student.">A summary of everything new that requires a decision or an action from you. Click any item to jump to that student.</p>
   <div id="attentionList" class="space-y-2"></div>
 </div>
 
 <div id="birthdaysCard" class="glass-card rounded-2xl p-5 mb-6 border-amber-500/40">
-  <p class="text-white font-bold text-sm mb-1">🎂 Birthdays This Week</p>
-  <p class="text-gray-400 text-xs mb-4">Tap "Send Greeting" to open WhatsApp with a ready message — edit it if you like, then hit send yourself.</p>
+  <p class="text-white font-bold text-sm mb-1" data-ar="🎂 أعياد ميلاد هذا الأسبوع" data-en="🎂 Birthdays This Week">🎂 Birthdays This Week</p>
+  <p class="text-gray-400 text-xs mb-4" data-ar="اضغط زر &quot;إرسال التهنئة&quot; لفتح واتساب برسالة جاهزة — عدّلها إذا رغبت، ثم أرسلها بنفسك." data-en="Tap &quot;Send Greeting&quot; to open WhatsApp with a ready message — edit it if you like, then hit send yourself.">Tap "Send Greeting" to open WhatsApp with a ready message — edit it if you like, then hit send yourself.</p>
   <div id="birthdaysList" class="space-y-2"></div>
 </div>
 
 <!-- Analytics -->
 <div class="glass-card rounded-2xl p-5 mb-6">
   <button onclick="toggleAnalytics()" class="w-full flex items-center justify-between text-white font-bold text-sm">
-    <span>📊 Analytics</span>
+    <span data-ar="📊 التحليلات" data-en="📊 Analytics">📊 Analytics</span>
     <i id="analyticsChevron" class="fa-solid fa-chevron-down text-xs gold-accent transition-transform"></i>
   </button>
   <div id="analyticsBody" class="hidden mt-5 grid grid-cols-1 md:grid-cols-3 gap-6">
     <div>
-      <p class="text-gray-400 text-[11px] uppercase tracking-wide mb-2">Most Popular Courses</p>
+      <p class="text-gray-400 text-[11px] uppercase tracking-wide mb-2" data-ar="الدورات الأكثر شعبية" data-en="Most Popular Courses">Most Popular Courses</p>
       <div id="analyticsCourses" class="space-y-2"></div>
     </div>
     <div>
-      <p class="text-gray-400 text-[11px] uppercase tracking-wide mb-2">Specializations</p>
+      <p class="text-gray-400 text-[11px] uppercase tracking-wide mb-2" data-ar="التخصصات" data-en="Specializations">Specializations</p>
       <div id="analyticsSpecializations" class="space-y-2"></div>
     </div>
     <div>
-      <p class="text-gray-400 text-[11px] uppercase tracking-wide mb-2">Gender Ratio</p>
+      <p class="text-gray-400 text-[11px] uppercase tracking-wide mb-2" data-ar="نسبة الذكور والإناث" data-en="Gender Ratio">Gender Ratio</p>
       <div id="analyticsGender" class="space-y-2"></div>
     </div>
   </div>
@@ -100,67 +102,67 @@
 
 <!-- Broadcast Announcement -->
 <div class="glass-card rounded-2xl p-5 mb-6">
-  <p class="text-white font-bold text-sm mb-1">📢 Send Announcement to All Students</p>
-  <p class="text-gray-400 text-xs mb-3">e.g. new offers, discounts, or general updates. Appears in every student's notification bell. Add a link to make it tappable — takes the student straight there.</p>
+  <p class="text-white font-bold text-sm mb-1" data-ar="📢 إرسال إعلان لجميع الطلاب" data-en="📢 Send Announcement to All Students">📢 Send Announcement to All Students</p>
+  <p class="text-gray-400 text-xs mb-3" data-ar="مثلاً: عروض جديدة، خصومات، أو تحديثات عامة. يظهر في جرس إشعارات كل طالب. أضف رابطاً ليصبح قابلاً للنقر — ينقل الطالب مباشرة إلى هناك." data-en="e.g. new offers, discounts, or general updates. Appears in every student's notification bell. Add a link to make it tappable — takes the student straight there.">e.g. new offers, discounts, or general updates. Appears in every student's notification bell. Add a link to make it tappable — takes the student straight there.</p>
   <div class="flex gap-2 flex-wrap mb-2">
     <input id="announcementText" type="text" placeholder="e.g. 20% off all Adobe courses this week only!"
       class="flex-1 min-w-[200px] rounded-xl px-4 py-2.5 text-sm text-white">
-    <button onclick="submitAnnouncement()" class="bg-gold text-black font-bold px-5 py-2.5 rounded-xl text-xs shrink-0">Send to All</button>
+    <button onclick="submitAnnouncement()" class="bg-gold text-black font-bold px-5 py-2.5 rounded-xl text-xs shrink-0" data-ar="إرسال للجميع" data-en="Send to All">Send to All</button>
   </div>
-  <input id="announcementLink" type="text" placeholder="Optional link (e.g. graphic-courses.html or offers.html)"
+  <input id="announcementLink" type="text" placeholder="Optional link (e.g. graphic-courses.html or offers.html)" data-ph-ar="رابط اختياري (مثلاً graphic-courses.html)" data-ph-en="Optional link (e.g. graphic-courses.html or offers.html)"
     class="w-full rounded-xl px-4 py-2.5 text-sm text-white">
 </div>
 
 <div class="glass-card rounded-2xl p-5 mb-6">
-  <p class="text-white font-bold text-sm mb-1">📜 إضافة شهادة قديمة (طالب بدون حساب)</p>
+  <p class="text-white font-bold text-sm mb-1" data-ar="📜 إضافة شهادة قديمة (طالب بدون حساب)" data-en="📜 Add Legacy Certificate (Student Without an Account)">📜 إضافة شهادة قديمة (طالب بدون حساب)</p>
   <p class="text-gray-400 text-xs mb-3">لطلاب حصلوا على شهادتهم قبل وجود حساب لهم في النظام. بعد الإضافة، يستطيع الطالب التحقق من شهادته عبر صفحة التحقق العامة باستخدام الاسم ورقم الهاتف واسم الدورة، دون الحاجة لأي رمز.</p>
-  <button onclick="openLegacyCertModal()" class="bg-gold text-black font-bold px-5 py-2.5 rounded-xl text-xs">إضافة شهادة قديمة</button>
+  <button onclick="openLegacyCertModal()" class="bg-gold text-black font-bold px-5 py-2.5 rounded-xl text-xs" data-ar="إضافة شهادة قديمة" data-en="Add Legacy Certificate">إضافة شهادة قديمة</button>
 </div>
 
 <!-- All certificates, across every student — opens its own page -->
 <a href="certificates-list.html" class="glass-card rounded-2xl p-5 mb-6 flex items-center justify-between hover:bg-amber-500/5">
   <div>
-    <p class="text-white font-bold text-sm mb-1">📋 كل الشهادات</p>
-    <p class="text-gray-400 text-xs">افتحي صفحة كل الشهادات (الجديدة والقديمة) بمكان واحد، للتعديل أو تنزيل QR لأي وحدة.</p>
+    <p class="text-white font-bold text-sm mb-1" data-ar="📋 كل الشهادات" data-en="📋 All Certificates">📋 كل الشهادات</p>
+    <p class="text-gray-400 text-xs" data-ar="افتحي صفحة كل الشهادات (الجديدة والقديمة) بمكان واحد، للتعديل أو تنزيل QR لأي وحدة." data-en="Open the full certificates page (new and legacy) in one place, to edit or download a QR for any of them.">افتحي صفحة كل الشهادات (الجديدة والقديمة) بمكان واحد، للتعديل أو تنزيل QR لأي وحدة.</p>
   </div>
   <i class="fa-solid fa-arrow-left gold-accent"></i>
 </a>
 
 <!-- Search + Filter -->
 <div class="flex gap-3 mb-6 flex-wrap">
-  <input id="searchBox" type="text" placeholder="🔍 Search by name, ID, email, or course..."
+  <input id="searchBox" type="text" placeholder="🔍 Search by name, ID, email, or course..." data-ph-ar="🔍 ابحث بالاسم، الرقم، الإيميل، أو الدورة..." data-ph-en="🔍 Search by name, ID, email, or course..."
     class="flex-1 min-w-[200px] rounded-xl px-4 py-3 text-sm text-white" oninput="renderStudents()">
   <select id="countryFilter" class="rounded-xl px-4 py-3 text-sm text-white" onchange="renderStudents()">
-    <option value="">🌍 All Countries</option>
+    <option value="" data-ar="🌍 كل الدول" data-en="🌍 All Countries">🌍 All Countries</option>
   </select>
 </div>
 
 <!-- Students list -->
 <div id="studentsList" class="space-y-4">
-  <p class="text-gray-500 text-sm">Loading students...</p>
+  <p class="text-gray-500 text-sm" data-ar="جاري تحميل الطلاب..." data-en="Loading students...">Loading students...</p>
 </div>
 
 <!-- Add points modal -->
 <div id="pointsModal" class="hidden fixed inset-0 bg-black/80 z-[60] flex items-center justify-center px-6">
   <div class="glass-card bg-[#121216] border border-amber-500/40 rounded-3xl p-8 max-w-sm w-full">
-    <h3 class="text-white font-black text-lg mb-1">Add Points</h3>
+    <h3 class="text-white font-black text-lg mb-1" data-ar="إضافة نقاط" data-en="Add Points">Add Points</h3>
     <p id="pointsModalStudentName" class="text-gray-400 text-xs mb-5"></p>
 
-    <label class="text-xs text-gray-400 block mb-1">Reason</label>
+    <label class="text-xs text-gray-400 block mb-1" data-ar="السبب" data-en="Reason">Reason</label>
     <select id="pointsReason" onchange="onReasonChange()" class="w-full rounded-xl px-4 py-2.5 text-sm text-white mb-4">
-      <option value="feedback">Course Feedback</option>
-      <option value="facebook">Facebook Review (+250)</option>
-      <option value="google">Google Review (+300)</option>
-      <option value="referral">Successful Referral (+200)</option>
-      <option value="manual">Manual / Other</option>
+      <option value="feedback" data-ar="تقييم الدورة" data-en="Course Feedback">Course Feedback</option>
+      <option value="facebook" data-ar="تقييم فيسبوك (+250)" data-en="Facebook Review (+250)">Facebook Review (+250)</option>
+      <option value="google" data-ar="تقييم جوجل (+300)" data-en="Google Review (+300)">Google Review (+300)</option>
+      <option value="referral" data-ar="إحالة ناجحة (+200)" data-en="Successful Referral (+200)">Successful Referral (+200)</option>
+      <option value="manual" data-ar="يدوي / أخرى" data-en="Manual / Other">Manual / Other</option>
     </select>
 
-    <label class="text-xs text-gray-400 block mb-1">Points</label>
+    <label class="text-xs text-gray-400 block mb-1" data-ar="النقاط" data-en="Points">Points</label>
     <input id="pointsAmount" type="number" value="20" class="w-full rounded-xl px-4 py-2.5 text-sm text-white mb-6">
 
     <div class="flex gap-3">
-      <button onclick="submitAddPoints()" class="flex-1 bg-gold text-black font-bold py-2.5 rounded-xl text-xs">Add Points</button>
-      <button onclick="closePointsModal()" class="flex-1 glass-card text-gray-400 border border-gray-700 py-2.5 rounded-xl text-xs">Cancel</button>
+      <button onclick="submitAddPoints()" class="flex-1 bg-gold text-black font-bold py-2.5 rounded-xl text-xs" data-ar="إضافة النقاط" data-en="Add Points">Add Points</button>
+      <button onclick="closePointsModal()" class="flex-1 glass-card text-gray-400 border border-gray-700 py-2.5 rounded-xl text-xs" data-ar="إلغاء" data-en="Cancel">Cancel</button>
     </div>
   </div>
 </div>
@@ -168,36 +170,36 @@
 <!-- Add old/legacy course modal -->
 <div id="enrollModal" class="hidden fixed inset-0 bg-black/80 z-[60] flex items-center justify-center px-6">
   <div class="glass-card bg-[#121216] border border-amber-500/40 rounded-3xl p-8 max-w-sm w-full">
-    <h3 class="text-white font-black text-lg mb-1">Add Old Course</h3>
+    <h3 class="text-white font-black text-lg mb-1" data-ar="إضافة دورة قديمة" data-en="Add Old Course">Add Old Course</h3>
     <p id="enrollModalStudentName" class="text-gray-400 text-xs mb-5"></p>
 
-    <label class="text-xs text-gray-400 block mb-1">Course Name</label>
+    <label class="text-xs text-gray-400 block mb-1" data-ar="اسم الدورة" data-en="Course Name">Course Name</label>
     <input id="enrollCourseName" type="text" placeholder="e.g. AutoCAD 2D/3D" class="w-full rounded-xl px-4 py-2.5 text-sm text-white mb-4">
 
-    <label class="text-xs text-gray-400 block mb-1">Type</label>
+    <label class="text-xs text-gray-400 block mb-1" data-ar="النوع" data-en="Type">Type</label>
     <select id="enrollType" class="w-full rounded-xl px-4 py-2.5 text-sm text-white mb-4">
-      <option value="group">Group</option>
-      <option value="private">Private</option>
+      <option value="group" data-ar="جماعي" data-en="Group">Group</option>
+      <option value="private" data-ar="خاص" data-en="Private">Private</option>
     </select>
 
-    <label class="text-xs text-gray-400 block mb-1">Price Paid ($)</label>
+    <label class="text-xs text-gray-400 block mb-1" data-ar="المبلغ المدفوع ($)" data-en="Price Paid ($)">Price Paid ($)</label>
     <input id="enrollPrice" type="number" value="0" class="w-full rounded-xl px-4 py-2.5 text-sm text-white mb-4">
 
-    <label class="text-xs text-gray-400 block mb-1">Course Start Date</label>
+    <label class="text-xs text-gray-400 block mb-1" data-ar="تاريخ بداية الدورة" data-en="Course Start Date">Course Start Date</label>
     <input id="enrollStartDate" type="date" class="w-full rounded-xl px-4 py-2.5 text-sm text-white mb-4">
 
-    <label class="text-xs text-gray-400 block mb-1">Course End Date</label>
+    <label class="text-xs text-gray-400 block mb-1" data-ar="تاريخ انتهاء الدورة" data-en="Course End Date">Course End Date</label>
     <input id="enrollEndDate" type="date" class="w-full rounded-xl px-4 py-2.5 text-sm text-white mb-4">
 
-    <label class="text-xs text-gray-400 block mb-1">Status</label>
+    <label class="text-xs text-gray-400 block mb-1" data-ar="الحالة" data-en="Status">Status</label>
     <select id="enrollStatus" class="w-full rounded-xl px-4 py-2.5 text-sm text-white mb-6">
-      <option value="completed">Completed</option>
-      <option value="upcoming">Upcoming</option>
+      <option value="completed" data-ar="مكتملة" data-en="Completed">Completed</option>
+      <option value="upcoming" data-ar="قادمة" data-en="Upcoming">Upcoming</option>
     </select>
 
     <div class="flex gap-3">
-      <button onclick="submitAddEnrollment()" class="flex-1 bg-gold text-black font-bold py-2.5 rounded-xl text-xs">Add Course</button>
-      <button onclick="closeEnrollModal()" class="flex-1 glass-card text-gray-400 border border-gray-700 py-2.5 rounded-xl text-xs">Cancel</button>
+      <button onclick="submitAddEnrollment()" class="flex-1 bg-gold text-black font-bold py-2.5 rounded-xl text-xs" data-ar="إضافة الدورة" data-en="Add Course">Add Course</button>
+      <button onclick="closeEnrollModal()" class="flex-1 glass-card text-gray-400 border border-gray-700 py-2.5 rounded-xl text-xs" data-ar="إلغاء" data-en="Cancel">Cancel</button>
     </div>
   </div>
 </div>
@@ -205,18 +207,21 @@
 <!-- Add certificate modal -->
 <div id="certModal" class="hidden fixed inset-0 bg-black/80 z-[60] flex items-center justify-center px-6">
   <div class="glass-card bg-[#121216] border border-amber-500/40 rounded-3xl p-8 max-w-sm w-full">
-    <h3 id="certModalTitle" class="text-white font-black text-lg mb-1">🎓 Add Certificate</h3>
+    <h3 id="certModalTitle" class="text-white font-black text-lg mb-1" data-ar="🎓 إضافة شهادة" data-en="🎓 Add Certificate">🎓 Add Certificate</h3>
     <p id="certModalStudentName" class="text-gray-400 text-xs mb-5"></p>
 
-    <label class="text-xs text-gray-400 block mb-1">Course Name</label>
+    <label class="text-xs text-gray-400 block mb-1" data-ar="اسم الدورة" data-en="Course Name">Course Name</label>
     <input id="certCourseName" type="text" placeholder="e.g. Revit Architecture" class="w-full rounded-xl px-4 py-2.5 text-sm text-white mb-4">
 
-    <label class="text-xs text-gray-400 block mb-1">Certificate Link (Google Drive, etc.)</label>
-    <input id="certUrl" type="url" placeholder="https://drive.google.com/..." class="w-full rounded-xl px-4 py-2.5 text-sm text-white mb-6">
+    <label class="text-xs text-gray-400 block mb-1" data-ar="رابط الشهادة (جوجل درايف، إلخ)" data-en="Certificate Link (Google Drive, etc.)">Certificate Link (Google Drive, etc.)</label>
+    <input id="certUrl" type="url" placeholder="https://drive.google.com/..." class="w-full rounded-xl px-4 py-2.5 text-sm text-white mb-4">
+
+    <label class="text-xs text-gray-400 block mb-1" data-ar="المصدر / الفرع" data-en="Source / Branch">Source / Branch</label>
+    <input id="certSource" type="text" placeholder="Sketchy Chapters" class="w-full rounded-xl px-4 py-2.5 text-sm text-white mb-6">
 
     <div class="flex gap-3">
       <button onclick="submitAddCertificate()" id="certSubmitBtn" class="flex-1 bg-gold text-black font-bold py-2.5 rounded-xl text-xs">Add Certificate</button>
-      <button onclick="closeCertModal()" class="flex-1 glass-card text-gray-400 border border-gray-700 py-2.5 rounded-xl text-xs">Cancel</button>
+      <button onclick="closeCertModal()" class="flex-1 glass-card text-gray-400 border border-gray-700 py-2.5 rounded-xl text-xs" data-ar="إلغاء" data-en="Cancel">Cancel</button>
     </div>
   </div>
 </div>
@@ -224,27 +229,27 @@
 <!-- Add legacy (no-account) certificate modal -->
 <div id="legacyCertModal" class="hidden fixed inset-0 bg-black/80 z-[60] flex items-center justify-center px-6">
   <div class="glass-card bg-[#121216] border border-amber-500/40 rounded-3xl p-8 max-w-sm w-full">
-    <h3 class="text-white font-black text-lg mb-1">📜 إضافة شهادة قديمة</h3>
-    <p class="text-gray-400 text-xs mb-5">للطلاب الذين ليس لديهم حساب في النظام. يرجى إدخال البيانات كما هي مكتوبة على الشهادة تماماً.</p>
+    <h3 class="text-white font-black text-lg mb-1" data-ar="📜 إضافة شهادة قديمة" data-en="📜 Add Legacy Certificate">📜 إضافة شهادة قديمة</h3>
+    <p class="text-gray-400 text-xs mb-5" data-ar="للطلاب الذين ليس لديهم حساب في النظام. يرجى إدخال البيانات كما هي مكتوبة على الشهادة تماماً." data-en="For students who don't have an account in the system. Please enter the data exactly as written on the certificate.">للطلاب الذين ليس لديهم حساب في النظام. يرجى إدخال البيانات كما هي مكتوبة على الشهادة تماماً.</p>
 
-    <label class="text-xs text-gray-400 block mb-1">الاسم كما هو مكتوب على الشهادة</label>
+    <label class="text-xs text-gray-400 block mb-1" data-ar="الاسم كما هو مكتوب على الشهادة" data-en="Name as Written on the Certificate">الاسم كما هو مكتوب على الشهادة</label>
     <input id="legacyCertName" type="text" class="w-full rounded-xl px-4 py-2.5 text-sm text-white mb-4">
 
-    <label class="text-xs text-gray-400 block mb-1">رقم الهاتف الذي سجّل فيه الطالب</label>
+    <label class="text-xs text-gray-400 block mb-1" data-ar="رقم الهاتف الذي سجّل فيه الطالب" data-en="Phone Number Used at Registration">رقم الهاتف الذي سجّل فيه الطالب</label>
     <input id="legacyCertStudentNumber" type="tel" oninput="handleLegacyPhoneInput(this.value)" class="w-full rounded-xl px-4 py-2.5 text-sm text-white mb-4">
 
-    <label class="text-xs text-gray-400 block mb-1">اسم الدورة</label>
+    <label class="text-xs text-gray-400 block mb-1" data-ar="اسم الدورة" data-en="Course Name">اسم الدورة</label>
     <input id="legacyCertCourseName" type="text" class="w-full rounded-xl px-4 py-2.5 text-sm text-white mb-4">
 
-    <label class="text-xs text-gray-400 block mb-1">تاريخ الإتمام (اختياري)</label>
+    <label class="text-xs text-gray-400 block mb-1" data-ar="تاريخ الإتمام (اختياري)" data-en="Completion Date (optional)">تاريخ الإتمام (اختياري)</label>
     <input id="legacyCertDate" type="date" class="w-full rounded-xl px-4 py-2.5 text-sm text-white mb-4">
 
-    <label class="text-xs text-gray-400 block mb-1">الفرع (اختياري)</label>
+    <label class="text-xs text-gray-400 block mb-1" data-ar="الفرع (اختياري)" data-en="Branch (optional)">الفرع (اختياري)</label>
     <input id="legacyCertBranch" type="text" placeholder="Sketchy Chapters" class="w-full rounded-xl px-4 py-2.5 text-sm text-white mb-6">
 
     <div class="flex gap-3">
-      <button onclick="submitLegacyCertificate()" id="legacyCertSubmitBtn" class="flex-1 bg-gold text-black font-bold py-2.5 rounded-xl text-xs">إضافة</button>
-      <button onclick="closeLegacyCertModal()" class="flex-1 glass-card text-gray-400 border border-gray-700 py-2.5 rounded-xl text-xs">إلغاء</button>
+      <button onclick="submitLegacyCertificate()" id="legacyCertSubmitBtn" class="flex-1 bg-gold text-black font-bold py-2.5 rounded-xl text-xs" data-ar="إضافة" data-en="Add">إضافة</button>
+      <button onclick="closeLegacyCertModal()" class="flex-1 glass-card text-gray-400 border border-gray-700 py-2.5 rounded-xl text-xs" data-ar="إلغاء" data-en="Cancel">إلغاء</button>
     </div>
   </div>
 </div>
@@ -252,18 +257,18 @@
 <!-- Add library item modal -->
 <div id="libraryModal" class="hidden fixed inset-0 bg-black/80 z-[60] flex items-center justify-center px-6">
   <div class="glass-card bg-[#121216] border border-amber-500/40 rounded-3xl p-8 max-w-sm w-full">
-    <h3 id="libraryModalTitle" class="text-white font-black text-lg mb-1">📚 Add Library File</h3>
+    <h3 id="libraryModalTitle" class="text-white font-black text-lg mb-1" data-ar="📚 إضافة ملف مكتبة" data-en="📚 Add Library File">📚 Add Library File</h3>
     <p id="libraryModalStudentName" class="text-gray-400 text-xs mb-5"></p>
 
-    <label class="text-xs text-gray-400 block mb-1">Title (shown to student)</label>
+    <label class="text-xs text-gray-400 block mb-1" data-ar="العنوان (يظهر للطالب)" data-en="Title (shown to student)">Title (shown to student)</label>
     <input id="libraryTitle" type="text" placeholder="e.g. Revit + V-Ray Exercise Files" class="w-full rounded-xl px-4 py-2.5 text-sm text-white mb-4">
 
-    <label class="text-xs text-gray-400 block mb-1">Download Link (Google Drive, etc.)</label>
+    <label class="text-xs text-gray-400 block mb-1" data-ar="رابط التحميل (جوجل درايف، إلخ)" data-en="Download Link (Google Drive, etc.)">Download Link (Google Drive, etc.)</label>
     <input id="libraryUrl" type="url" placeholder="https://drive.google.com/..." class="w-full rounded-xl px-4 py-2.5 text-sm text-white mb-6">
 
     <div class="flex gap-3">
-      <button onclick="submitAddLibraryItem()" id="librarySubmitBtn" class="flex-1 bg-gold text-black font-bold py-2.5 rounded-xl text-xs">Add File</button>
-      <button onclick="closeLibraryModal()" class="flex-1 glass-card text-gray-400 border border-gray-700 py-2.5 rounded-xl text-xs">Cancel</button>
+      <button onclick="submitAddLibraryItem()" id="librarySubmitBtn" class="flex-1 bg-gold text-black font-bold py-2.5 rounded-xl text-xs" data-ar="إضافة الملف" data-en="Add File">Add File</button>
+      <button onclick="closeLibraryModal()" class="flex-1 glass-card text-gray-400 border border-gray-700 py-2.5 rounded-xl text-xs" data-ar="إلغاء" data-en="Cancel">Cancel</button>
     </div>
   </div>
 </div>
@@ -271,26 +276,26 @@
 <!-- Special discount modal -->
 <div id="discountModal" class="hidden fixed inset-0 bg-black/80 z-[60] flex items-center justify-center px-6">
   <div class="glass-card bg-[#121216] border border-amber-500/40 rounded-3xl p-8 max-w-sm w-full">
-    <h3 class="text-white font-black text-lg mb-1">🏷️ Special Discount</h3>
+    <h3 class="text-white font-black text-lg mb-1" data-ar="🏷️ خصم خاص" data-en="🏷️ Special Discount">🏷️ Special Discount</h3>
     <p id="discountModalStudentName" class="text-gray-400 text-xs mb-5"></p>
 
-    <label class="text-xs text-gray-400 block mb-1">Course Name</label>
+    <label class="text-xs text-gray-400 block mb-1" data-ar="اسم الدورة" data-en="Course Name">Course Name</label>
     <select id="discountCourseName" class="w-full rounded-xl px-4 py-2.5 text-sm text-white mb-4">
       <option value="*">🌐 All Courses</option>
     </select>
 
-    <label class="text-xs text-gray-400 block mb-1">Discount %</label>
+    <label class="text-xs text-gray-400 block mb-1" data-ar="نسبة الخصم %" data-en="Discount %">Discount %</label>
     <input id="discountPercent" type="number" min="1" max="100" value="10" class="w-full rounded-xl px-4 py-2.5 text-sm text-white mb-4">
 
-    <p class="text-amber-300 text-[10px] mb-4">⚠️ Applies automatically when they add this course to their cart — takes the best discount between this and their level discount. The student gets notified right away. Pick "All Courses" to apply it to any course.</p>
+    <p class="text-amber-300 text-[10px] mb-4" data-ar="⚠️ يُطبَّق تلقائياً عند إضافة الطالب لهذه الدورة إلى سلته — يُحتسب أفضل خصم بين هذا وخصم مستواه. يصل إشعار للطالب فوراً. اختر &quot;كل الدورات&quot; لتطبيقه على أي دورة." data-en="⚠️ Applies automatically when they add this course to their cart — takes the best discount between this and their level discount. The student gets notified right away. Pick &quot;All Courses&quot; to apply it to any course.">⚠️ Applies automatically when they add this course to their cart — takes the best discount between this and their level discount. The student gets notified right away. Pick "All Courses" to apply it to any course.</p>
 
     <div class="flex gap-3 mb-5">
-      <button onclick="submitAddDiscount()" class="flex-1 bg-gold text-black font-bold py-2.5 rounded-xl text-xs">Add Discount</button>
-      <button onclick="closeDiscountModal()" class="flex-1 glass-card text-gray-400 border border-gray-700 py-2.5 rounded-xl text-xs">Cancel</button>
+      <button onclick="submitAddDiscount()" class="flex-1 bg-gold text-black font-bold py-2.5 rounded-xl text-xs" data-ar="إضافة الخصم" data-en="Add Discount">Add Discount</button>
+      <button onclick="closeDiscountModal()" class="flex-1 glass-card text-gray-400 border border-gray-700 py-2.5 rounded-xl text-xs" data-ar="إلغاء" data-en="Cancel">Cancel</button>
     </div>
 
     <div class="border-t border-gray-800 pt-4">
-      <p class="text-gray-400 text-[11px] uppercase tracking-wide mb-2">Active Discounts</p>
+      <p class="text-gray-400 text-[11px] uppercase tracking-wide mb-2" data-ar="الخصومات الفعّالة" data-en="Active Discounts">Active Discounts</p>
       <div id="discountModalList" class="space-y-2"></div>
     </div>
   </div>
@@ -299,18 +304,18 @@
 <!-- Send individual notification -->
 <div id="notifyModal" class="hidden fixed inset-0 bg-black/80 z-[60] flex items-center justify-center px-6">
   <div class="glass-card bg-[#121216] border border-amber-500/40 rounded-3xl p-8 max-w-sm w-full">
-    <h3 class="text-white font-black text-lg mb-1">🔔 Send Notification</h3>
+    <h3 class="text-white font-black text-lg mb-1" data-ar="🔔 إرسال إشعار" data-en="🔔 Send Notification">🔔 Send Notification</h3>
     <p id="notifyModalStudentName" class="text-gray-400 text-xs mb-5"></p>
 
-    <label class="text-xs text-gray-400 block mb-1">Message</label>
+    <label class="text-xs text-gray-400 block mb-1" data-ar="الرسالة" data-en="Message">Message</label>
     <textarea id="notifyMessage" rows="3" placeholder="e.g. Your certificate print is ready for pickup!" class="w-full rounded-xl px-4 py-2.5 text-sm text-white mb-4"></textarea>
 
-    <label class="text-xs text-gray-400 block mb-1">Link (optional)</label>
+    <label class="text-xs text-gray-400 block mb-1" data-ar="رابط (اختياري)" data-en="Link (optional)">Link (optional)</label>
     <input id="notifyLink" type="text" placeholder="e.g. account.html" class="w-full rounded-xl px-4 py-2.5 text-sm text-white mb-6">
 
     <div class="flex gap-3">
-      <button onclick="submitNotify()" class="flex-1 bg-gold text-black font-bold py-2.5 rounded-xl text-xs">Send</button>
-      <button onclick="closeNotifyModal()" class="flex-1 glass-card text-gray-400 border border-gray-700 py-2.5 rounded-xl text-xs">Cancel</button>
+      <button onclick="submitNotify()" class="flex-1 bg-gold text-black font-bold py-2.5 rounded-xl text-xs" data-ar="إرسال" data-en="Send">Send</button>
+      <button onclick="closeNotifyModal()" class="flex-1 glass-card text-gray-400 border border-gray-700 py-2.5 rounded-xl text-xs" data-ar="إلغاء" data-en="Cancel">Cancel</button>
     </div>
   </div>
 </div>
@@ -318,16 +323,16 @@
 <!-- Course note (visible to the student too) -->
 <div id="noteModal" class="hidden fixed inset-0 bg-black/80 z-[60] flex items-center justify-center px-6">
   <div class="glass-card bg-[#121216] border border-amber-500/40 rounded-3xl p-8 max-w-sm w-full">
-    <h3 class="text-white font-black text-lg mb-1">📝 Note</h3>
+    <h3 class="text-white font-black text-lg mb-1" data-ar="📝 ملاحظة" data-en="📝 Note">📝 Note</h3>
     <p id="noteModalCourseName" class="text-gray-400 text-xs mb-5"></p>
 
     <textarea id="noteText" rows="4" placeholder="e.g. Please submit your final project to receive your certificate." class="w-full rounded-xl px-4 py-2.5 text-sm text-white mb-4"></textarea>
-    <p class="text-amber-300 text-[10px] mb-4">⚠️ This note is visible to the student on their account page.</p>
+    <p class="text-amber-300 text-[10px] mb-4" data-ar="⚠️ هذه الملاحظة ظاهرة للطالب في صفحة حسابه." data-en="⚠️ This note is visible to the student on their account page.">⚠️ This note is visible to the student on their account page.</p>
 
     <div class="flex gap-3">
-      <button onclick="submitNote()" class="flex-1 bg-gold text-black font-bold py-2.5 rounded-xl text-xs">Save</button>
-      <button onclick="clearNote()" class="text-[10px] text-red-400 border border-red-500/30 px-4 py-2.5 rounded-xl">Delete</button>
-      <button onclick="closeNoteModal()" class="flex-1 glass-card text-gray-400 border border-gray-700 py-2.5 rounded-xl text-xs">Cancel</button>
+      <button onclick="submitNote()" class="flex-1 bg-gold text-black font-bold py-2.5 rounded-xl text-xs" data-ar="حفظ" data-en="Save">Save</button>
+      <button onclick="clearNote()" class="text-[10px] text-red-400 border border-red-500/30 px-4 py-2.5 rounded-xl" data-ar="حذف" data-en="Delete">Delete</button>
+      <button onclick="closeNoteModal()" class="flex-1 glass-card text-gray-400 border border-gray-700 py-2.5 rounded-xl text-xs" data-ar="إلغاء" data-en="Cancel">Cancel</button>
     </div>
   </div>
 </div>
@@ -335,20 +340,20 @@
 <!-- Course schedule (start/end dates) -->
 <div id="scheduleModal" class="hidden fixed inset-0 bg-black/80 z-[60] flex items-center justify-center px-6">
   <div class="glass-card bg-[#121216] border border-amber-500/40 rounded-3xl p-8 max-w-sm w-full">
-    <h3 class="text-white font-black text-lg mb-1">📅 Course Schedule</h3>
+    <h3 class="text-white font-black text-lg mb-1" data-ar="📅 موعد الدورة" data-en="📅 Course Schedule">📅 Course Schedule</h3>
     <p id="scheduleModalCourseName" class="text-gray-400 text-xs mb-5"></p>
 
-    <label class="text-xs text-gray-400 block mb-1">Start Date</label>
+    <label class="text-xs text-gray-400 block mb-1" data-ar="تاريخ البداية" data-en="Start Date">Start Date</label>
     <input id="scheduleStartDate" type="date" class="w-full rounded-xl px-4 py-2.5 text-sm text-white mb-4">
 
-    <label class="text-xs text-gray-400 block mb-1">End Date</label>
+    <label class="text-xs text-gray-400 block mb-1" data-ar="تاريخ الانتهاء" data-en="End Date">End Date</label>
     <input id="scheduleEndDate" type="date" class="w-full rounded-xl px-4 py-2.5 text-sm text-white mb-4">
 
-    <p class="text-amber-300 text-[10px] mb-4">⚠️ Visible to the student on their account page. End date fills in automatically once you mark the course completed, but you can set it here too.</p>
+    <p class="text-amber-300 text-[10px] mb-4" data-ar="⚠️ ظاهر للطالب في صفحة حسابه. تاريخ الانتهاء يُعبَّأ تلقائياً عند تعليم الدورة كمكتملة، لكن يمكنك تحديده هنا أيضاً." data-en="⚠️ Visible to the student on their account page. End date fills in automatically once you mark the course completed, but you can set it here too.">⚠️ Visible to the student on their account page. End date fills in automatically once you mark the course completed, but you can set it here too.</p>
 
     <div class="flex gap-3">
-      <button onclick="submitSchedule()" class="flex-1 bg-gold text-black font-bold py-2.5 rounded-xl text-xs">Save</button>
-      <button onclick="closeScheduleModal()" class="flex-1 glass-card text-gray-400 border border-gray-700 py-2.5 rounded-xl text-xs">Cancel</button>
+      <button onclick="submitSchedule()" class="flex-1 bg-gold text-black font-bold py-2.5 rounded-xl text-xs" data-ar="حفظ" data-en="Save">Save</button>
+      <button onclick="closeScheduleModal()" class="flex-1 glass-card text-gray-400 border border-gray-700 py-2.5 rounded-xl text-xs" data-ar="إلغاء" data-en="Cancel">Cancel</button>
     </div>
   </div>
 </div>
@@ -356,30 +361,33 @@
 <!-- Edit enrollment course details -->
 <div id="editEnrollmentModal" class="hidden fixed inset-0 bg-black/80 z-[60] flex items-center justify-center px-6">
   <div class="glass-card bg-[#121216] border border-amber-500/40 rounded-3xl p-8 max-w-sm w-full">
-    <h3 class="text-white font-black text-lg mb-1">✏️ Edit Course Details</h3>
-    <p class="text-gray-500 text-[10px] mb-5">If this course was completed, changing the price will adjust the student's points balance automatically.</p>
+    <h3 class="text-white font-black text-lg mb-1" data-ar="✏️ تعديل تفاصيل الدورة" data-en="✏️ Edit Course Details">✏️ Edit Course Details</h3>
+    <p class="text-gray-500 text-[10px] mb-5" data-ar="إذا كانت هذه الدورة مكتملة، تغيير السعر سيعدّل رصيد نقاط الطالب تلقائياً." data-en="If this course was completed, changing the price will adjust the student's points balance automatically.">If this course was completed, changing the price will adjust the student's points balance automatically.</p>
 
-    <label class="text-xs text-gray-400 block mb-1">Course Name</label>
+    <label class="text-xs text-gray-400 block mb-1" data-ar="اسم الدورة" data-en="Course Name">Course Name</label>
     <input id="editEnrollCourseName" type="text" class="w-full rounded-xl px-4 py-2.5 text-sm text-white mb-4">
 
-    <label class="text-xs text-gray-400 block mb-1">Type</label>
+    <label class="text-xs text-gray-400 block mb-1" data-ar="النوع" data-en="Type">Type</label>
     <select id="editEnrollType" class="w-full rounded-xl px-4 py-2.5 text-sm text-white mb-4">
-      <option value="group">Group</option>
-      <option value="private">Private</option>
+      <option value="group" data-ar="جماعي" data-en="Group">Group</option>
+      <option value="private" data-ar="خاص" data-en="Private">Private</option>
     </select>
 
-    <label class="text-xs text-gray-400 block mb-1">Final Price ($)</label>
+    <label class="text-xs text-gray-400 block mb-1" data-ar="السعر النهائي ($)" data-en="Final Price ($)">Final Price ($)</label>
     <input id="editEnrollPrice" type="number" class="w-full rounded-xl px-4 py-2.5 text-sm text-white mb-4">
 
     <label class="text-xs text-gray-400 block mb-1">Registration Date</label>
     <input id="editEnrollDate" type="date" class="w-full rounded-xl px-4 py-2.5 text-sm text-white mb-4">
 
-    <label class="text-xs text-gray-400 block mb-1">Course End Date</label>
-    <input id="editEnrollEndDate" type="date" class="w-full rounded-xl px-4 py-2.5 text-sm text-white mb-6">
+    <label class="text-xs text-gray-400 block mb-1" data-ar="تاريخ انتهاء الدورة" data-en="Course End Date">Course End Date</label>
+    <input id="editEnrollEndDate" type="date" class="w-full rounded-xl px-4 py-2.5 text-sm text-white mb-4">
+
+    <label class="text-xs text-gray-400 block mb-1" data-ar="الدورة / المصدر (محسوبة تلقائياً، قابلة للتعديل)" data-en="Session / Source (auto-calculated, editable)">Session / Source (auto-calculated, editable)</label>
+    <input id="editEnrollBatch" type="text" placeholder="e.g. 74 or LU26" class="w-full rounded-xl px-4 py-2.5 text-sm text-white mb-6">
 
     <div class="flex gap-3">
-      <button onclick="submitEditEnrollment()" class="flex-1 bg-gold text-black font-bold py-2.5 rounded-xl text-xs">Save Changes</button>
-      <button onclick="closeEditEnrollmentModal()" class="flex-1 glass-card text-gray-400 border border-gray-700 py-2.5 rounded-xl text-xs">Cancel</button>
+      <button onclick="submitEditEnrollment()" class="flex-1 bg-gold text-black font-bold py-2.5 rounded-xl text-xs" data-ar="حفظ التغييرات" data-en="Save Changes">Save Changes</button>
+      <button onclick="closeEditEnrollmentModal()" class="flex-1 glass-card text-gray-400 border border-gray-700 py-2.5 rounded-xl text-xs" data-ar="إلغاء" data-en="Cancel">Cancel</button>
     </div>
   </div>
 </div>
@@ -387,15 +395,15 @@
 <!-- Edit referral claim text -->
 <div id="editReferralModal" class="hidden fixed inset-0 bg-black/80 z-[60] flex items-center justify-center px-6">
   <div class="glass-card bg-[#121216] border border-amber-500/40 rounded-3xl p-8 max-w-sm w-full">
-    <h3 class="text-white font-black text-lg mb-1">✏️ Edit Referral Claim</h3>
-    <p class="text-gray-500 text-[10px] mb-5">Fix a typo or clarify who they meant.</p>
+    <h3 class="text-white font-black text-lg mb-1" data-ar="✏️ تعديل طلب الإحالة" data-en="✏️ Edit Referral Claim">✏️ Edit Referral Claim</h3>
+    <p class="text-gray-500 text-[10px] mb-5" data-ar="تصحيح خطأ إملائي أو توضيح من قصدوا." data-en="Fix a typo or clarify who they meant.">Fix a typo or clarify who they meant.</p>
 
-    <label class="text-xs text-gray-400 block mb-1">Referral Text</label>
+    <label class="text-xs text-gray-400 block mb-1" data-ar="نص الإحالة" data-en="Referral Text">Referral Text</label>
     <input id="editReferralText" type="text" class="w-full rounded-xl px-4 py-2.5 text-sm text-white mb-6">
 
     <div class="flex gap-3">
-      <button onclick="submitEditReferral()" class="flex-1 bg-gold text-black font-bold py-2.5 rounded-xl text-xs">Save Changes</button>
-      <button onclick="closeEditReferralModal()" class="flex-1 glass-card text-gray-400 border border-gray-700 py-2.5 rounded-xl text-xs">Cancel</button>
+      <button onclick="submitEditReferral()" class="flex-1 bg-gold text-black font-bold py-2.5 rounded-xl text-xs" data-ar="حفظ التغييرات" data-en="Save Changes">Save Changes</button>
+      <button onclick="closeEditReferralModal()" class="flex-1 glass-card text-gray-400 border border-gray-700 py-2.5 rounded-xl text-xs" data-ar="إلغاء" data-en="Cancel">Cancel</button>
     </div>
   </div>
 </div>
@@ -403,18 +411,18 @@
 <!-- Edit points log entry -->
 <div id="editPointsLogModal" class="hidden fixed inset-0 bg-black/80 z-[60] flex items-center justify-center px-6">
   <div class="glass-card bg-[#121216] border border-amber-500/40 rounded-3xl p-8 max-w-sm w-full">
-    <h3 class="text-white font-black text-lg mb-1">✏️ Edit Points Entry</h3>
-    <p class="text-gray-500 text-[10px] mb-5">Changing the amount adjusts the student's total balance automatically.</p>
+    <h3 class="text-white font-black text-lg mb-1" data-ar="✏️ تعديل سجل النقاط" data-en="✏️ Edit Points Entry">✏️ Edit Points Entry</h3>
+    <p class="text-gray-500 text-[10px] mb-5" data-ar="تغيير المبلغ يعدّل الرصيد الكلي للطالب تلقائياً." data-en="Changing the amount adjusts the student's total balance automatically.">Changing the amount adjusts the student's total balance automatically.</p>
 
-    <label class="text-xs text-gray-400 block mb-1">Points</label>
+    <label class="text-xs text-gray-400 block mb-1" data-ar="النقاط" data-en="Points">Points</label>
     <input id="editPointsLogAmount" type="number" class="w-full rounded-xl px-4 py-2.5 text-sm text-white mb-4">
 
-    <label class="text-xs text-gray-400 block mb-1">Reason</label>
+    <label class="text-xs text-gray-400 block mb-1" data-ar="السبب" data-en="Reason">Reason</label>
     <input id="editPointsLogReason" type="text" class="w-full rounded-xl px-4 py-2.5 text-sm text-white mb-6">
 
     <div class="flex gap-3">
-      <button onclick="submitEditPointsLog()" class="flex-1 bg-gold text-black font-bold py-2.5 rounded-xl text-xs">Save Changes</button>
-      <button onclick="closeEditPointsLogModal()" class="flex-1 glass-card text-gray-400 border border-gray-700 py-2.5 rounded-xl text-xs">Cancel</button>
+      <button onclick="submitEditPointsLog()" class="flex-1 bg-gold text-black font-bold py-2.5 rounded-xl text-xs" data-ar="حفظ التغييرات" data-en="Save Changes">Save Changes</button>
+      <button onclick="closeEditPointsLogModal()" class="flex-1 glass-card text-gray-400 border border-gray-700 py-2.5 rounded-xl text-xs" data-ar="إلغاء" data-en="Cancel">Cancel</button>
     </div>
   </div>
 </div>
@@ -422,36 +430,36 @@
 <!-- Edit student profile -->
 <div id="editProfileModal" class="hidden fixed inset-0 bg-black/80 z-[60] flex items-center justify-center px-6">
   <div class="glass-card bg-[#121216] border border-amber-500/40 rounded-3xl p-8 max-w-sm w-full">
-    <h3 class="text-white font-black text-lg mb-1">✏️ Edit Student Profile</h3>
-    <p class="text-gray-500 text-[11px] mb-5">Editing display info only — this does not change their login email/password.</p>
+    <h3 class="text-white font-black text-lg mb-1" data-ar="✏️ تعديل ملف الطالب" data-en="✏️ Edit Student Profile">✏️ Edit Student Profile</h3>
+    <p class="text-gray-500 text-[11px] mb-5" data-ar="تعديل بيانات العرض فقط — هذا لا يغيّر إيميل أو كلمة سر الدخول." data-en="Editing display info only — this does not change their login email/password.">Editing display info only — this does not change their login email/password.</p>
 
-    <label class="text-xs text-gray-400 block mb-1">Full Name</label>
+    <label class="text-xs text-gray-400 block mb-1" data-ar="الاسم الكامل" data-en="Full Name">Full Name</label>
     <input id="editName" type="text" class="w-full rounded-xl px-4 py-2.5 text-sm text-white mb-4">
 
-    <label class="text-xs text-gray-400 block mb-1">Phone</label>
+    <label class="text-xs text-gray-400 block mb-1" data-ar="الهاتف" data-en="Phone">Phone</label>
     <input id="editPhone" type="text" class="w-full rounded-xl px-4 py-2.5 text-sm text-white mb-4">
 
-    <label class="text-xs text-gray-400 block mb-1">Gender</label>
+    <label class="text-xs text-gray-400 block mb-1" data-ar="الجنس" data-en="Gender">Gender</label>
     <select id="editGender" class="w-full rounded-xl px-4 py-2.5 text-sm text-white mb-4">
-      <option value="male">Male</option>
-      <option value="female">Female</option>
+      <option value="male" data-ar="ذكر" data-en="Male">Male</option>
+      <option value="female" data-ar="أنثى" data-en="Female">Female</option>
     </select>
 
-    <label class="text-xs text-gray-400 block mb-1">Date of Birth</label>
+    <label class="text-xs text-gray-400 block mb-1" data-ar="تاريخ الميلاد" data-en="Date of Birth">Date of Birth</label>
     <input id="editBirthDate" type="date" class="w-full rounded-xl px-4 py-2.5 text-sm text-white mb-4">
 
-    <label class="text-xs text-gray-400 block mb-1">Specialization / Major</label>
+    <label class="text-xs text-gray-400 block mb-1" data-ar="التخصص" data-en="Specialization / Major">Specialization / Major</label>
     <input id="editSpecialization" type="text" class="w-full rounded-xl px-4 py-2.5 text-sm text-white mb-4">
 
-    <label class="text-xs text-gray-400 block mb-1">Country</label>
+    <label class="text-xs text-gray-400 block mb-1" data-ar="البلد" data-en="Country">Country</label>
     <input id="editCountry" type="text" class="w-full rounded-xl px-4 py-2.5 text-sm text-white mb-4">
 
-    <label class="text-xs text-gray-400 block mb-1">Region / Area</label>
+    <label class="text-xs text-gray-400 block mb-1" data-ar="المنطقة" data-en="Region / Area">Region / Area</label>
     <input id="editRegion" type="text" class="w-full rounded-xl px-4 py-2.5 text-sm text-white mb-6">
 
     <div class="flex gap-3">
-      <button onclick="submitEditProfile()" class="flex-1 bg-gold text-black font-bold py-2.5 rounded-xl text-xs">Save Changes</button>
-      <button onclick="closeEditProfileModal()" class="flex-1 glass-card text-gray-400 border border-gray-700 py-2.5 rounded-xl text-xs">Cancel</button>
+      <button onclick="submitEditProfile()" class="flex-1 bg-gold text-black font-bold py-2.5 rounded-xl text-xs" data-ar="حفظ التغييرات" data-en="Save Changes">Save Changes</button>
+      <button onclick="closeEditProfileModal()" class="flex-1 glass-card text-gray-400 border border-gray-700 py-2.5 rounded-xl text-xs" data-ar="إلغاء" data-en="Cancel">Cancel</button>
     </div>
   </div>
 </div>
@@ -465,6 +473,32 @@ requireAdmin();
 
 let allStudents = [];
 let activeStudentUid = null;
+let currentLang = 'en';
+
+function toggleLanguage() {
+  currentLang = currentLang === 'en' ? 'ar' : 'en';
+  const htmlRoot = document.getElementById('htmlRoot');
+  const langBtnText = document.getElementById('langBtnText');
+  htmlRoot.setAttribute('dir', currentLang === 'ar' ? 'rtl' : 'ltr');
+  htmlRoot.setAttribute('lang', currentLang);
+  langBtnText.innerText = currentLang === 'ar' ? 'English' : 'العربية';
+
+  document.querySelectorAll('[data-ar]').forEach(el => {
+    const t = currentLang === 'ar' ? el.getAttribute('data-ar') : el.getAttribute('data-en');
+    if (t !== null) el.innerText = t;
+  });
+  document.querySelectorAll('[data-ph-ar]').forEach(el => {
+    const t = currentLang === 'ar' ? el.getAttribute('data-ph-ar') : el.getAttribute('data-ph-en');
+    if (t !== null) el.placeholder = t;
+  });
+
+  // إعادة رسم كل المحتوى المتحرك حتى يطلع باللغة الصحيحة
+  if (typeof renderStudents === 'function') renderStudents();
+  if (typeof renderBirthdaysSection === 'function') renderBirthdaysSection();
+  if (typeof renderAttentionSection === 'function') renderAttentionSection();
+  const analyticsBody = document.getElementById('analyticsBody');
+  if (analyticsBody && !analyticsBody.classList.contains('hidden') && typeof renderAnalytics === 'function') renderAnalytics();
+}
 
 const FEEDBACK_POINTS_BY_LEVEL = { Basic: 20, Classic: 50, Gold: 100, Platinum: 150 };
 
@@ -487,6 +521,115 @@ function formatDateDMY(dateStr) {
   const [y, m, d] = parts;
   if (!y || !m || !d) return dateStr;
   return `${d}/${m}/${y}`;
+}
+
+// ==========================================================
+// 🔢 رقم الدفعة — جدول دقيق فعلي (مش حساب تقريبي) لكل دفعة أونلاين
+// من آذار ٢٠٢١ حتى الآن، مبني على السجل الحقيقي المؤكد.
+// الدفعات بعد آخر تاريخ معروف بتُقدَّر تلقائياً بمعدل دفعة/شهر تقريباً.
+// ==========================================================
+const BATCH_SCHEDULE = [
+  { batch: 1, date: "2021-03-01" },
+  { batch: 2, date: "2021-04-01" },
+  { batch: 3, date: "2021-05-01" },
+  { batch: 4, date: "2021-05-17" },
+  { batch: 5, date: "2021-06-04" },
+  { batch: 6, date: "2021-07-05" },
+  { batch: 7, date: "2021-08-02" },
+  { batch: 8, date: "2021-09-06" },
+  { batch: 9, date: "2021-10-04" },
+  { batch: 10, date: "2021-11-01" },
+  { batch: 11, date: "2021-12-06" },
+  { batch: 12, date: "2022-01-10" },
+  { batch: 13, date: "2022-02-14" },
+  { batch: 14, date: "2022-03-07" },
+  { batch: 15, date: "2022-04-04" },
+  { batch: 16, date: "2022-05-09" },
+  { batch: 17, date: "2022-07-11" },
+  { batch: 18, date: "2022-08-08" },
+  { batch: 19, date: "2022-09-12" },
+  { batch: 20, date: "2022-10-03" },
+  { batch: 21, date: "2022-11-04" },
+  { batch: 22, date: "2022-12-04" },
+  { batch: 23, date: "2023-01-02" },
+  { batch: 24, date: "2023-02-06" },
+  { batch: 25, date: "2023-03-06" },
+  { batch: 26, date: "2023-03-06" },
+  { batch: 27, date: "2023-04-03" },
+  { batch: 28, date: "2023-05-01" },
+  { batch: 29, date: "2023-07-03" },
+  { batch: 30, date: "2023-07-31" },
+  { batch: 31, date: "2023-09-04" },
+  { batch: 32, date: "2023-09-25" },
+  { batch: 33, date: "2023-10-07" },
+  { batch: 34, date: "2023-11-06" },
+  { batch: 35, date: "2023-12-04" },
+  { batch: 36, date: "2024-01-08" },
+  { batch: 37, date: "2024-02-05" },
+  { batch: 38, date: "2024-03-04" },
+  { batch: 39, date: "2024-04-01" },
+  { batch: 40, date: "2024-05-07" },
+  { batch: 41, date: "2024-05-27" },
+  { batch: 42, date: "2024-06-25" },
+  { batch: 43, date: "2024-07-22" },
+  { batch: 44, date: "2024-08-19" },
+  { batch: 45, date: "2024-09-16" },
+  { batch: 46, date: "2024-10-21" },
+  { batch: 47, date: "2024-10-31" },
+  { batch: 48, date: "2024-11-26" },
+  { batch: 49, date: "2025-01-15" },
+  { batch: 50, date: "2025-02-03" },
+  { batch: 51, date: "2025-02-24" },
+  { batch: 52, date: "2025-03-17" },
+  { batch: 53, date: "2025-04-07" },
+  { batch: 54, date: "2025-05-05" },
+  { batch: 55, date: "2025-06-02" },
+  { batch: 56, date: "2025-07-07" },
+  { batch: 57, date: "2025-08-04" },
+  { batch: 58, date: "2025-09-22" },
+  { batch: 59, date: "2025-10-02" },
+  { batch: 60, date: "2025-11-03" },
+  { batch: 61, date: "2025-12-13" },
+  { batch: 62, date: "2026-01-13" },
+  { batch: 63, date: "2026-02-02" },
+  { batch: 64, date: "2026-03-02" },
+  { batch: 65, date: "2026-04-04" },
+  { batch: 66, date: "2026-04-27" },
+  { batch: 67, date: "2026-05-11" },
+  { batch: 68, date: "2026-05-25" },
+  { batch: 69, date: "2026-06-08" },
+  { batch: 70, date: "2026-06-22" },
+  { batch: 71, date: "2026-07-13" },
+  { batch: 72, date: "2026-08-17" },
+  { batch: 73, date: "2026-09-07" },
+  { batch: 74, date: "2026-10-05" },
+];
+
+function calculateBatchNumber(dateStr) {
+  if (!dateStr) return null;
+  const targetDate = new Date(dateStr);
+  if (isNaN(targetDate.getTime())) return null;
+
+  const firstDate = new Date(BATCH_SCHEDULE[0].date);
+  if (targetDate < firstDate) return null;
+
+  const lastEntry = BATCH_SCHEDULE[BATCH_SCHEDULE.length - 1];
+  const lastDate = new Date(lastEntry.date);
+  if (targetDate > lastDate) {
+    const monthsDiff = (targetDate.getFullYear() - lastDate.getFullYear()) * 12
+      + (targetDate.getMonth() - lastDate.getMonth());
+    return lastEntry.batch + monthsDiff;
+  }
+
+  let result = BATCH_SCHEDULE[0].batch;
+  for (const entry of BATCH_SCHEDULE) {
+    if (new Date(entry.date) <= targetDate) {
+      result = entry.batch;
+    } else {
+      break;
+    }
+  }
+  return result;
 }
 
 function safeGetCertCode(uid, courseName) {
@@ -531,18 +674,16 @@ function populateCountryFilter() {
 }
 
 function computeStats() {
-  let totalEnrollments = 0, privateCount = 0, revenue = 0;
+  let totalEnrollments = 0, privateCount = 0;
   allStudents.forEach(s => {
     (s.enrollments || []).forEach(en => {
       totalEnrollments++;
       if (en.type === 'private') privateCount++;
-      revenue += en.finalPrice || 0;
     });
   });
   document.getElementById('statStudents').innerText = allStudents.length;
   document.getElementById('statEnrollments').innerText = totalEnrollments;
   document.getElementById('statPrivate').innerText = privateCount;
-  document.getElementById('statRevenue').innerText = '$' + revenue.toFixed(0);
 }
 
 </script>
@@ -651,11 +792,12 @@ function renderAttentionSection() {
 }
 
 function renderBirthdaysSection() {
+  const isAr = currentLang === 'ar';
   const container = document.getElementById('birthdaysList');
   const birthdayStudents = allStudents.filter(s => isBirthdayWeek(s.birthDate));
 
   if (birthdayStudents.length === 0) {
-    container.innerHTML = '<p class="text-gray-500 text-xs">No birthdays this week.</p>';
+    container.innerHTML = `<p class="text-gray-500 text-xs">${isAr ? 'لا توجد أعياد ميلاد هذا الأسبوع.' : 'No birthdays this week.'}</p>`;
     return;
   }
 
@@ -681,9 +823,9 @@ function renderBirthdaysSection() {
         <div class="flex items-center justify-between gap-2 mb-2">
           <div>
             <p class="text-white font-bold text-sm">🎂 ${name}</p>
-            <p class="text-gray-500 text-[10px]">${s.phone || 'No phone on file'} ${s.birthDate ? '· ' + s.birthDate : ''} · ${level.name} · ${level.birthdayDiscount}% off</p>
+            <p class="text-gray-500 text-[10px]">${s.phone || (isAr ? 'لا يوجد رقم هاتف' : 'No phone on file')} ${s.birthDate ? '· ' + s.birthDate : ''} · ${level.name} · ${level.birthdayDiscount}% ${isAr ? 'خصم' : 'off'}</p>
           </div>
-          ${alreadySent ? `<span class="text-[10px] font-bold text-emerald-400 flex items-center gap-1 shrink-0"><i class="fa-solid fa-circle-check"></i> Sent</span>` : ''}
+          ${alreadySent ? `<span class="text-[10px] font-bold text-emerald-400 flex items-center gap-1 shrink-0"><i class="fa-solid fa-circle-check"></i> ${isAr ? "أُرسلت" : "Sent"}</span>` : ''}
         </div>
         <div class="flex gap-1.5 flex-wrap">
           ${cleanPhone
@@ -695,7 +837,7 @@ function renderBirthdaysSection() {
                 class="text-[10px] font-bold px-3 py-2 rounded-lg flex items-center gap-1.5 ${alreadySent ? 'bg-gray-700/30 text-gray-500 cursor-not-allowed' : 'bg-emerald-500/20 text-emerald-400 hover:bg-emerald-500/30'}">
                 <i class="fa-brands fa-whatsapp"></i> English
               </button>`
-            : `<span class="text-[10px] text-gray-500">No phone number</span>`}
+            : `<span class="text-[10px] text-gray-500">${isAr ? 'لا يوجد رقم هاتف' : 'No phone number'}</span>`}
         </div>
       </div>
     `;
@@ -849,6 +991,7 @@ function barRow(label, count, total) {
 }
 
 function renderAnalytics() {
+  const isAr = currentLang === 'ar';
   const courseCounts = {};
   let totalEnrollmentsForStats = 0;
   allStudents.forEach(s => {
@@ -860,7 +1003,7 @@ function renderAnalytics() {
   const topCourses = Object.entries(courseCounts).sort((a, b) => b[1] - a[1]).slice(0, 8);
   document.getElementById('analyticsCourses').innerHTML = topCourses.length
     ? topCourses.map(([name, count]) => barRow(name, count, totalEnrollmentsForStats)).join('')
-    : '<p class="text-gray-500 text-xs">No enrollments yet.</p>';
+    : `<p class="text-gray-500 text-xs">${isAr ? 'لا توجد تسجيلات بعد.' : 'No enrollments yet.'}</p>`;
 
   const specCounts = {};
   let totalWithSpec = 0;
@@ -873,7 +1016,7 @@ function renderAnalytics() {
   const topSpecs = Object.entries(specCounts).sort((a, b) => b[1] - a[1]).slice(0, 8);
   document.getElementById('analyticsSpecializations').innerHTML = topSpecs.length
     ? topSpecs.map(([name, count]) => barRow(name, count, totalWithSpec)).join('')
-    : '<p class="text-gray-500 text-xs">No data yet.</p>';
+    : `<p class="text-gray-500 text-xs">${isAr ? 'لا توجد بيانات بعد.' : 'No data yet.'}</p>`;
 
   let maleCount = 0, femaleCount = 0;
   allStudents.forEach(s => {
@@ -882,11 +1025,12 @@ function renderAnalytics() {
   });
   const genderTotal = maleCount + femaleCount;
   document.getElementById('analyticsGender').innerHTML = genderTotal
-    ? barRow('♂ Male', maleCount, genderTotal) + barRow('♀ Female', femaleCount, genderTotal)
-    : '<p class="text-gray-500 text-xs">No data yet.</p>';
+    ? barRow(isAr ? '♂ ذكر' : '♂ Male', maleCount, genderTotal) + barRow(isAr ? '♀ أنثى' : '♀ Female', femaleCount, genderTotal)
+    : `<p class="text-gray-500 text-xs">${isAr ? 'لا توجد بيانات بعد.' : 'No data yet.'}</p>`;
 }
 
 function renderStudents() {
+  const isAr = currentLang === 'ar';
   const query = document.getElementById('searchBox').value.toLowerCase();
   const countryFilter = document.getElementById('countryFilter').value;
   const list = document.getElementById('studentsList');
@@ -901,7 +1045,7 @@ function renderStudents() {
   });
 
   if (filtered.length === 0) {
-    list.innerHTML = '<p class="text-gray-500 text-sm">No students found.</p>';
+    list.innerHTML = `<p class="text-gray-500 text-sm">${isAr ? 'لا يوجد طلاب مطابقين.' : 'No students found.'}</p>`;
     return;
   }
 
@@ -920,27 +1064,29 @@ function renderStudents() {
           if (en.status === 'pending') {
             actionsHtml = `
               <button onclick="approveEnrollmentClick('${s.uid}', '${eid}')"
-                class="text-[10px] font-bold px-2.5 py-1.5 rounded-lg bg-emerald-500/20 text-emerald-400">Approve</button>`;
+                class="text-[10px] font-bold px-2.5 py-1.5 rounded-lg bg-emerald-500/20 text-emerald-400">${isAr ? "موافقة" : "Approve"}</button>`;
           } else if (en.status === 'upcoming') {
             actionsHtml = `
               <button onclick="toggleEnrollmentStatus('${s.uid}', '${eid}', 'completed')"
-                class="text-[10px] font-bold px-2.5 py-1.5 rounded-lg bg-amber-500/20 text-amber-300">Mark Completed</button>`;
+                class="text-[10px] font-bold px-2.5 py-1.5 rounded-lg bg-amber-500/20 text-amber-300">${isAr ? "تعليم كمكتملة" : "Mark Completed"}</button>`;
           } else {
-            actionsHtml = `<span class="text-[10px] font-bold px-2.5 py-1.5 rounded-lg bg-emerald-500/20 text-emerald-400">✓ Completed</span>`;
+            actionsHtml = `<span class="text-[10px] font-bold px-2.5 py-1.5 rounded-lg bg-emerald-500/20 text-emerald-400">✓ ${isAr ? 'مكتملة' : 'Completed'}</span>`;
           }
           actionsHtml += `
-              <button onclick="openEditEnrollmentModal('${s.uid}', '${eid}', '${enCourseNameSafe}', '${en.type}', ${en.finalPrice}, '${(en.date || '').slice(0, 10)}', '${en.endDate || ''}')"
+              <button onclick="openEditEnrollmentModal('${s.uid}', '${eid}', '${enCourseNameSafe}', '${en.type}', ${en.finalPrice}, '${(en.date || '').slice(0, 10)}', '${en.endDate || ''}', '${(en.batchOverride || '').replace(/'/g, "")}')"
                 class="text-[10px] font-bold px-2.5 py-1.5 rounded-lg bg-indigo-500/20 text-indigo-300">✏️</button>
               <button onclick="openScheduleModal('${s.uid}', '${eid}', '${enCourseNameSafe}', '${en.startDate || ''}', '${en.endDate || ''}')"
                 class="text-[10px] font-bold px-2.5 py-1.5 rounded-lg bg-teal-500/20 text-teal-300">📅${(en.startDate || en.endDate) ? ' •' : ''}</button>
               <button onclick="openNoteModal('${s.uid}', '${eid}', '${enCourseNameSafe}', '${(en.adminNote || '').replace(/'/g, "").replace(/\n/g, ' ')}')"
                 class="text-[10px] font-bold px-2.5 py-1.5 rounded-lg bg-blue-500/20 text-blue-300">📝${en.adminNote ? ' •' : ''}</button>
               <button onclick="rejectEnrollmentClick('${s.uid}', '${eid}', '${enCourseNameSafe}')"
-                class="text-[10px] font-bold px-2.5 py-1.5 rounded-lg bg-red-500/20 text-red-400">🗑️ Remove</button>`;
+                class="text-[10px] font-bold px-2.5 py-1.5 rounded-lg bg-red-500/20 text-red-400">🗑️ ${isAr ? "إزالة" : "Remove"}</button>`;
 
-          const statusTag = en.status === 'pending' ? '⏳ Pending' : (en.status === 'upcoming' ? '✓ Confirmed' : '');
+          const statusTag = en.status === 'pending' ? (isAr ? '⏳ بانتظار الموافقة' : '⏳ Pending') : (en.status === 'upcoming' ? (isAr ? '✓ مؤكدة' : '✓ Confirmed') : '');
           const noteHtml = en.adminNote ? `<p class="text-blue-300 text-[11px] mt-1">📝 ${en.adminNote}</p>` : '';
           const scheduleHtml = (en.startDate || en.endDate) ? `<p class="text-teal-300 text-[11px] mt-1">📅 ${en.startDate ? formatDateDMY(en.startDate) : '?'} → ${en.endDate ? formatDateDMY(en.endDate) : '?'}</p>` : '';
+          const batchNumber = en.batchOverride || calculateBatchNumber(en.startDate || en.date);
+          const batchTag = batchNumber ? `· 🔢 Session #${batchNumber}` : '';
           const enrollVerifyCode = en.status === 'completed' ? safeGetCertCode(s.uid, en.courseName) : null;
           const enCourseNameForId = (en.courseName || '').replace(/'/g, "");
           const certIdHtml = en.status === 'completed'
@@ -952,8 +1098,8 @@ function renderStudents() {
           return `
           <div class="flex items-center justify-between bg-black/30 rounded-xl px-3 py-2 text-xs gap-2">
             <div>
-              <span class="text-white font-bold">${en.courseName || '(no course name)'}</span>
-              <span class="text-gray-400 block mt-0.5">${en.type === 'private' ? '👤 Private' : '👥 Group'} · $${en.finalPrice}${en.discountApplied ? ` (${en.discountApplied}% off)` : ''} · +${en.pointsEarned || 0} pts ${statusTag ? '· ' + statusTag : ''}</span>
+              <span class="text-white font-bold">${en.courseName || (isAr ? '(بدون اسم دورة)' : '(no course name)')}</span>
+              <span class="text-gray-400 block mt-0.5">${en.type === 'private' ? (isAr ? '👤 خاص' : '👤 Private') : (isAr ? '👥 جماعي' : '👥 Group')} · $${en.finalPrice}${en.discountApplied ? ` (${en.discountApplied}% ${isAr ? 'خصم' : 'off'})` : ''} · +${en.pointsEarned || 0} ${isAr ? 'نقطة' : 'pts'} ${statusTag ? '· ' + statusTag : ''} ${batchTag}</span>
               ${scheduleHtml}
               ${noteHtml}
               ${certIdHtml}
@@ -962,7 +1108,7 @@ function renderStudents() {
           </div>
         `;
         }).join('')
-      : '<p class="text-gray-500 text-xs">No enrollments yet.</p>';
+      : `<p class="text-gray-500 text-xs">${isAr ? 'لا توجد تسجيلات بعد.' : 'No enrollments yet.'}</p>`;
 
     const pendingCart = s.pendingCart || [];
     const pendingCartHtml = pendingCart.length ? (function () {
@@ -970,14 +1116,14 @@ function renderStudents() {
       const itemsList = pendingCart.map(item => `${item.courseName} ($${item.basePrice}${item.type === 'private' ? ', private' : ''})`).join(', ');
       const cleanPhone = (s.phone || '').replace(/[^\d]/g, '');
       const waBtn = cleanPhone
-        ? `<a href="https://wa.me/${cleanPhone}?text=${encodeURIComponent('Hi ' + (s.name || '') + '! Saw you had some courses saved in your cart — want help finishing your registration?')}" target="_blank" class="text-[10px] font-bold px-2.5 py-1.5 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center gap-1 shrink-0"><i class="fa-brands fa-whatsapp"></i> Follow up</a>`
+        ? `<a href="https://wa.me/${cleanPhone}?text=${encodeURIComponent('Hi ' + (s.name || '') + '! Saw you had some courses saved in your cart — want help finishing your registration?')}" target="_blank" class="text-[10px] font-bold px-2.5 py-1.5 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center gap-1 shrink-0"><i class="fa-brands fa-whatsapp"></i> ${isAr ? 'متابعة' : 'Follow up'}</a>`
         : '';
       return `
         <div class="bg-orange-500/10 border border-orange-500/30 rounded-xl px-3 py-2.5 text-xs flex items-center justify-between gap-2 flex-wrap">
           <div>
-            <span class="text-orange-300 font-bold">🛒 ${pendingCart.length} item${pendingCart.length > 1 ? 's' : ''} in cart, not yet submitted</span>
+            <span class="text-orange-300 font-bold">🛒 ${pendingCart.length} ${isAr ? (pendingCart.length === 1 ? 'عنصر' : 'عناصر') + ' بالسلة، لم يُرسل بعد' : `item${pendingCart.length > 1 ? 's' : ''} in cart, not yet submitted`}</span>
             <span class="text-gray-400 block mt-0.5">${itemsList}</span>
-            ${updatedAt ? `<span class="text-gray-500 text-[10px] block mt-0.5">Last updated: ${updatedAt}</span>` : ''}
+            ${updatedAt ? `<span class="text-gray-500 text-[10px] block mt-0.5">${isAr ? 'آخر تحديث' : 'Last updated'}: ${updatedAt}</span>` : ''}
           </div>
           ${waBtn}
         </div>
@@ -998,22 +1144,23 @@ function renderStudents() {
 
           let downloadStatusHtml;
           if (downloadCount >= 2) {
-            downloadStatusHtml = `<span class="text-red-400 text-[10px] font-bold block mt-0.5"><i class="fa-solid fa-eye-slash"></i> Hidden from student (2/2 downloads used)</span>`;
+            downloadStatusHtml = `<span class="text-red-400 text-[10px] font-bold block mt-0.5"><i class="fa-solid fa-eye-slash"></i> ${isAr ? 'مخفية عن الطالب (٢/٢ تحميلات مستخدمة)' : 'Hidden from student (2/2 downloads used)'}</span>`;
           } else if (downloadCount === 1) {
-            downloadStatusHtml = `<span class="text-amber-300 text-[10px] font-bold block mt-0.5"><i class="fa-solid fa-download"></i> 1/2 downloads used</span>`;
+            downloadStatusHtml = `<span class="text-amber-300 text-[10px] font-bold block mt-0.5"><i class="fa-solid fa-download"></i> ${isAr ? '١/٢ تحميلات مستخدمة' : '1/2 downloads used'}</span>`;
           } else {
-            downloadStatusHtml = `<span class="text-gray-500 text-[10px] block mt-0.5"><i class="fa-solid fa-download"></i> 0/2 downloads used</span>`;
+            downloadStatusHtml = `<span class="text-gray-500 text-[10px] block mt-0.5"><i class="fa-solid fa-download"></i> ${isAr ? '٠/٢ تحميلات مستخدمة' : '0/2 downloads used'}</span>`;
           }
 
           const resetBtnHtml = downloadCount > 0
             ? `<button onclick="resetCertificateDownloadsClick('${s.uid}', '${certCourseNameSafe}')"
-                class="text-[10px] font-bold px-2.5 py-1.5 rounded-lg bg-purple-500/20 text-purple-300" title="Reset download count so it reappears for the student">🔄 Reset</button>`
+                class="text-[10px] font-bold px-2.5 py-1.5 rounded-lg bg-purple-500/20 text-purple-300" ${isAr ? "title=\"إعادة تصفير عداد التحميل ليعاود الظهور للطالب\"" : "title=\"Reset download count so it reappears for the student\""}>🔄 ${isAr ? "استرجاع" : "Reset"}</button>`
             : '';
 
           return `
           <div class="flex items-center justify-between bg-black/30 rounded-xl px-3 py-2 text-xs gap-2">
             <div>
               <span class="text-white font-bold">🎓 ${cert.courseName || '(no course name)'}</span>
+              ${cert.source && cert.source !== 'Sketchy Chapters' ? `<span class="text-blue-300 text-[10px] block mt-0.5">📍 ${cert.source}</span>` : ''}
               <a href="${cert.url || '#'}" target="_blank" class="text-emerald-400 block mt-0.5 underline break-all">${cert.url || ''}</a>
               <span class="text-gray-500 text-[10px] block mt-0.5">${cert.dateIssued ? formatDateDMY(cert.dateIssued) : ''}</span>
               <span class="gold-accent text-[10px] font-mono block mt-0.5">${certVerifyCode ? 'ID: ' + certVerifyCode : 'ID: — (اضغطي 🔗 QR لتوليده)'}</span>
@@ -1023,8 +1170,8 @@ function renderStudents() {
               ${resetBtnHtml}
               <button onclick="generateCertificateQR('${s.uid}', '${(s.name || '').replace(/'/g, "")}', '${certCourseNameSafe}')"
                 class="text-[10px] font-bold px-2.5 py-1.5 rounded-lg bg-amber-500/20 text-amber-300">🔗 QR</button>
-              <button onclick="openCertModal('${s.uid}', '${(s.name || '').replace(/'/g, "")}', '${cid}', '${certCourseNameSafe}', '${certUrlSafe}')"
-                class="text-[10px] font-bold px-2.5 py-1.5 rounded-lg bg-blue-500/20 text-blue-300">Edit</button>
+              <button onclick="openCertModal('${s.uid}', '${(s.name || '').replace(/'/g, "")}', '${cid}', '${certCourseNameSafe}', '${certUrlSafe}', '${(cert.source || '').replace(/'/g, "")}')"
+                class="text-[10px] font-bold px-2.5 py-1.5 rounded-lg bg-blue-500/20 text-blue-300">${isAr ? "تعديل" : "Edit"}</button>
               <button onclick="deleteCertificateClick('${s.uid}', '${cid}', '${certCourseNameSafe}')"
                 class="text-[10px] font-bold px-2.5 py-1.5 rounded-lg bg-red-500/20 text-red-400">🗑️</button>
             </div>
@@ -1042,13 +1189,13 @@ function renderStudents() {
           return `
           <div class="flex items-center justify-between bg-black/30 rounded-xl px-3 py-2 text-xs gap-2">
             <div>
-              <span class="text-white font-bold">📚 ${item.title || '(no title)'}</span>
+              <span class="text-white font-bold">📚 ${item.title || (isAr ? '(بدون عنوان)' : '(no title)')}</span>
               <a href="${item.url || '#'}" target="_blank" class="text-teal-400 block mt-0.5 underline break-all">${item.url || ''}</a>
               <span class="text-gray-500 text-[10px] block mt-0.5">${item.dateAdded ? formatDateDMY(item.dateAdded) : ''}</span>
             </div>
             <div class="flex gap-1.5 shrink-0">
               <button onclick="openLibraryModal('${s.uid}', '${(s.name || '').replace(/'/g, "")}', '${lid}', '${libTitleSafe}', '${libUrlSafe}')"
-                class="text-[10px] font-bold px-2.5 py-1.5 rounded-lg bg-blue-500/20 text-blue-300">Edit</button>
+                class="text-[10px] font-bold px-2.5 py-1.5 rounded-lg bg-blue-500/20 text-blue-300">${isAr ? "تعديل" : "Edit"}</button>
               <button onclick="deleteLibraryItemClick('${s.uid}', '${lid}', '${libTitleSafe}')"
                 class="text-[10px] font-bold px-2.5 py-1.5 rounded-lg bg-red-500/20 text-red-400">🗑️</button>
             </div>
@@ -1063,52 +1210,52 @@ function renderStudents() {
           <div class="flex items-center gap-3">
             <div class="w-11 h-11 rounded-full bg-gold text-black font-black text-sm flex items-center justify-center shrink-0">${initials}</div>
             <div>
-              <p class="text-white font-black">${s.name || 'Unnamed'} ${genderIcon}</p>
+              <p class="text-white font-black">${s.name || (isAr ? 'بدون اسم' : 'Unnamed')} ${genderIcon}</p>
               <p class="text-gray-400 text-xs">${s.email || ''} ${s.phone ? '· ' + s.phone : ''}</p>
               <p class="text-gray-500 text-[10px]">${s.country || ''}${s.region ? ' — ' + s.region : ''}${s.specialization ? ' · ' + s.specialization : ''}</p>
               <p class="text-gray-500 text-[10px] font-mono mt-0.5">
                 ${s.studentId || ''} · ${s.birthDate || ''} · UID: ${s.uid}
-                <button onclick="editStudentIdClick('${s.uid}', '${s.studentId || ''}')" class="gold-accent underline ms-1">id</button>
-                · <button onclick="openEditProfileModal('${s.uid}')" class="text-blue-300 underline">edit</button>
-                · <button onclick="deleteStudentClick('${s.uid}', '${s.studentId || ''}', '${(s.name || 'this student').replace(/'/g, "")}')" class="text-red-400 underline">delete</button>
+                <button onclick="editStudentIdClick('${s.uid}', '${s.studentId || ''}')" class="gold-accent underline ms-1">${isAr ? "الرقم" : "id"}</button>
+                · <button onclick="openEditProfileModal('${s.uid}')" class="text-blue-300 underline">${isAr ? "تعديل" : "edit"}</button>
+                · <button onclick="deleteStudentClick('${s.uid}', '${s.studentId || ''}', '${(s.name || 'this student').replace(/'/g, "")}')" class="text-red-400 underline">${isAr ? "حذف" : "delete"}</button>
               </p>
             </div>
           </div>
           <div class="text-right rtl:text-left shrink-0">
             <span class="bg-gold text-black text-[10px] font-black uppercase px-2.5 py-1 rounded-full">${level.name}</span>
-            <p class="text-amber-300 text-xs font-bold mt-1">${points} pts</p>
+            <p class="text-amber-300 text-xs font-bold mt-1">${points} ${isAr ? 'نقطة' : 'pts'}</p>
             <div class="flex gap-1.5 mt-1.5 flex-wrap justify-end">
               <button onclick="openPointsModal('${s.uid}', '${(s.name || '').replace(/'/g, "")}')"
                 class="text-[10px] gold-accent border border-amber-500/30 px-2.5 py-1 rounded-lg hover:bg-amber-500/10">
-                + Points
+                ${isAr ? '+ نقاط' : '+ Points'}
               </button>
               <button onclick="openEnrollModal('${s.uid}', '${(s.name || '').replace(/'/g, "")}')"
                 class="text-[10px] text-blue-300 border border-blue-500/30 px-2.5 py-1 rounded-lg hover:bg-blue-500/10">
-                + Old Course
+                ${isAr ? '+ دورة قديمة' : '+ Old Course'}
               </button>
               <button onclick="openCertModal('${s.uid}', '${(s.name || '').replace(/'/g, "")}')"
                 class="text-[10px] text-emerald-300 border border-emerald-500/30 px-2.5 py-1 rounded-lg hover:bg-emerald-500/10">
-                + Certificate
+                ${isAr ? '+ شهادة' : '+ Certificate'}
               </button>
               <button onclick="openLibraryModal('${s.uid}', '${(s.name || '').replace(/'/g, "")}')"
                 class="text-[10px] text-teal-300 border border-teal-500/30 px-2.5 py-1 rounded-lg hover:bg-teal-500/10">
-                📚 + Library
+                📚 ${isAr ? '+ مكتبة' : '+ Library'}
               </button>
               <button onclick="openDiscountModal('${s.uid}', '${(s.name || '').replace(/'/g, "")}')"
                 class="text-[10px] text-orange-300 border border-orange-500/30 px-2.5 py-1 rounded-lg hover:bg-orange-500/10">
-                🏷️ Discount${(s.specialDiscounts || []).length ? ' (' + s.specialDiscounts.length + ')' : ''}
+                🏷️ ${isAr ? 'خصم' : 'Discount'}${(s.specialDiscounts || []).length ? ' (' + s.specialDiscounts.length + ')' : ''}
               </button>
               <button onclick="openNotifyModal('${s.uid}', '${(s.name || '').replace(/'/g, "")}')"
                 class="text-[10px] text-purple-300 border border-purple-500/30 px-2.5 py-1 rounded-lg hover:bg-purple-500/10">
-                🔔 Notify
+                🔔 ${isAr ? 'إشعار' : 'Notify'}
               </button>
               <button onclick="toggleStudentNotifications('${s.uid}')"
                 class="text-[10px] text-purple-300 border border-purple-500/30 px-2.5 py-1 rounded-lg hover:bg-purple-500/10">
-                👁️ View (${(s.notifications || []).length})
+                👁️ ${isAr ? 'عرض' : 'View'} (${(s.notifications || []).length})
               </button>
               <button onclick="toggleStudentPointsLog('${s.uid}')"
                 class="text-[10px] gold-accent border border-amber-500/30 px-2.5 py-1 rounded-lg hover:bg-amber-500/10">
-                💰 Points Log (${(s.pointsLog || []).length})
+                💰 ${isAr ? 'سجل النقاط' : 'Points Log'} (${(s.pointsLog || []).length})
               </button>
             </div>
           </div>
@@ -1126,36 +1273,38 @@ function renderStudents() {
 }
 
 function referralClaimHtml(s) {
+  const isAr = currentLang === 'ar';
   const claim = s.referralClaim;
   if (!claim || claim.status === 'awarded' || claim.status === 'dismissed') return '';
 
   return `
     <div class="mt-3 pt-3 border-t border-gray-800 bg-amber-500/5 rounded-xl p-3">
-      <p class="text-amber-300 text-xs font-bold">🔗 Referral claim: "${claim.inputText}"</p>
-      <p class="text-gray-500 text-[10px] mt-1">Search for this person manually — if you find them, use their "+ Points" button (reason: Successful Referral) to award ${REFERRAL_BONUS_POINTS} pts.</p>
+      <p class="text-amber-300 text-xs font-bold">🔗 ${isAr ? "طلب إحالة" : "Referral claim"}: "${claim.inputText}"</p>
+      <p class="text-gray-500 text-[10px] mt-1">${isAr ? `ابحثي عن هذا الشخص يدوياً — إذا وجدته، استخدمي زر "+ نقاط" (السبب: إحالة ناجحة) لمنحه ${REFERRAL_BONUS_POINTS} نقطة.` : `Search for this person manually — if you find them, use their "+ Points" button (reason: Successful Referral) to award ${REFERRAL_BONUS_POINTS} pts.`}</p>
       <div class="flex gap-2 mt-2">
         <button onclick="openEditReferralModal('${s.uid}', '${(claim.inputText || '').replace(/'/g, "")}')"
-          class="text-[10px] font-bold px-2.5 py-1.5 rounded-lg bg-indigo-500/20 text-indigo-300">✏️ Edit</button>
+          class="text-[10px] font-bold px-2.5 py-1.5 rounded-lg bg-indigo-500/20 text-indigo-300">✏️ ${isAr ? "تعديل" : "Edit"}</button>
         <button onclick="dismissReferralClick('${s.uid}')"
-          class="text-[10px] font-bold px-2.5 py-1.5 rounded-lg bg-gray-500/20 text-gray-400">Dismiss</button>
+          class="text-[10px] font-bold px-2.5 py-1.5 rounded-lg bg-gray-500/20 text-gray-400">${isAr ? "تجاهل" : "Dismiss"}</button>
       </div>
     </div>
   `;
 }
 
 function pointsLogHtml(s) {
+  const isAr = currentLang === 'ar';
   const log = (s.pointsLog || []).slice().reverse();
   if (log.length === 0) {
-    return '<p class="text-gray-500 text-xs">No points history yet.</p>';
+    return `<p class="text-gray-500 text-xs">${isAr ? 'لا يوجد سجل نقاط بعد.' : 'No points history yet.'}</p>`;
   }
   return log.map(entry => {
     const eid = entry.id || entry.date;
     return `
     <div class="flex items-center justify-between bg-black/30 rounded-xl px-3 py-2 text-xs gap-2">
-      <span class="text-gray-300">${entry.reason || 'manual'}</span>
+      <span class="text-gray-300">${entry.reason || (isAr ? 'يدوي' : 'manual')}</span>
       <div class="flex items-center gap-2 shrink-0">
         <div class="text-right rtl:text-left">
-          <span class="gold-accent font-bold">${entry.points > 0 ? '+' : ''}${entry.points} pts</span>
+          <span class="gold-accent font-bold">${entry.points > 0 ? '+' : ''}${entry.points} ${isAr ? 'نقطة' : 'pts'}</span>
           <span class="text-gray-500 text-[10px] block">${new Date(entry.date).toLocaleString()}</span>
         </div>
         <button onclick="openEditPointsLogModal('${s.uid}', '${eid}', ${entry.points}, '${(entry.reason || '').replace(/'/g, "")}')"
@@ -1174,9 +1323,10 @@ function toggleStudentPointsLog(uid) {
 }
 
 function notificationsHtml(s) {
+  const isAr = currentLang === 'ar';
   const notifications = (s.notifications || []).slice().reverse();
   if (notifications.length === 0) {
-    return '<p class="text-gray-500 text-xs">No notifications yet.</p>';
+    return `<p class="text-gray-500 text-xs">${isAr ? 'لا توجد إشعارات بعد.' : 'No notifications yet.'}</p>`;
   }
   return notifications.map(n => {
     const nid = n.id || n.date;
@@ -1184,7 +1334,7 @@ function notificationsHtml(s) {
       <div class="flex items-center justify-between bg-black/30 rounded-xl px-3 py-2 text-xs gap-2">
         <div>
           <span class="text-white ${n.read ? 'opacity-60' : ''}">${n.message}</span>
-          <span class="text-gray-500 text-[10px] block mt-0.5">${new Date(n.date).toLocaleString()} ${n.read ? '· read' : '· unread'}</span>
+          <span class="text-gray-500 text-[10px] block mt-0.5">${new Date(n.date).toLocaleString()} ${n.read ? (isAr ? '· مقروء' : '· read') : (isAr ? '· غير مقروء' : '· unread')}</span>
         </div>
         <button onclick="deleteNotificationClick('${s.uid}', '${nid}')"
           class="text-[10px] font-bold px-2.5 py-1.5 rounded-lg bg-red-500/20 text-red-400 shrink-0">🗑️</button>
@@ -1199,7 +1349,7 @@ function toggleStudentNotifications(uid) {
 }
 
 async function deleteNotificationClick(uid, notifId) {
-  if (!(await customConfirm('Delete this notification?'))) return;
+  if (!(await customConfirm(currentLang === 'ar' ? 'حذف هذا الإشعار؟' : 'Delete this notification?'))) return;
   await deleteNotification(uid, notifId);
   allStudents = await getAllStudents();
   renderStudents();
@@ -1226,7 +1376,7 @@ function closeEditReferralModal() {
 
 async function submitEditReferral() {
   const newText = document.getElementById('editReferralText').value.trim();
-  if (!newText) { await customAlert('Please enter some text.'); return; }
+  if (!newText) { await customAlert(currentLang === 'ar' ? 'يرجى إدخال نص.' : 'Please enter some text.'); return; }
   await editReferralClaimText(activeStudentUid, newText);
   closeEditReferralModal();
   allStudents = await getAllStudents();
@@ -1259,7 +1409,7 @@ async function submitEditPointsLog() {
 }
 
 async function deletePointsLogClick(uid, entryId) {
-  if (!(await customConfirm('Delete this points entry? The points will be subtracted from the student\'s balance.'))) return;
+  if (!(await customConfirm(currentLang === 'ar' ? 'حذف سجل النقاط هذا؟ سيتم خصم النقاط من رصيد الطالب.' : 'Delete this points entry? The points will be subtracted from the student\'s balance.'))) return;
   await deletePointsLogEntry(uid, entryId);
   allStudents = await getAllStudents();
   renderStudents();
@@ -1279,7 +1429,7 @@ async function approveEnrollmentClick(uid, enrollmentId) {
 }
 
 async function rejectEnrollmentClick(uid, enrollmentId, courseName) {
-  if (!(await customConfirm(`Remove this student's registration for "${courseName}"? If points were already awarded for it, they'll be reversed.`))) return;
+  if (!(await customConfirm(currentLang === 'ar' ? `إزالة تسجيل هذا الطالب في دورة "${courseName}"؟ إذا كانت النقاط قد مُنحت مسبقاً، سيتم استرجاعها.` : `Remove this student's registration for "${courseName}"? If points were already awarded for it, they'll be reversed.`))) return;
   await adminCancelEnrollment(uid, enrollmentId);
   allStudents = await getAllStudents();
   computeStats();
@@ -1342,7 +1492,7 @@ async function submitSchedule() {
   renderStudents();
 }
 
-function openEditEnrollmentModal(uid, enrollmentId, courseName, type, finalPrice, date, endDate) {
+function openEditEnrollmentModal(uid, enrollmentId, courseName, type, finalPrice, date, endDate, batchOverride) {
   activeStudentUid = uid;
   activeEnrollmentId = enrollmentId;
   document.getElementById('editEnrollCourseName').value = courseName;
@@ -1350,6 +1500,8 @@ function openEditEnrollmentModal(uid, enrollmentId, courseName, type, finalPrice
   document.getElementById('editEnrollPrice').value = finalPrice;
   document.getElementById('editEnrollDate').value = date || '';
   document.getElementById('editEnrollEndDate').value = endDate || '';
+  const autoCalculated = calculateBatchNumber(date) || '';
+  document.getElementById('editEnrollBatch').value = batchOverride || autoCalculated;
   document.getElementById('editEnrollmentModal').classList.remove('hidden');
   document.getElementById('editEnrollmentModal').classList.add('flex');
 }
@@ -1365,9 +1517,10 @@ async function submitEditEnrollment() {
   const finalPrice = parseFloat(document.getElementById('editEnrollPrice').value) || 0;
   const date = document.getElementById('editEnrollDate').value;
   const endDate = document.getElementById('editEnrollEndDate').value;
-  if (!courseName) { await customAlert('Please enter a course name.'); return; }
+  const batchOverride = document.getElementById('editEnrollBatch').value.trim();
+  if (!courseName) { await customAlert(currentLang === 'ar' ? 'يرجى إدخال اسم دورة.' : 'Please enter a course name.'); return; }
 
-  await editEnrollmentDetails(activeStudentUid, activeEnrollmentId, { courseName, type, finalPrice, date, endDate });
+  await editEnrollmentDetails(activeStudentUid, activeEnrollmentId, { courseName, type, finalPrice, date, endDate, batchOverride });
   closeEditEnrollmentModal();
   allStudents = await getAllStudents();
   computeStats();
@@ -1429,7 +1582,7 @@ function closeEnrollModal() {
 
 async function submitAddEnrollment() {
   const courseName = document.getElementById('enrollCourseName').value.trim();
-  if (!courseName) { await customAlert('Please enter a course name.'); return; }
+  if (!courseName) { await customAlert(currentLang === 'ar' ? 'يرجى إدخال اسم دورة.' : 'Please enter a course name.'); return; }
 
   const startDate = document.getElementById('enrollStartDate').value;
   const endDate = document.getElementById('enrollEndDate').value;
@@ -1479,14 +1632,16 @@ async function requestCertificateIdClick(uid, name, courseName) {
 
 let activeCertId = null;
 
-function openCertModal(uid, name, certId, existingCourseName, existingUrl) {
+function openCertModal(uid, name, certId, existingCourseName, existingUrl, existingSource) {
   activeStudentUid = uid;
   activeCertId = certId || null;
   document.getElementById('certModalStudentName').innerText = name;
   document.getElementById('certCourseName').value = existingCourseName || '';
   document.getElementById('certUrl').value = existingUrl || '';
-  document.getElementById('certModalTitle').innerText = certId ? '✏️ Edit Certificate' : '🎓 Add Certificate';
-  document.getElementById('certSubmitBtn').innerText = certId ? 'Save Changes' : 'Add Certificate';
+  document.getElementById('certSource').value = existingSource || '';
+  const isAr = currentLang === 'ar';
+  document.getElementById('certModalTitle').innerText = certId ? (isAr ? '✏️ تعديل الشهادة' : '✏️ Edit Certificate') : (isAr ? '🎓 إضافة شهادة' : '🎓 Add Certificate');
+  document.getElementById('certSubmitBtn').innerText = certId ? (isAr ? 'حفظ التغييرات' : 'Save Changes') : (isAr ? 'إضافة الشهادة' : 'Add Certificate');
   document.getElementById('certModal').classList.remove('hidden');
   document.getElementById('certModal').classList.add('flex');
 }
@@ -1499,15 +1654,16 @@ function closeCertModal() {
 async function submitAddCertificate() {
   const courseName = document.getElementById('certCourseName').value.trim();
   const url = document.getElementById('certUrl').value.trim();
-  if (!courseName || !url) { await customAlert('Please fill in both fields.'); return; }
+  const source = document.getElementById('certSource').value.trim() || 'Sketchy Chapters';
+  if (!courseName || !url) { await customAlert(currentLang === 'ar' ? 'يرجى تعبئة الحقلين.' : 'Please fill in both fields.'); return; }
 
   const isNewCertificate = !activeCertId;
   const targetStudentUid = activeStudentUid;
 
   if (activeCertId) {
-    await editCertificate(activeStudentUid, activeCertId, { courseName, url });
+    await editCertificate(activeStudentUid, activeCertId, { courseName, url, source });
   } else {
-    await addCertificateToStudent(activeStudentUid, { courseName, url });
+    await addCertificateToStudent(activeStudentUid, { courseName, url, source });
   }
   closeCertModal();
   allStudents = await getAllStudents();
@@ -1524,7 +1680,7 @@ async function submitAddCertificate() {
 // 🔄 استرجاع الشهادة — يُعيد تصفير عداد التحميل بحيث تظهر الشهادة من جديد لدى الطالب
 // ==========================================================
 async function resetCertificateDownloadsClick(uid, courseName) {
-  if (!(await customConfirm(`Reset the download count for "${courseName}"? This will make the certificate reappear for the student.`))) return;
+  if (!(await customConfirm(currentLang === 'ar' ? `إعادة تصفير عداد التحميل لـ"${courseName}"؟ سيؤدي هذا لظهور الشهادة مجدداً للطالب.` : `Reset the download count for "${courseName}"? This will make the certificate reappear for the student.`))) return;
 
   try {
     const docRef = db.collection('students').doc(uid);
@@ -1543,7 +1699,7 @@ async function resetCertificateDownloadsClick(uid, courseName) {
     renderAttentionSection();
   } catch (err) {
     console.error('resetCertificateDownloadsClick error:', err);
-    await customAlert('Something went wrong resetting the download count.');
+    await customAlert(currentLang === 'ar' ? 'حدث خطأ أثناء إعادة تصفير عداد التحميل.' : 'Something went wrong resetting the download count.');
   }
 }
 
@@ -1605,7 +1761,7 @@ async function submitLegacyCertificate() {
 }
 
 async function deleteCertificateClick(uid, certId, courseName) {
-  if (!(await customConfirm(`Delete the certificate for "${courseName}"? This can't be undone.`))) return;
+  if (!(await customConfirm(currentLang === 'ar' ? `حذف الشهادة الخاصة بـ"${courseName}"؟ هذا الإجراء لا يمكن التراجع عنه.` : `Delete the certificate for "${courseName}"? This can't be undone.`))) return;
   await deleteCertificate(uid, certId);
   allStudents = await getAllStudents();
   renderStudents();
@@ -1619,8 +1775,9 @@ function openLibraryModal(uid, name, itemId, existingTitle, existingUrl) {
   document.getElementById('libraryModalStudentName').innerText = name;
   document.getElementById('libraryTitle').value = existingTitle || '';
   document.getElementById('libraryUrl').value = existingUrl || '';
-  document.getElementById('libraryModalTitle').innerText = itemId ? '✏️ Edit Library File' : '📚 Add Library File';
-  document.getElementById('librarySubmitBtn').innerText = itemId ? 'Save Changes' : 'Add File';
+  const isAr = currentLang === 'ar';
+  document.getElementById('libraryModalTitle').innerText = itemId ? (isAr ? '✏️ تعديل ملف المكتبة' : '✏️ Edit Library File') : (isAr ? '📚 إضافة ملف مكتبة' : '📚 Add Library File');
+  document.getElementById('librarySubmitBtn').innerText = itemId ? (isAr ? 'حفظ التغييرات' : 'Save Changes') : (isAr ? 'إضافة الملف' : 'Add File');
   document.getElementById('libraryModal').classList.remove('hidden');
   document.getElementById('libraryModal').classList.add('flex');
 }
@@ -1633,7 +1790,7 @@ function closeLibraryModal() {
 async function submitAddLibraryItem() {
   const title = document.getElementById('libraryTitle').value.trim();
   const url = document.getElementById('libraryUrl').value.trim();
-  if (!title || !url) { await customAlert('Please fill in both fields.'); return; }
+  if (!title || !url) { await customAlert(currentLang === 'ar' ? 'يرجى تعبئة الحقلين.' : 'Please fill in both fields.'); return; }
 
   if (activeLibraryId) {
     await editResource(activeStudentUid, activeLibraryId, { title, url });
@@ -1646,7 +1803,7 @@ async function submitAddLibraryItem() {
 }
 
 async function deleteLibraryItemClick(uid, itemId, title) {
-  if (!(await customConfirm(`Delete the library file "${title}"? This can't be undone.`))) return;
+  if (!(await customConfirm(currentLang === 'ar' ? `حذف ملف المكتبة "${title}"؟ هذا الإجراء لا يمكن التراجع عنه.` : `Delete the library file "${title}"? This can't be undone.`))) return;
   await deleteResource(uid, itemId);
   allStudents = await getAllStudents();
   renderStudents();
@@ -1709,7 +1866,7 @@ function renderDiscountList(uid) {
 async function submitAddDiscount() {
   const courseName = document.getElementById('discountCourseName').value.trim();
   const discountPercent = parseInt(document.getElementById('discountPercent').value, 10) || 0;
-  if (!courseName || discountPercent <= 0) { await customAlert('Please enter a course name and a discount percent above 0.'); return; }
+  if (!courseName || discountPercent <= 0) { await customAlert(currentLang === 'ar' ? 'يرجى إدخال اسم دورة ونسبة خصم أعلى من صفر.' : 'Please enter a course name and a discount percent above 0.'); return; }
 
   const student = allStudents.find(s => s.uid === activeStudentUid);
 
@@ -1728,7 +1885,7 @@ async function submitAddDiscount() {
 }
 
 async function removeDiscountClick(uid, courseName, discountPercent) {
-  if (!(await customConfirm(`Remove the ${discountPercent}% discount on "${courseName === '*' ? 'All Courses' : courseName}"?`))) return;
+  if (!(await customConfirm(currentLang === 'ar' ? `إزالة خصم ${discountPercent}% على "${courseName === '*' ? 'كل الدورات' : courseName}"؟` : `Remove the ${discountPercent}% discount on "${courseName === '*' ? 'All Courses' : courseName}"?`))) return;
   await removeSpecialDiscount(uid, courseName, discountPercent);
   allStudents = await getAllStudents();
   renderDiscountList(uid);
@@ -1752,11 +1909,11 @@ function closeNotifyModal() {
 async function submitNotify() {
   const message = document.getElementById('notifyMessage').value.trim();
   const link = document.getElementById('notifyLink').value.trim();
-  if (!message) { await customAlert('Please write a message.'); return; }
+  if (!message) { await customAlert(currentLang === 'ar' ? 'يرجى كتابة رسالة.' : 'Please write a message.'); return; }
 
   await addNotification(activeStudentUid, message, link || null);
   closeNotifyModal();
-  await customAlert('✅ Notification sent to this student.');
+  await customAlert(currentLang === 'ar' ? '✅ تم إرسال الإشعار لهذا الطالب.' : '✅ Notification sent to this student.');
 }
 
 function openEditProfileModal(uid) {
@@ -1797,7 +1954,7 @@ async function submitEditProfile() {
 }
 
 async function editStudentIdClick(uid, oldId) {
-  const newId = await customPrompt('Enter the new Student ID (e.g. 202210001 for a student who first joined in 2022):', oldId);
+  const newId = await customPrompt(currentLang === 'ar' ? 'أدخل رقم الطالب الجديد (مثلاً 202210001 لطالب انضم أول مرة سنة 2022):' : 'Enter the new Student ID (e.g. 202210001 for a student who first joined in 2022):', oldId);
   if (!newId || newId.trim() === '' || newId.trim() === oldId) return;
 
   try {
@@ -1805,18 +1962,18 @@ async function editStudentIdClick(uid, oldId) {
     allStudents = await getAllStudents();
     renderStudents();
   } catch (err) {
-    await customAlert('Could not update the ID — it might already be in use, or a permissions issue occurred.');
+    await customAlert(currentLang === 'ar' ? 'تعذّر تحديث الرقم — قد يكون مستخدماً مسبقاً، أو حدثت مشكلة صلاحيات.' : 'Could not update the ID — it might already be in use, or a permissions issue occurred.');
     console.error(err);
   }
 }
 
 async function deleteStudentClick(uid, studentId, name) {
-  const confirm1 = await customConfirm(`⚠️ Permanently delete ${name}'s entire record (courses, points, certificates, everything)?\n\nThis cannot be undone.`);
+  const confirm1 = await customConfirm(currentLang === 'ar' ? `⚠️ حذف كامل سجل ${name} نهائياً (الدورات، النقاط، الشهادات، كل شيء)؟\n\nهذا الإجراء لا يمكن التراجع عنه.` : `⚠️ Permanently delete ${name}'s entire record (courses, points, certificates, everything)?\n\nThis cannot be undone.`);
   if (!confirm1) return;
 
   const typed = await customPrompt(`To confirm, type DELETE (in capital letters):`);
   if (typed !== 'DELETE') {
-    await customAlert('Cancelled — text did not match.');
+    await customAlert(currentLang === 'ar' ? 'أُلغي — النص المُدخل غير مطابق.' : 'Cancelled — text did not match.');
     return;
   }
 
@@ -1824,7 +1981,7 @@ async function deleteStudentClick(uid, studentId, name) {
   allStudents = await getAllStudents();
   computeStats();
   renderStudents();
-  await customAlert(`✅ ${name}'s record has been deleted.`);
+  await customAlert(currentLang === 'ar' ? `✅ تم حذف سجل ${name}.` : `✅ ${name}'s record has been deleted.`);
 }
 
 async function submitAnnouncement() {
@@ -1833,15 +1990,15 @@ async function submitAnnouncement() {
   const message = input.value.trim();
   const link = linkInput.value.trim();
   if (!message) return;
-  if (!(await customConfirm(`Send this notification to all ${allStudents.length} students?\n\n"${message}"${link ? `\n\nLink: ${link}` : ''}`))) return;
+  if (!(await customConfirm(currentLang === 'ar' ? `إرسال هذا الإشعار لكل الطلاب (${allStudents.length})؟\n\n"${message}"${link ? `\n\nرابط: ${link}` : ''}` : `Send this notification to all ${allStudents.length} students?\n\n"${message}"${link ? `\n\nLink: ${link}` : ''}`))) return;
 
   try {
     const count = await broadcastAnnouncement(message, link || null);
-    await customAlert(`✅ Sent to ${count} students.`);
+    await customAlert(currentLang === 'ar' ? `✅ أُرسل إلى ${count} طالب.` : `✅ Sent to ${count} students.`);
     input.value = '';
     linkInput.value = '';
   } catch (err) {
-    await customAlert('Something went wrong sending the announcement.');
+    await customAlert(currentLang === 'ar' ? 'حدث خطأ أثناء إرسال الإعلان.' : 'Something went wrong sending the announcement.');
     console.error(err);
   }
 }
