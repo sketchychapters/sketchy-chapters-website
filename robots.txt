@@ -5,5 +5,6 @@ Disallow: /certificates-list.html
 Disallow: /scdc-leads-dashboard.html
 Disallow: /account.html
 Disallow: /account-settings.html
+Disallow: /course-roster.html
 
 Sitemap: https://www.sketchychapters.com/sitemap.xml
