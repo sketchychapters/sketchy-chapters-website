@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta name="robots" content="noindex, nofollow">
+<meta charset="UTF-8">
+<meta name="color-scheme" content="dark">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Course Roster by Session | Workshop Center Admin</title>
+<link rel="icon" type="image/png" href="favicon w.png">
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore-compat.js"></script>
+
+<style>
+  body{color-scheme:dark;font-family:'Tajawal',sans-serif;background:#08080a;color:#e0e6ed;}
+  .gold-accent{color:#d4af37;}
+  .bg-gold{background:linear-gradient(135deg,#d4af37 0%,#aa7c11 100%);}
+  .glass-card{background:rgba(18,18,22,.65);backdrop-filter:blur(16px);border:1px solid rgba(212,175,55,.15);}
+  select{background:rgba(0,0,0,.4);border:1px solid rgba(212,175,55,.25);color:#fff;}
+  select:focus{outline:none;border-color:#d4af37;}
+  .batch-header{background:rgba(212,175,55,.08);border-color:rgba(212,175,55,.25);}
+</style>
+</head>
+<body class="min-h-screen px-6 py-10 max-w-4xl mx-auto">
+
+<div class="flex items-center justify-between mb-8 flex-wrap gap-4">
+  <div>
+    <h1 class="text-2xl md:text-3xl font-black text-white">Course Roster by Session</h1>
+    <p class="text-gray-400 text-xs mt-1">Pick a course to see every student who took it, grouped by session.</p>
+  </div>
+  <a href="sc-team-dashboard.html" class="text-xs font-bold text-blue-300 border border-blue-500/30 px-4 py-2 rounded-xl hover:bg-blue-500/10 flex items-center gap-2">
+    <i class="fa-solid fa-arrow-right rtl:rotate-180"></i> Back to Dashboard
+  </a>
+</div>
+
+<div class="glass-card rounded-2xl p-5 mb-6">
+  <label class="text-xs text-gray-400 block mb-2">Select a Course</label>
+  <select id="courseSelect" onchange="renderRoster()" class="w-full rounded-xl px-4 py-3 text-sm text-white">
+    <option value="">🔍 Loading courses...</option>
+  </select>
+</div>
+
+<div id="rosterContainer" class="space-y-6 mb-10">
+  <p class="text-gray-500 text-sm text-center py-10">Pick a course above to see its roster.</p>
+</div>
+
+<div class="flex items-center gap-3 mb-6">
+  <div class="flex-1 h-px bg-gray-800"></div>
+  <span class="text-gray-500 text-xs font-bold uppercase">Or</span>
+  <div class="flex-1 h-px bg-gray-800"></div>
+</div>
+
+<div class="glass-card rounded-2xl p-5 mb-6">
+  <label class="text-xs text-gray-400 block mb-2">Look Up by Session Number</label>
+  <div class="flex gap-2">
+    <input id="sessionSearchInput" type="text" placeholder="e.g. 45 or LU26" onkeydown="if(event.key==='Enter') renderSessionLookup()" class="flex-1 rounded-xl px-4 py-3 text-sm text-white">
+    <button onclick="renderSessionLookup()" class="bg-gold text-black font-bold px-6 py-3 rounded-xl text-sm shrink-0">Search</button>
+  </div>
+  <p class="text-gray-500 text-[11px] mt-2">Type a session number to see which course ran then, and who took it — or find out no one is recorded for it.</p>
+</div>
+
+<div id="sessionLookupContainer" class="space-y-6"></div>
+
+<script src="firebase-init.js"></script>
+<script>
+requireAdmin();
+
+let allStudents = [];
+
+// نفس منطق حساب رقم الدفعة الموجود بلوحة التحكم الرئيسية — معايَر على
+// الرقم الحقيقي الحالي: ٢٣ أيلول ٢٠٢٦ = الدفعة رقم ٧٥
+const BATCH_ANCHOR_DATE = new Date(2026, 8, 23);
+const BATCH_ANCHOR_NUMBER = 75;
+
+function calculateBatchNumber(dateStr) {
+  if (!dateStr) return null;
+  const courseDate = new Date(dateStr);
+  if (isNaN(courseDate.getTime())) return null;
+  const monthsDiff = (courseDate.getFullYear() - BATCH_ANCHOR_DATE.getFullYear()) * 12
+    + (courseDate.getMonth() - BATCH_ANCHOR_DATE.getMonth());
+  return BATCH_ANCHOR_NUMBER + monthsDiff;
+}
+
+function formatDateDMY(dateStr) {
+  if (!dateStr) return '—';
+  const datePart = String(dateStr).slice(0, 10);
+  const parts = datePart.split('-');
+  if (parts.length !== 3) return dateStr;
+  const [y, m, d] = parts;
+  if (!y || !m || !d) return dateStr;
+  return `${d}/${m}/${y}`;
+}
+
+function populateCourseOptions() {
+  const names = new Set();
+  allStudents.forEach(s => {
+    (s.enrollments || []).forEach(en => { if (en.courseName) names.add(en.courseName); });
+  });
+  const sorted = [...names].sort();
+  const select = document.getElementById('courseSelect');
+  select.innerHTML = '<option value="">— Select a course —</option>' +
+    sorted.map(name => `<option value="${name.replace(/"/g, '&quot;')}">${name}</option>`).join('');
+}
+
+function renderRoster() {
+  const courseName = document.getElementById('courseSelect').value;
+  const container = document.getElementById('rosterContainer');
+
+  if (!courseName) {
+    container.innerHTML = '<p class="text-gray-500 text-sm text-center py-10">Pick a course above to see its roster.</p>';
+    return;
+  }
+
+  const entries = [];
+  allStudents.forEach(s => {
+    (s.enrollments || []).forEach(en => {
+      if (en.courseName === courseName) {
+        entries.push({
+          studentName: s.name || 'Unnamed',
+          date: en.startDate || en.date,
+          status: en.status,
+          batch: en.batchOverride || calculateBatchNumber(en.startDate || en.date)
+        });
+      }
+    });
+  });
+
+  if (entries.length === 0) {
+    container.innerHTML = '<p class="text-gray-500 text-sm text-center py-10">No students found for this course.</p>';
+    return;
+  }
+
+  // تجميع حسب رقم الدفعة
+  const byBatch = {};
+  entries.forEach(e => {
+    const key = e.batch !== null ? e.batch : 'unknown';
+    if (!byBatch[key]) byBatch[key] = [];
+    byBatch[key].push(e);
+  });
+
+  const sortedBatchKeys = Object.keys(byBatch).sort((a, b) => {
+    if (a === 'unknown') return 1;
+    if (b === 'unknown') return -1;
+    const numA = Number(a), numB = Number(b);
+    const aIsNum = !isNaN(numA), bIsNum = !isNaN(numB);
+    if (aIsNum && bIsNum) return numA - numB;
+    if (aIsNum) return -1;
+    if (bIsNum) return 1;
+    // كلاهما نص (مثل LU26) - رتّب حسب أقدم تاريخ طالب بكل مجموعة
+    const earliestA = byBatch[a].reduce((min, e) => (e.date && (!min || e.date < min)) ? e.date : min, null) || '';
+    const earliestB = byBatch[b].reduce((min, e) => (e.date && (!min || e.date < min)) ? e.date : min, null) || '';
+    return earliestA.localeCompare(earliestB);
+  });
+
+  container.innerHTML = `
+    <p class="text-gray-400 text-xs mb-2">${entries.length} student${entries.length !== 1 ? 's' : ''} total across ${sortedBatchKeys.length} session${sortedBatchKeys.length !== 1 ? 's' : ''}.</p>
+  ` + sortedBatchKeys.map(key => {
+    const batchLabel = key === 'unknown' ? 'Unknown / No Date' : `Session #${key}`;
+    const students = byBatch[key].slice().sort((a, b) => (a.date || '').localeCompare(b.date || ''));
+    return `
+      <div class="glass-card rounded-2xl overflow-hidden">
+        <div class="batch-header border-b px-5 py-3 flex items-center justify-between">
+          <span class="text-white font-black text-sm">🔢 ${batchLabel}</span>
+          <span class="gold-accent text-xs font-bold">${students.length} student${students.length !== 1 ? 's' : ''}</span>
+        </div>
+        <div class="divide-y divide-gray-800">
+          ${students.map(st => `
+            <div class="px-5 py-3 flex items-center justify-between text-sm">
+              <span class="text-white">${st.studentName}</span>
+              <span class="text-gray-500 text-xs">${formatDateDMY(st.date)} ${st.status === 'completed' ? '· ✓' : (st.status === 'pending' ? '· ⏳' : '')}</span>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+// ==========================================================
+// 🔎 البحث العكسي: تدخلي رقم دورة/جلسة، وبيطلعلك أي كورس اشتغل
+// فيها ومين أخدها — أو "ما في حدا مسجّل" لو فاضية.
+// ==========================================================
+function renderSessionLookup() {
+  const query = document.getElementById('sessionSearchInput').value.trim();
+  const container = document.getElementById('sessionLookupContainer');
+
+  if (!query) {
+    container.innerHTML = '';
+    return;
+  }
+
+  const matches = [];
+  allStudents.forEach(s => {
+    (s.enrollments || []).forEach(en => {
+      const batch = en.batchOverride || calculateBatchNumber(en.startDate || en.date);
+      if (batch !== null && String(batch) === query) {
+        matches.push({
+          studentName: s.name || 'Unnamed',
+          courseName: en.courseName || '(no course name)',
+          date: en.startDate || en.date,
+          status: en.status
+        });
+      }
+    });
+  });
+
+  if (matches.length === 0) {
+    container.innerHTML = `
+      <div class="glass-card rounded-2xl p-8 text-center">
+        <i class="fa-solid fa-circle-exclamation text-gray-600 text-2xl mb-3"></i>
+        <p class="text-gray-400 text-sm">No students recorded for Session #${query.replace(/</g, '')}.</p>
+        <p class="text-gray-600 text-xs mt-1">Either it ran with no completed registrations yet, or the session number doesn't exist.</p>
+      </div>
+    `;
+    return;
+  }
+
+  // تجميع حسب اسم الدورة (احتمال أكثر من دورة بنفس رقم الجلسة)
+  const byCourse = {};
+  matches.forEach(m => {
+    if (!byCourse[m.courseName]) byCourse[m.courseName] = [];
+    byCourse[m.courseName].push(m);
+  });
+
+  container.innerHTML = `
+    <p class="text-gray-400 text-xs mb-2">Session #${query.replace(/</g, '')} — ${matches.length} student${matches.length !== 1 ? 's' : ''} found.</p>
+  ` + Object.entries(byCourse).map(([courseName, students]) => `
+    <div class="glass-card rounded-2xl overflow-hidden">
+      <div class="batch-header border-b px-5 py-3 flex items-center justify-between">
+        <span class="text-white font-black text-sm">📘 ${courseName}</span>
+        <span class="gold-accent text-xs font-bold">${students.length} student${students.length !== 1 ? 's' : ''}</span>
+      </div>
+      <div class="divide-y divide-gray-800">
+        ${students.map(st => `
+          <div class="px-5 py-3 flex items-center justify-between text-sm">
+            <span class="text-white">${st.studentName}</span>
+            <span class="text-gray-500 text-xs">${formatDateDMY(st.date)} ${st.status === 'completed' ? '· ✓' : (st.status === 'pending' ? '· ⏳' : '')}</span>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+  `).join('');
+}
+
+auth.onAuthStateChanged(async (user) => {
+  if (!user || user.email !== ADMIN_EMAIL) return;
+  allStudents = await getAllStudents();
+  populateCourseOptions();
+});
+</script>
+</body>
+</html>
