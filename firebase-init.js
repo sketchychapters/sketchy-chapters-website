@@ -702,7 +702,7 @@ async function addManualEnrollment(studentUid, { courseName, type, finalPrice, s
   await db.collection("students").doc(studentUid).set(updates, { merge: true });
 }
 
-async function editEnrollmentDetails(studentUid, enrollmentId, { courseName, type, finalPrice, date, endDate }) {
+async function editEnrollmentDetails(studentUid, enrollmentId, { courseName, type, finalPrice, date, endDate, batchOverride }) {
   const ref = db.collection("students").doc(studentUid);
   const doc = await ref.get();
   let pointsDiff = 0;
@@ -716,6 +716,7 @@ async function editEnrollmentDetails(studentUid, enrollmentId, { courseName, typ
       const updated = { ...en, courseName, type, basePrice: finalPrice, finalPrice, pointsEarned: newPointsEarned };
       if (date) updated.date = new Date(date).toISOString();
       if (endDate !== undefined) updated.endDate = endDate || "";
+      if (batchOverride !== undefined) updated.batchOverride = batchOverride || "";
       return updated;
     }
     return en;
@@ -728,11 +729,12 @@ async function editEnrollmentDetails(studentUid, enrollmentId, { courseName, typ
   await ref.update(updates);
 }
 
-async function addCertificateToStudent(studentUid, { courseName, url }) {
+async function addCertificateToStudent(studentUid, { courseName, url, source }) {
   const cert = {
     id: generateEnrollmentId(), // نفس مولّد المعرّفات، صالح لأي شي محتاج ID فريد
     courseName,
     url,
+    source: source || "Sketchy Chapters",
     dateIssued: new Date().toISOString()
   };
   await db.collection("students").doc(studentUid).update({
@@ -741,11 +743,11 @@ async function addCertificateToStudent(studentUid, { courseName, url }) {
   await addNotification(studentUid, `🎓 شهادتك لدورة "${courseName}" جاهزة! افتح حسابك لتحميلها.`);
 }
 
-async function editCertificate(studentUid, certId, { courseName, url }) {
+async function editCertificate(studentUid, certId, { courseName, url, source }) {
   const ref = db.collection("students").doc(studentUid);
   const doc = await ref.get();
   const certificates = (doc.data().certificates || []).map(c =>
-    (c.id || c.url) === certId ? { ...c, courseName, url } : c
+    (c.id || c.url) === certId ? { ...c, courseName, url, source: source || "Sketchy Chapters" } : c
   );
   await ref.update({ certificates });
 }
