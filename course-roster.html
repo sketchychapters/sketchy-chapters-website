@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="en" dir="ltr" id="htmlRoot">
 <head>
 <meta name="robots" content="noindex, nofollow">
 <meta charset="UTF-8">
 <meta name="color-scheme" content="dark">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Course Roster by Session | Workshop Center Admin</title>
+<title data-ar="سجل الدورات حسب الدفعة | لوحة تحكم مركز الورش" data-en="Course Roster by Session | Workshop Center Admin">Course Roster by Session | Workshop Center Admin</title>
 <link rel="icon" type="image/png" href="favicon w.png">
 <script src="https://cdn.tailwindcss.com"></script>
 <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;500;700;900&display=swap" rel="stylesheet">
@@ -20,8 +20,8 @@
   .gold-accent{color:#d4af37;}
   .bg-gold{background:linear-gradient(135deg,#d4af37 0%,#aa7c11 100%);}
   .glass-card{background:rgba(18,18,22,.65);backdrop-filter:blur(16px);border:1px solid rgba(212,175,55,.15);}
-  select{background:rgba(0,0,0,.4);border:1px solid rgba(212,175,55,.25);color:#fff;}
-  select:focus{outline:none;border-color:#d4af37;}
+  select,input{background:rgba(0,0,0,.4);border:1px solid rgba(212,175,55,.25);color:#fff;}
+  select:focus,input:focus{outline:none;border-color:#d4af37;}
   .batch-header{background:rgba(212,175,55,.08);border-color:rgba(212,175,55,.25);}
 </style>
 </head>
@@ -29,38 +29,43 @@
 
 <div class="flex items-center justify-between mb-8 flex-wrap gap-4">
   <div>
-    <h1 class="text-2xl md:text-3xl font-black text-white">Course Roster by Session</h1>
-    <p class="text-gray-400 text-xs mt-1">Pick a course to see every student who took it, grouped by session.</p>
+    <h1 class="text-2xl md:text-3xl font-black text-white" data-ar="سجل الدورات حسب الدفعة" data-en="Course Roster by Session">Course Roster by Session</h1>
+    <p class="text-gray-400 text-xs mt-1" data-ar="اختر دورة لترى كل طالب أخذها، مجمّعين حسب الدفعة." data-en="Pick a course to see every student who took it, grouped by session.">Pick a course to see every student who took it, grouped by session.</p>
   </div>
-  <a href="sc-team-dashboard.html" class="text-xs font-bold text-blue-300 border border-blue-500/30 px-4 py-2 rounded-xl hover:bg-blue-500/10 flex items-center gap-2">
-    <i class="fa-solid fa-arrow-right rtl:rotate-180"></i> Back to Dashboard
-  </a>
+  <div class="flex items-center gap-3">
+    <button onclick="toggleLanguage()" id="lang-btn" class="text-xs font-bold text-white border border-gray-600 px-3 py-2 rounded-xl hover:bg-white/10 flex items-center gap-2">
+      <i class="fa-solid fa-globe"></i> <span id="langBtnText">العربية</span>
+    </button>
+    <a href="sc-team-dashboard.html" class="text-xs font-bold text-blue-300 border border-blue-500/30 px-4 py-2 rounded-xl hover:bg-blue-500/10 flex items-center gap-2">
+      <i class="fa-solid fa-arrow-right rtl:rotate-180"></i> <span data-ar="الرجوع للوحة التحكم" data-en="Back to Dashboard">Back to Dashboard</span>
+    </a>
+  </div>
 </div>
 
 <div class="glass-card rounded-2xl p-5 mb-6">
-  <label class="text-xs text-gray-400 block mb-2">Select a Course</label>
+  <label class="text-xs text-gray-400 block mb-2" data-ar="اختر دورة" data-en="Select a Course">Select a Course</label>
   <select id="courseSelect" onchange="renderRoster()" class="w-full rounded-xl px-4 py-3 text-sm text-white">
     <option value="">🔍 Loading courses...</option>
   </select>
 </div>
 
 <div id="rosterContainer" class="space-y-6 mb-10">
-  <p class="text-gray-500 text-sm text-center py-10">Pick a course above to see its roster.</p>
+  <p class="text-gray-500 text-sm text-center py-10" data-ar="اختاري دورة من فوق لترى سجلّها." data-en="Pick a course above to see its roster.">Pick a course above to see its roster.</p>
 </div>
 
 <div class="flex items-center gap-3 mb-6">
   <div class="flex-1 h-px bg-gray-800"></div>
-  <span class="text-gray-500 text-xs font-bold uppercase">Or</span>
+  <span class="text-gray-500 text-xs font-bold uppercase" data-ar="أو" data-en="Or">Or</span>
   <div class="flex-1 h-px bg-gray-800"></div>
 </div>
 
 <div class="glass-card rounded-2xl p-5 mb-6">
-  <label class="text-xs text-gray-400 block mb-2">Look Up by Session Number</label>
+  <label class="text-xs text-gray-400 block mb-2" data-ar="البحث برقم الدفعة" data-en="Look Up by Session Number">Look Up by Session Number</label>
   <div class="flex gap-2">
-    <input id="sessionSearchInput" type="text" placeholder="e.g. 45 or LU26" onkeydown="if(event.key==='Enter') renderSessionLookup()" class="flex-1 rounded-xl px-4 py-3 text-sm text-white">
-    <button onclick="renderSessionLookup()" class="bg-gold text-black font-bold px-6 py-3 rounded-xl text-sm shrink-0">Search</button>
+    <input id="sessionSearchInput" type="text" placeholder="e.g. 45 or LU26" data-ph-ar="مثلاً 45 أو LU26" data-ph-en="e.g. 45 or LU26" onkeydown="if(event.key==='Enter') renderSessionLookup()" class="flex-1 rounded-xl px-4 py-3 text-sm text-white">
+    <button onclick="renderSessionLookup()" class="bg-gold text-black font-bold px-6 py-3 rounded-xl text-sm shrink-0" data-ar="بحث" data-en="Search">Search</button>
   </div>
-  <p class="text-gray-500 text-[11px] mt-2">Type a session number to see which course ran then, and who took it — or find out no one is recorded for it.</p>
+  <p class="text-gray-500 text-[11px] mt-2" data-ar="اكتب رقم الدفعة لترى أي دورة اشتغلت فيها ومين أخدها — أو اكتشف إنو ما في حدا مسجّل فيها." data-en="Type a session number to see which course ran then, and who took it — or find out no one is recorded for it.">Type a session number to see which course ran then, and who took it — or find out no one is recorded for it.</p>
 </div>
 
 <div id="sessionLookupContainer" class="space-y-6"></div>
@@ -70,6 +75,29 @@
 requireAdmin();
 
 let allStudents = [];
+let currentLang = 'en';
+
+function toggleLanguage() {
+  currentLang = currentLang === 'en' ? 'ar' : 'en';
+  const htmlRoot = document.getElementById('htmlRoot');
+  const langBtnText = document.getElementById('langBtnText');
+  htmlRoot.setAttribute('dir', currentLang === 'ar' ? 'rtl' : 'ltr');
+  htmlRoot.setAttribute('lang', currentLang);
+  langBtnText.innerText = currentLang === 'ar' ? 'English' : 'العربية';
+
+  document.querySelectorAll('[data-ar]').forEach(el => {
+    const t = currentLang === 'ar' ? el.getAttribute('data-ar') : el.getAttribute('data-en');
+    if (t !== null) el.innerText = t;
+  });
+  document.querySelectorAll('[data-ph-ar]').forEach(el => {
+    const t = currentLang === 'ar' ? el.getAttribute('data-ph-ar') : el.getAttribute('data-ph-en');
+    if (t !== null) el.placeholder = t;
+  });
+
+  populateCourseOptions();
+  if (document.getElementById('courseSelect').value) renderRoster();
+  if (document.getElementById('sessionSearchInput').value.trim()) renderSessionLookup();
+}
 
 // نفس منطق حساب رقم الدفعة الموجود بلوحة التحكم الرئيسية — معايَر على
 // الرقم الحقيقي الحالي: ٢٣ أيلول ٢٠٢٦ = الدفعة رقم ٧٥
@@ -86,6 +114,7 @@ function calculateBatchNumber(dateStr) {
 }
 
 function formatDateDMY(dateStr) {
+  const isAr = currentLang === 'ar';
   if (!dateStr) return '—';
   const datePart = String(dateStr).slice(0, 10);
   const parts = datePart.split('-');
@@ -96,22 +125,26 @@ function formatDateDMY(dateStr) {
 }
 
 function populateCourseOptions() {
+  const isAr = currentLang === 'ar';
   const names = new Set();
   allStudents.forEach(s => {
     (s.enrollments || []).forEach(en => { if (en.courseName) names.add(en.courseName); });
   });
   const sorted = [...names].sort();
   const select = document.getElementById('courseSelect');
-  select.innerHTML = '<option value="">— Select a course —</option>' +
+  const currentValue = select.value;
+  select.innerHTML = `<option value="">${isAr ? '— اختر دورة —' : '— Select a course —'}</option>` +
     sorted.map(name => `<option value="${name.replace(/"/g, '&quot;')}">${name}</option>`).join('');
+  select.value = currentValue;
 }
 
 function renderRoster() {
+  const isAr = currentLang === 'ar';
   const courseName = document.getElementById('courseSelect').value;
   const container = document.getElementById('rosterContainer');
 
   if (!courseName) {
-    container.innerHTML = '<p class="text-gray-500 text-sm text-center py-10">Pick a course above to see its roster.</p>';
+    container.innerHTML = `<p class="text-gray-500 text-sm text-center py-10">${isAr ? 'اختاري دورة من فوق لترى سجلّها.' : 'Pick a course above to see its roster.'}</p>`;
     return;
   }
 
@@ -120,7 +153,7 @@ function renderRoster() {
     (s.enrollments || []).forEach(en => {
       if (en.courseName === courseName) {
         entries.push({
-          studentName: s.name || 'Unnamed',
+          studentName: s.name || (isAr ? 'بدون اسم' : 'Unnamed'),
           date: en.startDate || en.date,
           status: en.status,
           batch: en.batchOverride || calculateBatchNumber(en.startDate || en.date)
@@ -130,7 +163,7 @@ function renderRoster() {
   });
 
   if (entries.length === 0) {
-    container.innerHTML = '<p class="text-gray-500 text-sm text-center py-10">No students found for this course.</p>';
+    container.innerHTML = `<p class="text-gray-500 text-sm text-center py-10">${isAr ? 'ما في طلاب مسجّلين بهذه الدورة.' : 'No students found for this course.'}</p>`;
     return;
   }
 
@@ -156,16 +189,25 @@ function renderRoster() {
     return earliestA.localeCompare(earliestB);
   });
 
+  const totalLabel = isAr
+    ? `${entries.length} ${entries.length === 1 ? 'طالب' : 'طلاب'} إجمالاً عبر ${sortedBatchKeys.length} ${sortedBatchKeys.length === 1 ? 'دفعة' : 'دفعات'}.`
+    : `${entries.length} student${entries.length !== 1 ? 's' : ''} total across ${sortedBatchKeys.length} session${sortedBatchKeys.length !== 1 ? 's' : ''}.`;
+
   container.innerHTML = `
-    <p class="text-gray-400 text-xs mb-2">${entries.length} student${entries.length !== 1 ? 's' : ''} total across ${sortedBatchKeys.length} session${sortedBatchKeys.length !== 1 ? 's' : ''}.</p>
+    <p class="text-gray-400 text-xs mb-2">${totalLabel}</p>
   ` + sortedBatchKeys.map(key => {
-    const batchLabel = key === 'unknown' ? 'Unknown / No Date' : `Session #${key}`;
+    const batchLabel = key === 'unknown'
+      ? (isAr ? 'غير معروف / بدون تاريخ' : 'Unknown / No Date')
+      : `${isAr ? 'الدفعة رقم' : 'Session #'}${key}`;
     const students = byBatch[key].slice().sort((a, b) => (a.date || '').localeCompare(b.date || ''));
+    const studentCountLabel = isAr
+      ? `${students.length} ${students.length === 1 ? 'طالب' : 'طلاب'}`
+      : `${students.length} student${students.length !== 1 ? 's' : ''}`;
     return `
       <div class="glass-card rounded-2xl overflow-hidden">
         <div class="batch-header border-b px-5 py-3 flex items-center justify-between">
           <span class="text-white font-black text-sm">🔢 ${batchLabel}</span>
-          <span class="gold-accent text-xs font-bold">${students.length} student${students.length !== 1 ? 's' : ''}</span>
+          <span class="gold-accent text-xs font-bold">${studentCountLabel}</span>
         </div>
         <div class="divide-y divide-gray-800">
           ${students.map(st => `
@@ -185,6 +227,7 @@ function renderRoster() {
 // فيها ومين أخدها — أو "ما في حدا مسجّل" لو فاضية.
 // ==========================================================
 function renderSessionLookup() {
+  const isAr = currentLang === 'ar';
   const query = document.getElementById('sessionSearchInput').value.trim();
   const container = document.getElementById('sessionLookupContainer');
 
@@ -199,8 +242,8 @@ function renderSessionLookup() {
       const batch = en.batchOverride || calculateBatchNumber(en.startDate || en.date);
       if (batch !== null && String(batch) === query) {
         matches.push({
-          studentName: s.name || 'Unnamed',
-          courseName: en.courseName || '(no course name)',
+          studentName: s.name || (isAr ? 'بدون اسم' : 'Unnamed'),
+          courseName: en.courseName || (isAr ? '(بدون اسم دورة)' : '(no course name)'),
           date: en.startDate || en.date,
           status: en.status
         });
@@ -208,12 +251,14 @@ function renderSessionLookup() {
     });
   });
 
+  const safeQuery = query.replace(/</g, '');
+
   if (matches.length === 0) {
     container.innerHTML = `
       <div class="glass-card rounded-2xl p-8 text-center">
         <i class="fa-solid fa-circle-exclamation text-gray-600 text-2xl mb-3"></i>
-        <p class="text-gray-400 text-sm">No students recorded for Session #${query.replace(/</g, '')}.</p>
-        <p class="text-gray-600 text-xs mt-1">Either it ran with no completed registrations yet, or the session number doesn't exist.</p>
+        <p class="text-gray-400 text-sm">${isAr ? `ما في طلاب مسجّلين على الدفعة رقم ${safeQuery}.` : `No students recorded for Session #${safeQuery}.`}</p>
+        <p class="text-gray-600 text-xs mt-1">${isAr ? 'إما اشتغلت الدفعة بدون تسجيلات مكتملة بعد، أو رقم الدفعة غير موجود أصلاً.' : "Either it ran with no completed registrations yet, or the session number doesn't exist."}</p>
       </div>
     `;
     return;
@@ -226,13 +271,21 @@ function renderSessionLookup() {
     byCourse[m.courseName].push(m);
   });
 
+  const foundLabel = isAr
+    ? `الدفعة رقم ${safeQuery} — ${matches.length} ${matches.length === 1 ? 'طالب' : 'طلاب'}.`
+    : `Session #${safeQuery} — ${matches.length} student${matches.length !== 1 ? 's' : ''} found.`;
+
   container.innerHTML = `
-    <p class="text-gray-400 text-xs mb-2">Session #${query.replace(/</g, '')} — ${matches.length} student${matches.length !== 1 ? 's' : ''} found.</p>
-  ` + Object.entries(byCourse).map(([courseName, students]) => `
+    <p class="text-gray-400 text-xs mb-2">${foundLabel}</p>
+  ` + Object.entries(byCourse).map(([courseName, students]) => {
+    const studentCountLabel = isAr
+      ? `${students.length} ${students.length === 1 ? 'طالب' : 'طلاب'}`
+      : `${students.length} student${students.length !== 1 ? 's' : ''}`;
+    return `
     <div class="glass-card rounded-2xl overflow-hidden">
       <div class="batch-header border-b px-5 py-3 flex items-center justify-between">
         <span class="text-white font-black text-sm">📘 ${courseName}</span>
-        <span class="gold-accent text-xs font-bold">${students.length} student${students.length !== 1 ? 's' : ''}</span>
+        <span class="gold-accent text-xs font-bold">${studentCountLabel}</span>
       </div>
       <div class="divide-y divide-gray-800">
         ${students.map(st => `
@@ -243,7 +296,8 @@ function renderSessionLookup() {
         `).join('')}
       </div>
     </div>
-  `).join('');
+  `;
+  }).join('');
 }
 
 auth.onAuthStateChanged(async (user) => {
