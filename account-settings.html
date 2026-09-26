@@ -21,6 +21,7 @@
   .glass-card{background:rgba(18,18,22,.65);backdrop-filter:blur(16px);border:1px solid rgba(212,175,55,.15);}
   input,select{background:rgba(0,0,0,.4);border:1px solid rgba(212,175,55,.25);color:#fff;}
   input:focus,select:focus{outline:none;border-color:#d4af37;}
+  input:disabled,select:disabled{opacity:.5;cursor:not-allowed;}
 </style>
 </head>
 <body class="min-h-screen">
@@ -47,13 +48,11 @@
   <!-- Edit Profile -->
   <div class="glass-card rounded-3xl p-8 mb-8">
     <h2 class="text-white font-black text-lg mb-1" data-ar="تعديل بياناتي" data-en="Edit My Info">Edit My Info</h2>
-    <p class="text-gray-500 text-[11px] mb-6" data-ar="تعديل بيانات العرض فقط." data-en="Editing display info only.">Editing display info only.</p>
+    <p class="text-gray-500 text-[11px] mb-2" data-ar="تعديل بيانات العرض فقط — ما بيغيّر إيميل أو كلمة سر الدخول." data-en="Editing display info only — this does not change your login email/password.">Editing display info only — this does not change your login email/password.</p>
+    <p id="lockGroupNote" class="text-amber-300/80 text-[11px] mb-6" data-ar="⚠️ الاسم، الجنس، تاريخ الميلاد، والتخصص يمكن تعديلها مرة واحدة فقط معاً — تأكد من صحتها قبل الحفظ. رقم الهاتف والبلد والمنطقة تبقى قابلة للتعديل دائماً." data-en="⚠️ Name, gender, date of birth, and specialization can only be edited once together — make sure they're correct before saving. Phone, country, and region always remain editable.">⚠️ Name, gender, date of birth, and specialization can only be edited once together — make sure they're correct before saving. Phone, country, and region always remain editable.</p>
 
     <label class="text-xs text-gray-400 block mb-1" data-ar="الاسم الكامل" data-en="Full Name">Full Name</label>
     <input id="editName" type="text" class="w-full rounded-xl px-4 py-2.5 text-sm text-white mb-4">
-
-    <label class="text-xs text-gray-400 block mb-1" data-ar="رقم الهاتف" data-en="Phone">Phone</label>
-    <input id="editPhone" type="text" class="w-full rounded-xl px-4 py-2.5 text-sm text-white mb-4">
 
     <label class="text-xs text-gray-400 block mb-1" data-ar="الجنس" data-en="Gender">Gender</label>
     <select id="editGender" class="w-full rounded-xl px-4 py-2.5 text-sm text-white mb-4">
@@ -66,6 +65,11 @@
 
     <label class="text-xs text-gray-400 block mb-1" data-ar="التخصص" data-en="Specialization / Major">Specialization / Major</label>
     <input id="editSpecialization" type="text" class="w-full rounded-xl px-4 py-2.5 text-sm text-white mb-4">
+
+    <div class="border-t border-gray-800 my-5"></div>
+
+    <label class="text-xs text-gray-400 block mb-1" data-ar="رقم الهاتف" data-en="Phone">Phone</label>
+    <input id="editPhone" type="text" class="w-full rounded-xl px-4 py-2.5 text-sm text-white mb-4">
 
     <label class="text-xs text-gray-400 block mb-1" data-ar="البلد" data-en="Country">Country</label>
     <input id="editCountry" type="text" class="w-full rounded-xl px-4 py-2.5 text-sm text-white mb-4">
@@ -120,23 +124,80 @@ function toggleLanguage() {
 
 let currentStudentData = null;
 
+// ==========================================================
+// 🔒 مجموعة الحقول المقفلة معاً — الاسم، الجنس، تاريخ الميلاد،
+// والتخصص. بمجرد حفظ أي تغيير على أي واحد منهم، تُقفل المجموعة
+// كاملة (تُمنع من التعديل مرة أخرى) لمنع التلاعب بخصم عيد الميلاد
+// أو انتحال هوية مختلفة لاحقاً. الهاتف والبلد والمنطقة مستثناة
+// تماماً ويبقون قابلين للتعديل دائماً.
+// ==========================================================
+const LOCK_GROUP_FIELDS = ["editName", "editGender", "editBirthDate", "editSpecialization"];
+
+function applyLockGroupUI() {
+  const isLocked = currentStudentData && currentStudentData.profileEditedOnce === true;
+  LOCK_GROUP_FIELDS.forEach(id => {
+    document.getElementById(id).disabled = isLocked;
+  });
+
+  const note = document.getElementById("lockGroupNote");
+  if (isLocked) {
+    note.setAttribute("data-ar", "🔒 تم تعديل هذه البيانات (الاسم، الجنس، تاريخ الميلاد، التخصص) مسبقاً ولا يمكن تعديلها مرة أخرى. تواصل مع الإدارة إذا لزم الأمر. رقم الهاتف والبلد والمنطقة يبقون قابلين للتعديل دائماً.");
+    note.setAttribute("data-en", "🔒 This info (name, gender, date of birth, specialization) was already edited once and cannot be changed again. Contact us if you need to update it. Phone, country, and region always remain editable.");
+  } else {
+    note.setAttribute("data-ar", "⚠️ الاسم، الجنس، تاريخ الميلاد، والتخصص يمكن تعديلها مرة واحدة فقط معاً — تأكد من صحتها قبل الحفظ. رقم الهاتف والبلد والمنطقة تبقى قابلة للتعديل دائماً.");
+    note.setAttribute("data-en", "⚠️ Name, gender, date of birth, and specialization can only be edited once together — make sure they're correct before saving. Phone, country, and region always remain editable.");
+  }
+  const isAr = document.documentElement.getAttribute("lang") === "ar";
+  note.textContent = isAr ? note.getAttribute("data-ar") : note.getAttribute("data-en");
+}
+
 async function submitEditProfile() {
   const user = auth.currentUser;
   if (!user) return;
 
+  const isAr = document.documentElement.getAttribute("lang") === "ar";
+  const isLocked = currentStudentData && currentStudentData.profileEditedOnce === true;
+
+  // الحقول المقفلة: لو مقفولة، منستخدم القيم المحفوظة أصلاً (تجاهل أي محاولة تعديل)
+  // لو لسا مو مقفولة، مناخد القيم من الحقول ومنفحص هل تغيّر أي وحدة منهم
+  const storedName = currentStudentData.name || "";
+  const storedGender = currentStudentData.gender || "male";
+  const storedBirthDate = currentStudentData.birthDate || "";
+  const storedSpecialization = currentStudentData.specialization || "";
+
+  const name = isLocked ? storedName : document.getElementById("editName").value.trim();
+  const gender = isLocked ? storedGender : document.getElementById("editGender").value;
+  const birthDate = isLocked ? storedBirthDate : document.getElementById("editBirthDate").value;
+  const specialization = isLocked ? storedSpecialization : document.getElementById("editSpecialization").value.trim();
+
+  const lockGroupChanged = !isLocked && (
+    name !== storedName ||
+    gender !== storedGender ||
+    birthDate !== storedBirthDate ||
+    specialization !== storedSpecialization
+  );
+
   const updates = {
-    name: document.getElementById("editName").value.trim(),
+    name,
+    gender,
+    birthDate,
+    specialization,
     phone: document.getElementById("editPhone").value.trim(),
-    gender: document.getElementById("editGender").value,
-    birthDate: document.getElementById("editBirthDate").value,
-    specialization: document.getElementById("editSpecialization").value.trim(),
     country: document.getElementById("editCountry").value.trim(),
     region: document.getElementById("editRegion").value.trim()
   };
 
+  if (lockGroupChanged) {
+    updates.profileEditedOnce = true;
+  }
+
   try {
     await db.collection("students").doc(user.uid).update(updates);
+    currentStudentData = { ...currentStudentData, ...updates };
+    if (lockGroupChanged) applyLockGroupUI();
+
     const msg = document.getElementById("saveMsg");
+    msg.textContent = isAr ? "✅ تم الحفظ بنجاح." : "✅ Saved successfully.";
     msg.classList.remove("hidden");
     setTimeout(() => msg.classList.add("hidden"), 3000);
   } catch (err) {
@@ -220,6 +281,7 @@ auth.onAuthStateChanged(async (user) => {
   document.getElementById("editCountry").value = data.country || "";
   document.getElementById("editRegion").value = data.region || "";
 
+  applyLockGroupUI();
   renderDeletionStatus();
 });
 </script>
