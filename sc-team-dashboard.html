@@ -702,29 +702,63 @@ function jumpToStudent(name) {
   document.getElementById('studentsList').scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
-function attentionRow(iconClass, colorClass, text, studentName) {
+function attentionRow(iconClass, colorClass, textAr, textEn, studentName) {
+  const isAr = currentLang === 'ar';
   const safeName = (studentName || '').replace(/'/g, "");
   return `
     <button onclick="jumpToStudent('${safeName}')" class="w-full text-left flex items-center gap-2.5 bg-black/30 rounded-xl px-3 py-2.5 hover:bg-black/50 transition">
       <i class="fa-solid ${iconClass} ${colorClass} text-sm shrink-0"></i>
-      <span class="text-white text-xs flex-1">${text}</span>
+      <span class="text-white text-xs flex-1">${isAr ? textAr : textEn}</span>
       <i class="fa-solid fa-arrow-left rtl:rotate-180 text-gray-600 text-[10px]"></i>
     </button>
   `;
 }
 
+// ==========================================================
+// 🎓📩 طلب إعادة تفعيل شهادة — أبرز عنصر بالقائمة، لأنه طلب
+// صريح ومحدّد من الطالب نفسه، مش مجرد حالة معلّقة عامة.
+// ==========================================================
+function certificateRequestRow(studentUid, courseName, studentName) {
+  const isAr = currentLang === 'ar';
+  const safeName = (studentName || '').replace(/'/g, "");
+  const safeCourse = (courseName || '').replace(/'/g, "");
+  return `
+    <div class="w-full flex items-center gap-3 bg-amber-500/10 border border-amber-500/40 rounded-xl px-3 py-3">
+      <div class="w-9 h-9 rounded-full bg-amber-500/20 flex items-center justify-center shrink-0">
+        <i class="fa-solid fa-graduation-cap text-amber-300 text-sm"></i>
+      </div>
+      <button onclick="jumpToStudent('${safeName}')" class="flex-1 text-left">
+        <p class="text-amber-300 text-xs font-black">${isAr ? '📩 طلب إعادة تفعيل شهادة' : '📩 Certificate Reactivation Requested'}</p>
+        <p class="text-white text-xs mt-0.5">
+          ${isAr
+            ? `<strong>${studentName}</strong> طلب/ت شهادة دورة "${courseName || '(بدون اسم دورة)'}" من جديد.`
+            : `<strong>${studentName}</strong> requested their "${courseName || '(no course name)'}" certificate again.`}
+        </p>
+      </button>
+      <button onclick="jumpToStudent('${safeName}')"
+        class="text-[10px] font-bold px-3 py-2 rounded-lg bg-amber-500/20 text-amber-300 shrink-0 hover:bg-amber-500/30">
+        ${isAr ? 'عرض الطالب' : 'View Student'}
+      </button>
+    </div>
+  `;
+}
+
 function reviewAttentionRow(studentUid, platform, dateStr, studentName) {
+  const isAr = currentLang === 'ar';
   const safeName = (studentName || '').replace(/'/g, "");
   const platformLabel = platform === 'google' ? 'Google' : 'Facebook';
   const iconClass = platform === 'google' ? 'fa-google' : 'fa-facebook';
+  const text = isAr
+    ? `<strong>${studentName}</strong> ضغط/ت على زر تقييم ${platformLabel}. تحقّقي إذا نُشر التقييم فعلاً، ثم أضيفي النقاط إذا استحقها.`
+    : `Clicked to leave a ${platformLabel} review — <strong>${studentName}</strong>. Check if posted, then award points if applicable.`;
   return `
     <div class="w-full flex items-center gap-2.5 bg-black/30 rounded-xl px-3 py-2.5">
       <button onclick="jumpToStudent('${safeName}')" class="flex items-center gap-2.5 flex-1 text-left">
         <i class="fa-brands ${iconClass} text-emerald-400 text-sm shrink-0"></i>
-        <span class="text-white text-xs">Clicked to leave a ${platformLabel} review — <strong>${studentName}</strong>. Check if posted, then award points if applicable.</span>
+        <span class="text-white text-xs">${text}</span>
       </button>
       <button onclick="dismissReviewRequestClick('${studentUid}', '${platform}', '${dateStr}')"
-        class="text-[10px] font-bold px-2.5 py-1.5 rounded-lg bg-gray-500/20 text-gray-400 shrink-0">Dismiss</button>
+        class="text-[10px] font-bold px-2.5 py-1.5 rounded-lg bg-gray-500/20 text-gray-400 shrink-0">${isAr ? 'تجاهل' : 'Dismiss'}</button>
     </div>
   `;
 }
@@ -746,42 +780,49 @@ async function dismissReviewRequestClick(uid, platform, dateStr) {
 }
 
 function renderAttentionSection() {
+  const isAr = currentLang === 'ar';
   const container = document.getElementById('attentionList');
-  const items = [];
+  const certRequestItems = [];
+  const otherItems = [];
 
   allStudents.forEach(s => {
-    const name = s.name || 'Unnamed';
+    const name = s.name || (isAr ? 'بدون اسم' : 'Unnamed');
 
     (s.enrollments || []).forEach(en => {
       if (en.status === 'pending') {
-        items.push(attentionRow('fa-clock', 'text-amber-400',
+        otherItems.push(attentionRow('fa-clock', 'text-amber-400',
+          `تسجيل بانتظار الموافقة — <strong>${name}</strong> · ${en.courseName || '(بدون اسم دورة)'}`,
           `Pending enrollment approval — <strong>${name}</strong> · ${en.courseName || '(no course name)'}`, name));
       }
     });
 
+    // 🎓📩 أبرز عنصر بالقائمة — طلب صريح من الطالب لإعادة تفعيل شهادته
     (s.certificates || []).forEach(cert => {
       const downloadCount = cert.downloadCount || 0;
       if (cert.requestedAt && downloadCount >= 2) {
-        items.push(attentionRow('fa-rotate', 'text-purple-400',
-          `Certificate reactivation requested — <strong>${name}</strong> · ${cert.courseName || '(no course name)'}`, name));
+        certRequestItems.push(certificateRequestRow(s.uid, cert.courseName, name));
       }
     });
 
     if (s.referralClaim && s.referralClaim.status === 'pending') {
-      items.push(attentionRow('fa-link', 'text-blue-400',
+      otherItems.push(attentionRow('fa-link', 'text-blue-400',
+        `طلب إحالة معلّق — <strong>${name}</strong> · "${s.referralClaim.inputText || ''}"`,
         `Pending referral claim — <strong>${name}</strong> · "${s.referralClaim.inputText || ''}"`, name));
     }
 
     (s.reviewRequests || []).forEach(rr => {
       if (!rr.dismissed) {
-        items.push(reviewAttentionRow(s.uid, rr.platform, rr.date, name));
+        otherItems.push(reviewAttentionRow(s.uid, rr.platform, rr.date, name));
       }
     });
   });
 
+  // طلبات الشهادات أولاً دايماً — أهم وأوضح إجراء مطلوب
+  const items = [...certRequestItems, ...otherItems];
+
   const card = document.getElementById('attentionCard');
   if (items.length === 0) {
-    container.innerHTML = '<p class="text-gray-500 text-xs">Nothing new right now — you\'re all caught up.</p>';
+    container.innerHTML = `<p class="text-gray-500 text-xs">${isAr ? 'لا يوجد شيء جديد الآن — كل شيء محدَّث.' : "Nothing new right now — you're all caught up."}</p>`;
     card.classList.add('border-gray-800');
     card.classList.remove('border-red-500/30');
   } else {
