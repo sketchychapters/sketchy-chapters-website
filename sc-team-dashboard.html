@@ -1525,12 +1525,21 @@ function closeScheduleModal() {
 }
 
 async function submitSchedule() {
+  const isAr = currentLang === 'ar';
   const startDate = document.getElementById('scheduleStartDate').value;
   const endDate = document.getElementById('scheduleEndDate').value;
-  await setEnrollmentSchedule(activeStudentUid, activeEnrollmentId, startDate, endDate);
-  closeScheduleModal();
-  allStudents = await getAllStudents();
-  renderStudents();
+  try {
+    await setEnrollmentSchedule(activeStudentUid, activeEnrollmentId, startDate, endDate);
+    closeScheduleModal();
+    allStudents = await getAllStudents(true); // قراءة مباشرة من السيرفر للتأكد إنو الحفظ نجح فعلياً
+    renderStudents();
+  } catch (err) {
+    console.error('submitSchedule error:', err);
+    const msg = err && err.message === 'ENROLLMENT_NOT_FOUND'
+      ? (isAr ? 'تعذّر إيجاد هذه الدورة بسجل الطالب — ربما تغيّرت البيانات بمكان آخر. أعيدي تحميل الصفحة وجرّبي مرة أخرى.' : "Could not find this course on the student's record — data may have changed elsewhere. Reload the page and try again.")
+      : (isAr ? 'حدث خطأ أثناء الحفظ، لم يتم تحديث الموعد فعلياً. جرّبي مرة أخرى.' : 'Something went wrong saving — the date was not actually updated. Please try again.');
+    await customAlert(msg);
+  }
 }
 
 function openEditEnrollmentModal(uid, enrollmentId, courseName, type, finalPrice, date, endDate, batchOverride) {
@@ -1553,19 +1562,28 @@ function closeEditEnrollmentModal() {
 }
 
 async function submitEditEnrollment() {
+  const isAr = currentLang === 'ar';
   const courseName = document.getElementById('editEnrollCourseName').value.trim();
   const type = document.getElementById('editEnrollType').value;
   const finalPrice = parseFloat(document.getElementById('editEnrollPrice').value) || 0;
   const date = document.getElementById('editEnrollDate').value;
   const endDate = document.getElementById('editEnrollEndDate').value;
   const batchOverride = document.getElementById('editEnrollBatch').value.trim();
-  if (!courseName) { await customAlert(currentLang === 'ar' ? 'يرجى إدخال اسم دورة.' : 'Please enter a course name.'); return; }
+  if (!courseName) { await customAlert(isAr ? 'يرجى إدخال اسم دورة.' : 'Please enter a course name.'); return; }
 
-  await editEnrollmentDetails(activeStudentUid, activeEnrollmentId, { courseName, type, finalPrice, date, endDate, batchOverride });
-  closeEditEnrollmentModal();
-  allStudents = await getAllStudents();
-  computeStats();
-  renderStudents();
+  try {
+    await editEnrollmentDetails(activeStudentUid, activeEnrollmentId, { courseName, type, finalPrice, date, endDate, batchOverride });
+    closeEditEnrollmentModal();
+    allStudents = await getAllStudents(true); // قراءة مباشرة من السيرفر للتأكد إنو الحفظ نجح فعلياً
+    computeStats();
+    renderStudents();
+  } catch (err) {
+    console.error('submitEditEnrollment error:', err);
+    const msg = err && err.message === 'ENROLLMENT_NOT_FOUND'
+      ? (isAr ? 'تعذّر إيجاد هذه الدورة بسجل الطالب — ربما تغيّرت البيانات بمكان آخر. أعيدي تحميل الصفحة وجرّبي مرة أخرى.' : "Could not find this course on the student's record — data may have changed elsewhere. Reload the page and try again.")
+      : (isAr ? 'حدث خطأ أثناء الحفظ، لم يتم حفظ التعديلات فعلياً. جرّبي مرة أخرى.' : 'Something went wrong saving — the changes were not actually saved. Please try again.');
+    await customAlert(msg);
+  }
 }
 
 function openPointsModal(uid, name) {
