@@ -661,11 +661,33 @@ async function setEnrollmentNote(studentUid, enrollmentId, note) {
   }
 }
 
+// ==========================================================
+// 🔗 مزامنة تاريخ الإنجاز بالشهادة — لما تاريخ انتهاء الدورة يتغيّر
+// من صفحة الطلاب، لازم ينعكس تلقائياً على شهادة الطالب (لو موجودة)
+// حتى ما يضطر الأدمن يعدّلها مرتين بمكانين مختلفين.
+// ==========================================================
+async function syncCertificateCompletionDate(studentUid, courseName, endDate) {
+  if (!studentUid || !courseName || !endDate) return;
+  try {
+    const snap = await db.collection("certificates")
+      .where("studentUid", "==", studentUid)
+      .where("courseName", "==", courseName)
+      .limit(1)
+      .get();
+    if (!snap.empty) {
+      await snap.docs[0].ref.update({ completionDate: endDate });
+    }
+  } catch (err) {
+    console.error("syncCertificateCompletionDate error:", err);
+  }
+}
+
 async function setEnrollmentSchedule(studentUid, enrollmentId, startDate, endDate) {
   const ref = db.collection("students").doc(studentUid);
   const doc = await ref.get();
   let courseName = "";
   let matched = false;
+  const allIds = (doc.data().enrollments || []).map(en => en.id || en.date);
   const enrollments = (doc.data().enrollments || []).map(en => {
     if ((en.id || en.date) === enrollmentId) {
       matched = true;
@@ -674,11 +696,27 @@ async function setEnrollmentSchedule(studentUid, enrollmentId, startDate, endDat
     }
     return en;
   });
-  if (!matched) throw new Error("ENROLLMENT_NOT_FOUND");
+  if (!matched) {
+    const err = new Error("ENROLLMENT_NOT_FOUND");
+    err.debugInfo = `enrollmentId المطلوب: "${enrollmentId}"\nالمعرّفات الموجودة فعلياً بسجل الطالب:\n${allIds.map(id => `- "${id}"`).join("\n")}`;
+    throw err;
+  }
   await ref.update({ enrollments });
+
+  // تحقّق فوري من السيرفر مباشرة بعد الكتابة — نتأكد إنها انحفظت فعلاً، مش بس محلياً
+  const verifyDoc = await ref.get({ source: "server" });
+  const verifyEntry = (verifyDoc.data().enrollments || []).find(en => (en.id || en.date) === enrollmentId || en.startDate === startDate);
+  if (!verifyEntry || (startDate && verifyEntry.startDate !== startDate)) {
+    const err = new Error("WRITE_DID_NOT_PERSIST");
+    err.debugInfo = `الكتابة رجعت بنجاح محلياً، بس القراءة المباشرة من السيرفر بعدها ما بتطلع نفس القيمة الجديدة.\nالمتوقع startDate: "${startDate}"\nالموجود فعلياً بالسيرفر: "${verifyEntry ? verifyEntry.startDate : "(ما لقيت السجل أصلاً)"}"`;
+    throw err;
+  }
 
   if (courseName && (startDate || endDate)) {
     await addNotification(studentUid, `📅 تم تحديث موعد دورة "${courseName}"${startDate ? ` — تبدأ ${startDate}` : ""}${endDate ? ` وتنتهي ${endDate}` : ""}.`);
+  }
+  if (endDate) {
+    await syncCertificateCompletionDate(studentUid, courseName, endDate);
   }
 }
 
@@ -713,6 +751,9 @@ async function editEnrollmentDetails(studentUid, enrollmentId, { courseName, typ
   const doc = await ref.get();
   let pointsDiff = 0;
   let matched = false;
+  const allIds = (doc.data().enrollments || []).map(en => en.id || en.date);
+  let newDateValue = null;
+  let newEndDateValue = null;
 
   const enrollments = (doc.data().enrollments || []).map(en => {
     if ((en.id || en.date) === enrollmentId) {
@@ -725,17 +766,36 @@ async function editEnrollmentDetails(studentUid, enrollmentId, { courseName, typ
       if (date) updated.date = new Date(date).toISOString();
       if (endDate !== undefined) updated.endDate = endDate || "";
       if (batchOverride !== undefined) updated.batchOverride = batchOverride || "";
+      newDateValue = updated.date;
+      newEndDateValue = updated.endDate;
       return updated;
     }
     return en;
   });
-  if (!matched) throw new Error("ENROLLMENT_NOT_FOUND");
+  if (!matched) {
+    const err = new Error("ENROLLMENT_NOT_FOUND");
+    err.debugInfo = `enrollmentId المطلوب: "${enrollmentId}"\nالمعرّفات الموجودة فعلياً بسجل الطالب:\n${allIds.map(id => `- "${id}"`).join("\n")}`;
+    throw err;
+  }
 
   const updates = { enrollments };
   if (pointsDiff !== 0) {
     updates.points = firebase.firestore.FieldValue.increment(pointsDiff);
   }
   await ref.update(updates);
+
+  // تحقّق فوري من السيرفر مباشرة بعد الكتابة — نتأكد إنها انحفظت فعلاً، مش بس محلياً
+  const verifyDoc = await ref.get({ source: "server" });
+  const verifyEntry = (verifyDoc.data().enrollments || []).find(en => (en.id || en.date) === enrollmentId || en.date === newDateValue);
+  if (!verifyEntry || (newDateValue && verifyEntry.date !== newDateValue)) {
+    const err = new Error("WRITE_DID_NOT_PERSIST");
+    err.debugInfo = `الكتابة رجعت بنجاح محلياً، بس القراءة المباشرة من السيرفر بعدها ما بتطلع نفس القيمة الجديدة.\nالمتوقع date: "${newDateValue}"\nالموجود فعلياً بالسيرفر: "${verifyEntry ? verifyEntry.date : "(ما لقيت السجل أصلاً)"}"`;
+    throw err;
+  }
+
+  if (newEndDateValue) {
+    await syncCertificateCompletionDate(studentUid, courseName, newEndDateValue);
+  }
 }
 
 async function addCertificateToStudent(studentUid, { courseName, url, source }) {
