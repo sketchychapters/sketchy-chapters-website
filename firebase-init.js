@@ -68,14 +68,15 @@ async function generateStudentId() {
 }
 
 async function signUpStudent({ name, email, password, birthDate, phone, gender, referredBy, country, region, specialization }) {
-  const cred = await auth.createUserWithEmailAndPassword(email, password);
+  const normalizedEmail = (email || "").trim().toLowerCase();
+  const cred = await auth.createUserWithEmailAndPassword(normalizedEmail, password);
   const uid = cred.user.uid;
   const studentId = await generateStudentId();
 
   await db.collection("students").doc(uid).set({
     studentId,
     name,
-    email,
+    email: normalizedEmail,
     phone: phone || "",
     gender: gender || "",           // "male" | "female"
     birthDate: birthDate,
@@ -89,7 +90,7 @@ async function signUpStudent({ name, email, password, birthDate, phone, gender, 
     enrollments: []
   });
 
-  await db.collection("studentIdLookup").doc(studentId).set({ email, uid });
+  await db.collection("studentIdLookup").doc(studentId).set({ email: normalizedEmail, uid });
 
   return uid;
 }
@@ -357,8 +358,10 @@ function requireAdmin() {
   });
 }
 
-async function getAllStudents() {
-  const snapshot = await db.collection("students").orderBy("createdAt", "desc").get();
+async function getAllStudents(forceServer) {
+  const snapshot = forceServer
+    ? await db.collection("students").orderBy("createdAt", "desc").get({ source: "server" })
+    : await db.collection("students").orderBy("createdAt", "desc").get();
   return snapshot.docs.map(doc => ({ uid: doc.id, ...doc.data() }));
 }
 
@@ -662,13 +665,16 @@ async function setEnrollmentSchedule(studentUid, enrollmentId, startDate, endDat
   const ref = db.collection("students").doc(studentUid);
   const doc = await ref.get();
   let courseName = "";
+  let matched = false;
   const enrollments = (doc.data().enrollments || []).map(en => {
     if ((en.id || en.date) === enrollmentId) {
+      matched = true;
       courseName = en.courseName;
       return { ...en, startDate: startDate || "", endDate: endDate || "" };
     }
     return en;
   });
+  if (!matched) throw new Error("ENROLLMENT_NOT_FOUND");
   await ref.update({ enrollments });
 
   if (courseName && (startDate || endDate)) {
@@ -706,9 +712,11 @@ async function editEnrollmentDetails(studentUid, enrollmentId, { courseName, typ
   const ref = db.collection("students").doc(studentUid);
   const doc = await ref.get();
   let pointsDiff = 0;
+  let matched = false;
 
   const enrollments = (doc.data().enrollments || []).map(en => {
     if ((en.id || en.date) === enrollmentId) {
+      matched = true;
       const newPointsEarned = Math.round((finalPrice || 0) * POINTS_PER_DOLLAR);
       if (en.status === "completed") {
         pointsDiff = newPointsEarned - (en.pointsEarned || 0);
@@ -721,6 +729,7 @@ async function editEnrollmentDetails(studentUid, enrollmentId, { courseName, typ
     }
     return en;
   });
+  if (!matched) throw new Error("ENROLLMENT_NOT_FOUND");
 
   const updates = { enrollments };
   if (pointsDiff !== 0) {
@@ -785,13 +794,14 @@ async function editStudentProfile(studentUid, { name, phone, gender, birthDate, 
 }
 
 async function checkEmailRegistered(email) {
-  const snap = await db.collection("studentIdLookup").where("email", "==", email).limit(1).get();
+  const normalizedEmail = (email || "").trim().toLowerCase();
+  const snap = await db.collection("studentIdLookup").where("email", "==", normalizedEmail).limit(1).get();
   return !snap.empty;
 }
 
 async function requestPasswordReset(email) {
   const resetUrl = window.location.origin + window.location.pathname.replace(/[^/]*$/, '') + 'reset-password.html';
-  await auth.sendPasswordResetEmail(email, { url: resetUrl, handleCodeInApp: true });
+  await auth.sendPasswordResetEmail(email, { url: resetUrl, handleCodeInApp: false });
 }
 
 async function changeMyPassword(currentPassword, newPassword) {
