@@ -48,9 +48,15 @@
         }
         .gold-accent { color: #d4af37; }
         .gold-gradient-text {
+            color: #d4af37; /* احتياطي ثابت: لو الجهاز ما دعم القص الشفاف، يبين ذهبي عادي بدل ما يختفي أو ينقص حرف */
+            display: inline-block;
             background: linear-gradient(135deg, #bf953f, #fcf6ba, #b38728, #fbf5b7);
+            background-clip: text;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            -webkit-font-smoothing: antialiased;
+            forced-color-adjust: none;
+            padding-inline-start: 0.05em; /* هامش بسيط يمنع قصّ أول حرف على بعض المتصفحات */
         }
         .bg-gold { background: linear-gradient(135deg, #d4af37 0%, #aa7c11 100%); }
         .glass-card {
