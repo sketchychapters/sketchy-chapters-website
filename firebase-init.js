@@ -667,8 +667,19 @@ async function setEnrollmentNote(studentUid, enrollmentId, note) {
 // حتى ما يضطر الأدمن يعدّلها مرتين بمكانين مختلفين.
 // ==========================================================
 async function syncCertificateCompletionDate(studentUid, courseName, endDate) {
-  if (!studentUid || !courseName || !endDate) return;
+  if (!studentUid || !courseName || !endDate) return false;
   try {
+    // الطريقة الأولى (الأضمن): الوصول مباشرة عبر رمز الشهادة (document ID) —
+    // ما بتحتاج فهرس مركّب ولا حقل studentUid بمستند الشهادة.
+    if (typeof loadCertificateCodeMap === "function" && typeof getCachedCertificateCode === "function") {
+      await loadCertificateCodeMap();
+      const code = getCachedCertificateCode(studentUid, courseName);
+      if (code) {
+        await db.collection("certificates").doc(code).update({ completionDate: endDate });
+        return true;
+      }
+    }
+    // احتياطي: بحث بالحقول (بيحتاج فهرس مركّب بفايرستور)
     const snap = await db.collection("certificates")
       .where("studentUid", "==", studentUid)
       .where("courseName", "==", courseName)
@@ -676,10 +687,12 @@ async function syncCertificateCompletionDate(studentUid, courseName, endDate) {
       .get();
     if (!snap.empty) {
       await snap.docs[0].ref.update({ completionDate: endDate });
+      return true;
     }
   } catch (err) {
     console.error("syncCertificateCompletionDate error:", err);
   }
+  return false;
 }
 
 async function setEnrollmentSchedule(studentUid, enrollmentId, startDate, endDate) {
