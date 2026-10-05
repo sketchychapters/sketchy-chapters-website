@@ -1533,11 +1533,16 @@ async function submitSchedule() {
     closeScheduleModal();
     allStudents = await getAllStudents(true); // قراءة مباشرة من السيرفر للتأكد إنو الحفظ نجح فعلياً
     renderStudents();
+    await customAlert(isAr ? '✅ تم الحفظ، وتأكّدنا إنو التاريخ الجديد فعلياً محفوظ بالسيرفر.' : '✅ Saved — verified the new date is actually stored on the server.');
   } catch (err) {
     console.error('submitSchedule error:', err);
-    const msg = err && err.message === 'ENROLLMENT_NOT_FOUND'
-      ? (isAr ? 'تعذّر إيجاد هذه الدورة بسجل الطالب — ربما تغيّرت البيانات بمكان آخر. أعيدي تحميل الصفحة وجرّبي مرة أخرى.' : "Could not find this course on the student's record — data may have changed elsewhere. Reload the page and try again.")
-      : (isAr ? 'حدث خطأ أثناء الحفظ، لم يتم تحديث الموعد فعلياً. جرّبي مرة أخرى.' : 'Something went wrong saving — the date was not actually updated. Please try again.');
+    let msg = err && err.message === 'ENROLLMENT_NOT_FOUND'
+      ? (isAr ? '⚠️ تعذّر إيجاد هذه الدورة بسجل الطالب.' : '⚠️ Could not find this course on the student\'s record.')
+      : err && err.message === 'WRITE_DID_NOT_PERSIST'
+        ? (isAr ? '⚠️ الحفظ ما ضل فعلياً — رجع القديم بعد التحقق من السيرفر.' : "⚠️ The save didn't actually persist — reverted after checking the server.")
+        : (isAr ? '⚠️ حدث خطأ غير متوقع أثناء الحفظ.' : '⚠️ An unexpected error occurred while saving.');
+    if (err && err.debugInfo) msg += '\n\n' + err.debugInfo;
+    if (!err.debugInfo && err.message) msg += '\n\n(' + err.message + ')';
     await customAlert(msg);
   }
 }
@@ -1577,11 +1582,16 @@ async function submitEditEnrollment() {
     allStudents = await getAllStudents(true); // قراءة مباشرة من السيرفر للتأكد إنو الحفظ نجح فعلياً
     computeStats();
     renderStudents();
+    await customAlert(isAr ? '✅ تم الحفظ، وتأكّدنا إنو التعديل فعلياً محفوظ بالسيرفر.' : '✅ Saved — verified the change is actually stored on the server.');
   } catch (err) {
     console.error('submitEditEnrollment error:', err);
-    const msg = err && err.message === 'ENROLLMENT_NOT_FOUND'
-      ? (isAr ? 'تعذّر إيجاد هذه الدورة بسجل الطالب — ربما تغيّرت البيانات بمكان آخر. أعيدي تحميل الصفحة وجرّبي مرة أخرى.' : "Could not find this course on the student's record — data may have changed elsewhere. Reload the page and try again.")
-      : (isAr ? 'حدث خطأ أثناء الحفظ، لم يتم حفظ التعديلات فعلياً. جرّبي مرة أخرى.' : 'Something went wrong saving — the changes were not actually saved. Please try again.');
+    let msg = err && err.message === 'ENROLLMENT_NOT_FOUND'
+      ? (isAr ? '⚠️ تعذّر إيجاد هذه الدورة بسجل الطالب.' : '⚠️ Could not find this course on the student\'s record.')
+      : err && err.message === 'WRITE_DID_NOT_PERSIST'
+        ? (isAr ? '⚠️ الحفظ ما ضل فعلياً — رجع القديم بعد التحقق من السيرفر.' : "⚠️ The save didn't actually persist — reverted after checking the server.")
+        : (isAr ? '⚠️ حدث خطأ غير متوقع أثناء الحفظ.' : '⚠️ An unexpected error occurred while saving.');
+    if (err && err.debugInfo) msg += '\n\n' + err.debugInfo;
+    if (!err.debugInfo && err.message) msg += '\n\n(' + err.message + ')';
     await customAlert(msg);
   }
 }
@@ -1667,6 +1677,30 @@ async function submitAddEnrollment() {
 }
 
 // ==========================================================
+// 📅 تاريخ إنجاز الشهادة = تاريخ انتهاء الدورة الفعلي (مش تاريخ اليوم)
+// عند توليد رمز الشهادة، بنقرأ تاريخ الانتهاء المسجّل بالدورة ونطبّقه عليها.
+// ==========================================================
+function findEnrollmentEndDate(uid, courseName) {
+  const student = allStudents.find(s => s.uid === uid);
+  if (!student) return '';
+  const norm = v => (v || '').trim().toLowerCase();
+  const matches = (student.enrollments || []).filter(en => norm(en.courseName) === norm(courseName) && en.endDate);
+  if (!matches.length) return '';
+  matches.sort((a, b) => String(b.endDate).localeCompare(String(a.endDate)));
+  return String(matches[0].endDate).slice(0, 10);
+}
+
+async function applyEndDateToIssuedCertificate(uid, courseName) {
+  try {
+    const endDate = findEnrollmentEndDate(uid, courseName);
+    if (!endDate || typeof syncCertificateCompletionDate !== 'function') return;
+    await syncCertificateCompletionDate(uid, courseName, endDate);
+  } catch (err) {
+    console.error('applyEndDateToIssuedCertificate error:', err);
+  }
+}
+
+// ==========================================================
 // 🔗 طلب رمز تحقق ورمز QR لدورة مكتملة، قبل رفع ملف الشهادة الفعلي —
 // مفيد لمن يرغب بإدراج الرمز والـQR ضمن تصميم الشهادة قبل تصديرها نهائياً.
 // ==========================================================
@@ -1674,6 +1708,7 @@ async function requestCertificateIdClick(uid, name, courseName) {
   try {
     if (typeof issueCertificateSilently === 'function') {
       await issueCertificateSilently(uid, name, courseName);
+      await applyEndDateToIssuedCertificate(uid, courseName);
     }
     if (typeof loadCertificateCodeMap === 'function') {
       await loadCertificateCodeMap();
@@ -1732,6 +1767,9 @@ async function submitAddCertificate() {
   if (isNewCertificate && typeof issueCertificateSilently === 'function') {
     const student = allStudents.find(s => s.uid === targetStudentUid);
     await issueCertificateSilently(targetStudentUid, student ? student.name : '', courseName);
+    await applyEndDateToIssuedCertificate(targetStudentUid, courseName);
+    if (typeof loadCertificateCodeMap === 'function') await loadCertificateCodeMap();
+    renderStudents();
   }
 }
 
