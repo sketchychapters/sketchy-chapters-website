@@ -1154,7 +1154,7 @@ function renderStudents() {
     const pendingCart = s.pendingCart || [];
     const pendingCartHtml = pendingCart.length ? (function () {
       const updatedAt = s.pendingCartUpdatedAt && s.pendingCartUpdatedAt.toDate ? s.pendingCartUpdatedAt.toDate().toLocaleString() : '';
-      const itemsList = pendingCart.map(item => `${item.courseName} ($${item.basePrice}${item.type === 'private' ? ', private' : ''})`).join(', ');
+      const itemsList = pendingCart.map(item => `${item.courseName} ($${item.type === 'private' ? (Math.round(item.basePrice * 2 * 100) / 100) : item.basePrice}${item.type === 'private' ? ', private ×2' : ''})`).join(', ');
       const cleanPhone = (s.phone || '').replace(/[^\d]/g, '');
       const waBtn = cleanPhone
         ? `<a href="https://wa.me/${cleanPhone}?text=${encodeURIComponent('Hi ' + (s.name || '') + '! Saw you had some courses saved in your cart — want help finishing your registration?')}" target="_blank" class="text-[10px] font-bold px-2.5 py-1.5 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center gap-1 shrink-0"><i class="fa-brands fa-whatsapp"></i> ${isAr ? 'متابعة' : 'Follow up'}</a>`
