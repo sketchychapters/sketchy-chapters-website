@@ -102,15 +102,25 @@
 
 <!-- Broadcast Announcement -->
 <div class="glass-card rounded-2xl p-5 mb-6">
-  <p class="text-white font-bold text-sm mb-1" data-ar="📢 إرسال إعلان لجميع الطلاب" data-en="📢 Send Announcement to All Students">📢 Send Announcement to All Students</p>
+  <p class="text-white font-bold text-sm mb-1" data-ar="📢 إرسال إعلان للطلاب" data-en="📢 Send Announcement to Students">📢 Send Announcement to Students</p>
   <p class="text-gray-400 text-xs mb-3" data-ar="مثلاً: عروض جديدة، خصومات، أو تحديثات عامة. يظهر في جرس إشعارات كل طالب. أضف رابطاً ليصبح قابلاً للنقر — ينقل الطالب مباشرة إلى هناك." data-en="e.g. new offers, discounts, or general updates. Appears in every student's notification bell. Add a link to make it tappable — takes the student straight there.">e.g. new offers, discounts, or general updates. Appears in every student's notification bell. Add a link to make it tappable — takes the student straight there.</p>
   <div class="flex gap-2 flex-wrap mb-2">
     <input id="announcementText" type="text" placeholder="e.g. 20% off all Adobe courses this week only!"
       class="flex-1 min-w-[200px] rounded-xl px-4 py-2.5 text-sm text-white">
-    <button onclick="submitAnnouncement()" class="bg-gold text-black font-bold px-5 py-2.5 rounded-xl text-xs shrink-0" data-ar="إرسال للجميع" data-en="Send to All">Send to All</button>
+    <button onclick="submitAnnouncement()" class="bg-gold text-black font-bold px-5 py-2.5 rounded-xl text-xs shrink-0" data-ar="إرسال" data-en="Send">Send</button>
   </div>
-  <input id="announcementLink" type="text" placeholder="Optional link (e.g. graphic-courses.html or offers.html)" data-ph-ar="رابط اختياري (مثلاً graphic-courses.html)" data-ph-en="Optional link (e.g. graphic-courses.html or offers.html)"
-    class="w-full rounded-xl px-4 py-2.5 text-sm text-white">
+  <input id="announcementLink" type="text" placeholder="Optional link (e.g. graphic-courses.html or offers.html)" data-ph-ar="رابط اختياري (مثلاً graphic-courses.html أو offers.html)" data-ph-en="Optional link (e.g. graphic-courses.html or offers.html)"
+    class="w-full rounded-xl px-4 py-2.5 text-sm text-white mb-3">
+
+  <p class="text-amber-300 text-xs font-bold mb-2" data-ar="🎯 إلى من؟ (اتركها كما هي للإرسال للجميع)" data-en="🎯 Send to whom? (leave as is to send to everyone)">🎯 Send to whom? (leave as is to send to everyone)</p>
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-2 mb-2">
+    <select id="audCountry" onchange="updateAudienceCount()" class="rounded-xl px-3 py-2 text-xs text-white"></select>
+    <input id="audSpec" type="text" oninput="updateAudienceCount()" placeholder="Specialization contains... (e.g. arch)" data-ph-ar="الاختصاص يحتوي على... (مثلاً عمارة)" data-ph-en="Specialization contains... (e.g. arch)" class="rounded-xl px-3 py-2 text-xs text-white">
+    <select id="audCert" onchange="updateAudienceCount()" class="rounded-xl px-3 py-2 text-xs text-white"></select>
+    <select id="audCourse" onchange="updateAudienceCount()" class="rounded-xl px-3 py-2 text-xs text-white"></select>
+    <select id="audLevel" onchange="updateAudienceCount()" class="rounded-xl px-3 py-2 text-xs text-white"></select>
+  </div>
+  <p id="audCount" class="text-emerald-400 text-xs font-bold"></p>
 </div>
 
 <div class="glass-card rounded-2xl p-5 mb-6">
@@ -493,6 +503,7 @@ function toggleLanguage() {
   });
 
   // إعادة رسم كل المحتوى المتحرك حتى يطلع باللغة الصحيحة
+  if (typeof populateAudienceFilters === 'function' && allStudents.length) populateAudienceFilters();
   if (typeof renderStudents === 'function') renderStudents();
   if (typeof renderBirthdaysSection === 'function') renderBirthdaysSection();
   if (typeof renderAttentionSection === 'function') renderAttentionSection();
@@ -507,6 +518,7 @@ auth.onAuthStateChanged(async (user) => {
   allStudents = await getAllStudents();
   computeStats();
   populateCountryFilter();
+  populateAudienceFilters();
   renderStudents();
   renderBirthdaysSection();
   renderAttentionSection();
@@ -1154,7 +1166,7 @@ function renderStudents() {
     const pendingCart = s.pendingCart || [];
     const pendingCartHtml = pendingCart.length ? (function () {
       const updatedAt = s.pendingCartUpdatedAt && s.pendingCartUpdatedAt.toDate ? s.pendingCartUpdatedAt.toDate().toLocaleString() : '';
-      const itemsList = pendingCart.map(item => `${item.courseName} ($${item.type === 'private' ? (Math.round(item.basePrice * 2 * 100) / 100) : item.basePrice}${item.type === 'private' ? ', private ×2' : ''})`).join(', ');
+      const itemsList = pendingCart.map(item => `${item.courseName} ($${item.basePrice}${item.type === 'private' ? ', private' : ''})`).join(', ');
       const cleanPhone = (s.phone || '').replace(/[^\d]/g, '');
       const waBtn = cleanPhone
         ? `<a href="https://wa.me/${cleanPhone}?text=${encodeURIComponent('Hi ' + (s.name || '') + '! Saw you had some courses saved in your cart — want help finishing your registration?')}" target="_blank" class="text-[10px] font-bold px-2.5 py-1.5 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center gap-1 shrink-0"><i class="fa-brands fa-whatsapp"></i> ${isAr ? 'متابعة' : 'Follow up'}</a>`
@@ -2081,16 +2093,79 @@ async function deleteStudentClick(uid, studentId, name) {
   await customAlert(currentLang === 'ar' ? `✅ تم حذف سجل ${name}.` : `✅ ${name}'s record has been deleted.`);
 }
 
+function getAudienceFilters() {
+  return {
+    country: document.getElementById('audCountry').value,
+    spec: document.getElementById('audSpec').value.trim().toLowerCase(),
+    cert: document.getElementById('audCert').value,
+    course: document.getElementById('audCourse').value,
+    level: document.getElementById('audLevel').value
+  };
+}
+
+function getAudience() {
+  const f = getAudienceFilters();
+  return allStudents.filter(s => {
+    if (f.country && s.country !== f.country) return false;
+    if (f.spec && !(s.specialization || '').toLowerCase().includes(f.spec)) return false;
+    const hasCert = (s.certificates || []).length > 0;
+    if (f.cert === 'yes' && !hasCert) return false;
+    if (f.cert === 'no' && hasCert) return false;
+    if (f.course && !(s.enrollments || []).some(en => en.courseName === f.course && en.status !== 'cancelled')) return false;
+    if (f.level && computeLevel(s.points).name !== f.level) return false;
+    return true;
+  });
+}
+
+function updateAudienceCount() {
+  const el = document.getElementById('audCount');
+  if (!el) return;
+  const n = getAudience().length;
+  el.innerText = currentLang === 'ar' ? `سيصل الإشعار إلى ${n} طالب من ${allStudents.length}` : `This will reach ${n} of ${allStudents.length} students`;
+}
+
+function populateAudienceFilters() {
+  const ar = currentLang === 'ar';
+  const keep = id => document.getElementById(id).value;
+  const prev = { c: keep('audCountry'), ce: keep('audCert'), co: keep('audCourse'), l: keep('audLevel') };
+  const fill = (id, first, items, sel) => {
+    const el = document.getElementById(id);
+    el.innerHTML = '';
+    [['', first]].concat(items).forEach(([v, t]) => {
+      const o = document.createElement('option');
+      o.value = v; o.textContent = t;
+      if (v === sel) o.selected = true;
+      el.appendChild(o);
+    });
+  };
+  const countries = [...new Set(allStudents.map(s => s.country).filter(Boolean))].sort().map(c => [c, c]);
+  const courses = [...new Set(allStudents.flatMap(s => (s.enrollments || []).filter(en => en.status !== 'cancelled').map(en => en.courseName)).filter(Boolean))].sort().map(c => [c, c]);
+  fill('audCountry', ar ? 'كل البلدان' : 'All countries', countries, prev.c);
+  fill('audCert', ar ? 'الشهادة: الكل' : 'Certificate: any', [['yes', ar ? 'لديهم شهادة' : 'Has a certificate'], ['no', ar ? 'بدون شهادة' : 'No certificate']], prev.ce);
+  fill('audCourse', ar ? 'كل الدورات' : 'Any course', courses, prev.co);
+  fill('audLevel', ar ? 'كل المستويات' : 'All levels', LEVELS.map(l => [l.name, ar ? l.nameAr : l.name]), prev.l);
+  updateAudienceCount();
+}
+
 async function submitAnnouncement() {
   const input = document.getElementById('announcementText');
   const linkInput = document.getElementById('announcementLink');
   const message = input.value.trim();
   const link = linkInput.value.trim();
   if (!message) return;
-  if (!(await customConfirm(currentLang === 'ar' ? `إرسال هذا الإشعار لكل الطلاب (${allStudents.length})؟\n\n"${message}"${link ? `\n\nرابط: ${link}` : ''}` : `Send this notification to all ${allStudents.length} students?\n\n"${message}"${link ? `\n\nLink: ${link}` : ''}`))) return;
+  const audience = getAudience();
+  if (audience.length === 0) {
+    await customAlert(currentLang === 'ar' ? 'لا يوجد أي طالب يطابق هذه الفلاتر.' : 'No students match these filters.');
+    return;
+  }
+  const everyone = audience.length === allStudents.length;
+  const who = everyone
+    ? (currentLang === 'ar' ? `كل الطلاب (${audience.length})` : `all ${audience.length} students`)
+    : (currentLang === 'ar' ? `${audience.length} طالب من أصل ${allStudents.length} (حسب الفلاتر المختارة)` : `${audience.length} of ${allStudents.length} students (based on the selected filters)`);
+  if (!(await customConfirm(currentLang === 'ar' ? `إرسال هذا الإشعار إلى ${who}؟\n\n"${message}"${link ? `\n\nرابط: ${link}` : ''}` : `Send this notification to ${who}?\n\n"${message}"${link ? `\n\nLink: ${link}` : ''}`))) return;
 
   try {
-    const count = await broadcastAnnouncement(message, link || null);
+    const count = await broadcastAnnouncement(message, link || null, audience);
     await customAlert(currentLang === 'ar' ? `✅ أُرسل إلى ${count} طالب.` : `✅ Sent to ${count} students.`);
     input.value = '';
     linkInput.value = '';
