@@ -421,7 +421,7 @@ function renderCartItems() {
     <div class="flex items-center justify-between bg-black/30 rounded-xl px-3 py-2.5 gap-2">
       <div>
         <p class="text-white font-bold text-sm">${item.courseName}</p>
-        <p class="text-gray-400 text-xs mt-0.5">${item.redeemFreeCourse ? '🎁 Free Course' : (item.type === 'private' ? '👤 Private' : '👥 Group')} · $${item.basePrice}</p>
+        <p class="text-gray-400 text-xs mt-0.5">${item.redeemFreeCourse ? '🎁 Free Course' : (item.type === 'private' ? '👤 Private (×2)' : '👥 Group')} · $${(item.type === 'private' && !item.redeemFreeCourse) ? (Math.round(item.basePrice * 2 * 100) / 100) : item.basePrice}</p>
       </div>
       <button onclick="removeFromCart(${i})" class="text-red-400 hover:text-red-300 text-xl leading-none px-2 shrink-0">&times;</button>
     </div>
