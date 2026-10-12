@@ -124,7 +124,7 @@
                         </div>
                         <div class="text-left rtl:text-right">
                             <div class="flex items-center gap-2">
-                                 <span class="text-xs bg-amber-500/10 text-amber-400 px-2.5 py-1 rounded-lg border border-amber-500/20 font-bold block"><span id="ai-card-price">99</span>$</span>
+                                 <span class="text-xs bg-amber-500/10 text-amber-400 px-2.5 py-1 rounded-lg border border-amber-500/20 font-bold block"><span id="ai-card-price">79</span>$</span>
                                  <span class="text-xs text-gray-500 line-through">120$</span>
                             </div>
                             <span class="text-[10px] text-emerald-400 block font-bold mt-1">
@@ -161,7 +161,7 @@
                         </div>
                         <div class="text-left rtl:text-right">
                             <div class="flex items-center gap-2">
-                                 <span class="text-xs bg-amber-500/10 text-amber-400 px-2.5 py-1 rounded-lg border border-amber-500/20 font-bold block"><span id="ps-card-price">99</span>$</span>
+                                 <span class="text-xs bg-amber-500/10 text-amber-400 px-2.5 py-1 rounded-lg border border-amber-500/20 font-bold block"><span id="ps-card-price">79</span>$</span>
                                  <span class="text-xs text-gray-500 line-through">120$</span>
                             </div>
                             <span class="text-[10px] text-emerald-400 block font-bold mt-1">
@@ -188,43 +188,6 @@
 
 <!-- سكربت حساب نسبة الخصم تلقائياً كارت Adobe Photoshop -->
 <script>function updatePSCardDiscount(){let e=120,t=parseFloat(document.getElementById("ps-card-price")?.innerText),n=document.getElementById("ps-card-discount");if(t>0&&e>t&&n){let d=Math.round((e-t)/e*100);n.innerText=d}}updatePSCardDiscount();</script>
-
-<!-- 3. Adobe Lightroom Card -->
-            <div class="glass-card rounded-2xl p-6 flex flex-col justify-between hover:border-amber-500/40 transition group">
-                <div>
-                   <div class="flex items-center justify-between mb-4">
-                        <div class="w-12 h-12 rounded-xl bg-black/40 border border-amber-500/20 flex items-center justify-center p-2 overflow-hidden">
-                            <img src="lightroom.png" alt="Adobe Lightroom" class="w-full h-full object-contain">
-                        </div>
-                        <div class="text-left rtl:text-right">
-                            <div class="flex items-center gap-2">
-                                 <span class="text-xs bg-amber-500/10 text-amber-400 px-2.5 py-1 rounded-lg border border-amber-500/20 font-bold block"><span id="lr-card-price">69</span>$</span>
-                                 <span class="text-xs text-gray-500 line-through">80$</span>
-                            </div>
-                            <span class="text-[10px] text-emerald-400 block font-bold mt-1">
-                                <span id="lr-card-discount">14</span>% Off
-                            </span>
-                        </div>
-                   </div>
-                   <div class="flex items-center gap-2 mb-2 flex-wrap">
-                        <span class="text-[10px] bg-amber-500/20 text-amber-300 px-2 py-0.5 rounded font-bold">Training Course</span>
-                        <span class="text-[9px] bg-blue-500/20 text-blue-300 px-2 py-0.5 rounded font-bold flex items-center gap-1">
-                            <i class="fa-solid fa-video text-[8px]"></i> Online via Zoom
-                        </span>
-                   </div>
-                   <h3 class="text-lg font-bold text-white mb-2 group-hover:text-amber-400 transition">Adobe Lightroom</h3>
-                   <p class="text-xs text-gray-400 font-light mb-4 line-clamp-3" data-ar="أدوات غنية لتنظيم الصور الاحترافية، إدارة الأرشيف، الفلترة، والتعديل اللوني المتقدم (Color Grading) للصور." data-en="A rich set of tools for organizing photos, managing archives, filtering, and advanced color grading.">
-                        A rich set of tools for organizing photos, managing archives, filtering, and advanced color grading.
-                   </p>
-                </div>
-                <button onclick="openModal('lrModal')" class="w-full bg-amber-500/10 border border-amber-500/30 text-amber-300 py-2.5 rounded-xl text-xs font-bold hover:bg-amber-500 hover:text-black transition flex items-center justify-center space-x-2 rtl:space-x-reverse">
-                    <span data-ar="عرض التفاصيل والمحاور" data-en="View Details & Syllabus">View Details & Syllabus</span>
-                    <i class="fa-solid fa-arrow-left rtl:rotate-180 text-[10px]"></i>
-                </button>
-            </div>
-
-<!-- سكربت حساب نسبة الخصم تلقائياً كارت Adobe Lightroom -->
-<script>function updateLRCardDiscount(){let e=parseFloat(document.getElementById("lr-card-price")?.innerText),t=document.getElementById("lr-card-discount");if(e>0&&80>e&&t){let n=Math.round((80-e)/80*100);t.innerText=n}}updateLRCardDiscount();</script>
 
 <!-- 4. Adobe Premiere Pro Card -->
             <div class="glass-card rounded-2xl p-6 flex flex-col justify-between hover:border-amber-500/40 transition group">
@@ -349,7 +312,7 @@
                     <div>
                         <span class="text-gray-500 block text-[10px]" data-ar="التكلفة" data-en="Price">Price</span>
                         <strong class="text-amber-400 text-sm">
-                            <span id="ai-price">99</span>$
+                            <span id="ai-price">79</span>$
                             <span class="text-[10px] text-emerald-400 font-bold block">
                                 <span id="ai-discount">17.5</span>% Off
                             </span>
@@ -426,7 +389,7 @@
                     <div>
                         <span class="text-gray-500 block text-[10px]" data-ar="التكلفة" data-en="Price">Price</span>
                         <strong class="text-amber-400 text-sm">
-                            <span id="ps-price">99</span>$
+                            <span id="ps-price">79</span>$
                             <span class="text-[10px] text-emerald-400 font-bold block">
                                 <span id="ps-discount">17.5</span>% Off
                             </span>
@@ -472,81 +435,6 @@
 
 <!-- سكربت حساب تاريخ البدء (أول ثلاثاء بالشهر) ونسبة الحسم تلقائياً كارت Photoshop Modal -->
 <script>function updatePsModalInfo(){let e=new Date,t=e.getFullYear(),n=e.getMonth(),a=new Date(t,n,1),d=a.getDay(),o=(2-d+7)%7;a.setDate(1+o),e>a&&(n++,n>11&&(n=0,t++),a=new Date(t,n,1),d=a.getDay(),o=(2-d+7)%7,a.setDate(1+o));let l=String(a.getDate()).padStart(2,"0"),r=String(a.getMonth()+1).padStart(2,"0"),g=document.getElementById("ps-date");g&&(g.innerText=`${l}/${r}`);let i=parseFloat(document.getElementById("ps-price")?.innerText),p=parseFloat(document.getElementById("ps-original")?.innerText),s=document.getElementById("ps-discount");if(p>0&&i>0&&p>i&&s){let e=Math.round((p-i)/p*100);s.innerText=e}}updatePsModalInfo();</script>
-
-<!-- 3. Lightroom Modal -->
-    <div id="lrModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md hidden p-4">
-        <div class="glass-card bg-[#121216] border border-amber-500/40 rounded-3xl max-w-lg w-full p-6 relative max-h-[90vh] overflow-y-auto text-left rtl:text-right ltr:text-left">
-            <button onclick="closeModal('lrModal')" class="absolute top-4 right-4 rtl:left-4 ltr:right-4 text-gray-400 hover:text-white text-xl"><i class="fa-solid fa-xmark"></i></button>
-
-            <div class="flex items-center space-x-3 rtl:space-x-reverse mb-4">
-               <div class="w-12 h-12 rounded-xl glass-card flex items-center justify-center p-2 border border-amber-500/30 overflow-hidden">
-                    <img src="lightroom.png" alt="Adobe Lightroom" class="w-full h-full object-contain">
-               </div>
-               <div>
-                    <div class="flex items-center gap-2 mb-1 flex-wrap">
-                        <span class="text-[10px] gold-accent font-bold uppercase" data-ar="دورة تدريبية" data-en="Training Course">Training Course</span>
-                        <span class="text-[9px] bg-blue-500/20 text-blue-300 px-2 py-0.5 rounded font-bold flex items-center gap-1">
-                            <i class="fa-solid fa-video text-[8px]"></i> Online via Zoom
-                        </span>
-                    </div>
-                    <h3 class="text-xl font-black text-white">Adobe Lightroom</h3>
-               </div>
-            </div>
-
-            <div class="space-y-4 text-xs text-gray-300">
-               <div class="grid grid-cols-3 gap-2 bg-black/40 p-3 rounded-2xl border border-amber-500/10 text-center">
-                    <div>
-                        <span class="text-gray-500 block text-[10px]" data-ar="المدة الجلسات" data-en="Duration">Duration</span>
-                        <strong class="text-amber-400 text-sm" data-ar="أسبوعان (4 جلسات)" data-en="2 wks (4 Sessions)">2 wks (4 Sessions)</strong>
-                    </div>
-                    <div>
-                        <span class="text-gray-500 block text-[10px]" data-ar="التكلفة" data-en="Price">Price</span>
-                        <strong class="text-amber-400 text-sm">
-                            <span id="lr-price">69</span>$
-                            <span class="text-[10px] text-emerald-400 font-bold block">
-                                <span id="lr-discount">14</span>% Off
-                            </span>
-                        </strong>
-                        <span id="lr-original" class="hidden">80</span>
-                    </div>
-                    <div>
-                        <span class="text-gray-500 block text-[10px]" data-ar="تاريخ البدء" data-en="Start Date">Start Date</span>
-                        <strong class="text-amber-400 text-sm" id="lr-date">جاري التحميل...</strong>
-                    </div>
-               </div>
-
-               <div>
-                    <h4 class="font-bold text-white mb-1.5 flex items-center"><i class="fa-solid fa-circle-info gold-accent mr-1.5 rtl:ml-1.5 ltr:mr-1.5"></i> <span data-ar="نظرة عامة عن البرنامج:" data-en="Program Overview:">Program Overview:</span></h4>
-                    <p class="text-gray-400 font-light leading-relaxed" data-ar="أدوات غنية لتنظيم الصور الاحترافية، إدارة الأرشيف، الفلترة، والتعديل اللوني المتقدم (Color Grading) للصور." data-en="A rich set of tools for organizing photos, managing archives, filtering, and advanced color grading.">
-                        A rich set of tools for organizing photos, managing archives, filtering, and advanced color grading.
-                    </p>
-               </div>
-
-               <div>
-                    <h4 class="font-bold text-white mb-1.5 flex items-center"><i class="fa-solid fa-bullseye gold-accent mr-1.5 rtl:ml-1.5 ltr:mr-1.5"></i> <span data-ar="محاور المنهاج:" data-en="Objectives:">Objectives:</span></h4>
-                    <ul class="list-disc list-inside space-y-1 text-gray-400 font-light">
-                        <li data-ar="إدارة وتنظيم مكتبة الصور والأرشيف الرقمي." data-en="Manage and organize digital photo libraries and archives.">Manage and organize digital photo libraries and archives.</li>
-                        <li data-ar="التعديل اللوني المتقدم وتطبيق الفلاتر والبروفايلات." data-en="Advanced color grading and applying custom presets.">Advanced color grading and applying custom presets.</li>
-                        <li data-ar="تصحيح الإضاءة، التباين، وعيوب الصور بذكاء." data-en="Correct lighting, contrast, and image flaws intelligently.">Correct lighting, contrast, and image flaws intelligently.</li>
-                    </ul>
-               </div>
-            </div>
-
-            <div class="mt-6 flex gap-3">
-                <button onclick="openBookingModal('Adobe Lightroom', 69)"
-                  class="flex-1 bg-gold text-black py-2.5 rounded-xl font-extrabold text-xs uppercase tracking-wider">
-                  <span data-ar="التسجيل الآن" data-en="Register Now">Register Now</span>
-                </button>
-                <a href="https://wa.me/96171967714?text=مرحباً، أهتم بالتسجيل والاستفسار عن دورة Lightroom" target="_blank" class="flex-1 glass-card text-emerald-400 border border-emerald-500/30 py-2.5 rounded-xl font-bold text-xs flex items-center justify-center space-x-2 rtl:space-x-reverse hover:bg-emerald-500/10 transition">
-                    <i class="fa-brands fa-whatsapp text-sm"></i>
-                    <span data-ar="استفسار واتساب" data-en="WhatsApp Inquiry">WhatsApp Inquiry</span>
-                </a>
-            </div>
-        </div>
-    </div>
-
-<!-- سكربت حساب تاريخ البدء (أول ثلاثاء بالشهر) ونسبة الحسم تلقائياً كارت Lightroom Modal -->
-<script>function updateLrModalInfo(){let e=new Date,t=e.getFullYear(),n=e.getMonth(),a=new Date(t,n,1),r=a.getDay(),l=(2-r+7)%7;a.setDate(1+l),e>a&&(n++,n>11&&(n=0,t++),a=new Date(t,n,1),r=a.getDay(),l=(2-r+7)%7,a.setDate(1+l));let d=String(a.getDate()).padStart(2,"0"),o=String(a.getMonth()+1).padStart(2,"0"),g=document.getElementById("lr-date");g&&(g.innerText=`${d}/${o}`);let i=parseFloat(document.getElementById("lr-price")?.innerText),u=parseFloat(document.getElementById("lr-original")?.innerText),m=document.getElementById("lr-discount");if(u>0&&i>0&&u>i&&m){let e=Math.round((u-i)/u*100);m.innerText=e}}updateLrModalInfo();</script>
 
 <!-- 4. Premiere Pro Modal -->
     <div id="prModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md hidden p-4">
@@ -739,7 +627,7 @@
     </div>
 
     <!-- ================= JAVASCRIPT ================= -->
-    <script>function detectDefaultLang(){const t=localStorage.getItem("sketchy_lang");if("ar"===t||"en"===t)return t;const e=["Asia/Riyadh","Asia/Dubai","Asia/Kuwait","Asia/Qatar","Asia/Bahrain","Asia/Muscat"];try{const t=Intl.DateTimeFormat().resolvedOptions().timeZone;if(e.includes(t))return"ar"}catch(t){}return"en"}let currentLang="en";function toggleLanguage(){currentLang="en"===currentLang?"ar":"en",localStorage.setItem("sketchy_lang",currentLang);const t=document.getElementById("htmlRoot"),e=document.getElementById("bodyEl"),n=document.getElementById("langBtnText");"ar"===currentLang?(t.setAttribute("dir","rtl"),t.setAttribute("lang","ar"),e.classList.remove("en-lang"),e.classList.add("ar-lang"),n.textContent="AR"):(t.setAttribute("dir","ltr"),t.setAttribute("lang","en"),e.classList.remove("ar-lang"),e.classList.add("en-lang"),n.textContent="EN"),document.querySelectorAll("[data-ar]").forEach(t=>{const e=t.getAttribute("data-ar"),n=t.getAttribute("data-en");"ar"===currentLang?e&&(t.textContent=e):n&&(t.textContent=n)})}function toggleMobileMenu(){const t=document.getElementById("mobileMenu");t.classList.toggle("hidden"),t.classList.toggle("flex")}function openModal(t){document.getElementById(t).classList.remove("hidden")}function closeModal(t){document.getElementById(t).classList.add("hidden")}"ar"===detectDefaultLang()&&toggleLanguage(),window.onclick=function(t){["aiModal","psModal","lrModal","prModal","scModal"].forEach(e=>{let n=document.getElementById(e);t.target===n&&n.classList.add("hidden")})};</script>
+    <script>function detectDefaultLang(){const t=localStorage.getItem("sketchy_lang");if("ar"===t||"en"===t)return t;const e=["Asia/Riyadh","Asia/Dubai","Asia/Kuwait","Asia/Qatar","Asia/Bahrain","Asia/Muscat"];try{const t=Intl.DateTimeFormat().resolvedOptions().timeZone;if(e.includes(t))return"ar"}catch(t){}return"en"}let currentLang="en";function toggleLanguage(){currentLang="en"===currentLang?"ar":"en",localStorage.setItem("sketchy_lang",currentLang);const t=document.getElementById("htmlRoot"),e=document.getElementById("bodyEl"),n=document.getElementById("langBtnText");"ar"===currentLang?(t.setAttribute("dir","rtl"),t.setAttribute("lang","ar"),e.classList.remove("en-lang"),e.classList.add("ar-lang"),n.textContent="AR"):(t.setAttribute("dir","ltr"),t.setAttribute("lang","en"),e.classList.remove("ar-lang"),e.classList.add("en-lang"),n.textContent="EN"),document.querySelectorAll("[data-ar]").forEach(t=>{const e=t.getAttribute("data-ar"),n=t.getAttribute("data-en");"ar"===currentLang?e&&(t.textContent=e):n&&(t.textContent=n)})}function toggleMobileMenu(){const t=document.getElementById("mobileMenu");t.classList.toggle("hidden"),t.classList.toggle("flex")}function openModal(t){document.getElementById(t).classList.remove("hidden")}function closeModal(t){document.getElementById(t).classList.add("hidden")}"ar"===detectDefaultLang()&&toggleLanguage(),window.onclick=function(t){["aiModal","psModal","prModal","scModal"].forEach(e=>{let n=document.getElementById(e);t.target===n&&n.classList.add("hidden")})};</script>
 
     <!-- Firebase account logic + email notifications + booking UI -->
     <script src="firebase-init.js"></script>
