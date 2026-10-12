@@ -460,8 +460,8 @@ async function checkAndNotifyBirthday() {
   await db.collection("students").doc(user.uid).update({ lastBirthdayNotifiedYear: thisYear });
 }
 
-async function broadcastAnnouncement(message, link) {
-  const students = await getAllStudents();
+async function broadcastAnnouncement(message, link, targetStudents) {
+  const students = targetStudents || await getAllStudents();
   const notif = { message, date: new Date().toISOString(), read: false };
   if (link) notif.link = link;
   await Promise.all(students.map(s =>
